@@ -1,0 +1,9 @@
+127.0.0.1 - - [29/Jul/2015:14:54:08 -0500] "GET / HTTP/1.1" 302 -
+127.0.0.1 - - [29/Jul/2015:14:54:08 -0500] "GET /wp-admin/setup-config.php HTTP/1.1" 200 6538
+127.0.0.1 - - [29/Jul/2015:14:54:12 -0500] "GET /wp-includes/css/buttons.min.css?ver=4.2.3 HTTP/1.1" 200 5881
+127.0.0.1 - - [29/Jul/2015:14:54:12 -0500] "GET /wp-admin/css/install.min.css?ver=4.2.3 HTTP/1.1" 200 5092
+127.0.0.1 - - [29/Jul/2015:14:54:13 -0500] "GET /wp-admin/images/spinner.gif HTTP/1.1" 200 4162
+127.0.0.1 - - [29/Jul/2015:14:54:13 -0500] "GET /wp-admin/images/wordpress-logo.svg?ver=20131107 HTTP/1.1" 200 1521
+127.0.0.1 - - [29/Jul/2015:14:54:13 -0500] "GET /wp-includes/js/jquery/jquery.js?ver=1.11.2 HTTP/1.1" 200 95952
+127.0.0.1 - - [29/Jul/2015:14:54:14 -0500] "GET /wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1 HTTP/1.1" 200 7200
+127.0.0.1 - - [29/Jul/2015:14:54:14 -0500] "GET /wp-admin/js/language-chooser.min.js?ver=4.2.3 HTTP/1.1" 200 374
