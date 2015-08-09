@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Display a link back to the site.
  *
@@ -6,7 +7,7 @@
  * @return string
  */
 function travelify_site_link() {
-   return '<a href="' . esc_url( home_url( '/' ) ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '" ><span>' . get_bloginfo( 'name', 'display' ) . '</span></a>';
+    return '<a href="' . esc_url(home_url('/')) . '" title="' . esc_attr(get_bloginfo('name', 'display')) . '" ><span>' . get_bloginfo('name', 'display') . '</span></a>';
 }
 
 /**
@@ -15,7 +16,7 @@ function travelify_site_link() {
  * @return string
  */
 function travelify_wp_link() {
-   return '<a href="'.esc_url( 'http://wordpress.org' ).'" target="_blank" title="' . esc_attr__( 'WordPress', 'travelify' ) . '"><span>' . __( 'WordPress', 'travelify' ) . '</span></a>';
+    return '<a href="' . esc_url('http://wordpress.org') . '" target="_blank" title="' . esc_attr__('WordPress', 'travelify') . '"><span>' . __('WordPress', 'travelify') . '</span></a>';
 }
 
 /**
@@ -24,7 +25,16 @@ function travelify_wp_link() {
  * @return string
  */
 function travelify_colorlib_link() {
-   return '<a href="'.esc_url( 'http://colorlib.com/wp/travelify/' ).'" target="_blank" title="'.esc_attr__( 'Colorlib', 'travelify' ).'" ><span>'.__( 'Colorlib', 'travelify') .'</span></a>';
+    return '<a href="' . esc_url('http://colorlib.com/wp/travelify/') . '" target="_blank" title="' . esc_attr__('Colorlib', 'travelify') . '" ><span>' . __('Colorlib', 'travelify') . '</span></a>';
+}
+
+/**
+ * Display a link to thinkcreativegroup.com.
+ *
+ * @return string
+ */
+function travelify_thinkcreativegroup_link() {
+    return '<a href="' . esc_url('http://thinkcreativegroup.com/') . '" target="_blank" title="' . esc_attr__('Think', 'travelify') . '" ><span>' . __('Think', 'travelify') . '</span></a>';
 }
 
 ?>
