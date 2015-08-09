@@ -26,7 +26,7 @@ $title_top = get_field("title_top");
     <?php endif; ?>
     <?php if (!empty($title_top)): ?>
         <div class="title_top">
-            <hi><?php echo $title_top; ?></hi>
+            <h1><?php echo $title_top; ?></h1>
         </div>
     <?php endif; ?>
     <?php
