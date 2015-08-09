@@ -15,12 +15,18 @@
  */
 do_action('travelify_before_main_container');
 $text_top = get_field("text_top");
+$title_top = get_field("title_top");
 ?>
 
 <div id="container">
     <?php if (!empty($text_top)): ?>
         <div class="text-top">
             <?php echo $text_top; ?>
+        </div>
+    <?php endif; ?>
+    <?php if (!empty($title_top)): ?>
+        <div class="title_top">
+            <hi><?php echo $title_top; ?></hi>
         </div>
     <?php endif; ?>
     <?php
@@ -31,7 +37,7 @@ $text_top = get_field("text_top");
      *
      * travelify_content 10
      */
-    do_action('travelify_main_container');
+    //do_action('travelify_main_container');
     ?>
 </div><!-- #container -->
 
