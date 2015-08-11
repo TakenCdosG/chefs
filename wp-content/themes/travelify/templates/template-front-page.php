@@ -97,15 +97,29 @@ $boxes_right_link_url = get_field("boxes_right_link_url");
             <h2 class="line"><span class='color-black'>EXPERIENCE</span><span class='color-red'> CHEF'S</span></h2>
         </div>
         <div class="col-md-3">
-            .col-md-4
+            .col-md-3
         </div>
         <div class="col-md-3">
-            .col-md-4
+            .col-md-3
         </div>
         <div class="col-md-3">
-            .col-md-4
+            .col-md-3
         </div>
         <div class="col-md-3">
+            .col-md-3
+        </div>
+    </div>
+    <div class="row margin-grid">
+        <div class="col-md-12">
+            <h2 class="line"><span class='color-black'>FROM THE</span><span class='color-red'> BLOG</span></h2>
+        </div>
+        <div class="col-md-4">
+            .col-md-4
+        </div>
+        <div class="col-md-4">
+            .col-md-4
+        </div>
+        <div class="col-md-4">
             .col-md-4
         </div>
     </div>
