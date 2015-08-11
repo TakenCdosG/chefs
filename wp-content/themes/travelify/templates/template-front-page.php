@@ -92,6 +92,23 @@ $boxes_right_link_url = get_field("boxes_right_link_url");
             </div>
         </div>
     <?php endif; ?>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="line"><span class='color-black'>EXPERIENCE</span> <span class='color-red'>CHEF'S</span></h2>
+        </div>
+        <div class="col-md-4">
+            .col-md-4
+        </div>
+        <div class="col-md-4">
+            .col-md-4
+        </div>
+        <div class="col-md-4">
+            .col-md-4
+        </div>
+        <div class="col-md-4">
+            .col-md-4
+        </div>
+    </div>
     <?php
     /**
      * travelify_main_container hook
