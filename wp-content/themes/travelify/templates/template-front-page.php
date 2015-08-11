@@ -94,7 +94,7 @@ $boxes_right_link_url = get_field("boxes_right_link_url");
     <?php endif; ?>
     <div class="row margin-grid">
         <div class="col-md-12">
-            <h2 class="line"><span class='color-black'>EXPERIENCE</span> <span class='color-red'>CHEF'S</span></h2>
+            <h2 class="line"><span class='color-black'>EXPERIENCE</span><span class='color-red'> CHEF'S</span></h2>
         </div>
         <div class="col-md-4">
             .col-md-4
