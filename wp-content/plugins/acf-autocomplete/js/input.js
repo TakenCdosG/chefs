@@ -61,6 +61,7 @@
                 select: function (event, ui) {
 
                     var data_input_id = "#" + $(this).attr("data-input_id");
+                    console.log("//_> Inputs: #" + data_input_id);
                     var input_hidden = jQuery(data_input_id, $el);
                     var emptyListMsg = jQuery(data_input_id + " p.empty-list-msg", $el);
                     var list = jQuery(data_input_id + " div.field-items", $el);
