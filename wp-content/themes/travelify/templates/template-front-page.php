@@ -35,13 +35,21 @@ $boxes_right_link_url = get_field("boxes_right_link_url");
 
 <div id="container">
     <?php if (!empty($text_top)): ?>
-        <div class="text-top">
-            <?php echo $text_top; ?>
+        <div class="row margin-grid">
+            <div class="col-md-12">
+                <div class="text-top">
+                    <?php echo $text_top; ?>
+                </div>
+            </div>
         </div>
     <?php endif; ?>
     <?php if (!empty($title_top)): ?>
-        <div class="title_top">
-            <h1><?php echo $title_top; ?></h1>
+        <div class="row margin-grid">
+            <div class="col-md-12">
+                <div class="title_top">
+                    <h1><?php echo $title_top; ?></h1>
+                </div>
+            </div>
         </div>
     <?php endif; ?>
     <?php if (!empty($boxes_left_background_image) && !empty($boxes_right_background_image)): ?>
