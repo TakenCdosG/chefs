@@ -60,9 +60,9 @@ $second_post = get_field("second_post");
 $third_post = get_field("third_post");
 
 $info = array(
-    "first_post_id" => $first_post_id,
-    "second_post" => $second_post,
-    "third_post" => $third_post
+    "first_post_id" => $first_post_id[0],
+    "second_post" => $second_post[0],
+    "third_post" => $third_post[0]
 );
 
 echo "<pre>";
