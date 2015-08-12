@@ -532,13 +532,24 @@ class acf_field_autocomplete extends acf_field {
                         )
         ));
 
+
+        $args = array(
+            'post_type' => 'post',
+            's' => $term,
+            'post_status' => 'publish',
+            'orderby' => 'title',
+            'order' => 'ASC'
+        );
+        $wp_query = new WP_Query($args);
+
         $info = array(
             "posts" => $posts,
             "show_errors" => $show_errors,
             "hide_errors" => $hide_errors,
             "post_array" => $post_array,
             "like_term" => $like_term,
-            "post_type" => $post_type
+            "post_type" => $post_type,
+            "wp_query" => $wp_query
         );
 
         die(var_dump($info));
