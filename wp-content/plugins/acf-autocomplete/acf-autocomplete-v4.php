@@ -524,11 +524,21 @@ class acf_field_autocomplete extends acf_field {
         $posts = $wpdb->get_results($search_query);
         $show_errors = $wpdb->show_errors();
         $hide_errors = $wpdb->hide_errors();
+
+        $post_array = $wpdb->query($wpdb->prepare(
+                        "SELECT * FROM wp_posts WHERE post_type = '%s' AND post_title LIKE '%s'", array(
+                    $post_type,
+                    $like_term
+                        )
+        ));
+
         $info = array(
             "posts" => $posts,
             "show_errors" => $show_errors,
-            "hide_errors" => $hide_errors
+            "hide_errors" => $hide_errors,
+            "post_array" => $post_array
         );
+
         die(var_dump($info));
         //die(var_dump($posts));
         // Initialise suggestions array
