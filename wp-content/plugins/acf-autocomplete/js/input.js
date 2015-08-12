@@ -3,15 +3,10 @@
 
     function initialize_field($el) {
 
-        var autocomplete = jQuery("input.search-autocomplete", $el);
-        var emptyListMsg = jQuery("p.empty-list-msg", $el);
-        var post_type = autocomplete.attr("data-post_type");
-        var data_input_id = autocomplete.attr("data-input_id");
-        var input_hidden = jQuery("#" + data_input_id, $el);
+        var autocomplete = jQuery("input.search-autocomplete");
         var action = 'autocomplete_suggestions';
         var route = window.ajaxurl + '?callback=?&action=' + action;
         var minLength = 3;
-        var list = jQuery("div.field-items", $el);
 
         function split(val) {
             return val.split(/—\s*/);
@@ -52,52 +47,10 @@
             $(new_elem).appendTo("div.field-items", $el);
         }
 
-        if (autocomplete.length > 1) {
-            console.log("//_> Inputs");
-            autocomplete.each(function () {
-                $(this).autocomplete({
-                    source: function (request, response) {
-                        $.getJSON(route, {
-                            term: request.term,
-                            post_type: post_type
-                        }, response);
-                    },
-                    minLength: minLength,
-                    select: function (event, ui) {
-
-                        var data_input_id = "#" + $(this).attr("data-input_id");
-                        var input_hidden = jQuery(data_input_id, $el);
-                        var emptyListMsg = jQuery(data_input_id + " p.empty-list-msg", $el);
-
-                        var input_hidden_val = input_hidden.val();
-                        var values = split(input_hidden.val());
-
-                        if (!duplicate(values, ui.item.ID)) {
-                            var message = ui.item.label;
-                            var code = ui.item.ID;
-                            /* Log */
-                            var new_elem = "<h3 class='ui-item-list'> <span class='ui-accordion-header-icon ui-icon ui-icon-triangle-1-e'></span><span class='ui-item-list-content'>" + message + "</span><a class='acf-button-delete ir' href='#' data-item-id='" + code + "' >Remove</a></h3>";
-                            $(new_elem).appendTo("div.field-items", $el);
-                            /* End Log */
-                            values.push(ui.item.ID);
-                            var unique_values = values;
-                            if (input_hidden_val.length === 0) {
-                                input_hidden.val(unique_values.join(""));
-                            } else {
-                                input_hidden.val(unique_values.join("— "));
-                            }
-                            emptyListMsg.css("display", "none");
-                        }
-
-                        this.value = "";
-                        return false;
-
-                    }
-                });
-            });
-
-        } else {
-            autocomplete.autocomplete({
+        console.log("//_> Inputs");
+        autocomplete.each(function () {
+            var post_type = $(this).attr("data-post_type");
+            $(this).autocomplete({
                 source: function (request, response) {
                     $.getJSON(route, {
                         term: request.term,
@@ -107,11 +60,21 @@
                 minLength: minLength,
                 select: function (event, ui) {
 
+                    var data_input_id = "#" + $(this).attr("data-input_id");
+                    var input_hidden = jQuery(data_input_id, $el);
+                    var emptyListMsg = jQuery(data_input_id + " p.empty-list-msg", $el);
+                    var list = jQuery(data_input_id + " div.field-items", $el);
+
                     var input_hidden_val = input_hidden.val();
                     var values = split(input_hidden.val());
 
                     if (!duplicate(values, ui.item.ID)) {
-                        log(ui.item.label, ui.item.ID);
+                        var message = ui.item.label;
+                        var code = ui.item.ID;
+                        /* Log */
+                        var new_elem = "<h3 class='ui-item-list'> <span class='ui-accordion-header-icon ui-icon ui-icon-triangle-1-e'></span><span class='ui-item-list-content'>" + message + "</span><a class='acf-button-delete ir' href='#' data-item-id='" + code + "' >Remove</a></h3>";
+                        $(new_elem).appendTo("div.field-items", $el);
+                        /* End Log */
                         values.push(ui.item.ID);
                         var unique_values = values;
                         if (input_hidden_val.length === 0) {
@@ -127,7 +90,7 @@
 
                 }
             });
-        }
+        });
 
         jQuery("a.acf-button-delete", $el).click(function (event) {
 
