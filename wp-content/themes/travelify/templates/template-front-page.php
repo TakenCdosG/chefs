@@ -53,6 +53,21 @@ if ($pull_boxes == "pull_manually") {
     $manually_fourth_title_black = get_field("manually_fourth_title_black");
     $manually_fourth_title_red = get_field("manually_fourth_title_red");
 }
+
+// From The Blog.
+$first_post_id = get_field("first_post");
+$second_post = get_field("second_post");
+$third_post = get_field("third_post");
+
+$info = array(
+    "first_post_id" => $first_post_id,
+    "second_post" => $second_post,
+    "third_post" => $third_post
+);
+
+echo "<pre>";
+var_dump($info);
+echo "</pre>";
 ?>
 
 <div id="container">
