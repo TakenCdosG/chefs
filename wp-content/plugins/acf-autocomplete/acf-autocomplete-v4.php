@@ -549,7 +549,8 @@ class acf_field_autocomplete extends acf_field {
             "post_array" => $post_array,
             "like_term" => $like_term,
             "post_type" => $post_type,
-            "wp_query" => $wp_query
+            "wp_query" => $wp_query,
+            "have_post" => $wp_query->have_posts()
         );
 
         die(var_dump($info));
