@@ -70,10 +70,6 @@ $info = array(
 $first_blog_post = get_post($first_post_id);
 $second_blog_post = get_post($second_post_id);
 $third_blog_post = get_post($third_post_id);
-
-echo "<pre>";
-var_dump($first_blog_post);
-echo "</pre>";
 ?>
 
 <div id="container">
