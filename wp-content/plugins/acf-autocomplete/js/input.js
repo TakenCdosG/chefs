@@ -63,8 +63,8 @@
                     var data_input_id = "input#" + $(this).attr("data-input_id");
                     var input_hidden = jQuery(data_input_id);
                     var container = input_hidden.closest(".field_type-autocomplete");
-                    var emptyListMsg = jQuery(data_input_id + " p.empty-list-msg", container);
-                    var list = jQuery(data_input_id + " div.field-items", container);
+                    var emptyListMsg = jQuery("p.empty-list-msg", container);
+                    var list = jQuery(" div.field-items", container);
 
                     var input_hidden_val = input_hidden.val();
                     var values = split(input_hidden.val());
