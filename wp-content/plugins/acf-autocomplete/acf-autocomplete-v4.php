@@ -518,7 +518,7 @@ class acf_field_autocomplete extends acf_field {
         global $wpdb;
         $like_term = '%' . $term . '%';
         $search_query = "SELECT * FROM wp_posts WHERE post_type = '$post_type' AND post_title LIKE '$like_term'";
-        $posts = $wpdb->get_results($wpdb->prepare($search_query), OBJECT);
+        $posts = $wpdb->get_results($wpdb->prepare($search_query, 10), OBJECT);
         die(var_dump($posts));
         //die(var_dump($posts));
         // Initialise suggestions array
