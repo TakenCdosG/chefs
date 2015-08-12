@@ -242,6 +242,7 @@ echo "</pre>";
                             <?php echo $first_blog_post->post_excerpt; ?>
                         </div>
                     <?php endif; ?>
+                    <a class="post-permalink" href="<?php echo esc_url(get_permalink($first_blog_post->ID)); ?>" title="<?php echo $first_blog_post->post_title; ?>">READ MORE</a>
                 </div>
             </div>
         </div>
