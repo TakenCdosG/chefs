@@ -522,39 +522,40 @@ class acf_field_autocomplete extends acf_field {
                   FROM wp_posts 
                   WHERE post_type = '$post_type' AND post_title LIKE '$like_term'";
         $posts = $wpdb->get_results($search_query);
-        $show_errors = $wpdb->show_errors();
-        $hide_errors = $wpdb->hide_errors();
+        /*
+          $show_errors = $wpdb->show_errors();
+          $hide_errors = $wpdb->hide_errors();
 
-        $post_array = $wpdb->query($wpdb->prepare(
-                        "SELECT * FROM wp_posts WHERE post_type = '%s' AND post_title LIKE '%s'", array(
-                    $post_type,
-                    $like_term
-                        )
-        ));
+          $post_array = $wpdb->query($wpdb->prepare(
+          "SELECT * FROM wp_posts WHERE post_type = '%s' AND post_title LIKE '%s'", array(
+          $post_type,
+          $like_term
+          )
+          ));
 
 
-        $args = array(
-            'post_type' => 'post',
-            's' => $term,
-        );
-        $wp_query = new WP_Query($args);
+          $args = array(
+          'post_type' => 'post',
+          's' => $term,
+          );
+          $wp_query = new WP_Query($args);
 
-        $info = array(
-            "posts" => $posts,
-            "show_errors" => $show_errors,
-            "hide_errors" => $hide_errors,
-            "post_array" => $post_array,
-            "like_term" => $like_term,
-            "post_type" => $post_type,
-            "wp_query" => $wp_query,
-            "have_post" => $wp_query->have_posts()
-        );
+          $info = array(
+          "posts" => $posts,
+          "show_errors" => $show_errors,
+          "hide_errors" => $hide_errors,
+          "post_array" => $post_array,
+          "like_term" => $like_term,
+          "post_type" => $post_type,
+          "wp_query" => $wp_query,
+          "have_post" => $wp_query->have_posts()
+          );
 
-        die(var_dump($info));
-        //die(var_dump($posts));
-        // Initialise suggestions array
-        $suggestions = array();
-
+          die(var_dump($info));
+          //die(var_dump($posts));
+          // Initialise suggestions array
+          $suggestions = array();
+         */
         global $post;
         foreach ($posts as $post): setup_postdata($post);
 
