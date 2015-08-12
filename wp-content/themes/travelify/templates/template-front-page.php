@@ -49,9 +49,9 @@ if ($pull_boxes == "pull_manually") {
     $manually_third_title_black = get_field("manually_third_title_black");
     $manually_third_title_red = get_field("manually_third_title_red");
     // Fourth box
-    $manually_third_background_image = get_field("manually_fourth_background_image");
-    $manually_third_title_black = get_field("manually_fourth_title_black");
-    $manually_third_title_red = get_field("manually_fourth_title_red");
+    $manually_fourth_background_image = get_field("manually_fourth_background_image");
+    $manually_fourth_title_black = get_field("manually_fourth_title_black");
+    $manually_fourth_title_red = get_field("manually_fourth_title_red");
 }
 ?>
 
