@@ -509,6 +509,7 @@ class acf_field_autocomplete extends acf_field {
 
     function autocomplete_handler_suggestions() {
 
+        die(var_dump($_REQUEST));
         // Query for suggestions
         $term = $_REQUEST['term'];
         $post_type = $_REQUEST['post_type'];
