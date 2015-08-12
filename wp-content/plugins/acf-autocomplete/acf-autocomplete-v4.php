@@ -536,9 +536,6 @@ class acf_field_autocomplete extends acf_field {
         $args = array(
             'post_type' => 'post',
             's' => $term,
-            'post_status' => 'publish',
-            'orderby' => 'title',
-            'order' => 'ASC'
         );
         $wp_query = new WP_Query($args);
 
