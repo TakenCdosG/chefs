@@ -536,7 +536,9 @@ class acf_field_autocomplete extends acf_field {
             "posts" => $posts,
             "show_errors" => $show_errors,
             "hide_errors" => $hide_errors,
-            "post_array" => $post_array
+            "post_array" => $post_array,
+            "like_term" => $like_term,
+            "post_type" => $post_type
         );
 
         die(var_dump($info));
