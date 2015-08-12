@@ -70,9 +70,9 @@ $info = array(
 $first_blog_post = get_post($first_post_id);
 $second_blog_post = get_post($second_post_id);
 $third_blog_post = get_post($third_post_id);
-
+$category = get_the_category($first_blog_post->ID);
 echo "<pre>";
-var_dump($first_blog_post);
+var_dump($category);
 echo "</pre>";
 ?>
 
