@@ -247,10 +247,40 @@ echo "</pre>";
             </div>
         </div>
         <div class="col-md-4">
-            .col-md-4
+            <div class="box">
+                <?php echo get_the_post_thumbnail($second_blog_post->ID, 'full'); ?>
+                <div class="post-summary">
+                    <?php if (!empty($second_blog_post->post_title)): ?>
+                        <h3 class="post-title">
+                            <?php echo $second_blog_post->post_title; ?>
+                        </h3>
+                    <?php endif; ?>
+                    <?php if (!empty($second_blog_post->post_excerpt)): ?>
+                        <div class="post-excerpt">
+                            <?php echo $second_blog_post->post_excerpt; ?>
+                        </div>
+                    <?php endif; ?>
+                    <a class="post-permalink" href="<?php echo esc_url(get_permalink($second_blog_post->ID)); ?>" title="<?php echo $second_blog_post->post_title; ?>">READ MORE</a>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
-            .col-md-4
+            <div class="box">
+                <?php echo get_the_post_thumbnail($third_blog_post->ID, 'full'); ?>
+                <div class="post-summary">
+                    <?php if (!empty($third_blog_post->post_title)): ?>
+                        <h3 class="post-title">
+                            <?php echo $third_blog_post->post_title; ?>
+                        </h3>
+                    <?php endif; ?>
+                    <?php if (!empty($third_blog_post->post_excerpt)): ?>
+                        <div class="post-excerpt">
+                            <?php echo $third_blog_post->post_excerpt; ?>
+                        </div>
+                    <?php endif; ?>
+                    <a class="post-permalink" href="<?php echo esc_url(get_permalink($third_blog_post->ID)); ?>" title="<?php echo $third_blog_post->post_title; ?>">READ MORE</a>
+                </div>
+            </div>
         </div>
     </div>
     <?php
