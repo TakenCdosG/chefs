@@ -35,25 +35,24 @@ $boxes_right_link_url = get_field("boxes_right_link_url");
 // EXPERIENCE CHEF'S
 // Pull boxes
 $pull_boxes = get_field("pull_boxes");
-echo "<pre>";
-var_dump($pull_boxes);
-echo "</pre>";
-// First box
-$manually_first_background_image = get_field("manually_first_background_image");
-$manually_first_title_black = get_field("manually_first_title_black");
-$manually_first_title_red = get_field("manually_first_title_red");
-// Second box
-$manually_second_background_image = get_field("manually_second_background_image");
-$manually_second_title_black = get_field("manually_second_title_black");
-$manually_second_title_red = get_field("manually_second_title_red");
-// Third box
-$manually_third_background_image = get_field("manually_third_background_image");
-$manually_third_title_black = get_field("manually_third_title_black");
-$manually_third_title_red = get_field("manually_third_title_red");
-// Fourth box
-$manually_third_background_image = get_field("manually_fourth_background_image");
-$manually_third_title_black = get_field("manually_fourth_title_black");
-$manually_third_title_red = get_field("manually_fourth_title_red");
+if ($pull_boxes == "pull_manually") {
+    // First box
+    $manually_first_background_image = get_field("manually_first_background_image");
+    $manually_first_title_black = get_field("manually_first_title_black");
+    $manually_first_title_red = get_field("manually_first_title_red");
+    // Second box
+    $manually_second_background_image = get_field("manually_second_background_image");
+    $manually_second_title_black = get_field("manually_second_title_black");
+    $manually_second_title_red = get_field("manually_second_title_red");
+    // Third box
+    $manually_third_background_image = get_field("manually_third_background_image");
+    $manually_third_title_black = get_field("manually_third_title_black");
+    $manually_third_title_red = get_field("manually_third_title_red");
+    // Fourth box
+    $manually_third_background_image = get_field("manually_fourth_background_image");
+    $manually_third_title_black = get_field("manually_fourth_title_black");
+    $manually_third_title_red = get_field("manually_fourth_title_red");
+}
 ?>
 
 <div id="container">
@@ -128,16 +127,80 @@ $manually_third_title_red = get_field("manually_fourth_title_red");
             <h2 class="line"><span class='color-black'>EXPERIENCE</span><span class='color-red'> CHEF'S</span></h2>
         </div>
         <div class="col-md-3">
-            .col-md-3
+            <div class="box">
+                <?php if (!empty($manually_first_background_image)): ?>
+                    <img width="" height="" src="<?php echo $manually_first_background_image; ?>" class="img-responsive" alt="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>" title="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>">
+                <?php endif; ?>
+                <div class="box-summary-middle">
+                    <?php if (!empty($manually_first_title_black)): ?>
+                        <h3 class="title-color-black">
+                            <?php echo $manually_first_title_black; ?>
+                        </h3>
+                    <?php endif; ?>
+                    <?php if (!empty($manually_first_title_red)): ?>
+                        <h2 class="title-color-red">
+                            <?php echo $manually_first_title_red; ?>
+                        </h2>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
-            .col-md-3
+            <div class="box">
+                <?php if (!empty($manually_second_background_image)): ?>
+                    <img width="" height="" src="<?php echo $manually_second_background_image; ?>" class="img-responsive" alt="<?php echo $manually_second_title_black . " " . $manually_second_title_red; ?>" title="<?php echo $manually_second_title_black . " " . $manually_second_title_red; ?>">
+                <?php endif; ?>
+                <div class="box-summary-middle">
+                    <?php if (!empty($manually_second_title_black)): ?>
+                        <h3 class="title-color-black">
+                            <?php echo $manually_second_title_black; ?>
+                        </h3>
+                    <?php endif; ?>
+                    <?php if (!empty($manually_second_title_red)): ?>
+                        <h2 class="title-color-red">
+                            <?php echo $manually_second_title_red; ?>
+                        </h2>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
-            .col-md-3
+            <div class="box">
+                <?php if (!empty($manually_third_background_image)): ?>
+                    <img width="" height="" src="<?php echo $manually_third_background_image; ?>" class="img-responsive" alt="<?php echo $manually_third_title_black . " " . $manually_third_title_red; ?>" title="<?php echo $manually_third_title_black . " " . $manually_third_title_red; ?>">
+                <?php endif; ?>
+                <div class="box-summary-middle">
+                    <?php if (!empty($manually_third_title_black)): ?>
+                        <h3 class="title-color-black">
+                            <?php echo $manually_third_title_black; ?>
+                        </h3>
+                    <?php endif; ?>
+                    <?php if (!empty($manually_third_title_red)): ?>
+                        <h2 class="title-color-red">
+                            <?php echo $manually_third_title_red; ?>
+                        </h2>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
-            .col-md-3
+            <div class="box">
+                <?php if (!empty($manually_fourth_background_image)): ?>
+                    <img width="" height="" src="<?php echo $manually_fourth_background_image; ?>" class="img-responsive" alt="<?php echo $manually_fourth_title_black . " " . $manually_fourth_title_red; ?>" title="<?php echo $manually_fourth_title_black . " " . $manually_fourth_title_red; ?>">
+                <?php endif; ?>
+                <div class="box-summary-middle">
+                    <?php if (!empty($manually_fourth_title_black)): ?>
+                        <h3 class="title-color-black">
+                            <?php echo $manually_fourth_title_black; ?>
+                        </h3>
+                    <?php endif; ?>
+                    <?php if (!empty($manually_fourth_title_red)): ?>
+                        <h2 class="title-color-red">
+                            <?php echo $manually_fourth_title_red; ?>
+                        </h2>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row margin-grid">
