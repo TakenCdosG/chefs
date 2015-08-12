@@ -53,7 +53,7 @@
         }
 
         if (autocomplete.length > 1) {
-
+            console.log("//_> Inputs");
             autocomplete.each(function () {
                 $(this).autocomplete({
                     source: function (request, response) {
