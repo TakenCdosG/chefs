@@ -230,7 +230,7 @@ echo "</pre>";
         </div>
         <div class="col-md-4">
             <div class="box">
-                <?php echo the_post_thumbnail($first_blog_post->ID, 'full'); ?>
+                <?php echo get_the_post_thumbnail($first_blog_post->ID, 'full'); ?>
                 <div class="post-summary">
                     <?php if (!empty($first_blog_post->post_title)): ?>
                         <h3 class="post-title">
