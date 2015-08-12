@@ -55,18 +55,24 @@ if ($pull_boxes == "pull_manually") {
 }
 
 // From The Blog.
-$first_post_id = get_field("first_post");
+$first_post = get_field("first_post");
+$first_post_id = $first_post[0];
 $second_post = get_field("second_post");
+$second_post_id = $second_post[0];
 $third_post = get_field("third_post");
+$third_post_id = $third_post[0];
 
 $info = array(
     "first_post_id" => $first_post_id[0],
     "second_post" => $second_post[0],
     "third_post" => $third_post[0]
 );
+$first_blog_post = get_post($first_post_id);
+$second_blog_post = get_post($second_post_id);
+$third_blog_post = get_post($third_post_id);
 
 echo "<pre>";
-var_dump($info);
+var_dump($first_blog_post);
 echo "</pre>";
 ?>
 
@@ -223,7 +229,23 @@ echo "</pre>";
             <h2 class="line"><span class='color-black'>FROM THE</span><span class='color-red'> BLOG</span></h2>
         </div>
         <div class="col-md-4">
-            .col-md-4
+            <div class="box">
+                <?php if (!empty($manually_first_background_image)): ?>
+                    <img width="" height="" src="<?php echo $manually_first_background_image; ?>" class="img-responsive" alt="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>" title="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>">
+                <?php endif; ?>
+                <div class="box-summary-middle">
+                    <?php if (!empty($manually_first_title_black)): ?>
+                        <h3 class="title-color-black">
+                            <?php echo $manually_first_title_black; ?>
+                        </h3>
+                    <?php endif; ?>
+                    <?php if (!empty($manually_first_title_red)): ?>
+                        <h2 class="title-color-red">
+                            <?php echo $manually_first_title_red; ?>
+                        </h2>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
         <div class="col-md-4">
             .col-md-4
