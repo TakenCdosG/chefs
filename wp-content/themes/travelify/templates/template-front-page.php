@@ -70,10 +70,10 @@ $info = array(
 $first_blog_post = get_post($first_post_id);
 $second_blog_post = get_post($second_post_id);
 $third_blog_post = get_post($third_post_id);
-$category = get_the_category($first_blog_post->ID);
-echo "<pre>";
-var_dump($category);
-echo "</pre>";
+
+//echo "<pre>";
+//var_dump($category);
+//echo "</pre>";
 ?>
 
 <div id="container">
@@ -232,9 +232,16 @@ echo "</pre>";
             <div class="box">
                 <?php echo get_the_post_thumbnail($first_blog_post->ID, 'full'); ?>
                 <div class="post-summary">
+                    <?php
+                    $categories = get_the_category($first_blog_post->ID);
+                    $category = "";
+                    if (isset($categories[0]->name)) {
+                        $category = "<span class='color-red'>" . $categories[0]->name . ": </span>";
+                    }
+                    ?>
                     <?php if (!empty($first_blog_post->post_title)): ?>
                         <h3 class="post-title">
-                            <?php echo $first_blog_post->post_title; ?>
+                            <?php echo $category . $first_blog_post->post_title; ?>
                         </h3>
                     <?php endif; ?>
                     <?php if (!empty($first_blog_post->post_excerpt)): ?>
@@ -250,9 +257,16 @@ echo "</pre>";
             <div class="box">
                 <?php echo get_the_post_thumbnail($second_blog_post->ID, 'full'); ?>
                 <div class="post-summary">
+                    <?php
+                    $categories = get_the_category($second_blog_post->ID);
+                    $category = "";
+                    if (isset($categories[0]->name)) {
+                        $category = "<span class='color-red'>" . $categories[0]->name . ": </span>";
+                    }
+                    ?>
                     <?php if (!empty($second_blog_post->post_title)): ?>
                         <h3 class="post-title">
-                            <?php echo $second_blog_post->post_title; ?>
+                            <?php echo $category . $second_blog_post->post_title; ?>
                         </h3>
                     <?php endif; ?>
                     <?php if (!empty($second_blog_post->post_excerpt)): ?>
@@ -268,9 +282,16 @@ echo "</pre>";
             <div class="box">
                 <?php echo get_the_post_thumbnail($third_blog_post->ID, 'full'); ?>
                 <div class="post-summary">
+                    <?php
+                    $categories = get_the_category($third_blog_post->ID);
+                    $category = "";
+                    if (isset($categories[0]->name)) {
+                        $category = "<span class='color-red'>" . $categories[0]->name . ": </span>";
+                    }
+                    ?>
                     <?php if (!empty($third_blog_post->post_title)): ?>
                         <h3 class="post-title">
-                            <?php echo $third_blog_post->post_title; ?>
+                            <?php echo $category . $third_blog_post->post_title; ?>
                         </h3>
                     <?php endif; ?>
                     <?php if (!empty($third_blog_post->post_excerpt)): ?>
