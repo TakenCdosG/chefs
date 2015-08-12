@@ -230,19 +230,17 @@ echo "</pre>";
         </div>
         <div class="col-md-4">
             <div class="box">
-                <?php if (!empty($manually_first_background_image)): ?>
-                    <img width="" height="" src="<?php echo $manually_first_background_image; ?>" class="img-responsive" alt="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>" title="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>">
-                <?php endif; ?>
-                <div class="box-summary-middle">
-                    <?php if (!empty($manually_first_title_black)): ?>
-                        <h3 class="title-color-black">
-                            <?php echo $manually_first_title_black; ?>
+                <?php echo the_post_thumbnail($first_blog_post->ID, 'full'); ?>
+                <div class="post-summary">
+                    <?php if (!empty($first_blog_post->post_title)): ?>
+                        <h3 class="post-title">
+                            <?php echo $first_blog_post->post_title; ?>
                         </h3>
                     <?php endif; ?>
-                    <?php if (!empty($manually_first_title_red)): ?>
-                        <h2 class="title-color-red">
-                            <?php echo $manually_first_title_red; ?>
-                        </h2>
+                    <?php if (!empty($first_blog_post->post_excerpt)): ?>
+                        <div class="post-excerpt">
+                            <?php echo $first_blog_post->post_excerpt; ?>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
