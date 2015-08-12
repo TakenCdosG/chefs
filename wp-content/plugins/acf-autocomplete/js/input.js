@@ -63,6 +63,7 @@
                     var data_input_id = "input#" + $(this).attr("data-input_id");
                     var input_hidden = jQuery(data_input_id);
                     var container = input_hidden.closest(".field_type-autocomplete");
+                    var container_id = container.attr("id");
                     var emptyListMsg = jQuery("p.empty-list-msg", container);
                     var list = jQuery(" div.field-items", container);
 
@@ -74,7 +75,7 @@
                         var code = ui.item.ID;
                         /* Log */
                         var new_elem = "<h3 class='ui-item-list'> <span class='ui-accordion-header-icon ui-icon ui-icon-triangle-1-e'></span><span class='ui-item-list-content'>" + message + "</span><a class='acf-button-delete ir' href='#' data-item-id='" + code + "' >Remove</a></h3>";
-                        $(new_elem).appendTo("div.field-items", container);
+                        $(new_elem).appendTo("#" + container_id + " div.field-items");
                         /* End Log */
                         values.push(ui.item.ID);
                         var unique_values = values;
@@ -85,7 +86,7 @@
                         }
                         emptyListMsg.css("display", "none");
                     }
-                    
+
                     this.value = "";
                     return false;
 
