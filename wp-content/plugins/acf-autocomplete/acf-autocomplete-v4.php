@@ -23,6 +23,7 @@ class acf_field_autocomplete extends acf_field {
         $this->defaults = array(
             'post_type' => array('all'),
             'multiple' => 0,
+            'allow_null' => 0
         );
         // do not delete!
         parent::__construct();
@@ -50,9 +51,8 @@ class acf_field_autocomplete extends acf_field {
 
     function create_options($field) {
         // defaults?
-        /*
-          $field = array_merge($this->defaults, $field);
-         */
+
+        $field = array_merge($this->defaults, $field);
         // key is needed in the field names to correctly save the data
         $key = $field['name'];
 
