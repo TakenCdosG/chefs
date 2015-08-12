@@ -31,6 +31,29 @@ $boxes_right_title_red = get_field("boxes_right_title_red");
 $boxes_right_title_black = get_field("boxes_right_title_black");
 $boxes_right_link_text = get_field("boxes_right_link_text");
 $boxes_right_link_url = get_field("boxes_right_link_url");
+
+// EXPERIENCE CHEF'S
+// Pull boxes
+$pull_boxes = get_field("pull_boxes");
+echo "<pre>";
+var_dump($pull_boxes);
+echo "</pre>";
+// First box
+$manually_first_background_image = get_field("manually_first_background_image");
+$manually_first_title_black = get_field("manually_first_title_black");
+$manually_first_title_red = get_field("manually_first_title_red");
+// Second box
+$manually_second_background_image = get_field("manually_second_background_image");
+$manually_second_title_black = get_field("manually_second_title_black");
+$manually_second_title_red = get_field("manually_second_title_red");
+// Third box
+$manually_third_background_image = get_field("manually_third_background_image");
+$manually_third_title_black = get_field("manually_third_title_black");
+$manually_third_title_red = get_field("manually_third_title_red");
+// Fourth box
+$manually_third_background_image = get_field("manually_fourth_background_image");
+$manually_third_title_black = get_field("manually_fourth_title_black");
+$manually_third_title_red = get_field("manually_fourth_title_red");
 ?>
 
 <div id="container">
