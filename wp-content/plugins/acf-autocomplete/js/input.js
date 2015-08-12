@@ -60,11 +60,11 @@
                 minLength: minLength,
                 select: function (event, ui) {
 
-                    var data_input_id = "#" + $(this).attr("data-input_id");
-                    console.log("//_> Inputs: #" + data_input_id);
-                    var input_hidden = jQuery(data_input_id, $el);
-                    var emptyListMsg = jQuery(data_input_id + " p.empty-list-msg", $el);
-                    var list = jQuery(data_input_id + " div.field-items", $el);
+                    var data_input_id = "input#" + $(this).attr("data-input_id");
+                    var input_hidden = jQuery(data_input_id);
+                    var container = input_hidden.closest(".field_type-autocomplete");
+                    var emptyListMsg = jQuery(data_input_id + " p.empty-list-msg", container);
+                    var list = jQuery(data_input_id + " div.field-items", container);
 
                     var input_hidden_val = input_hidden.val();
                     var values = split(input_hidden.val());
@@ -74,7 +74,7 @@
                         var code = ui.item.ID;
                         /* Log */
                         var new_elem = "<h3 class='ui-item-list'> <span class='ui-accordion-header-icon ui-icon ui-icon-triangle-1-e'></span><span class='ui-item-list-content'>" + message + "</span><a class='acf-button-delete ir' href='#' data-item-id='" + code + "' >Remove</a></h3>";
-                        $(new_elem).appendTo("div.field-items", $el);
+                        $(new_elem).appendTo("div.field-items", container);
                         /* End Log */
                         values.push(ui.item.ID);
                         var unique_values = values;
@@ -85,7 +85,7 @@
                         }
                         emptyListMsg.css("display", "none");
                     }
-
+                    
                     this.value = "";
                     return false;
 
