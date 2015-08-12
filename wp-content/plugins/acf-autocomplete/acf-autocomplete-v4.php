@@ -509,7 +509,7 @@ class acf_field_autocomplete extends acf_field {
 
     function autocomplete_handler_suggestions() {
 
-        die(var_dump($_REQUEST));
+
         // Query for suggestions
         $term = $_REQUEST['term'];
         $post_type = $_REQUEST['post_type'];
@@ -519,7 +519,7 @@ class acf_field_autocomplete extends acf_field {
         $like_term = '%' . $term . '%';
         $search_query = "SELECT * FROM wp_posts WHERE post_type = '$post_type' AND post_title LIKE '$like_term'";
         $posts = $wpdb->get_results($search_query);
-
+        die(var_dump($posts));
         //die(var_dump($posts));
         // Initialise suggestions array
         $suggestions = array();
