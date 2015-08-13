@@ -2037,10 +2037,16 @@ article {
     background-image: url('./images/flex-prev.png');
     background-position: 0 0px;
     background-repeat: no-repeat;
+    text-indent: -100px;
+    width: 70px;
+    height: 69px;
 }
 
 .flex-direction-nav .flex-next {
     background-image: url('./images/flex-next.png');
     background-position: 0 0px;
     background-repeat: no-repeat;
+    text-indent: -100px;
+    width: 70px;
+    height: 69px;
 }
