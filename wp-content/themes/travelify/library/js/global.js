@@ -11,7 +11,9 @@ jQuery(function ($) {
             animation: "slide",
             animationLoop: false,
             itemWidth: 268,
-            itemMargin: 5
+            itemMargin: 5,
+            controlNav: FALSE, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
+            directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
         });
     });
     function initialize() {
