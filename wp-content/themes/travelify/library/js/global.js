@@ -10,7 +10,7 @@ jQuery(function ($) {
         $('.flexslider').flexslider({
             animation: "slide",
             animationLoop: false,
-            //itemWidth: 268,
+            itemWidth: 194,
             itemMargin: 5,
             controlNav: false, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
             directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
