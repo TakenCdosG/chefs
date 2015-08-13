@@ -54,7 +54,7 @@ if ($pull_boxes == "pull_manually") {
     $manually_fourth_title_red = get_field("manually_fourth_title_red");
 }
 
-// From The Blog.
+//-> From The Blog.
 $first_post = get_field("first_post");
 $first_post_id = $first_post[0];
 $second_post = get_field("second_post");
@@ -67,9 +67,24 @@ $info = array(
     "second_post" => $second_post[0],
     "third_post" => $third_post[0]
 );
+
 $first_blog_post = get_post($first_post_id);
 $second_blog_post = get_post($second_post_id);
 $third_blog_post = get_post($third_post_id);
+
+// Front Page - Logos
+$num_logos = 10;
+$logos_image = array();
+for ($i = 1; $i <= $num_logos; $i++) {
+    $image_key = "front_logo_" . $i;
+    $link_key = "front_link_logo_" . $i;
+    $image = get_field($image_key);
+    $link = get_field($link_key);
+    if (!empty($image)) {
+        $new_image = array("image" => $image, "link" => $link);
+        $logos_image[] = $new_image;
+    }
+}
 
 //echo "<pre>";
 //var_dump($category);
@@ -304,6 +319,21 @@ $third_blog_post = get_post($third_post_id);
             </div>
         </div>
     </div>
+
+    <div class="row margin-grid">
+        <div class="col-md-12">
+            <div class="flexslider">
+                <ul class="slides">
+                    <?php foreach ($logos_image as $key => $item): ?>
+                        <li>
+                            <img src="<?php echo $item["image"]; ?>" />
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <?php
     /**
      * travelify_main_container hook

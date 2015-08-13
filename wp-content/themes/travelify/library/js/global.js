@@ -6,6 +6,14 @@ jQuery(function ($) {
     $(document).ready(function () {
         initialize();
     }); // End doc ready
+    $(window).load(function () {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            animationLoop: false,
+            itemWidth: 268,
+            itemMargin: 5
+        });
+    });
     function initialize() {
         var myLatlngMapCenter = new google.maps.LatLng(40.758023, -73.969549);
         var myLatlngMarkerCenter = new google.maps.LatLng(40.7585431, -73.9697777);
