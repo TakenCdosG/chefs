@@ -101,7 +101,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
             </div>
         </div>
         <!-- Add clearfix -->
-        <div class="clearfix"></div>
+        <div class="clearfix-block"></div>
     <?php endif; ?>
     <?php if (!empty($title_top)): ?>
         <div class="row margin-grid">
@@ -112,7 +112,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
             </div>
         </div>
         <!-- Add clearfix -->
-        <div class="clearfix"></div>
+        <div class="clearfix-block"></div>
     <?php endif; ?>
     <?php if (!empty($boxes_left_background_image) && !empty($boxes_right_background_image)): ?>
         <div class="row margin-grid boxes-dos-columns">
@@ -162,7 +162,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
             </div>
         </div>
         <!-- Add clearfix -->
-        <div class="clearfix"></div>
+        <div class="clearfix-block"></div>
     <?php endif; ?>
     <div class="row margin-grid">
         <div class="col-md-12">
@@ -246,7 +246,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
         </div>
     </div>
     <!-- Add clearfix -->
-    <div class="clearfix"></div>
+    <div class="clearfix-block"></div>
     <div class="row margin-grid">
         <div class="col-md-12">
             <h2 class="line"><span class='color-black'>FROM THE</span><span class='color-red'> BLOG</span></h2>
@@ -328,7 +328,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
         </div>
     </div>
     <!-- Add clearfix -->
-    <div class="clearfix"></div>
+    <div class="clearfix-block"></div>
     <div class="row margin-grid">
         <div class="col-md-12">
             <div class="flexslider">
@@ -343,7 +343,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
         </div>
     </div>
     <!-- Add clearfix -->
-    <div class="clearfix"></div>
+    <div class="clearfix-block"></div>
     <?php
     /**
      * travelify_main_container hook
