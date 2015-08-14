@@ -55,6 +55,11 @@ function travelify_display_footer_widget() {
                         endif;
                         ?>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2 class="line-red-separator"></h2>
+                        </div>
+                    </div>
                     <div class="row margin-grid border-top-red">
                         <?php
                         // Calling the footer sidebar if it exists.
