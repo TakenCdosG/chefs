@@ -350,7 +350,7 @@ function travelify_widgets_init() {
         'name' => __('Footer', 'travelify'),
         'id' => 'travelify_footer_widget',
         'description' => __('Shows widgets at footer.', 'travelify'),
-        'before_widget' => '<div class="col-3"><aside id="%1$s" class="widget %2$s">',
+        'before_widget' => '<div class="col-md-3"><aside id="%1$s" class="widget %2$s">',
         'after_widget' => '</aside></div>',
         'before_title' => '<h3 class="widget-title">',
         'after_title' => '</h3>'
