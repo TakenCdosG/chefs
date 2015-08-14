@@ -190,7 +190,7 @@ function travelify_headerdetails() {
         <div class="hgroup-wrap clearfix">
             <section class="hgroup-right">
                 <?php travelify_socialnetworks($flag); ?>
-                <?php get_search_form($echo = TRUE); ?>
+                <?php get_search_form($echo); ?>
             </section><!-- .hgroup-right -->
             <hgroup id="site-logo" class="clearfix">
                 <?php
