@@ -287,6 +287,7 @@ if (!function_exists('travelify_socialnetworks')) :
         if ((!$travelify_socialnetworks = get_transient('travelify_socialnetworks') ) && ( 1 == $flag )) {
 
             $search_form = get_search_form($echo = FALSE);
+            die(var_dump($search_form));
             $travelify_socialnetworks .='
 			<div class="social-icons clearfix">
 				<ul>';
