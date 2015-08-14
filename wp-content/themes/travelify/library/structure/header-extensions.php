@@ -190,6 +190,7 @@ function travelify_headerdetails() {
         <div class="hgroup-wrap clearfix">
             <section class="hgroup-right">
                 <?php travelify_socialnetworks($flag); ?>
+                <?php get_search_form($echo = TRUE); ?>
             </section><!-- .hgroup-right -->
             <hgroup id="site-logo" class="clearfix">
                 <?php
@@ -286,8 +287,7 @@ if (!function_exists('travelify_socialnetworks')) :
         $travelify_socialnetworks = '';
         if ((!$travelify_socialnetworks = get_transient('travelify_socialnetworks') ) && ( 1 == $flag )) {
 
-            $search_form = get_search_form($echo = FALSE);
-            die(var_dump($search_form));
+
             $travelify_socialnetworks .='
 			<div class="social-icons clearfix">
 				<ul>';
@@ -317,7 +317,7 @@ if (!function_exists('travelify_socialnetworks')) :
 
             $travelify_socialnetworks .='
 			</ul>
-			</div><!-- .social-icons -->' . $search_form;
+			</div><!-- .social-icons -->';
 
             set_transient('travelify_socialnetworks', $travelify_socialnetworks, 86940);
         }
