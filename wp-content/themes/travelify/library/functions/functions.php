@@ -356,6 +356,17 @@ function travelify_widgets_init() {
         'after_title' => '</h3>'
             )
     );
+
+    register_sidebar(array(
+        'name' => __('Footer Bottom', 'travelify'),
+        'id' => 'travelify_footer_bottom_widget',
+        'description' => __('Shows widgets at footer int hte bottom.', 'travelify'),
+        'before_widget' => '<div class="col-md-3"><aside id="%1$s" class="widget %2$s">',
+        'after_widget' => '</aside></div>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>'
+            )
+    );
 }
 
 add_action('widgets_init', 'travelify_widgets_init');

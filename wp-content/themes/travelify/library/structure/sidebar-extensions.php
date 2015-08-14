@@ -48,11 +48,20 @@ function travelify_display_footer_widget() {
         <div class="widget-wrap">
             <div class="container">
                 <div class="widget-area clearfix">
-                    <?php
-                    // Calling the footer sidebar if it exists.
-                    if (!function_exists('dynamic_sidebar') || !dynamic_sidebar('travelify_footer_widget')):
-                    endif;
-                    ?>
+                    <div class="row margin-grid">
+                        <?php
+                        // Calling the footer sidebar if it exists.
+                        if (!function_exists('dynamic_sidebar') || !dynamic_sidebar('travelify_footer_widget')):
+                        endif;
+                        ?>
+                    </div>
+                    <div class="row margin-grid">
+                        <?php
+                        // Calling the footer sidebar if it exists.
+                        if (!function_exists('dynamic_sidebar') || !dynamic_sidebar('travelify_footer_bottom_widget')):
+                        endif;
+                        ?>
+                    </div>
                 </div><!-- .widget-area -->
             </div><!-- .container -->
         </div><!-- .widget-wrap -->
