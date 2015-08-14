@@ -46,16 +46,16 @@ function travelify_display_footer_widget() {
     if (is_active_sidebar('travelify_footer_widget')) {
         ?>
         <div class="widget-wrap">
-            <div class="container">
+            <div class="container-widget-wrap">
                 <div class="widget-area clearfix">
-                    <div class="row margin-grid">
+                    <div class="row margin-grid widget-border-top-red">
                         <?php
                         // Calling the footer sidebar if it exists.
                         if (!function_exists('dynamic_sidebar') || !dynamic_sidebar('travelify_footer_widget')):
                         endif;
                         ?>
                     </div>
-                    <div class="row margin-grid">
+                    <div class="row margin-grid border-top-red">
                         <?php
                         // Calling the footer sidebar if it exists.
                         if (!function_exists('dynamic_sidebar') || !dynamic_sidebar('travelify_footer_bottom_widget')):
