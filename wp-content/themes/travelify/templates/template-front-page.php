@@ -115,7 +115,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
         <div class="clearfix"></div>
     <?php endif; ?>
     <?php if (!empty($boxes_left_background_image) && !empty($boxes_right_background_image)): ?>
-        <div class="row margin-grid">
+        <div class="row margin-grid boxes-dos-columns">
             <div class="col-md-6">
                 <div class="box">
                     <?php if (!empty($boxes_left_background_image)): ?>
