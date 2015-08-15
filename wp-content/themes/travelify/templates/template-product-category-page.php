@@ -33,7 +33,7 @@ if (count($categories) > 0) {
     $tax_query = array(
         'taxonomy' => 'product_cat',
         'field' => 'term_id',
-        'terms' => $categories,
+        'terms' => "26",
         'operator' => 'IN',
     );
 }
@@ -41,7 +41,7 @@ if (count($categories) > 0) {
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
-    'product_cat' => "outdoor",
+    //'product_cat' => "outdoor",
     'tax_query' => $tax_query
 );
 
