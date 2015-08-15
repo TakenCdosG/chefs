@@ -255,17 +255,19 @@ function travelify_headerdetails() {
     }
     else {
         if (( '' != travelify_header_title() ) || function_exists('bcn_display_list')) {
-            ?>
-            <div class="page-title-wrap">
-                <div class="container clearfix">
-                    <?php
-                    if (function_exists('travelify_breadcrumb'))
-                        travelify_breadcrumb();
-                    ?>
-                    <h3 class="page-title"><?php echo travelify_header_title(); ?></h3><!-- .page-title -->
+            if (!is_page_template('template-product-category-page.php')) {
+                ?>
+                <div class="page-title-wrap">
+                    <div class="container clearfix">
+                        <?php
+                        if (function_exists('travelify_breadcrumb'))
+                            travelify_breadcrumb();
+                        ?>
+                        <h3 class="page-title"><?php echo travelify_header_title(); ?></h3><!-- .page-title -->
+                    </div>
                 </div>
-            </div>
-            <?php
+                <?php
+            }
         }
     }
 }
