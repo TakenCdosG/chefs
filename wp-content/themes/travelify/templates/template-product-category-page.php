@@ -51,7 +51,7 @@ $info = array(
     "products" => $products
 );
 
-dpm($info);
+dpm($categories);
 ?>
 <div id="container">
     <?php
