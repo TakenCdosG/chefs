@@ -33,7 +33,7 @@ if (count($categories) > 0) {
     $tax_query = array(
         'taxonomy' => 'product_cat',
         'field' => 'term_id',
-        'terms' => "26",
+        'terms' => array("26"),
         'operator' => 'IN',
     );
 }
