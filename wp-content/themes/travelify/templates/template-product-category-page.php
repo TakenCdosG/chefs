@@ -43,7 +43,7 @@ if (count($categories) > 0) {
         'operator' => 'IN',
     );
 }
-$args = arra_merge($args, $tax_query);
+$args = array_merge($args, $tax_query);
 $products = new WP_Query($args);
 dpm($args);
 ?>
