@@ -37,7 +37,7 @@ if (count($categories) > 0) {
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
-    'product_cat' => implode(",", $product_cats),
+    'product_cat' => implode(",", $product_cat),
 );
 $products = new WP_Query($args);
 $info = array(
