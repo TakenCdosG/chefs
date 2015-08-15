@@ -255,7 +255,7 @@ function travelify_headerdetails() {
     }
     else {
         if (( '' != travelify_header_title() ) || function_exists('bcn_display_list')) {
-            if (!is_page_template('template-product-category-page.php')) {
+            if (!is_page_template('templates/template-product-category-page.php')) {
                 ?>
                 <div class="page-title-wrap">
                     <div class="container clearfix">
