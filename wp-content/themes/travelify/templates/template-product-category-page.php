@@ -30,7 +30,7 @@ $categories = get_field("shop_by_category");
 $product_cat = array();
 if (count($categories) > 0) {
     foreach ($categories as $key => $category) {
-        $product_cat[] = $category["slug"];
+        $product_cat[] = $category->slug;
     }
 }
 
