@@ -31,7 +31,7 @@ $tax_query = "";
 if (count($categories) > 0) {
     $tax_query['tax_query'] = array(
         'taxonomy' => 'product_cat',
-        'field' => 'id',
+        'field' => 'term_id',
         'terms' => $categories
     );
 }
