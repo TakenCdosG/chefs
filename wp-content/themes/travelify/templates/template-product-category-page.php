@@ -41,7 +41,7 @@ if (count($categories) > 0) {
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
-    'product_cat' => "21",
+    'product_cat' => "outdoor",
     'tax_query' => $tax_query
 );
 
