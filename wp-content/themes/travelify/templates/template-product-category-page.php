@@ -7,7 +7,7 @@
  */
 ?>
 
-<?php get_header('shop'); ?>
+<?php get_header(''); ?>
 <?php
 /**
  * woocommerce_before_main_content hook
@@ -48,4 +48,4 @@ do_action('travelify_before_main_container');
 do_action('travelify_after_main_container');
 ?>
 
-<?php get_footer('shop'); ?>
+<?php get_footer(''); ?>
