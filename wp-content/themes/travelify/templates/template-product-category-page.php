@@ -45,7 +45,12 @@ $args = array(
 );
 
 $products = new WP_Query($args);
-dpm($args);
+$info = array(
+    "args" => $args,
+    "products" => $products
+);
+
+dpm($info);
 ?>
 <div id="container">
     <?php
