@@ -22,9 +22,8 @@ do_action('woocommerce_before_main_content');
  * travelify_before_main_container hook
  */
 do_action('travelify_before_main_container');
-//echo "<pre>";
-//var_dump($category);
-//echo "</pre>";
+$categories = get_field("shop_by_category");
+dpm($categories);
 ?>
 
 <div id="container">
