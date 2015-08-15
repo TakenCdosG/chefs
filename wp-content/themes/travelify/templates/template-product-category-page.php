@@ -23,7 +23,6 @@ do_action('woocommerce_before_main_content');
  */
 do_action('travelify_before_main_container');
 $categories = get_field("shop_by_category");
-dpm($categories);
 ?>
 
 
@@ -42,6 +41,7 @@ $args = array(
     $tax_query
 );
 $loop = new WP_Query($args);
+dpm($args);
 ?>
 <div id="container">
     <?php
