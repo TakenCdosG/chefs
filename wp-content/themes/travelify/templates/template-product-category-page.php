@@ -18,10 +18,6 @@
 do_action('woocommerce_before_main_content');
 ?>
 <?php
-/**
- * travelify_before_main_container hook
- */
-do_action('travelify_before_main_container');
 
 //echo "<pre>";
 //var_dump($category);
@@ -37,16 +33,9 @@ do_action('travelify_before_main_container');
      *
      * travelify_content 10
      */
-    do_action('travelify_main_container');
+    //do_action('travelify_main_container');
     ?>
 </div><!-- #container -->
-
-<?php
-/**
- * travelify_after_main_container hook
- */
-do_action('travelify_after_main_container');
-?>
 
 <?php
 /**
