@@ -44,8 +44,6 @@ $info = array(
     "args" => $args,
     "products" => $products
 );
-
-dpm($categories);
 ?>
 <div id="container">
     <?php
