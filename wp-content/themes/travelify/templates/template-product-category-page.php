@@ -28,9 +28,18 @@ dpm($categories);
 
 
 <?php
+$tax_query = "";
+if (count($categories) > 0) {
+    $tax_query['tax_query'] = array(
+        'taxonomy' => 'product_cat',
+        'field' => 'id',
+        'terms' => $categories
+    );
+}
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 9
+    'posts_per_page' => 9,
+    $tax_query
 );
 $loop = new WP_Query($args);
 ?>
@@ -43,20 +52,22 @@ $loop = new WP_Query($args);
      *
      * travelify_content 10
      */
-    do_action('travelify_main_container');
+    // do_action('travelify_main_container');
     ?>
-    <ul class="products">
-        <?php
-        if ($loop->have_posts()) {
-            while ($loop->have_posts()) : $loop->the_post();
-                wc_get_template_part('content', 'product');
-            endwhile;
-        } else {
-            echo __('No products found');
-        }
-        wp_reset_postdata();
-        ?>
-    </ul>
+    <div class="woocommerce">
+        <ul class="products">
+            <?php
+            if ($loop->have_posts()) {
+                while ($loop->have_posts()) : $loop->the_post();
+                    wc_get_template_part('content', 'product');
+                endwhile;
+            } else {
+                echo __('No products found');
+            }
+            wp_reset_postdata();
+            ?>
+        </ul>
+    </div>
 </div><!-- #container -->
 
 <?php
