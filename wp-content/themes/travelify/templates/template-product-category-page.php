@@ -7,7 +7,7 @@
  */
 ?>
 
-<?php get_header(''); ?>
+<?php get_header('shop'); ?>
 <?php
 /**
  * woocommerce_before_main_content hook
