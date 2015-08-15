@@ -48,5 +48,4 @@ do_action('travelify_before_main_container');
 do_action('travelify_after_main_container');
 ?>
 
-<?php get_footer(); ?>
 <?php get_footer('shop'); ?>
