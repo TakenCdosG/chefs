@@ -41,8 +41,8 @@ $args = array(
     'posts_per_page' => 9,
     $tax_query
 );
-$loop = new WP_Query($args);
-dpm($args);
+$products = new WP_Query($args);
+dpm($products);
 ?>
 <div id="container">
     <?php
@@ -58,8 +58,8 @@ dpm($args);
     <div class="woocommerce">
         <ul class="products">
             <?php
-            if ($loop->have_posts()) {
-                while ($loop->have_posts()) : $loop->the_post();
+            if ($products->have_posts()) {
+                while ($products->have_posts()) : $products->the_post();
                     wc_get_template_part('content', 'product');
                 endwhile;
             } else {
