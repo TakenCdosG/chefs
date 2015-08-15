@@ -27,14 +27,12 @@ $categories = get_field("shop_by_category");
 
 
 <?php
-$tax_query = "";
-
+$tax_query = array();
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
     $tax_query
 );
-
 if (count($categories) > 0) {
     $tax_query['tax_query'] = array(
         'taxonomy' => 'product_cat',
