@@ -27,24 +27,18 @@ $categories = get_field("shop_by_category");
 
 
 <?php
-$tax_query = array();
-
+$product_cat = array();
 if (count($categories) > 0) {
-    $tax_query = array(
-        'taxonomy' => 'product_cat',
-        'field' => 'term_id',
-        'terms' => array("26"),
-        'operator' => 'IN',
-    );
+    foreach ($categories as $key => $category) {
+        $product_cat[] = $category["slug"];
+    }
 }
 
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
-    //'product_cat' => "outdoor",
-    'tax_query' => $tax_query
+    'product_cat' => implode(",", $product_cats),
 );
-
 $products = new WP_Query($args);
 $info = array(
     "args" => $args,
