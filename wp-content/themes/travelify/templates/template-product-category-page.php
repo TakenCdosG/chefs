@@ -28,20 +28,22 @@ $categories = get_field("shop_by_category");
 
 <?php
 $tax_query = array();
-$args = array(
-    'post_type' => 'product',
-    'posts_per_page' => 9,
-    $tax_query
-);
+
 if (count($categories) > 0) {
-    $tax_query['tax_query'] = array(
+    $tax_query = array(
         'taxonomy' => 'product_cat',
         'field' => 'term_id',
         'terms' => $categories,
         'operator' => 'IN',
     );
 }
-$args = array_merge($args, $tax_query);
+
+$args = array(
+    'post_type' => 'product',
+    'posts_per_page' => 9,
+    'tax_query' => $tax_query
+);
+
 $products = new WP_Query($args);
 dpm($args);
 ?>
