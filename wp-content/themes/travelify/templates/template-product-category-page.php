@@ -140,6 +140,23 @@ $header_text_product_category = get_field("header_text_product_category");
                 </ul>
             </div>
         </div>
+        <!-- Add clearfix -->
+        <div class="clearfix-block"></div>
+        <div class="row margin-grid">
+            <div class="col-md-12">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <?php foreach ($logos_image as $key => $item): ?>
+                            <li>
+                                <img src="<?php echo $item["image"]; ?>" />
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Add clearfix -->
+        <div class="clearfix-block"></div>
     </div>
 </div><!-- #container -->
 
