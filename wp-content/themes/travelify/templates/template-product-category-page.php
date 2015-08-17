@@ -34,9 +34,13 @@ $product_cat_id = 0;
 if (count($categories) > 0) {
     foreach ($categories as $key => $category) {
         $product_cat[] = $category->slug;
+        $product_cat_id = $category->term_id;
     }
 }
-dpm($categories);
+
+$args_category = array('parent' => 13);
+$categories_parent = get_categories($args_category);
+dpm($categories_parent);
 
 $args = array(
     'post_type' => 'product',
