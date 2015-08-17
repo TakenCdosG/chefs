@@ -89,7 +89,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
 ?>
 <?php
 $header_text_product_category = get_field("header_text_product_category");
-$top_banner = get_field('header_text_product_category');
+$top_banner = get_field('header_top_product_category');
 ?>
 <?php if (!empty($header_text_product_category)): ?>
     <div class="header_text_product_category">
