@@ -39,7 +39,7 @@ if (count($categories) > 0) {
 }
 
 $args_category = array(
-    'child_of' => $product_cat_id,
+    //'child_of' => $product_cat_id,
     'taxonomy' => 'product_cat',
 );
 $categories_parent = get_categories($args_category);
