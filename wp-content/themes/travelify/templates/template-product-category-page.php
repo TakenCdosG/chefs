@@ -84,22 +84,23 @@ $header_text_product_category = get_field("header_text_product_category");
                 </ul>
             </div>
         </div>
-    </div><!-- #container -->
+    </div>
+</div><!-- #container -->
 
-    <?php
-    /**
-     * travelify_after_main_container hook
-     */
-    do_action('travelify_after_main_container');
-    ?>
+<?php
+/**
+ * travelify_after_main_container hook
+ */
+do_action('travelify_after_main_container');
+?>
 
-    <?php
-    /**
-     * woocommerce_after_main_content hook
-     *
-     * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-     */
-    do_action('woocommerce_after_main_content');
-    ?>
+<?php
+/**
+ * woocommerce_after_main_content hook
+ *
+ * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+ */
+do_action('woocommerce_after_main_content');
+?>
 
-    <?php get_footer(''); ?>
+<?php get_footer(''); ?>
