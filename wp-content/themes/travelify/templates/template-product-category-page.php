@@ -101,7 +101,7 @@ $info = array(
     "query_string" => $wp->query_string,
     "request" => $wp->request
 );
-dpm($info);
+//dpm($info);
 ?>
 <?php if (!empty($header_text_product_category)): ?>
     <div class="header_text_product_category">
@@ -128,7 +128,7 @@ dpm($info);
                         <ul>
                             <?php foreach ($categories_parent as $key => $category): ?>
                                 <li>
-                                    <?php $current_url_category = add_query_arg(array('category=' . $category->slug), '', $current_url); ?>
+                                    <?php $current_url_category = add_query_arg(array('category' => $category->slug), '', $current_url); ?>
                                     <a href="<?php echo $current_url_category; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
                             <?php endforeach; ?>
