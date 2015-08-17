@@ -128,7 +128,8 @@ dpm($info);
                         <ul>
                             <?php foreach ($categories_parent as $key => $category): ?>
                                 <li>
-                                    <a href="<?php echo $category->slug; ?>"> <?php echo ucwords($category->name); ?></a>
+                                    <?php $current_url_category = add_query_arg(array('category=' . $category->slug), '', $current_url); ?>
+                                    <a href="<?php echo $current_url_category; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
