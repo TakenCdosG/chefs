@@ -95,7 +95,7 @@ $header_top_link_text = get_field('header_top_link_text');
 $header_top_link_url = get_field('header_top_link_url');
 
 global $wp;
-$current_url = add_query_arg($wp->query_string, '', home_url($wp->request));
+$current_url = add_query_arg($wp->query_vars, '', home_url($wp->request));
 $info = array(
     "current_url" => $current_url,
     "query_string" => $wp->query_string,
@@ -106,7 +106,7 @@ $info = array(
     "material" => get_query_var("material"),
     "wp" => $wp
 );
-dpm($info);
+//dpm($info);
 ?>
 <?php if (!empty($header_text_product_category)): ?>
     <div class="header_text_product_category">
