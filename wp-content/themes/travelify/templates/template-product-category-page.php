@@ -100,7 +100,8 @@ $info = array(
     "current_url" => $current_url,
     "query_string" => $wp->query_string,
     "request" => $wp->request,
-    "query_vars" => $wp->query_vars
+    "query_vars" => $wp->query_vars,
+    "wp" => $wp
 );
 dpm($info);
 ?>
