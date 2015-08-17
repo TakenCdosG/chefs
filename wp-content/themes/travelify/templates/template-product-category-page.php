@@ -139,7 +139,8 @@ $info = array(
                         <ul>
                             <?php foreach ($categories_parent_material as $key => $category): ?>
                                 <li>
-                                    <?php echo ucwords($category->name); ?>
+                                    <?php $current_url_material = add_query_arg(array('material' => $category->slug), '', $current_url); ?>
+                                    <a href="<?php echo $current_url_material; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -149,7 +150,8 @@ $info = array(
                         <ul>
                             <?php foreach ($categories_parent_brand as $key => $category): ?>
                                 <li>
-                                    <?php echo ucwords($category->name); ?>
+                                    <?php $current_url_brand = add_query_arg(array('brand' => $category->slug), '', $current_url); ?>
+                                    <a href="<?php echo $current_url_brand; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
