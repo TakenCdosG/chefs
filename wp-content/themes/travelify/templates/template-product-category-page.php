@@ -38,9 +38,12 @@ if (count($categories) > 0) {
     }
 }
 
-$args_category = array('child_of' => $product_cat_id);
+$args_category = array(
+    'parent' => $product_cat_id,
+    'taxonomy' => 'product_cat',
+);
 $categories_parent = get_categories($args_category);
-dpm($product_cat_id);
+dpm($categories_parent);
 
 $args = array(
     'post_type' => 'product',
