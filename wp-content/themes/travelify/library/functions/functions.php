@@ -295,6 +295,17 @@ if (!function_exists('travelify_wp_page_menu_filter')) {
 
 }
 
+
+/* * ************************************************************************************* */
+
+function add_query_vars_filter($vars) {
+    $vars[] = "category";
+    $vars[] = "brand";
+    $vars[] = "material";
+    return $vars;
+}
+
+add_filter('query_vars', 'add_query_vars_filter');
 /* * *********************************************************************************** */
 
 /**

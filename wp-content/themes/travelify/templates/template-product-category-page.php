@@ -104,6 +104,7 @@ $info = array(
     "category" => get_query_var("category"),
     "brand" => get_query_var("brand"),
     "material" => get_query_var("material"),
+    "wp" => $wp
 );
 dpm($info);
 ?>
