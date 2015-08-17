@@ -101,7 +101,7 @@ $info = array(
     "query_string" => $wp->query_string,
     "request" => $wp->request
 );
-//dpm($info);
+dpm($info);
 ?>
 <?php if (!empty($header_text_product_category)): ?>
     <div class="header_text_product_category">
