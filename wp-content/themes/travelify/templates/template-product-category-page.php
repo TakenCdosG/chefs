@@ -65,35 +65,41 @@ $header_text_product_category = get_field("header_text_product_category");
     // do_action('travelify_main_container');
     ?>
     <div class="woocommerce">
-        <ul class="products">
-            <?php
-            if ($products->have_posts()) {
-                while ($products->have_posts()) : $products->the_post();
-                    wc_get_template_part('content', 'product');
-                endwhile;
-            } else {
-                echo __('No products found');
-            }
-            wp_reset_postdata();
-            ?>
-        </ul>
-    </div>
-</div><!-- #container -->
+        <div class="row margin-grid">
+            <div class="col-md-3">
+                class="col-md-3"
+            </div>
+            <div class="col-md-9">
+                <ul class="products">
+                    <?php
+                    if ($products->have_posts()) {
+                        while ($products->have_posts()) : $products->the_post();
+                            wc_get_template_part('content', 'product');
+                        endwhile;
+                    } else {
+                        echo __('No products found');
+                    }
+                    wp_reset_postdata();
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </div><!-- #container -->
 
-<?php
-/**
- * travelify_after_main_container hook
- */
-do_action('travelify_after_main_container');
-?>
+    <?php
+    /**
+     * travelify_after_main_container hook
+     */
+    do_action('travelify_after_main_container');
+    ?>
 
-<?php
-/**
- * woocommerce_after_main_content hook
- *
- * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
- */
-do_action('woocommerce_after_main_content');
-?>
+    <?php
+    /**
+     * woocommerce_after_main_content hook
+     *
+     * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+     */
+    do_action('woocommerce_after_main_content');
+    ?>
 
-<?php get_footer(''); ?>
+    <?php get_footer(''); ?>
