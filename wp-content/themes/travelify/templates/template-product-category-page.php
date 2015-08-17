@@ -1,10 +1,12 @@
 <?php
 /**
- * Template Name: Product Category Display
+ * Template Name: Product
  *
  * Displays the Product Category Page
  *
  */
+global $product_category_display;
+$product_category_display = TRUE;
 ?>
 
 <?php get_header('products'); ?>

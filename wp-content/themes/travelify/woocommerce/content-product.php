@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly
 }
 
-global $product, $woocommerce_loop;
+global $product, $woocommerce_loop, $product_category_display;
 
 // Store loop count we're currently on
 if (empty($woocommerce_loop['loop'])) {
@@ -22,6 +22,10 @@ if (empty($woocommerce_loop['loop'])) {
 // Store column count for displaying the grid
 if (empty($woocommerce_loop['columns'])) {
     $woocommerce_loop['columns'] = apply_filters('loop_shop_columns', 4);
+}
+
+if ($product_category_display == 3) {
+    $woocommerce_loop['columns'] = 3;
 }
 
 // Ensure visibility
