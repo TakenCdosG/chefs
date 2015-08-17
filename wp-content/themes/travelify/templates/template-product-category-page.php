@@ -95,7 +95,8 @@ $header_top_link_text = get_field('header_top_link_text');
 $header_top_link_url = get_field('header_top_link_url');
 
 global $wp;
-$current_url = add_query_arg($wp->query_vars, '', home_url($wp->request));
+$query_vars = $wp->query_vars;
+$current_url = home_url($wp->request);
 $info = array(
     "current_url" => $current_url,
     "query_string" => $wp->query_string,
@@ -133,7 +134,10 @@ $info = array(
                         <ul>
                             <?php foreach ($categories_parent as $key => $category): ?>
                                 <li>
-                                    <?php $current_url_category = add_query_arg(array('category' => $category->slug), '', $current_url); ?>
+                                    <?php
+                                    $query_vars_category = array_merge($query_vars, array('category' => $category->slug));
+                                    $current_url_category = add_query_arg($query_vars_category, $current_url);
+                                    ?>
                                     <a href="<?php echo $current_url_category; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
                             <?php endforeach; ?>
