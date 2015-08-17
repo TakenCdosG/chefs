@@ -93,6 +93,15 @@ $top_banner = get_field('header_top_product_category');
 $header_top_summary = get_field('header_top_summary');
 $header_top_link_text = get_field('header_top_link_text');
 $header_top_link_url = get_field('header_top_link_url');
+
+global $wp;
+$current_url = add_query_arg($wp->query_string, '', home_url($wp->request));
+$info = array(
+    "current_url" => $current_url,
+    "query_string" => $wp->query_string,
+    "request" => $wp->request
+);
+dpm($info);
 ?>
 <?php if (!empty($header_text_product_category)): ?>
     <div class="header_text_product_category">
@@ -119,7 +128,7 @@ $header_top_link_url = get_field('header_top_link_url');
                         <ul>
                             <?php foreach ($categories_parent as $key => $category): ?>
                                 <li>
-                                    <?php echo ucwords($category->name); ?>
+                                    <a href="<?php echo $category->slug; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
