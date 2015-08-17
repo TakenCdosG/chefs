@@ -38,7 +38,7 @@ if (count($categories) > 0) {
     }
 }
 
-$args_category = array('parent' => 13);
+$args_category = array('parent' => $product_cat_id);
 $categories_parent = get_categories($args_category);
 dpm($categories_parent);
 
