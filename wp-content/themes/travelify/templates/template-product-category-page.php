@@ -96,6 +96,8 @@ $header_top_link_url = get_field('header_top_link_url');
 
 global $wp;
 $query_vars = $wp->query_vars;
+unset($query_vars["page"]);
+unset($query_vars["pagename"]);
 $current_url = home_url($wp->request);
 $info = array(
     "current_url" => $current_url,
@@ -148,7 +150,10 @@ $info = array(
                         <ul>
                             <?php foreach ($categories_parent_material as $key => $category): ?>
                                 <li>
-                                    <?php $current_url_material = add_query_arg(array('material' => $category->slug), '', $current_url); ?>
+                                    <?php
+                                    $query_vars_material = array_merge($query_vars, array('material' => $category->slug));
+                                    $current_url_material = add_query_arg($query_vars_material, $current_url);
+                                    ?>
                                     <a href="<?php echo $current_url_material; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
                             <?php endforeach; ?>
@@ -159,7 +164,10 @@ $info = array(
                         <ul>
                             <?php foreach ($categories_parent_brand as $key => $category): ?>
                                 <li>
-                                    <?php $current_url_brand = add_query_arg(array('brand' => $category->slug), '', $current_url); ?>
+                                    <?php
+                                    $query_vars_brand = array_merge($query_vars, array('brand' => $category->slug));
+                                    $current_url_brand = add_query_arg($query_vars_brand, $current_url);
+                                    ?>
                                     <a href="<?php echo $current_url_brand; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
                             <?php endforeach; ?>
