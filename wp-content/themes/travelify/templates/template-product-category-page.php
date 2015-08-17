@@ -45,6 +45,13 @@ $args_category = array(
 );
 $categories_parent = get_categories($args_category);
 
+$args_category_material = array(
+    'taxonomy' => 'pa_material',
+    'hide_empty' => 0,
+);
+
+$categories_parent_material = get_categories($args_category_material);
+
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
@@ -79,14 +86,26 @@ $header_text_product_category = get_field("header_text_product_category");
         <div class="row margin-grid">
             <div class="col-md-3">
                 <div class="sidebar-left">
-                    <h3>Shop by Category</h3>
-                    <ul>
-                        <?php foreach ($categories_parent as $key => $category): ?>
-                            <li>
-                                <?php echo ucwords($category->name); ?>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <div class="box-sidebar-left">
+                        <h3>Shop by Category</h3>
+                        <ul>
+                            <?php foreach ($categories_parent as $key => $category): ?>
+                                <li>
+                                    <?php echo ucwords($category->name); ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <div class="box-sidebar-left">
+                        <h3>Shop by Material</h3>
+                        <ul>
+                            <?php foreach ($categories_parent_material as $key => $category): ?>
+                                <li>
+                                    <?php echo ucwords($category->name); ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="col-md-9">
