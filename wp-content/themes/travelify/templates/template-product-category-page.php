@@ -44,7 +44,6 @@ $args_category = array(
     'hide_empty' => 0,
 );
 $categories_parent = get_categories($args_category);
-dpm($categories_parent);
 
 $args = array(
     'post_type' => 'product',
