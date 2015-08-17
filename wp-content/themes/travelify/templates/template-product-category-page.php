@@ -40,7 +40,7 @@ if (count($categories) > 0) {
 
 $args_category = array('child_of' => $product_cat_id);
 $categories_parent = get_categories($args_category);
-dpm($categories_parent);
+dpm($product_cat_id);
 
 $args = array(
     'post_type' => 'product',
