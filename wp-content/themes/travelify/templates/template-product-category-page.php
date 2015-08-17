@@ -30,11 +30,13 @@ $categories = get_field("shop_by_category");
 
 <?php
 $product_cat = array();
+$product_cat_id = 0;
 if (count($categories) > 0) {
     foreach ($categories as $key => $category) {
         $product_cat[] = $category->slug;
     }
 }
+dpm($categories);
 
 $args = array(
     'post_type' => 'product',
