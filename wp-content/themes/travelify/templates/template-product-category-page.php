@@ -148,7 +148,7 @@ $top_banner = get_field('header_top_product_category');
                     <div class="row margin-grid">
                         <div class="col-md-12">
                             <div class="top_banner_product_category">
-                                <?php echo $top_banner; ?>
+                                <img width="" height="" src="<?php echo $top_banner; ?>" class="img-responsive" alt="" title="">
                             </div>
                         </div>
                     </div>
