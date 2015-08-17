@@ -52,6 +52,13 @@ $args_category_material = array(
 
 $categories_parent_material = get_categories($args_category_material);
 
+$args_category_brand = array(
+    'taxonomy' => 'pa_brand',
+    'hide_empty' => 0,
+);
+
+$categories_parent_brand = get_categories($args_category_brand);
+
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
@@ -100,6 +107,16 @@ $header_text_product_category = get_field("header_text_product_category");
                         <h3>Shop by Material</h3>
                         <ul>
                             <?php foreach ($categories_parent_material as $key => $category): ?>
+                                <li>
+                                    <?php echo ucwords($category->name); ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <div class="box-sidebar-left">
+                        <h3>Shop by Brand</h3>
+                        <ul>
+                            <?php foreach ($categories_parent_brand as $key => $category): ?>
                                 <li>
                                     <?php echo ucwords($category->name); ?>
                                 </li>
