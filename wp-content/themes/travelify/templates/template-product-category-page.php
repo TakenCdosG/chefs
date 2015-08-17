@@ -69,6 +69,23 @@ $info = array(
     "args" => $args,
     "products" => $products
 );
+
+
+
+// Front Page - Logos
+$post_id_home = 109;
+$num_logos = 10;
+$logos_image = array();
+for ($i = 1; $i <= $num_logos; $i++) {
+    $image_key = "front_logo_" . $i;
+    $link_key = "front_link_logo_" . $i;
+    $image = get_field($image_key, $post_id_home);
+    $link = get_field($link_key, $post_id_home);
+    if (!empty($image)) {
+        $new_image = array("image" => $image, "link" => $link);
+        $logos_image[] = $new_image;
+    }
+}
 ?>
 <?php
 $header_text_product_category = get_field("header_text_product_category");
