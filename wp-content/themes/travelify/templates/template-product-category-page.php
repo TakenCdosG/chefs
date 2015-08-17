@@ -89,6 +89,8 @@ for ($i = 1; $i <= $num_logos; $i++) {
 ?>
 <?php
 $header_text_product_category = get_field("header_text_product_category");
+
+$top_banner = get_the_post_thumbnail($first_blog_post->ID, 'full');
 ?>
 <?php if (!empty($header_text_product_category)): ?>
     <div class="header_text_product_category">
@@ -143,6 +145,17 @@ $header_text_product_category = get_field("header_text_product_category");
                 </div>
             </div>
             <div class="col-md-9">
+                <?php if (!empty($top_banner)): ?>
+                    <div class="row margin-grid">
+                        <div class="col-md-12">
+                            <div class="top_banner_product_category">
+                                <?php echo $top_banner; ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <!-- Add clearfix -->
+                <div class="clearfix-block"></div>
                 <ul class="products">
                     <?php
                     if ($products->have_posts()) {
