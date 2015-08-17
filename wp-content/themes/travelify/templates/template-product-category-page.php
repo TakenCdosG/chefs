@@ -79,7 +79,16 @@ $header_text_product_category = get_field("header_text_product_category");
     <div class="woocommerce">
         <div class="row margin-grid">
             <div class="col-md-3">
-                class="col-md-3"
+                <div class="sidebar-left">
+                    <h3>Shop by Category</h3>
+                    <ul>
+                        <?php foreach ($categories_parent as $key => $category): ?>
+                            <li>
+                                <?php echo ucwords($category->name); ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
             <div class="col-md-9">
                 <ul class="products">
