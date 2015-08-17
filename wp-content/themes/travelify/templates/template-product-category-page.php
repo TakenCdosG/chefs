@@ -99,7 +99,8 @@ $current_url = add_query_arg($wp->query_string, '', home_url($wp->request));
 $info = array(
     "current_url" => $current_url,
     "query_string" => $wp->query_string,
-    "request" => $wp->request
+    "request" => $wp->request,
+    "query_vars" => $wp->query_vars
 );
 dpm($info);
 ?>
