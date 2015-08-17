@@ -90,6 +90,9 @@ for ($i = 1; $i <= $num_logos; $i++) {
 <?php
 $header_text_product_category = get_field("header_text_product_category");
 $top_banner = get_field('header_top_product_category');
+$header_top_summary = get_field('header_top_summary');
+$header_top_link_text = get_field('header_top_link_text');
+$header_top_link_url = get_field('header_top_link_url');
 ?>
 <?php if (!empty($header_text_product_category)): ?>
     <div class="header_text_product_category">
@@ -149,9 +152,19 @@ $top_banner = get_field('header_top_product_category');
                         <div class="col-md-12">
                             <div class="top_banner_product_category">
                                 <img width="" height="" src="<?php echo $top_banner; ?>" class="img-responsive" alt="" title="">
+                                <?php if (!empty($header_top_summary)): ?>
+                                    <div class="header_top_summary">
+                                        <h2><?php echo $header_top_summary; ?></h2>
+                                        <?php if (!empty($header_top_link_text) && !empty($header_top_link_url)): ?>
+                                            <a href="<?php echo $header_top_link_url; ?>"><?php echo $header_top_link_text; ?></a>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
+
                         </div>
                     </div>
+
                 <?php endif; ?>
                 <!-- Add clearfix -->
                 <div class="clearfix-block"></div>
