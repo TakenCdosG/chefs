@@ -64,15 +64,11 @@ $args = array(
     'posts_per_page' => 9,
     'product_cat' => implode(",", $product_cat),
     'meta_query' => array(
-        'relation' => 'OR',
         array(
             'key' => '_stock_status',
-            'value' => 'instock'
+            'value' => array('instock', 'outofstock'),
+            'compare' => 'IN',
         ),
-        array(
-            'key' => '_stock_status',
-            'value' => 'outofstock'
-        )
     )
 );
 $products = new WP_Query($args);
