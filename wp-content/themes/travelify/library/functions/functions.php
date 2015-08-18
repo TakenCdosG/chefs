@@ -96,7 +96,7 @@ function custom_price_html($price, $product) {
         $str_del = '<del><span class="amount">Regular price: ' . $prices[0] . '</span></del>';
     }
     if (isset($prices[1])) {
-        $str_ins = '<ins><span class="amount">Sale price: ' . $prices[1] . '</span></ins>';
+        $str_ins = '<br/><ins><span class="amount">Sale price: ' . $prices[1] . '</span></ins>';
     }
     $price = $str_del . $str_ins;
     return $price;
@@ -105,8 +105,6 @@ function custom_price_html($price, $product) {
 add_filter('woocommerce_price_html', 'custom_only_price_html', 100, 2);
 
 function custom_only_price_html($price, $product) {
-    //$price = $price . ',-';
-    //dpm(price_array($price));
     $str_ins = '';
     $prices = price_array($price);
     if (isset($prices[0])) {
