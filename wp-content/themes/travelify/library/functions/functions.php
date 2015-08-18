@@ -88,8 +88,18 @@ add_filter('woocommerce_sale_price_html', 'custom_price_html', 100, 2);
 
 function custom_price_html($price, $product) {
     //$price = $price . ',-';
-    dpm($price);
+    dpm(price_array($price));
     return $price;
+}
+
+function price_array($price) {
+    $del = array('<span class="amount">', '</span>', '<del>', '<ins>');
+    $price = str_replace($del, '', $price);
+    $price = str_replace('</del>', '|', $price);
+    $price = str_replace('</ins>', '|', $price);
+    $price_arr = explode('|', $price);
+    $price_arr = array_filter($price_arr);
+    return $price_arr;
 }
 
 /* * ************************************************************************************* */
