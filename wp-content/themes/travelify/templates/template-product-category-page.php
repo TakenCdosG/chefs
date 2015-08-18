@@ -63,14 +63,24 @@ $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
     'product_cat' => implode(",", $product_cat),
+    'meta_query' => array(
+        'relation' => 'OR',
+        array(
+            'key' => '_stock_status',
+            'value' => 'instock'
+        ),
+        array(
+            'key' => '_stock_status',
+            'value' => 'outofstock'
+        )
+    )
 );
 $products = new WP_Query($args);
+
 $info = array(
     "args" => $args,
     "products" => $products
 );
-
-
 
 // Front Page - Logos
 $post_id_home = 109;
@@ -125,7 +135,7 @@ $info = array(
      *
      * travelify_content 10
      */
-    // do_action('travelify_main_container');
+// do_action('travelify_main_container');
     ?>
     <div class="woocommerce">
         <div class="row margin-grid">
