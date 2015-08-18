@@ -102,6 +102,20 @@ function custom_price_html($price, $product) {
     return $price;
 }
 
+add_filter('woocommerce_price_html', 'custom_only_price_html', 100, 2);
+
+function custom_only_price_html($price, $product) {
+    //$price = $price . ',-';
+    //dpm(price_array($price));
+    $str_ins = '';
+    $prices = price_array($price);
+    if (isset($prices[0])) {
+        $str_ins = '<ins><span class="amount">Sale price: ' . $prices[0] . '</span></ins>';
+    }
+    $price = $str_ins;
+    return $price;
+}
+
 function price_array($price) {
     $del = array('<span class="amount">', '</span>', '<del>', '<ins>');
     $price = str_replace($del, '', $price);
