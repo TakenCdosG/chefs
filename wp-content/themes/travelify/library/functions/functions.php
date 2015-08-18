@@ -84,6 +84,15 @@ function travelify_wp_page_menu($page_markup) {
 }
 
 /* * ************************************************************************************* */
+add_filter('woocommerce_sale_price_html', 'custom_price_html', 100, 2);
+
+function custom_price_html($price, $product) {
+    //$price = $price . ',-';
+    dpm($price);
+    return $price;
+}
+
+/* * ************************************************************************************* */
 
 if (!function_exists('travelify_pass_cycle_parameters')) :
 
