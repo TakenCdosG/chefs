@@ -206,7 +206,7 @@ $info = array(
                          <h3>Filter By:</h3>
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-1">Brand</a>
-                            <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip">
+                            <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
                                 <ul class="jq-dropdown-menu">
                                     <li><a href="#1">Item 1</a></li>
                                     <li><a href="#2">Item 2</a></li>
