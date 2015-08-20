@@ -204,16 +204,8 @@ $info = array(
                 <div class="row margin-grid">
                      <div class="col-md-3">
                          <h3>Filter By:</h3>
-                           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li class="dropdown-header">Brand</li>
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li><a href="#">Separated link</a></li>
-                          </ul>
-                     </div>
-                     <div class="col-md-3">
-                            <a href="#" data-jq-dropdown="#jq-dropdown-1">dropdown</a>
+                         <div class="category-filter">
+                            <a href="#" data-jq-dropdown="#jq-dropdown-1">Brand</a>
                             <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip">
                                 <ul class="jq-dropdown-menu">
                                     <li><a href="#1">Item 1</a></li>
@@ -225,6 +217,10 @@ $info = array(
                                     <li><a href="#5">Item 6</a></li>
                                 </ul>
                             </div>
+                         </div>
+                     </div>
+                     <div class="col-md-3">
+
                      </div>
                      <div class="col-md-3">
                      </div>
