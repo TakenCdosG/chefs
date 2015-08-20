@@ -199,8 +199,25 @@ $info = array(
 
                         </div>
                     </div>
-
                 <?php endif; ?>
+                <!-- Add Filtros -->
+                <div class="row margin-grid">
+                     <div class="col-md-3">
+                         <h3>Filter By:</h3>
+                           <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li class="dropdown-header">Brand</li>
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">Separated link</a></li>
+                          </ul>
+                     </div>
+                     <div class="col-md-3">
+                     </div>
+                     <div class="col-md-3">
+                     </div>
+                </div>   
+                <!-- End Filtros -->  
                 <!-- Add clearfix -->
                 <div class="clearfix-block"></div>
                 <ul class="products">
