@@ -213,6 +213,17 @@ $info = array(
                           </ul>
                      </div>
                      <div class="col-md-3">
+                            <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip">
+                                <ul class="jq-dropdown-menu">
+                                    <li><a href="#1">Item 1</a></li>
+                                    <li><a href="#2">Item 2</a></li>
+                                    <li><a href="#3">Item 3</a></li>
+                                    <li class="jq-dropdown-divider"></li>
+                                    <li><a href="#4">Item 4</a></li>
+                                    <li><a href="#5">Item 5</a></li>
+                                    <li><a href="#5">Item 6</a></li>
+                                </ul>
+                            </div>
                      </div>
                      <div class="col-md-3">
                      </div>
