@@ -146,10 +146,11 @@ $info = array(
                                     <?php
                                     $query_vars_category = array_merge($query_vars, array('category' => $category->slug));
                                     $current_url_category = add_query_arg($query_vars_category, $current_url);
+                                    $category_name = ucwords($category->name);
                                     ?>
-                                    <a href="<?php echo $current_url_category; ?>"> <?php echo ucwords($category->name); ?></a>
+                                    <a href="<?php echo $current_url_category; ?>"> <?php echo $category_name; ?></a>
                                 </li>
-                                <?php $filter_category_items .= '<li><a href="'$current_url_category;'">'ucwords($category->name)'</a></li>';?>
+                                <?php $filter_category_items .= '<li><a href="'.$current_url_category.'">'.$category_name.'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
