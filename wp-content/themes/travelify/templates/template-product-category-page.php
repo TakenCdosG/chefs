@@ -132,6 +132,7 @@ $info = array(
      * travelify_content 10
      */
 // do_action('travelify_main_container');
+    $filter_category_items = "";
     ?>
     <div class="woocommerce">
         <div class="row margin-grid">
@@ -148,6 +149,7 @@ $info = array(
                                     ?>
                                     <a href="<?php echo $current_url_category; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
+                                <?php $filter_category_items .= '<li><a href="'$current_url_category;'">'ucwords($category->name)'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -208,34 +210,7 @@ $info = array(
                             <a href="#" data-jq-dropdown="#jq-dropdown-1">Brand</a>
                             <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
                                 <ul class="jq-dropdown-menu">
-                                    <li><a href="#1">Item 1</a></li>
-                                    <li><a href="#2">Item 2</a></li>
-                                    <li><a href="#3">Item 3</a></li>
-                                    <li class="jq-dropdown-divider"></li>
-                                    <li><a href="#4">Item 4</a></li>
-                                    <li><a href="#5">Item 5</a></li>
-                                    <li><a href="#5">Item 6</a></li>
-                                    <li><a href="#4">Item 4</a></li>
-                                    <li><a href="#5">Item 5</a></li>
-                                    <li><a href="#5">Item 6</a></li>
-                                    <li><a href="#4">Item 4</a></li>
-                                    <li><a href="#5">Item 5</a></li>
-                                    <li><a href="#5">Item 6</a></li>
-                                    <li><a href="#4">Item 4</a></li>
-                                    <li><a href="#5">Item 5</a></li>
-                                    <li><a href="#5">Item 6</a></li>
-                                    <li><a href="#4">Item 4</a></li>
-                                    <li><a href="#5">Item 5</a></li>
-                                    <li><a href="#5">Item 6</a></li>
-                                    <li><a href="#4">Item 4</a></li>
-                                    <li><a href="#5">Item 5</a></li>
-                                    <li><a href="#5">Item 6</a></li>
-                                    <li><a href="#4">Item 4</a></li>
-                                    <li><a href="#5">Item 5</a></li>
-                                    <li><a href="#5">Item 6</a></li>
-                                    <li><a href="#4">Item 4</a></li>
-                                    <li><a href="#5">Item 5</a></li>
-                                    <li><a href="#5">Item 6</a></li>
+                                    <?php echo $filter_category_items; ?>
                                 </ul>
                             </div>
                          </div>
