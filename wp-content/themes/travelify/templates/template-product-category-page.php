@@ -210,6 +210,7 @@ $info = array(
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-1" class="jq-dropdown-link">Brand</a>
                             <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
+                                <div class="jq-dropdown-before"></div>
                                 <ul class="jq-dropdown-menu">
                                     <?php echo $filter_category_items; ?>
                                 </ul>
