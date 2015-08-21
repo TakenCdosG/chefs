@@ -5,6 +5,14 @@
 jQuery(function ($) {
     $(document).ready(function () {
         initialize();
+        $('#products').infinitescroll({
+            navSelector  : "div.pagination-category",            
+            // selector for the paged navigation (it will be hidden)
+            nextSelector : "div.pagination-category a:first",    
+            // selector for the NEXT link (to page 2)
+            itemSelector : "#products div.product"          
+            // selector for all items you'll retrieve
+        });
     }); // End doc ready
     $(window).load(function () {
         $('.flexslider').flexslider({

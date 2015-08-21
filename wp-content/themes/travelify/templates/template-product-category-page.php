@@ -138,7 +138,7 @@ $info = array(
     $filter_category_items = "";
     $filter_material_items  = "";
     $filter_brand_items = "";
-    
+
     ?>
     <div class="woocommerce">
         <div class="row margin-grid">
@@ -271,6 +271,7 @@ $info = array(
                     ?>
                 </ul>
                 <!-- Add pagination -->
+                <div class="pagination-category">
                 <?php
                 $big = 999999999; // need an unlikely integer
                 echo paginate_links( array(
@@ -280,6 +281,7 @@ $info = array(
                     'total' => $products->max_num_pages,
                 ) );
                 ?>
+                </div>
             </div>
         </div>
         <!-- Add clearfix -->
