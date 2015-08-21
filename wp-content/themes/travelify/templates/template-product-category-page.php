@@ -178,9 +178,11 @@ $info = array(
                                     <?php
                                     $query_vars_brand = array_merge($query_vars, array('brand' => $category->slug));
                                     $current_url_brand = add_query_arg($query_vars_brand, $current_url);
+                                    $category_name = ucwords($category->name);
                                     ?>
                                     <a href="<?php echo $current_url_brand; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
+                                <?php $filter_brand_items .= '<li><a href="'.$current_url_category.'">'.$category_name.'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -208,10 +210,9 @@ $info = array(
                 <!-- Add Filtros -->
                 <div class="row margin-grid">
                      <div class="col-md-3">
-                         <h3>Filter By:</h3>
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-1" class="jq-dropdown-link">
-                                Brand
+                                Category
                                 <div class="jq-dropdown-before"></div>
                             </a>
                             <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
@@ -235,6 +236,17 @@ $info = array(
                          </div>
                      </div>
                      <div class="col-md-3">
+                         <div class="category-filter">
+                            <a href="#" data-jq-dropdown="#jq-dropdown-3" class="jq-dropdown-link">
+                                Brand
+                                <div class="jq-dropdown-before"></div>
+                            </a>
+                            <div id="jq-dropdown-3" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
+                                <ul class="jq-dropdown-menu">
+                                    <?php echo $filter_brand_items; ?>
+                                </ul>
+                            </div>
+                         </div>
                      </div>
                 </div>   
                 <!-- End Filtros -->  
