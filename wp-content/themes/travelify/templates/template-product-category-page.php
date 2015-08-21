@@ -208,9 +208,11 @@ $info = array(
                      <div class="col-md-3">
                          <h3>Filter By:</h3>
                          <div class="category-filter">
-                            <a href="#" data-jq-dropdown="#jq-dropdown-1" class="jq-dropdown-link">Brand</a>
-                            <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
+                            <a href="#" data-jq-dropdown="#jq-dropdown-1" class="jq-dropdown-link">
+                                Brand
                                 <div class="jq-dropdown-before"></div>
+                            </a>
+                            <div id="jq-dropdown-1" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
                                 <ul class="jq-dropdown-menu">
                                     <?php echo $filter_category_items; ?>
                                 </ul>
