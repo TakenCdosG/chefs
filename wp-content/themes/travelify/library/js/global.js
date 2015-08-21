@@ -5,13 +5,18 @@
 jQuery(function ($) {
     $(document).ready(function () {
         initialize();
-        $('#products').infinitescroll({
+        $('div.products').infinitescroll({
             navSelector  : "div.pagination-category",            
             // selector for the paged navigation (it will be hidden)
             nextSelector : "div.pagination-category a:first",    
             // selector for the NEXT link (to page 2)
-            itemSelector : "#products div.product"          
+            itemSelector : "div.products div.product",          
             // selector for all items you'll retrieve
+            debug : true,                        
+            // enable debug messaging ( to console.log )
+            loadingImg   : "/img/loading.gif",          
+            // loading image.
+            loadingText  : "Loading new posts...",     
         });
     }); // End doc ready
     $(window).load(function () {
