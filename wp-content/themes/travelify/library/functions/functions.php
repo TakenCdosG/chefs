@@ -50,6 +50,8 @@ function travelify_scripts_styles_method() {
     if (( is_home() || is_front_page() ) && "0" == $options['disable_slider']) {
         wp_enqueue_script('travelify_slider', get_template_directory_uri() . '/library/js/slider-settings.min.js', array('jquery_cycle'), false, true);
     }
+    
+    wp_enqueue_script('theme_jquery_infinitescroll_functions', get_template_directory_uri() . '/library/js/jquery.infinitescroll.js', array('jquery'));
 
     wp_enqueue_script('theme_functions', get_template_directory_uri() . '/library/js/functions.min.js', array('jquery'));
 
