@@ -16,7 +16,8 @@ jQuery(function ($) {
             // enable debug messaging ( to console.log )
             loadingImg   : "/img/loading.gif",          
             // loading image.
-            loadingText  : "Loading new posts...",     
+            loadingText  : "Loading new posts...",   
+            donetext     : "You've reached the end of the products for this category." ,  
         });
     }); // End doc ready
     $(window).load(function () {
