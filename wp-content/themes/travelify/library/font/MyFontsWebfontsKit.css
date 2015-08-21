@@ -1,0 +1,28 @@
+/**
+ * @license
+ * MyFonts Webfont Build ID 3079124, 2015-08-21T11:14:16-0400
+ * 
+ * The fonts listed in this notice are subject to the End User License
+ * Agreement(s) entered into by the website owner. All other parties are 
+ * explicitly restricted from using the Licensed Webfonts(s).
+ * 
+ * You may obtain a valid license at the URLs below.
+ * 
+ * Webfont: Vito-Bold by Typejockeys
+ * URL: http://www.myfonts.com/fonts/typejockeys/vito/bold/
+ * Copyright: Copyright &#x00A9; 2015 by Typejockeys. All rights reserved.
+ * Licensed pageviews: 10,000
+ * 
+ * 
+ * License: http://www.myfonts.com/viewlicense?type=web&buildid=3079124
+ * 
+ * © 2015 MyFonts Inc
+*/
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/2efbd4");
+
+  
+@font-face {font-family: 'Vito-Bold';src: url('webfonts/2EFBD4_0_0.eot');src: url('webfonts/2EFBD4_0_0.eot?#iefix') format('embedded-opentype'),url('webfonts/2EFBD4_0_0.woff2') format('woff2'),url('webfonts/2EFBD4_0_0.woff') format('woff'),url('webfonts/2EFBD4_0_0.ttf') format('truetype');}
+ 

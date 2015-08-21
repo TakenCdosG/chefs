@@ -26,6 +26,8 @@ function travelify_scripts_styles_method() {
     if (is_rtl()) {
         wp_enqueue_style('travelify-rtl-style', get_template_directory_uri() . '/rtl.css', false);
     }
+    
+    wp_enqueue_style('travelify-webfonts-style', get_template_directory_uri() . '/library/font/MyFontsWebfontsKit.css', false);
 
     /**
      * Adds JavaScript to pages with the comment form to support
