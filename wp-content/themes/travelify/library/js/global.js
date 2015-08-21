@@ -1,6 +1,7 @@
 /**
  * Global Js
  */
+ 
 
 jQuery(function ($) {
     $(document).ready(function () {
