@@ -17,7 +17,8 @@ jQuery(function ($) {
             loadingImg   : "/img/loading.gif",          
             // loading image.
             loadingText  : "Loading new posts...",   
-            donetext     : "You've reached the end of the products for this category." ,
+            donetext     : "You've reached the end of the products for this category.",
+            loadingText  : "Loading new products...", 
             animate      : false,   
         });
     }); // End doc ready
