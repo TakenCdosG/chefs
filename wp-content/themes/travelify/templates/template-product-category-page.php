@@ -162,9 +162,11 @@ $info = array(
                                     <?php
                                     $query_vars_material = array_merge($query_vars, array('material' => $category->slug));
                                     $current_url_material = add_query_arg($query_vars_material, $current_url);
+                                    $category_name = ucwords($category->name);
                                     ?>
                                     <a href="<?php echo $current_url_material; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
+                                <?php $filter_material_items .= '<li><a href="'.$current_url_category.'">'.$category_name.'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -220,7 +222,17 @@ $info = array(
                          </div>
                      </div>
                      <div class="col-md-3">
-
+                         <div class="category-filter">
+                            <a href="#" data-jq-dropdown="#jq-dropdown-2" class="jq-dropdown-link">
+                                Material
+                                <div class="jq-dropdown-before"></div>
+                            </a>
+                            <div id="jq-dropdown-2" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
+                                <ul class="jq-dropdown-menu">
+                                    <?php echo $filter_material_items; ?>
+                                </ul>
+                            </div>
+                         </div>
                      </div>
                      <div class="col-md-3">
                      </div>
