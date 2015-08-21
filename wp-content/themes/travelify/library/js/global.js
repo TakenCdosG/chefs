@@ -18,7 +18,7 @@ jQuery(function ($) {
             // loading image.
             loadingText  : "Loading new posts...",   
             donetext     : "You've reached the end of the products for this category." ,
-            animate      : true,   
+            animate      : false,   
         });
     }); // End doc ready
     $(window).load(function () {
