@@ -59,9 +59,12 @@ $args_category_brand = array(
 
 $categories_parent_brand = get_categories($args_category_brand);
 
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
+    'paged' => $paged,
     'product_cat' => implode(",", $product_cat),
     'meta_query' => array(
         array(
@@ -264,6 +267,16 @@ $info = array(
                     wp_reset_postdata();
                     ?>
                 </ul>
+                <!-- Add pagination -->
+                <?php
+                $big = 999999999; // need an unlikely integer
+                echo paginate_links( array(
+                    'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                    'format' => '?paged=%#%',
+                    'current' => max( 1, get_query_var('paged') ),
+                    'total' => $products ->max_num_pages;
+                ) );
+                ?>
             </div>
         </div>
         <!-- Add clearfix -->
