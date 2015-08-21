@@ -5,12 +5,12 @@
 jQuery(function ($) {
     $(document).ready(function () {
         initialize();
-        $('div.products').infinitescroll({
+        $('ul.products').infinitescroll({
             navSelector  : "div.pagination-category",            
             // selector for the paged navigation (it will be hidden)
             nextSelector : "div.pagination-category a:first",    
             // selector for the NEXT link (to page 2)
-            itemSelector : "div.products div.product",          
+            itemSelector : "ul.products div.product",          
             // selector for all items you'll retrieve
             debug : true,                        
             // enable debug messaging ( to console.log )
