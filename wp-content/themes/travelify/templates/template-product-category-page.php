@@ -136,6 +136,9 @@ $info = array(
      */
 // do_action('travelify_main_container');
     $filter_category_items = "";
+    $filter_material_items  = "";
+    $filter_brand_items = "";
+    
     ?>
     <div class="woocommerce">
         <div class="row margin-grid">
