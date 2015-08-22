@@ -188,24 +188,6 @@ function travelify_headerdetails() {
 
     <div class="container clearfix">
         <div class="hgroup-wrap clearfix">
-            <section class="hgroup-right-header_upper">
-                <?php
-                    $defaults = array(
-                        'menu'            => '77',
-                        'container'       => 'div',
-                        'container_class' => 'header_upper',
-                        'container_id'    => '',
-                        'menu_class'      => 'menu',
-                        'menu_id'         => '',
-                        'echo'            => true,
-                    );
-                    wp_nav_menu($defaults);
-                ?>
-            </section>
-            <section class="hgroup-right">
-                <?php travelify_socialnetworks($flag); ?>
-                <?php get_search_form(); ?>
-            </section><!-- .hgroup-right -->
             <hgroup id="site-logo" class="clearfix">
                 <?php
                 if ($options['header_show'] != 'disable-both' && $options['header_show'] == 'header-text') {
@@ -227,9 +209,25 @@ function travelify_headerdetails() {
                     <?php
                 }
                 ?>
-
             </hgroup><!-- #site-logo -->
-
+            <section class="hgroup-right-header_upper">
+                <?php
+                    $defaults = array(
+                        'menu'            => '77',
+                        'container'       => 'div',
+                        'container_class' => 'header_upper',
+                        'container_id'    => '',
+                        'menu_class'      => 'menu',
+                        'menu_id'         => '',
+                        'echo'            => true,
+                    );
+                    wp_nav_menu($defaults);
+                ?>
+            </section>
+            <section class="hgroup-right">
+                <?php travelify_socialnetworks($flag); ?>
+                <?php get_search_form(); ?>
+            </section><!-- .hgroup-right -->
         </div><!-- .hgroup-wrap -->
     </div><!-- .container -->
     <?php
