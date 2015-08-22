@@ -228,6 +228,20 @@ function travelify_headerdetails() {
                 <?php travelify_socialnetworks($flag); ?>
                 <?php get_search_form(); ?>
             </section><!-- .hgroup-right -->
+            <section class="hgroup-right-header_bottom">
+                <?php
+                    $defaults = array(
+                        'menu'            => '78',
+                        'container'       => 'div',
+                        'container_class' => 'header_bottom',
+                        'container_id'    => '',
+                        'menu_class'      => 'menu',
+                        'menu_id'         => '',
+                        'echo'            => true,
+                    );
+                    wp_nav_menu($defaults);
+                ?>
+            </section>
         </div><!-- .hgroup-wrap -->
     </div><!-- .container -->
     <?php
