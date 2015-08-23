@@ -109,28 +109,24 @@ $args = array(
 );
 
 if(!empty($filtros["material"]) || !empty($filtros["brand"])){
-
-    $arg['tax_query']['relation'] = 'AND';
-
+    $args['tax_query']['relation'] = 'AND';
     if(!empty($filtros["material"])){
-          $arg['tax_query'][] = array(
+          $args['tax_query'][] = array(
             'taxonomy' => 'pa_material',
             'field'    => 'slug',
             'terms'    => $filtros["material"],
           );
     }
-
     if(!empty($filtros["brand"])){
-          $arg['tax_query'][] = array(
+          $args['tax_query'][] = array(
             'taxonomy' => 'pa_brand',
             'field'    => 'slug',
             'terms'    => $filtros["brand"],
           );
     }
-
 }
 
-dpm($arg);
+dpm($args);
 
 $products = new WP_Query($args);
 
