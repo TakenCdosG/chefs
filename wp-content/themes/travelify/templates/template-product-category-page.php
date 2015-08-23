@@ -198,48 +198,69 @@ $info = array(
                     <div class="box-sidebar-left">
                         <h3>Shop by Category</h3>
                         <ul>
+                            <?php $empty_filtros_category = empty($filtros["category"]); ?>
                             <?php foreach ($categories_parent as $key => $category): ?>
                                 <li>
                                     <?php
                                     $query_vars_category = array_merge($query_vars, array('category' => $category->slug));
                                     $current_url_category = add_query_arg($query_vars_category, $current_url);
                                     $category_name = ucwords($category->name);
+                                    $class = "";
+                                    if(!$empty_filtros_category){
+                                       if($filtros["category"] == $category->slug)){
+                                           $class = "active";
+                                       }
+                                    }
                                     ?>
-                                    <a href="<?php echo $current_url_category; ?>"> <?php echo $category_name; ?></a>
+                                    <a href="<?php echo $current_url_category; ?>" class="<?php echo $class;?>"> <?php echo $category_name; ?></a>
                                 </li>
-                                <?php $filter_category_items .= '<li><a href="'.$current_url_category.'">'.$category_name.'</a></li>';?>
+                                <?php $filter_category_items .= '<li><a href="'.$current_url_category.'" class="'.$class.'">'.$category_name.'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
                     <div class="box-sidebar-left">
                         <h3>Shop by Material</h3>
                         <ul>
+                            <?php $empty_filtros_material = empty($filtros["material"]); ?>
                             <?php foreach ($categories_parent_material as $key => $category): ?>
                                 <li>
                                     <?php
                                     $query_vars_material = array_merge($query_vars, array('material' => $category->slug));
                                     $current_url_material = add_query_arg($query_vars_material, $current_url);
                                     $category_name = ucwords($category->name);
+                                    $class = "";
+                                    if(!$empty_filtros_material){
+                                       if($filtros["material"] == $category->slug)){
+                                           $class = "active";
+                                       }
+                                    }
                                     ?>
-                                    <a href="<?php echo $current_url_material; ?>"> <?php echo ucwords($category->name); ?></a>
+                                    <a href="<?php echo $current_url_material; ?>" class="<?php echo $class;?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
-                                <?php $filter_material_items .= '<li><a href="'.$current_url_material.'">'.$category_name.'</a></li>';?>
+                                <?php $filter_material_items .= '<li><a href="'.$current_url_material.'" class="'.$class.'">'.$category_name.'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
                     <div class="box-sidebar-left">
                         <h3>Shop by Brand</h3>
                         <ul>
+                            <?php $empty_filtros_brand = empty($filtros["brand"]); ?>
                             <?php foreach ($categories_parent_brand as $key => $category): ?>
                                 <li>
                                     <?php
                                     $query_vars_brand = array_merge($query_vars, array('brand' => $category->slug));
                                     $current_url_brand = add_query_arg($query_vars_brand, $current_url);
                                     $category_name = ucwords($category->name);
+                                    $class = "";
+                                    if(!$empty_filtros_brand){
+                                       if($filtros["brand"] == $category->slug)){
+                                           $class = "active";
+                                       }
+                                    }
                                     ?>
-                                    <a href="<?php echo $current_url_brand; ?>"> <?php echo ucwords($category->name); ?></a>
+                                    <a href="<?php echo $current_url_brand; ?>" class="<?php echo $class; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
-                                <?php $filter_brand_items .= '<li><a href="'.$current_url_brand.'">'.$category_name.'</a></li>';?>
+                                <?php $filter_brand_items .= '<li><a href="'.$current_url_brand.'" class="'.$class.'">'.$category_name.'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
