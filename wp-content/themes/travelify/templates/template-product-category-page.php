@@ -69,8 +69,8 @@ $filtros["category"] = get_query_var('category');
 $filtros["material"] = get_query_var('material');
 $filtros["brand"] = get_query_var('brand');
 
-dpm($filtros);
-
+//dpm($filtros);
+/*
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
@@ -84,6 +84,28 @@ $args = array(
         ),
     )
 );
+*/
+
+$args = array(
+    'post_type' => 'product',
+    'posts_per_page' => 9,
+    'paged' => $paged,
+    'meta_query' => array(
+        array(
+            'key' => '_stock_status',
+            'value' => array('instock', 'outofstock'),
+            'compare' => 'IN',
+        ),
+    ),
+    'tax_query' => array(
+        array(
+            'taxonomy' => 'product_cat',
+            'field'    => 'slug',
+            'terms'    => $product_cat,
+        ),
+    ),
+);
+
 $products = new WP_Query($args);
 
 $info = array(
