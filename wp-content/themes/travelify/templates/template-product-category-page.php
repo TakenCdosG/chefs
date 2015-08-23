@@ -86,6 +86,8 @@ $args = array(
 );
 */
 
+$taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$product_cat;
+
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
@@ -101,7 +103,7 @@ $args = array(
         array(
             'taxonomy' => 'product_cat',
             'field'    => 'slug',
-            'terms'    => $product_cat,
+            'terms'    => $taxonomy_product_cat,
         ),
     ),
 );
