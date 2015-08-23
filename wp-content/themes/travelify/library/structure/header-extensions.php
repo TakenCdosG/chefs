@@ -375,7 +375,7 @@ if (!function_exists('travelify_featured_post_slider')) :
 		<section class="featured-slider"><div class="slider-cycle">';
             $get_featured_posts = new WP_Query(array(
                 'posts_per_page' => $options['slider_quantity'],
-                'post_type' => array('post', 'page'),
+                'post_type' => array('post', 'page', 'slider'),
                 'post__in' => $options['featured_post_slider'],
                 'orderby' => 'post__in',
                 'suppress_filters' => false,
@@ -393,26 +393,41 @@ if (!function_exists('travelify_featured_post_slider')) :
                 }
                 $travelify_featured_post_slider .= '
 				<div class="' . $classes . '">';
-                if (has_post_thumbnail()) {
+                //-> print images
+                $featured_image_left = get_field("featured_image_left", $post->ID);
+                $featured_image_left_title_red = get_field("featured_image_left_title_red", $post->ID);
+                $featured_image_left_title_black = get_field("featured_image_left_title_black", $post->ID);
+                $featured_image_left_link_text = get_field("featured_image_left_link_text", $post->ID);
+                $featured_image_left_link_url = get_field("featured_image_left_link_url", $post->ID);
 
-                    $travelify_featured_post_slider .= '<figure><a href="' . get_permalink() . '" title="' . the_title('', '', false) . '">';
+                $featured_image_right = get_field("featured_image_right", $post->ID);
+                $featured_image_right_title_red = get_field("featured_image_right_title_red", $post->ID);
+                $featured_image_right_title_black = get_field("featured_image_right_title_black", $post->ID);
+                $featured_image_right_link_text = get_field("featured_image_right_link_text", $post->ID);
+                $featured_image_right_link_url = get_field("featured_image_right_link_url", $post->ID);
 
-                    $travelify_featured_post_slider .= get_the_post_thumbnail($post->ID, 'slider', array('title' => esc_attr($title_attribute), 'alt' => esc_attr($title_attribute), 'class' => 'pngfix')) . '</a></figure>';
-                }
-                if ($title_attribute != '' || $excerpt != '') {
-                    $travelify_featured_post_slider .= '
-							<article class="featured-text">';
-                    if ($title_attribute != '') {
-                        $travelify_featured_post_slider .= '<div class="featured-title"><a href="' . get_permalink() . '" title="' . the_title('', '', false) . '">' . get_the_title() . '</a></div><!-- .featured-title -->';
-                    }
-                    if ($excerpt != '') {
-                        $travelify_featured_post_slider .= '<div class="featured-content">' . $excerpt . '</div><!-- .featured-content -->';
-                    }
-                    $travelify_featured_post_slider .= '
-							</article><!-- .featured-text -->';
-                }
-                $travelify_featured_post_slider .= '
-				</div><!-- .slides -->';
+                $travelify_featured_post_slider .= '<figure class="featured_image_left">
+                                                        <a href="' . $featured_image_left_link_url . '" title="' . $featured_image_left_link_text . '">
+                                                              <img width="" height="" src="'.$featured_image_left.'" class="img-responsive pngfix" alt="'.$featured_image_left_link_text.'" title="'.$featured_image_left_link_text.'">
+                                                        </a>
+                                                        <article class="featured-text">
+                                                            <div class="featured-title"><a href="' . $featured_image_left_link_url . '" title="' . $featured_image_left_link_text . '">' . $featured_image_left_title_red . '</a></div><!-- .featured-title -->
+                                                            <div class="featured-content">' . $featured_image_left_title_black . '</div><!-- .featured-content -->
+                                                        </article><!-- .featured-text -->
+                                                    </figure>';  
+
+                $travelify_featured_post_slider .= '<figure class="featured_image_right">
+                                                        <a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">
+                                                              <img width="" height="" src="'.$featured_image_right.'" class="img-responsive pngfix" alt="'.$featured_image_right_link_text.'" title="'.$featured_image_right_link_text.'">
+                                                        </a>
+                                                        <article class="featured-text">
+                                                            <div class="featured-title"><a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">' . $featured_image_right_title_red . '</a></div><!-- .featured-title -->
+                                                            <div class="featured-content">' . $featured_image_right_title_black . '</div><!-- .featured-content -->
+                                                        </article><!-- .featured-text -->
+                                                    </figure>';                                        
+
+                $travelify_featured_post_slider .= '</div><!-- .slides -->';
+               
             endwhile;
             wp_reset_query();
             $travelify_featured_post_slider .= '</div>
