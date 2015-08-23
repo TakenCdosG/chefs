@@ -419,7 +419,8 @@ if (!function_exists('travelify_featured_post_slider')) :
 		<nav id="controllers" class="clearfix">
 		</nav><!-- #controllers --></section><!-- .featured-slider -->';
         }
-        echo $travelify_featured_post_slider;
+        //echo $travelify_featured_post_slider;
+        echo "<div>Adrian.</div>";
     }
 
 endif;
