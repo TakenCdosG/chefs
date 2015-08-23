@@ -61,6 +61,16 @@ $categories_parent_brand = get_categories($args_category_brand);
 
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
+/*
+* Filtros.
+*/
+$filtros = array();
+$filtros["category"] = get_query_var('category');
+$filtros["material"] = get_query_var('material');
+$filtros["brand"] = get_query_var('brand');
+
+dpm($filtros);
+
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 9,
