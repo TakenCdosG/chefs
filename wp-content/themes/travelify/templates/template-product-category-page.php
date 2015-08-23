@@ -108,7 +108,7 @@ $args = array(
     ),
 );
 
-if(!empty($filtros["material"]) || !empty($filtros["brand"]) ){
+if(!empty($filtros["material"]) || !empty($filtros["brand"])){
 
     $arg['tax_query']['relation'] = 'AND';
 
