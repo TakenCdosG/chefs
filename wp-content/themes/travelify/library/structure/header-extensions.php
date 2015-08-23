@@ -412,6 +412,7 @@ if (!function_exists('travelify_featured_post_slider')) :
                                                             <article class="featured-text">
                                                                 <div class="featured-title"><a href="' . $featured_image_left_link_url . '" title="' . $featured_image_left_link_text . '">' . $featured_image_left_title_red . '</a></div><!-- .featured-title -->
                                                                 <div class="featured-content">' . $featured_image_left_title_black . '</div><!-- .featured-content -->
+                                                                <a class="box-link-red" href="'.$featured_image_left_link_url.'">'.$featured_image_left_link_text.'</a>
                                                             </article><!-- .featured-text -->
                                                         </figure>
                                                     </a>';  
@@ -423,6 +424,7 @@ if (!function_exists('travelify_featured_post_slider')) :
                                                         <article class="featured-text">
                                                             <div class="featured-content">' . $featured_image_right_title_red . '</div><!-- .featured-content -->
                                                             <div class="featured-title"><a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">' . $featured_image_right_title_black . '</a></div><!-- .featured-title -->
+                                                            <a class="box-link-red" href="'.$featured_image_right_link_url.'">'.$featured_image_right_link_text.'</a>
                                                         </article><!-- .featured-text -->
                                                     </figure>';                                        
 
