@@ -40,6 +40,7 @@ if ($pull_boxes == "pull_manually") {
     $manually_first_background_image = get_field("manually_first_background_image");
     $manually_first_title_black = get_field("manually_first_title_black");
     $manually_first_title_red = get_field("manually_first_title_red");
+    $manually_first_link = get_field("manually_first_link");
     // Second box
     $manually_second_background_image = get_field("manually_second_background_image");
     $manually_second_title_black = get_field("manually_second_title_black");
@@ -170,6 +171,9 @@ for ($i = 1; $i <= $num_logos; $i++) {
         </div>
         <div class="col-md-3">
             <div class="box">
+                <?php if(!empty($manually_first_link)): ?>
+                    <a href="<?php echo $manually_first_link; ?>">
+                <?php endif; ?>
                 <?php if (!empty($manually_first_background_image)): ?>
                     <img width="" height="" src="<?php echo $manually_first_background_image; ?>" class="img-responsive" alt="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>" title="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>">
                 <?php endif; ?>
@@ -185,6 +189,9 @@ for ($i = 1; $i <= $num_logos; $i++) {
                         </h2>
                     <?php endif; ?>
                 </div>
+                <?php if(!empty($manually_first_link)): ?>
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
         <div class="col-md-3">
