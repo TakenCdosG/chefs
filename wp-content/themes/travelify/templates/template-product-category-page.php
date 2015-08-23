@@ -207,7 +207,7 @@ $info = array(
                                     $category_name = ucwords($category->name);
                                     $class = "";
                                     if(!$empty_filtros_category){
-                                       if($filtros["category"] == $category->slug)){
+                                       if($filtros["category"] == $category->slug){
                                            $class = "active";
                                        }
                                     }
@@ -230,7 +230,7 @@ $info = array(
                                     $category_name = ucwords($category->name);
                                     $class = "";
                                     if(!$empty_filtros_material){
-                                       if($filtros["material"] == $category->slug)){
+                                       if($filtros["material"] == $category->slug){
                                            $class = "active";
                                        }
                                     }
@@ -253,7 +253,7 @@ $info = array(
                                     $category_name = ucwords($category->name);
                                     $class = "";
                                     if(!$empty_filtros_brand){
-                                       if($filtros["brand"] == $category->slug)){
+                                       if($filtros["brand"] == $category->slug){
                                            $class = "active";
                                        }
                                     }
