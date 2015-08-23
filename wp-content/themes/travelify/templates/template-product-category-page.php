@@ -130,6 +130,8 @@ if(!empty($filtros["material"]) || !empty($filtros["brand"])){
 
 }
 
+dpm($arg);
+
 $products = new WP_Query($args);
 
 $info = array(
