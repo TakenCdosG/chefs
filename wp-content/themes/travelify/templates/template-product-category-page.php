@@ -134,7 +134,7 @@ $info = array(
      *
      * travelify_content 10
      */
-// do_action('travelify_main_container');
+    // do_action('travelify_main_container');
     $filter_category_items = "";
     $filter_material_items  = "";
     $filter_brand_items = "";
@@ -172,7 +172,7 @@ $info = array(
                                     ?>
                                     <a href="<?php echo $current_url_material; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
-                                <?php $filter_material_items .= '<li><a href="'.$current_url_category.'">'.$category_name.'</a></li>';?>
+                                <?php $filter_material_items .= '<li><a href="'.$current_url_material.'">'.$category_name.'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -188,7 +188,7 @@ $info = array(
                                     ?>
                                     <a href="<?php echo $current_url_brand; ?>"> <?php echo ucwords($category->name); ?></a>
                                 </li>
-                                <?php $filter_brand_items .= '<li><a href="'.$current_url_category.'">'.$category_name.'</a></li>';?>
+                                <?php $filter_brand_items .= '<li><a href="'.$current_url_brand.'">'.$category_name.'</a></li>';?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
