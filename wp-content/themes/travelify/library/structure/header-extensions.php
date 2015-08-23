@@ -407,7 +407,7 @@ if (!function_exists('travelify_featured_post_slider')) :
                 $featured_image_right_link_url = get_field("featured_image_right_link_url", $post->ID);
 
                 $travelify_featured_post_slider .= '<a href="' . $featured_image_left_link_url . '" title="' . $featured_image_left_link_text . '">
-                                                        <figure class="featured_image_left" style="background: url('.$featured_image_left_link_url.') no-repeat center center;">
+                                                        <figure class="featured_image_left" style="background: url('.$featured_image_left.') no-repeat center center;">
                                                             <img style="display:none;" width="" height="" src="'.$featured_image_left.'" class="img-responsive pngfix" alt="'.$featured_image_left_link_text.'" title="'.$featured_image_left_link_text.'">
                                                             <article class="featured-text">
                                                                 <div class="featured-title"><a href="' . $featured_image_left_link_url . '" title="' . $featured_image_left_link_text . '">' . $featured_image_left_title_red . '</a></div><!-- .featured-title -->
