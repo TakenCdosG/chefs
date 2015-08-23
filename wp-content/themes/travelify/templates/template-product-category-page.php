@@ -69,7 +69,6 @@ $filtros["category"] = get_query_var('category');
 $filtros["material"] = get_query_var('material');
 $filtros["brand"] = get_query_var('brand');
 
-//dpm($filtros);
 /*
 $args = array(
     'post_type' => 'product',
@@ -125,8 +124,6 @@ if(!empty($filtros["material"]) || !empty($filtros["brand"])){
           );
     }
 }
-
-dpm($args);
 
 $products = new WP_Query($args);
 
