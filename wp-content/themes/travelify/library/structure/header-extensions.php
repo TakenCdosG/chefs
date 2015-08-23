@@ -421,8 +421,8 @@ if (!function_exists('travelify_featured_post_slider')) :
                                                               <img width="" height="" src="'.$featured_image_right.'" class="img-responsive pngfix" alt="'.$featured_image_right_link_text.'" title="'.$featured_image_right_link_text.'">
                                                         </a>
                                                         <article class="featured-text">
-                                                            <div class="featured-title"><a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">' . $featured_image_right_title_red . '</a></div><!-- .featured-title -->
                                                             <div class="featured-content">' . $featured_image_right_title_black . '</div><!-- .featured-content -->
+                                                            <div class="featured-title"><a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">' . $featured_image_right_title_red . '</a></div><!-- .featured-title -->
                                                         </article><!-- .featured-text -->
                                                     </figure>';                                        
 
