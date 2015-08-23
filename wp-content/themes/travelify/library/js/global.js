@@ -21,6 +21,8 @@ jQuery(function ($) {
             donetext     : "You've reached the end of the products for this category.",
             loadingText  : "Loading new products...", 
             animate      : false,   
+            animationLoop: true, 
+            move: 1, 
         });
     }); // End doc ready
     $(window).load(function () {
