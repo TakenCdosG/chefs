@@ -21,8 +21,6 @@ jQuery(function ($) {
             donetext     : "You've reached the end of the products for this category.",
             loadingText  : "Loading new products...", 
             animate      : false,   
-            animationLoop: false, 
-            move: 1, 
         });
     }); // End doc ready
     $(window).load(function () {
@@ -35,6 +33,8 @@ jQuery(function ($) {
             directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
             prevText: "", //String: Set the text for the "previous" directionNav item
             nextText: "",
+            animationLoop: true, 
+            move: 1, 
         });
     });
     function initialize() {
