@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="col-2">
 
 		<h2><?php _e( 'CREATE AN ACCOUNT', 'woocommerce' ); ?></h2>
-
+		<p>To create an account, please fill out you name, email address and select a password.</p>
 		<form method="post" class="register">
 
 			<?php do_action( 'woocommerce_register_form_start' ); ?>

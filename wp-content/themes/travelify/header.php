@@ -76,4 +76,5 @@
              */
             do_action('travelify_before_main');
             ?>
-            <div id="main" class="container clearfix">
+            <div id="main" class="clearfix">
+            <!--<div id="main" class="container clearfix">-->
