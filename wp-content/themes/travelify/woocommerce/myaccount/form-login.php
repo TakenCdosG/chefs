@@ -18,7 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php do_action( 'woocommerce_before_customer_login_form' ); ?>
 
 <?php if ( get_option( 'woocommerce_enable_myaccount_registration' ) === 'yes' ) : ?>
-
+<div class="header">
+  <h1>ACCOUNT LOGIN</h1>
+  <p> 
+  Your Chef's Emporium account gives you access to you registry list, online address book, order history and tracking and stored credit card information for Express Checkout. Please create an account or sign into you existing account below.
+  </p>
+</div>
 <div class="col2-set" id="customer_login">
 
 	<div class="col-1">
