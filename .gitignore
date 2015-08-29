@@ -2,3 +2,8 @@
 /wp-config.php
 /.htaccess
 /db/
+/css.css
+/access_log
+/error_log
+/.idea
+/.phpintel
