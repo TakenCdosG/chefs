@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </p>
 
             <p>
-                *Required fields
+                <span class="required">*</span>Required fields
             </p>
 
             <p class="form-row">
@@ -105,7 +105,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php do_action( 'woocommerce_register_form' ); ?>
             <?php do_action( 'register_form' ); ?>
             <p>
-                *Required fields
+                <span class="required">*</span>Required fields
             </p>
             <p class="form-row">
                 <?php wp_nonce_field( 'woocommerce-register' ); ?>
