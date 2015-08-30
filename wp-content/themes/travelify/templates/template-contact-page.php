@@ -64,7 +64,7 @@ if ($pull_boxes == "pull_manually") {
             <div class="col-md-9">
                 <?php if( !empty($location) ):  ?>
                     <div class="acf-map">
-                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"><h4><span class='color-red'>449 Boston Post Road</span></h4></div>
+                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"><small><span class='color-red'>449 Boston Post Road</span></small></div>
                     </div>
                 <?php endif; ?>
             </div>
