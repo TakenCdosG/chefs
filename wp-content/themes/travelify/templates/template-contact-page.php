@@ -14,7 +14,7 @@
  * travelify_before_main_container hook
  */
 do_action('travelify_before_main_container');
-$contact_map = get_field("map");
+$location = get_field("map");
 ?>
 
     <div id="container">
@@ -32,7 +32,11 @@ $contact_map = get_field("map");
                 ?>
             </div>
             <div class="col-md-9">
-                <?php echo $contact_map; ?>
+                <?php if( !empty($location) ):  ?>
+                    <div class="acf-map">
+                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"></div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div><!-- #container -->
