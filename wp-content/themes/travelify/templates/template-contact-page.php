@@ -20,29 +20,31 @@ $location = get_field("map");
 
 // EXPERIENCE CHEF'S
 // Pull boxes
-$pull_boxes = get_field("pull_boxes");
+$post = 109;
+$pull_boxes = get_field("pull_boxes", $post);
 if ($pull_boxes == "pull_manually") {
     // First box
-    $manually_first_background_image = get_field("manually_first_background_image");
-    $manually_first_title_black = get_field("manually_first_title_black");
-    $manually_first_title_red = get_field("manually_first_title_red");
-    $manually_first_link = get_field("manually_first_link");
+    $manually_first_background_image = get_field("manually_first_background_image", $post);
+    $manually_first_title_black = get_field("manually_first_title_black", $post);
+    $manually_first_title_red = get_field("manually_first_title_red", $post);
+    $manually_first_link = get_field("manually_first_link", $post);
     // Second box
-    $manually_second_background_image = get_field("manually_second_background_image");
-    $manually_second_title_black = get_field("manually_second_title_black");
-    $manually_second_title_red = get_field("manually_second_title_red");
-    $manually_second_link = get_field("manually_second_link");
+    $manually_second_background_image = get_field("manually_second_background_image", $post);
+    $manually_second_title_black = get_field("manually_second_title_black", $post);
+    $manually_second_title_red = get_field("manually_second_title_red", $post);
+    $manually_second_link = get_field("manually_second_link", $post);
     // Third box
-    $manually_third_background_image = get_field("manually_third_background_image");
-    $manually_third_title_black = get_field("manually_third_title_black");
-    $manually_third_title_red = get_field("manually_third_title_red");
-    $manually_third_link = get_field("manually_third_link");
+    $manually_third_background_image = get_field("manually_third_background_image", $post);
+    $manually_third_title_black = get_field("manually_third_title_black", $post);
+    $manually_third_title_red = get_field("manually_third_title_red", $post);
+    $manually_third_link = get_field("manually_third_link", $post);
     // Fourth box
-    $manually_fourth_background_image = get_field("manually_fourth_background_image");
-    $manually_fourth_title_black = get_field("manually_fourth_title_black");
-    $manually_fourth_title_red = get_field("manually_fourth_title_red");
-    $manually_fourth_link = get_field("manually_fourth_link");
+    $manually_fourth_background_image = get_field("manually_fourth_background_image", $post);
+    $manually_fourth_title_black = get_field("manually_fourth_title_black", $post);
+    $manually_fourth_title_red = get_field("manually_fourth_title_red", $post);
+    $manually_fourth_link = get_field("manually_fourth_link", $post);
 }
+
 ?>
 
     <div id="container">
