@@ -283,12 +283,7 @@ function travelify_headerdetails() {
         if (( '' != travelify_header_title() ) || function_exists('bcn_display_list')) {
             $postid = get_the_ID();
             $show_title = get_post_meta($postid, $key='show_title', $single = TRUE);
-            $info = array(
-                'postid' => $postid,
-                'show_title' => $show_title
-            );
-            dpm($info);
-            if (!is_page_template('templates/template-product-category-page.php')) {
+            if (!is_page_template('templates/template-product-category-page.php') && $show_title != "FALSE") {
                 ?>
                 <div class="page-title-wrap">
                     <div class="container clearfix">
