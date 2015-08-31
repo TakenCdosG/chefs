@@ -174,17 +174,30 @@ if (!function_exists('travelify_theloop_for_page')) :
                 the_post();
 
                 do_action('travelify_before_post');
+                $postid = get_the_ID();
+                if($postid == '8'){
+                    if(is_user_logged_in()){
+                        $show_title = "TRUE";
+                    }else{
+                        $show_title = "FALSE";
+                    }
+                }else{
+                    $show_title = get_post_meta($postid, $key='show_title', $single = TRUE);
+                }
+
                 ?>
                 <section id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                     <article>
 
                         <?php do_action('travelify_before_post_header'); ?>
 
-                        <header class="entry-header">
-                            <h2 class="entry-title">
-                                <?php the_title(); ?>
-                            </h2><!-- .entry-title -->
-                        </header>
+                        <?php if($show_title != "FALSE"): ?>
+                            <header class="entry-header">
+                                <h2 class="entry-title">
+                                    <?php the_title(); ?>
+                                </h2><!-- .entry-title -->
+                            </header>
+                        <?php endif; ?>
 
                         <?php do_action('travelify_after_post_header'); ?>
 
