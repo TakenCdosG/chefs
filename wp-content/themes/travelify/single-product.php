@@ -35,7 +35,7 @@ $header_top_link_url_product = get_field("header_top_link_url_product");
         <div class="col-md-12">
             <div class="top_banner_product_category">
                 <img width="" height="" src="<?php echo $top_banner; ?>" class="img-responsive" alt="" title="">
-                <?php if (!empty($header_top_summary)): ?>
+                <?php if (!empty($header_top_summary_product)): ?>
                     <div class="header_top_summary">
                         <h2><?php echo $header_top_summary_product; ?></h2>
                         <?php if (!empty($header_top_link_text_product) && !empty($header_top_link_url_product)): ?>
