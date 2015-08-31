@@ -2051,3 +2051,13 @@ article {
     width: 70px;
     height: 69px;
 }
+
+.play-overlay {
+    background-image: url('./images/play-overlay.png');
+    background-position: 0 0px;
+    background-repeat: no-repeat;
+    height: 61px;
+    margin: -80px -2px 0 0;
+    position: relative;
+    z-index: 10;
+}
