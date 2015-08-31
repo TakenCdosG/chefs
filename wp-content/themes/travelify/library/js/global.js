@@ -168,10 +168,10 @@ jQuery(function ($) {
 
         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         var infowindow = new google.maps.InfoWindow({
-            content: "<div style='font-family: Roboto,Arial,sans-serif;font-size: 11px;margin: 0;padding: 0;line-height: 15px;'><strong style='font-size: 11px;'>Chef's Emporium</strong><br/>449 Boston Post Rd, Orange, CT 06477</div>"
+            content: "<div style='font-family: Roboto,Arial,sans-serif;font-size: 11px;margin: 0;padding: 0;line-height: 15px;'><strong style='font-size: 10px;'>Chef's Emporium</strong><br/>449 Boston Post Rd, Orange, CT 06477</div>"
         });
         var marker = new google.maps.Marker({
-            position: myLatlngMarkerCenter,
+            position: myLatlngMapCenter,
             map: map,
             title: "Chef's Emporium"
         });
