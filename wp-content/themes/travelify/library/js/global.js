@@ -158,10 +158,10 @@ jQuery(function ($) {
     });
     function initialize() {
         var myLatlngMapCenter = new google.maps.LatLng(41.257697, -73.013472);
-        var myLatlngMarkerCenter = new google.maps.LatLng(40.7585431, -73.9697777);
+        var myLatlngMarkerCenter = new google.maps.LatLng(41.259275, -73.024664);
         var myOptions = {
             zoom: 12,
-            center: myLatlngMapCenter,
+            center: myLatlngMarkerCenter,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true
         }
