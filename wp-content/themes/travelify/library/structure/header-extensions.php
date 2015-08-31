@@ -293,9 +293,6 @@ function travelify_headerdetails() {
                 $show_title = get_post_meta($postid, $key='show_title', $single = TRUE);
             }
 
-
-            dpm(array('show_title' => $show_title));
-
             if (!is_page_template('templates/template-product-category-page.php') && $show_title != "FALSE") {
                 ?>
                 <div class="page-title-wrap">
