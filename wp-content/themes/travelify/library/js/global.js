@@ -161,7 +161,7 @@ jQuery(function ($) {
         var myLatlngMarkerCenter = new google.maps.LatLng(41.259275, -73.024664);
         var myOptions = {
             zoom: 12,
-            center: myLatlngMarkerCenter,
+            center: myLatlngMapCenter,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true
         }
@@ -171,7 +171,7 @@ jQuery(function ($) {
             content: "<div style='font-family: Roboto,Arial,sans-serif;font-size: 11px;margin: 0;padding: 0;line-height: 15px;'><strong style='font-size: 11px;'>Chef's Emporium</strong><br/>449 Boston Post Rd, Orange, CT 06477</div>"
         });
         var marker = new google.maps.Marker({
-            position: myLatlngMapCenter,
+            position: myLatlngMarkerCenter,
             map: map,
             title: "Chef's Emporium"
         });
