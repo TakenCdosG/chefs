@@ -2053,11 +2053,19 @@ article {
 }
 
 .play-overlay {
-    background-image: url('./images/play-overlay.png');
+    background-image: url('./images/play-overlay.png')!important;
     background-position: 0 0px;
     background-repeat: no-repeat;
-    height: 61px;
-    margin: -80px -2px 0 0;
-    position: relative;
+    height: 64px!important;
+    margin: auto auto!important;
+    position: absolute!important;
     z-index: 10;
+    background-color: rgba(255, 255, 255, 0.83)!important;
+    width: 64px!important;
+    background-size: 80px 78px!important;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    border-radius: 34px;
 }
