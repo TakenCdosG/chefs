@@ -36,6 +36,7 @@ if ( $attachment_ids ) {
 			if ( ! $image_link )
 				continue;
 
+
 			$image_title 	= esc_attr( get_the_title( $attachment_id ) );
 			$image_caption 	= esc_attr( get_post_field( 'post_excerpt', $attachment_id ) );
 
