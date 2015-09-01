@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $post, $woocommerce, $product;
 ?>
+<div class="clearfix-block"></div>
 <div class="woocommerce_product_thumbnails">
     <?php do_action( 'woocommerce_product_thumbnails' ); ?>
 </div>
