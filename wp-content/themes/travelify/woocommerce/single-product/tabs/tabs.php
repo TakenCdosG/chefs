@@ -11,6 +11,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $post, $woocommerce, $product;
+
+<div class="woocommerce_product_thumbnails">
+    <?php do_action( 'woocommerce_product_thumbnails' ); ?>
+</div>
+
 /**
  * Filter tabs and allow third parties to add their own
  *

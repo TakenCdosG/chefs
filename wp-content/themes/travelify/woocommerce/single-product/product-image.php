@@ -44,7 +44,3 @@ global $post, $woocommerce, $product;
 		}
 	?>
 </div>
-
-<div class="woocommerce_product_thumbnails">
-    <?php do_action( 'woocommerce_product_thumbnails' ); ?>
-</div>
