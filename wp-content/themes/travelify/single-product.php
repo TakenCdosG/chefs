@@ -67,7 +67,7 @@ $header_top_link_url_product = get_field("header_top_link_url_product");
     </div>
     <div class="col-md-3">
         <div class="related-products">
-            <?php echo 	woocommerce_related_products();; ?>
+            <?php echo 	woocommerce_related_products(); ?>
         </div>
     </div>
 </div>
