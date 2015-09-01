@@ -155,6 +155,19 @@ jQuery(function ($) {
             animationLoop: true,
             move: 1
         });
+
+        $('.thumbnails').flexslider({
+            animation: "slide",
+            animationLoop: false,
+            itemWidth: 194,
+            itemMargin: 5,
+            controlNav: false, //Boolean: Create navigation for paging control of each clide? Note: Leave true for manualControls usage
+            directionNav: true, //Boolean: Create navigation for previous/next navigation? (true/false)
+            prevText: "", //String: Set the text for the "previous" directionNav item
+            nextText: "",
+            animationLoop: true,
+            move: 1
+        });
     });
     function initialize() {
         var myLatlngMapCenter = new google.maps.LatLng(41.257697, -73.013472);
