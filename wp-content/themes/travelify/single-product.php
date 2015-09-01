@@ -29,7 +29,7 @@ $header_top_summary_product = get_field("header_top_summary_product");
 $header_top_link_text_product = get_field("header_top_link_text_product");
 $header_top_link_url_product = get_field("header_top_link_url_product");
 ?>
-<div class="row margin-grid">
+<div class="row">
     <div class="col-md-9">
         <?php if (!empty($top_banner)): ?>
             <div class="row margin-grid">
@@ -64,11 +64,12 @@ $header_top_link_url_product = get_field("header_top_link_url_product");
          */
         do_action('woocommerce_after_main_content');
         ?>
-    </div>
     <div class="col-md-3">
         <div class="related-products">
             <?php echo 	woocommerce_related_products(); ?>
         </div>
+    </div>
+
     </div>
 </div>
 <?php
