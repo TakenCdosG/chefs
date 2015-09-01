@@ -157,7 +157,8 @@ jQuery(function ($) {
         });
 
 
-        $('.thumbnails').flexslider({
+        $('.images .thumbnails').flexslider({
+            selector: "a.zoom",
             animation: "slide",
             animationLoop: false,
             itemWidth: 194,
