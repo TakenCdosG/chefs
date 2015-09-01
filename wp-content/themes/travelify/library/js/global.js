@@ -156,6 +156,7 @@ jQuery(function ($) {
             move: 1
         });
 
+
         $('.thumbnails').flexslider({
             animation: "slide",
             animationLoop: false,
