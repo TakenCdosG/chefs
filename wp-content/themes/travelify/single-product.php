@@ -68,7 +68,7 @@ $header_top_link_url_product = get_field("header_top_link_url_product");
             <div class="related-products">
                 <?php
                     $args = array(
-                        'posts_per_page' => 6,
+                        'posts_per_page' => 5,
                     );
                 ?>
                 <?php echo 	woocommerce_related_products($args); ?>
