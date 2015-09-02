@@ -24,21 +24,32 @@ function wooc_extra_register_fields() {
     ?>
 
     <p class="form-row form-row-first">
-    <label for="reg_billing_first_name"><?php _e( 'First name', 'woocommerce' ); ?> <span class="required">*</span></label>
-    <input type="text" class="input-text" name="billing_first_name" id="reg_billing_first_name" value="<?php if ( ! empty( $_POST['billing_first_name'] ) ) esc_attr_e( $_POST['billing_first_name'] ); ?>" />
+        <label for="reg_billing_first_name"><?php _e( 'First name', 'woocommerce' ); ?> <span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_first_name" id="reg_billing_first_name" value="<?php if ( ! empty( $_POST['billing_first_name'] ) ) esc_attr_e( $_POST['billing_first_name'] ); ?>" />
     </p>
 
     <p class="form-row form-row-last">
-    <label for="reg_billing_last_name"><?php _e( 'Last name', 'woocommerce' ); ?> <span class="required">*</span></label>
-    <input type="text" class="input-text" name="billing_last_name" id="reg_billing_last_name" value="<?php if ( ! empty( $_POST['billing_last_name'] ) ) esc_attr_e( $_POST['billing_last_name'] ); ?>" />
+        <label for="reg_billing_last_name"><?php _e( 'Last name', 'woocommerce' ); ?> <span class="required">*</span></label>
+        <input type="text" class="input-text" name="billing_last_name" id="reg_billing_last_name" value="<?php if ( ! empty( $_POST['billing_last_name'] ) ) esc_attr_e( $_POST['billing_last_name'] ); ?>" />
     </p>
 
     <div class="clear"></div>
 
-    <?php
+<?php
+}
+
+function wc_register_form_password_repeat() {
+    ?>
+    <p class="form-row form-row-wide">
+        <label for="reg_password2"><?php _e( 'Confirm Password', 'woocommerce' ); ?> <span class="required">*</span></label>
+        <input type="password" class="input-text" name="password2" id="reg_password2" value="<?php if ( ! empty( $_POST['password2'] ) ) echo esc_attr( $_POST['password2'] ); ?>" />
+    </p>
+<?php
 }
 
 add_action('woocommerce_register_form_start', 'wooc_extra_register_fields' );
+add_action( 'woocommerce_register_form', 'wc_register_form_password_repeat' );
+
 
 /* * ************************************************************************************* */
 
@@ -117,7 +128,7 @@ function travelify_scripts_styles_method() {
     if (is_rtl()) {
         wp_enqueue_style('travelify-rtl-style', get_template_directory_uri() . '/rtl.css', false);
     }
-    
+
     wp_enqueue_style('travelify-webfonts-style', get_template_directory_uri() . '/library/font/MyFontsWebfontsKit.css', false);
 
     /**
@@ -143,7 +154,7 @@ function travelify_scripts_styles_method() {
     if (( is_home() || is_front_page() ) && "0" == $options['disable_slider']) {
         wp_enqueue_script('travelify_slider', get_template_directory_uri() . '/library/js/slider-settings.min.js', array('jquery_cycle'), false, true);
     }
-    
+
     wp_enqueue_script('theme_jquery_infinitescroll_functions', get_template_directory_uri() . '/library/js/jquery.infinitescroll.js', array('jquery'));
 
     wp_enqueue_script('theme_functions', get_template_directory_uri() . '/library/js/functions.min.js', array('jquery'));
@@ -151,7 +162,7 @@ function travelify_scripts_styles_method() {
     wp_enqueue_script('theme_global_functions', get_template_directory_uri() . '/library/js/global.js', array('jquery'));
 
     wp_enqueue_script('theme_global_dropdown', get_template_directory_uri() . '/library/js/dropdown.js', array('jquery'));
-    
+
     wp_enqueue_style('google_font_ubuntu');
 
     /**
@@ -237,11 +248,11 @@ if (!function_exists('travelify_pass_cycle_parameters')) :
         $transition_delay = $options['transition_delay'] * 1000;
         $transition_duration = $options['transition_duration'] * 1000;
         wp_localize_script(
-                'travelify_slider', 'travelify_slider_value', array(
-            'transition_effect' => $transition_effect,
-            'transition_delay' => $transition_delay,
-            'transition_duration' => $transition_duration
-                )
+            'travelify_slider', 'travelify_slider_value', array(
+                'transition_effect' => $transition_effect,
+                'transition_delay' => $transition_delay,
+                'transition_duration' => $transition_duration
+            )
         );
     }
 
@@ -496,25 +507,25 @@ function travelify_widgets_init() {
 
     // Registering footer widgets
     register_sidebar(array(
-        'name' => __('Footer', 'travelify'),
-        'id' => 'travelify_footer_widget',
-        'description' => __('Shows widgets at footer.', 'travelify'),
-        'before_widget' => '<div class="col-md-3"><aside id="%1$s" class="widget %2$s">',
-        'after_widget' => '</aside></div>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>'
-            )
+            'name' => __('Footer', 'travelify'),
+            'id' => 'travelify_footer_widget',
+            'description' => __('Shows widgets at footer.', 'travelify'),
+            'before_widget' => '<div class="col-md-3"><aside id="%1$s" class="widget %2$s">',
+            'after_widget' => '</aside></div>',
+            'before_title' => '<h3 class="widget-title">',
+            'after_title' => '</h3>'
+        )
     );
 
     register_sidebar(array(
-        'name' => __('Footer Bottom', 'travelify'),
-        'id' => 'travelify_footer_bottom_widget',
-        'description' => __('Shows widgets at footer int the bottom.', 'travelify'),
-        'before_widget' => '<div class="col-md-3"><aside id="%1$s" class="widget %2$s">',
-        'after_widget' => '</aside></div>',
-        'before_title' => '<h3 class="widget-title">',
-        'after_title' => '</h3>'
-            )
+            'name' => __('Footer Bottom', 'travelify'),
+            'id' => 'travelify_footer_bottom_widget',
+            'description' => __('Shows widgets at footer int the bottom.', 'travelify'),
+            'before_widget' => '<div class="col-md-3"><aside id="%1$s" class="widget %2$s">',
+            'after_widget' => '</aside></div>',
+            'before_title' => '<h3 class="widget-title">',
+            'after_title' => '</h3>'
+        )
     );
 }
 
@@ -565,7 +576,7 @@ function travelify_admin_header_style() {
             max-width: <?php echo get_theme_support('custom-header', 'max-width'); ?>px;
         }
     </style>
-    <?php
+<?php
 }
 
 /**
@@ -583,7 +594,7 @@ function travelify_admin_header_image() {
         <?php endif; ?>
     </div>
 
-    <?php
+<?php
 }
 
 if (!function_exists('travelify_posted_on')) :
@@ -599,7 +610,7 @@ if (!function_exists('travelify_posted_on')) :
         $time_string = sprintf($time_string, esc_attr(get_the_date('c')), esc_html(get_the_date()), esc_attr(get_the_modified_date('c')), esc_html(get_the_modified_date())
         );
         $byline = sprintf(
-                '<span class="author vcard"><a class="url fn n" href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a></span>'
+            '<span class="author vcard"><a class="url fn n" href="' . esc_url(get_author_posts_url(get_the_author_meta('ID'))) . '">' . esc_html(get_the_author()) . '</a></span>'
         );
         echo '<span class="byline"> ' . $byline . '</span><span class="posted-on">' . '<a href="' . esc_url(get_permalink()) . '" rel="bookmark">' . $time_string . '</a>' . '</span>';
     }
