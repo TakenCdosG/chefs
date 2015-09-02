@@ -124,6 +124,10 @@ jQuery(function ($) {
     $(document).ready(function () {
         initialize();
         $('ul.products').infinitescroll({
+            loading: {
+                finishedMsg: "",
+                speed: 'fast',
+            },
             navSelector  : "div.pagination-category",
             // selector for the paged navigation (it will be hidden)
             nextSelector : "div.pagination-category a:first",
