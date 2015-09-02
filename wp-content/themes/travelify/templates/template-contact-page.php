@@ -71,7 +71,7 @@ if ($pull_boxes == "pull_manually") {
         </div>
         <!-- Add clearfix -->
         <div class="clearfix-block"></div>
-        <div class="row margin-grid">
+        <div class="row margin-grid-double">
             <div class="col-md-12">
                 <h2 class="line"><span class='color-black'>EXPERIENCE</span><span class='color-red'> CHEF'S</span></h2>
             </div>
