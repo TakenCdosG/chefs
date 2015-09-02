@@ -194,7 +194,7 @@ jQuery(function ($) {
 
         var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         var infowindow = new google.maps.InfoWindow({
-            content: "<div style='font-family: Roboto,Arial,sans-serif; font-size: 10px; margin: 0;padding: 0;line-height: 15px;'><strong style='font-size: 11px; '>Chef's Emporium</strong><br/>449 Boston Post Rd, Orange, CT 06477</div>"
+            content: "<div style='font-family: Roboto,Arial,sans-serif; font-size: 10px; margin: 0;padding: 0;line-height: 15px;'><strong style='font-size: 11px; '>Chef's Emporium</strong><br/><a target='_blank' href='https://www.google.com/maps/place/449+Boston+Post+Rd,+Orange,+CT+06477,+EE.+UU./@41.2576974,-73.0134718,17z/data=!3m1!4b1!4m2!3m1!1s0x89e875c119620cdf:0x5bae5e90ee506a94'>449 Boston Post Road Orange, CT 06477</a></div>"
         });
         var marker = new google.maps.Marker({
             position: myLatlngMapCenter,
