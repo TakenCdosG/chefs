@@ -90,6 +90,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <input type="email" class="input-text" name="email" id="reg_email" value="<?php if ( ! empty( $_POST['email'] ) ) echo esc_attr( $_POST['email'] ); ?>" />
             </p>
 
+            <?php do_action( 'woocommerce_register_form_after_email_address' ); ?>
+
             <?php if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) : ?>
 
                 <p class="form-row form-row-wide">
