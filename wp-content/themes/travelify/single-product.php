@@ -64,12 +64,16 @@ $header_top_link_url_product = get_field("header_top_link_url_product");
          */
         do_action('woocommerce_after_main_content');
         ?>
-    <div class="col-md-3">
-        <div class="related-products">
-            <?php echo 	woocommerce_related_products(); ?>
+        <div class="col-md-3">
+            <div class="related-products">
+                <?php
+                    $args = array(
+                        'posts_per_page' => 6,
+                    );
+                ?>
+                <?php echo 	woocommerce_related_products($args); ?>
+            </div>
         </div>
-    </div>
-
     </div>
 </div>
 <?php
