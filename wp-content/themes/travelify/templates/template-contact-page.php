@@ -64,7 +64,7 @@ if ($pull_boxes == "pull_manually") {
             <div class="col-md-9">
                 <?php if( !empty($location) ):  ?>
                     <div class="acf-map">
-                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"><small><span class='color-red'>449 Boston Post Road</span></small></div>
+                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"><small><span class='color-red'><a target='_blank' href="https://www.google.com/maps/place/449+Boston+Post+Rd,+Orange,+CT+06477,+EE.+UU./@41.2576974,-73.0134718,17z/data=!3m1!4b1!4m2!3m1!1s0x89e875c119620cdf:0x5bae5e90ee506a94">449 Boston Post Road</a></span></small></div>
                     </div>
                 <?php endif; ?>
             </div>
