@@ -64,7 +64,6 @@ add_action( 'woocommerce_register_form', 'wc_register_form_password_repeat' );
 function registration_errors_validation($reg_errors, $sanitized_user_login, $user_email) {
     global $woocommerce;
     extract( $_POST );
-    dpm($_POST);
     if ( strcmp( $password, $password2 ) !== 0 ) {
         return new WP_Error( 'registration-error', __( 'Passwords do not match.', 'woocommerce' ) );
     }
