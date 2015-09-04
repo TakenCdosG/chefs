@@ -38,19 +38,19 @@ function wooc_extra_register_fields() {
 <?php
 }
 
-function wc_register_form_password_repeat() {
+function wc_register_form_email_repeat() {
     ?>
     <p class="form-row form-row-wide">
-        <label for="reg_email2"><?php _e( 'Confirm Password', 'woocommerce' ); ?> <span class="required">*</span></label>
-        <input type="password" class="input-text" name="reg_email2" id="reg_email2" value="<?php if ( ! empty( $_POST['reg_email2'] ) ) echo esc_attr( $_POST['reg_email2'] ); ?>" />
+        <label for="reg_email2"><?php _e( 'Confirm Email', 'woocommerce' ); ?> <span class="required">*</span></label>
+        <input type="text" class="input-text" name="reg_email2" id="reg_email2" value="<?php if ( ! empty( $_POST['reg_email2'] ) ) echo esc_attr( $_POST['reg_email2'] ); ?>" />
     </p>
 <?php
 }
 
-function wc_register_form_email_repeat() {
+function wc_register_form_password_repeat() {
     ?>
     <p class="form-row form-row-wide">
-        <label for="reg_password2"><?php _e( 'Confirm Email', 'woocommerce' ); ?> <span class="required">*</span></label>
+        <label for="reg_password2"><?php _e( 'Confirm Password', 'woocommerce' ); ?> <span class="required">*</span></label>
         <input type="password" class="input-text" name="password2" id="reg_password2" value="<?php if ( ! empty( $_POST['password2'] ) ) echo esc_attr( $_POST['password2'] ); ?>" />
     </p>
 <?php
