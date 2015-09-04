@@ -68,7 +68,7 @@ function registration_errors_validation($reg_errors, $sanitized_user_login, $use
     if ( strcmp( $password, $password2 ) !== 0 ) {
         return new WP_Error( 'registration-error', __( 'Passwords do not match.', 'woocommerce' ) );
     }
-    if ( strcmp( $reg_email, $reg_email2 ) !== 0 ) {
+    if ( strcmp( $email, $reg_email2 ) !== 0 ) {
         return new WP_Error( 'registration-error', __( 'Emails do not match.', 'woocommerce' ) );
     }
     return $reg_errors;
