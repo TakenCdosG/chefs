@@ -507,6 +507,18 @@ function responsive_woocommerce_wrapper_end() {
  */
 function travelify_widgets_init() {
 
+    // Registering Header highlighted
+    register_sidebar(array(
+            'name' => __('Header highlighted', 'travelify'),
+            'id' => 'travelify_header_highlighted_widget',
+            'description' => __('Shows widgets at Header in the highlighted area.', 'travelify'),
+            'before_widget' => '<div class="header_highlighted"><aside id="%1$s" class="widget %2$s">',
+            'after_widget' => '</aside></div>',
+            'before_title' => '<h3 class="widget-title">',
+            'after_title' => '</h3>'
+        )
+    );
+
     // Registering main left sidebar
     register_sidebar(array(
         'name' => __('Left Sidebar', 'travelify'),
