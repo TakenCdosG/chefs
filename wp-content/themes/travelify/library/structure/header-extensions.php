@@ -14,7 +14,7 @@ function travelify_add_meta() {
     ?>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <?php
+<?php
 }
 
 /* * ************************************************************************************* */
@@ -58,7 +58,7 @@ if (version_compare($GLOBALS['wp_version'], '4.1', '<')) :
     function travelify_render_title() {
         ?>
         <title><?php wp_title('|', true, 'right'); ?></title>
-        <?php
+    <?php
     }
 
     add_action('wp_head', 'travelify_render_title');
@@ -77,7 +77,7 @@ function travelify_add_links() {
     ?>
     <link rel="profile" href="http://gmpg.org/xfn/11" />
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
-    <?php
+<?php
 }
 
 /* * ************************************************************************************* */
@@ -198,7 +198,7 @@ function travelify_headerdetails() {
                         </a>
                     </h1>
                     <h2 id="site-description"><?php bloginfo('description'); ?></h2>
-                    <?php
+                <?php
                 } elseif ($options['header_show'] != 'disable-both' && $options['header_show'] == 'header-logo') {
                     ?>
                     <h1 id="site-title">
@@ -206,40 +206,47 @@ function travelify_headerdetails() {
                             <img src="<?php echo $options['header_logo']; ?>" alt="<?php echo esc_attr(get_bloginfo('name', 'display')); ?>">
                         </a>
                     </h1>
-                    <?php
+                <?php
                 }
                 ?>
             </hgroup><!-- #site-logo -->
             <section class="hgroup-right-header_upper">
                 <?php
-                    $defaults = array(
-                        'menu'            => '77',
-                        'container'       => 'div',
-                        'container_class' => 'header_upper',
-                        'container_id'    => '',
-                        'menu_class'      => 'menu',
-                        'menu_id'         => '',
-                        'echo'            => true,
-                    );
-                    wp_nav_menu($defaults);
+                $defaults = array(
+                    'menu'            => '77',
+                    'container'       => 'div',
+                    'container_class' => 'header_upper',
+                    'container_id'    => '',
+                    'menu_class'      => 'menu',
+                    'menu_id'         => '',
+                    'echo'            => true,
+                );
+                wp_nav_menu($defaults);
                 ?>
             </section>
             <section class="hgroup-right">
                 <?php travelify_socialnetworks($flag); ?>
                 <?php get_search_form(); ?>
             </section><!-- .hgroup-right -->
+
+            <?php if ( is_active_sidebar('travelify_header_highlighted_widget')) : ?>
+                <section class="hgroup-header-highlighted-widget">
+                    <?php dynamic_sidebar('travelify_header_highlighted_widget'); ?>
+                </section>
+            <?php endif; ?>
+
             <section class="hgroup-right-header_bottom">
                 <?php
-                    $defaults = array(
-                        'menu'            => '78',
-                        'container'       => 'div',
-                        'container_class' => 'header_bottom',
-                        'container_id'    => '',
-                        'menu_class'      => 'menu',
-                        'menu_id'         => '',
-                        'echo'            => true,
-                    );
-                    wp_nav_menu($defaults);
+                $defaults = array(
+                    'menu'            => '78',
+                    'container'       => 'div',
+                    'container_class' => 'header_bottom',
+                    'container_id'    => '',
+                    'menu_class'      => 'menu',
+                    'menu_id'         => '',
+                    'echo'            => true,
+                );
+                wp_nav_menu($defaults);
                 ?>
             </section>
         </div><!-- .hgroup-wrap -->
@@ -304,7 +311,7 @@ function travelify_headerdetails() {
                         <h3 class="page-title"><?php echo travelify_header_title(); ?></h3><!-- .page-title -->
                     </div>
                 </div>
-                <?php
+            <?php
             }
         }
     }
@@ -351,7 +358,7 @@ if (!function_exists('travelify_socialnetworks')) :
             foreach ($social_links as $key => $value) {
                 if (!empty($options[$value])) {
                     $travelify_socialnetworks .=
-                            '<li class="' . strtolower($key) . '"><a href="' . esc_url($options[$value]) . '" title="' . sprintf(esc_attr__('%1$s on %2$s', 'travelify'), get_bloginfo('name'), $key) . '" target="_blank"></a></li>';
+                        '<li class="' . strtolower($key) . '"><a href="' . esc_url($options[$value]) . '" title="' . sprintf(esc_attr__('%1$s on %2$s', 'travelify'), get_bloginfo('name'), $key) . '" target="_blank"></a></li>';
                 }
             }
 
@@ -427,7 +434,7 @@ if (!function_exists('travelify_featured_post_slider')) :
                                                                 <a class="box-link-red" href="'.$featured_image_left_link_url.'">'.$featured_image_left_link_text.'</a>
                                                             </article><!-- .featured-text -->
                                                         </figure>
-                                                    </a>';  
+                                                    </a>';
 
                 $travelify_featured_post_slider .= '<figure class="featured_image_right">
                                                         <a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">
@@ -438,10 +445,10 @@ if (!function_exists('travelify_featured_post_slider')) :
                                                             <div class="featured-title"><a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">' . $featured_image_right_title_black . '</a></div><!-- .featured-title -->
                                                             <a class="box-link-red" href="'.$featured_image_right_link_url.'">'.$featured_image_right_link_text.'</a>
                                                         </article><!-- .featured-text -->
-                                                    </figure>';                                        
+                                                    </figure>';
 
                 $travelify_featured_post_slider .= '</div><!-- .slides -->';
-               
+
             endwhile;
             wp_reset_query();
             $travelify_featured_post_slider .= '</div>

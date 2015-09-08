@@ -51,7 +51,7 @@
              */
             do_action('travelify_before_header');
             ?>
-            <header id="branding" >
+            <header id="branding">
                 <?php
                 /**
                  * travelify_header hook
