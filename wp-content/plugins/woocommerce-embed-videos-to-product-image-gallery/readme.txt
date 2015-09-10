@@ -5,11 +5,11 @@ Tags: woocommerce, gallery, video gallery, video and image gallery, embed videos
 Donate link: http://www.zealousweb.net/payment/
 Requires at least: 3.0.1
 Tested up to: 4.2.x
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv3 or later License
 WC requires at least: 1.5
 WC tested up to: 2.3.x
-Version: 1.1
+Version: 1.2
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 
@@ -26,6 +26,7 @@ WooCommerce - Embed Videos To Product Image Gallery - Embed videos to product ga
 *	Video loads as inline embedded videos in place of featured image or in a lightbox based on WooCommerce settings
 *	Allows images and videos together in single product gallery
 *	Does not require to overwrite any WooCommerce core files 
+*	Youtube video control parameters are supported.
 
 == Plugin Requirement ==
 
@@ -44,8 +45,12 @@ WordPress   : Wordpress 3.0 and latest
 1. Screenshot 'screenshot-1.png' shows all the possible options available for this plugin at Product Gallery media tool.
 2. Screenshot 'screenshot-2.png' shows front end view of inline embedded videos.
 3. Screenshot 'screenshot-3.png' shows front end view of videos in lighbox popup.
+3. Screenshot 'screenshot-4.png' shows settings page of Youtube video parameters.
 
 == Changelog ==
+
+= 1.2 - 02/09/2015 =
+* Change - Added Youtube video control Settings.
 
 = 1.1 - 27/04/2015 =
 * Change - Fixed some issues.
