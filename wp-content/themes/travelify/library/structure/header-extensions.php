@@ -223,8 +223,20 @@ function travelify_headerdetails() {
                 );
                 wp_nav_menu($defaults);
                 ?>
-
-                <a class="cart-contents" href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>"><?php echo sprintf (_n( '%d item', '%d items', WC()->cart->cart_contents_count ), WC()->cart->cart_contents_count ); ?> - <?php echo WC()->cart->get_cart_total(); ?></a>
+                <?php $checkout_page_url = get_permalink(woocommerce_get_page_id('checkout')); ?>
+                <ul class="cart-contents">
+                    <li>
+                        <a href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>">
+                            <?php echo sprintf (_n( '%d item', '%d items', WC()->cart->cart_contents_count ), WC()->cart->cart_contents_count ); ?> - <?php echo WC()->cart->get_cart_total(); ?>
+                        </a>
+                    </li>
+                    <li> | </li>
+                    <li>
+                        <a href="<?php echo $checkout_page_url; ?>" title="<?php _e('Proceed to Checkout'); ?>">
+                           CHECKOUT >
+                        </a>
+                    </li>
+                </ul>
             </section>
             <section class="hgroup-right">
                 <?php travelify_socialnetworks($flag); ?>
