@@ -230,7 +230,7 @@ function travelify_headerdetails() {
                             <?php echo sprintf (_n( '%d item', '%d items', WC()->cart->cart_contents_count ), WC()->cart->cart_contents_count ); ?> - <?php echo WC()->cart->get_cart_total(); ?>
                         </a>
                     </li>
-                    <li> | </li>
+                    <li>&nbsp;|&nbsp;</li>
                     <li>
                         <a href="<?php echo $checkout_page_url; ?>" title="<?php _e('Proceed to Checkout'); ?>">
                            CHECKOUT >
