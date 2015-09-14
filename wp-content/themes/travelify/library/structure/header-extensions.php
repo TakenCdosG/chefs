@@ -226,7 +226,7 @@ function travelify_headerdetails() {
                 <?php $checkout_page_url = get_permalink(woocommerce_get_page_id('checkout')); ?>
                 <ul class="cart-contents">
                     <li>
-                        <a href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>">
+                        <a class="color-red" href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>">
                             <?php echo sprintf (_n( '%d item', '%d items', WC()->cart->cart_contents_count ), WC()->cart->cart_contents_count ); ?> - <?php echo WC()->cart->get_cart_total(); ?>
                         </a>
                     </li>
