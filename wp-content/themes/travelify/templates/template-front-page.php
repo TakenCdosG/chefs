@@ -281,7 +281,9 @@ for ($i = 1; $i <= $num_logos; $i++) {
         </div>
         <div class="col-md-4">
             <div class="box">
-                <?php echo get_the_post_thumbnail($first_blog_post->ID, array("356", "235")); ?>
+                <div class="post_thumbnail">
+                    <?php echo get_the_post_thumbnail($first_blog_post->ID, array("356", "235")); ?>
+                </div>
                 <div class="post-summary">
                     <?php
                     $categories = get_the_category($first_blog_post->ID);
@@ -306,7 +308,9 @@ for ($i = 1; $i <= $num_logos; $i++) {
         </div>
         <div class="col-md-4">
             <div class="box">
-                <?php echo get_the_post_thumbnail($second_blog_post->ID, array("356", "235")); ?>
+                <div class="post_thumbnail">
+                   <?php echo get_the_post_thumbnail($second_blog_post->ID, array("356", "235")); ?>
+                </div>
                 <div class="post-summary">
                     <?php
                     $categories = get_the_category($second_blog_post->ID);
@@ -331,7 +335,9 @@ for ($i = 1; $i <= $num_logos; $i++) {
         </div>
         <div class="col-md-4">
             <div class="box">
-                <?php echo get_the_post_thumbnail($third_blog_post->ID, array("356", "235")); ?>
+                <div class="post_thumbnail">
+                   <?php echo get_the_post_thumbnail($third_blog_post->ID, array("356", "235")); ?>
+                </div>
                 <div class="post-summary">
                     <?php
                     $categories = get_the_category($third_blog_post->ID);
