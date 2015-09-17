@@ -5,6 +5,7 @@ remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_r
 
 
 
+
 /**
  * Travelify functions and definitions
  *
@@ -74,6 +75,15 @@ function registration_errors_validation($reg_errors, $sanitized_user_login, $use
 }
 
 add_filter('woocommerce_registration_errors', 'registration_errors_validation', 10,3);
+
+/* * ************************************************************************************* */
+
+/**
+ * To change the text of the "Place order" button in the checkout page.
+ *
+ */
+
+add_filter( 'woocommerce_order_button_text', create_function( '', 'return "Make Payment";' ) );
 
 /* * ************************************************************************************* */
 
