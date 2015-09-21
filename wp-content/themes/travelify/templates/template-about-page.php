@@ -24,30 +24,24 @@ $location = get_field("map");
 
 // EXPERIENCE CHEF'S
 // Pull boxes
+
+// Front Page - Logos
+$num_logos = 10;
 $post = 109;
-$pull_boxes = get_field("pull_boxes", $post);
-if ($pull_boxes == "pull_manually") {
-    // First box
-    $manually_first_background_image = get_field("manually_first_background_image", $post);
-    $manually_first_title_black = get_field("manually_first_title_black", $post);
-    $manually_first_title_red = get_field("manually_first_title_red", $post);
-    $manually_first_link = get_field("manually_first_link", $post);
-    // Second box
-    $manually_second_background_image = get_field("manually_second_background_image", $post);
-    $manually_second_title_black = get_field("manually_second_title_black", $post);
-    $manually_second_title_red = get_field("manually_second_title_red", $post);
-    $manually_second_link = get_field("manually_second_link", $post);
-    // Third box
-    $manually_third_background_image = get_field("manually_third_background_image", $post);
-    $manually_third_title_black = get_field("manually_third_title_black", $post);
-    $manually_third_title_red = get_field("manually_third_title_red", $post);
-    $manually_third_link = get_field("manually_third_link", $post);
-    // Fourth box
-    $manually_fourth_background_image = get_field("manually_fourth_background_image", $post);
-    $manually_fourth_title_black = get_field("manually_fourth_title_black", $post);
-    $manually_fourth_title_red = get_field("manually_fourth_title_red", $post);
-    $manually_fourth_link = get_field("manually_fourth_link", $post);
+
+$logos_image = array();
+for ($i = 1; $i <= $num_logos; $i++) {
+    $image_key = "front_logo_" . $i;
+    $link_key = "front_link_logo_" . $i;
+    $image = get_field($image_key, $post);
+    $link = get_field($link_key, $post);
+    if (!empty($image)) {
+        $new_image = array("image" => $image, "link" => $link);
+        $logos_image[] = $new_image;
+    }
 }
+
+$pull_boxes = get_field("pull_boxes", $post);
 
 ?>
 
@@ -84,115 +78,25 @@ if ($pull_boxes == "pull_manually") {
                 <?php endif; ?>
             </div>
         </div>
+
         <!-- Add clearfix -->
         <div class="clearfix-block"></div>
-        <div class="row margin-grid-double">
+        <div class="row margin-grid">
             <div class="col-md-12">
-                <h2 class="line"><span class='color-black'>EXPERIENCE</span><span class='color-red'> CHEF'S</span></h2>
-            </div>
-            <div class="col-md-3">
-                <div class="box">
-                    <?php if(!empty($manually_first_link)): ?>
-                    <a href="<?php echo $manually_first_link; ?>">
-                        <?php endif; ?>
-                        <?php if (!empty($manually_first_background_image)): ?>
-                            <img width="" height="" src="<?php echo $manually_first_background_image; ?>" class="img-responsive" alt="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>" title="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>">
-                        <?php endif; ?>
-                        <div class="box-summary-middle">
-                            <?php if (!empty($manually_first_title_black)): ?>
-                                <h3 class="title-color-black">
-                                    <?php echo $manually_first_title_black; ?>
-                                </h3>
-                            <?php endif; ?>
-                            <?php if (!empty($manually_first_title_red)): ?>
-                                <h2 class="title-color-red">
-                                    <?php echo $manually_first_title_red; ?>
-                                </h2>
-                            <?php endif; ?>
-                        </div>
-                        <?php if(!empty($manually_first_link)): ?>
-                    </a>
-                <?php endif; ?>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="box">
-                    <?php if(!empty($manually_second_link)): ?>
-                    <a href="<?php echo $manually_second_link; ?>">
-                        <?php endif; ?>
-                        <?php if (!empty($manually_second_background_image)): ?>
-                            <img width="" height="" src="<?php echo $manually_second_background_image; ?>" class="img-responsive" alt="<?php echo $manually_second_title_black . " " . $manually_second_title_red; ?>" title="<?php echo $manually_second_title_black . " " . $manually_second_title_red; ?>">
-                        <?php endif; ?>
-                        <div class="box-summary-middle">
-                            <?php if (!empty($manually_second_title_black)): ?>
-                                <h3 class="title-color-black">
-                                    <?php echo $manually_second_title_black; ?>
-                                </h3>
-                            <?php endif; ?>
-                            <?php if (!empty($manually_second_title_red)): ?>
-                                <h2 class="title-color-red">
-                                    <?php echo $manually_second_title_red; ?>
-                                </h2>
-                            <?php endif; ?>
-                        </div>
-                        <?php if(!empty($manually_second_link)): ?>
-                    </a>
-                <?php endif; ?>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="box">
-                    <?php if(!empty($manually_third_link)): ?>
-                    <a href="<?php echo $manually_third_link; ?>">
-                        <?php endif; ?>
-                        <?php if (!empty($manually_third_background_image)): ?>
-                            <img width="" height="" src="<?php echo $manually_third_background_image; ?>" class="img-responsive" alt="<?php echo $manually_third_title_black . " " . $manually_third_title_red; ?>" title="<?php echo $manually_third_title_black . " " . $manually_third_title_red; ?>">
-                        <?php endif; ?>
-                        <div class="box-summary-middle">
-                            <?php if (!empty($manually_third_title_black)): ?>
-                                <h3 class="title-color-black">
-                                    <?php echo $manually_third_title_black; ?>
-                                </h3>
-                            <?php endif; ?>
-                            <?php if (!empty($manually_third_title_red)): ?>
-                                <h2 class="title-color-red">
-                                    <?php echo $manually_third_title_red; ?>
-                                </h2>
-                            <?php endif; ?>
-                        </div>
-                        <?php if(!empty($manually_third_link)): ?>
-                    </a>
-                <?php endif; ?>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="box">
-                    <?php if(!empty($manually_fourth_link)): ?>
-                    <a href="<?php echo $manually_fourth_link; ?>">
-                        <?php endif; ?>
-                        <?php if (!empty($manually_fourth_background_image)): ?>
-                            <img width="" height="" src="<?php echo $manually_fourth_background_image; ?>" class="img-responsive" alt="<?php echo $manually_fourth_title_black . " " . $manually_fourth_title_red; ?>" title="<?php echo $manually_fourth_title_black . " " . $manually_fourth_title_red; ?>">
-                        <?php endif; ?>
-                        <div class="box-summary-middle">
-                            <?php if (!empty($manually_fourth_title_black)): ?>
-                                <h3 class="title-color-black">
-                                    <?php echo $manually_fourth_title_black; ?>
-                                </h3>
-                            <?php endif; ?>
-                            <?php if (!empty($manually_fourth_title_red)): ?>
-                                <h2 class="title-color-red">
-                                    <?php echo $manually_fourth_title_red; ?>
-                                </h2>
-                            <?php endif; ?>
-                        </div>
-                        <?php if(!empty($manually_fourth_link)): ?>
-                    </a>
-                <?php endif; ?>
+                <div class="flexslider">
+                    <ul class="slides">
+                        <?php foreach ($logos_image as $key => $item): ?>
+                            <li>
+                                <img src="<?php echo $item["image"]; ?>" />
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             </div>
         </div>
         <!-- Add clearfix -->
         <div class="clearfix-block"></div>
+
     </div><!-- #container -->
 
 <?php
