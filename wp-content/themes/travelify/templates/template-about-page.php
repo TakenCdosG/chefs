@@ -44,6 +44,13 @@ for ($i = 1; $i <= $num_logos; $i++) {
 $from_the_blog_about_post = get_field("from_the_blog_about");
 $from_the_blog_about_post_id = $from_the_blog_about_post[0];
 
+$info = array(
+    "from_the_blog_about_post" => $from_the_blog_about_post,
+    'from_the_blog_about_post_id' => $from_the_blog_about_post_id
+);
+
+dpm($info);
+
 $box_blog_post = get_post($from_the_blog_about_post_id);
 
 ?>
