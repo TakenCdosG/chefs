@@ -18,9 +18,17 @@ do_action('travelify_before_main_container');
 // Header Top
 $header_top_image_about = get_field("header_top_image_about");
 
+// From The blog
 
-// CONTACT MAP
-$location = get_field("map");
+$from_the_blog_about_post = get_field("from_the_blog_about");
+$from_the_blog_about_post_id = $from_the_blog_about_post[0];
+
+$info = array(
+    "from_the_blog_about_post" => $from_the_blog_about_post,
+    'from_the_blog_about_post_id' => $from_the_blog_about_post_id
+);
+
+dpm($info);
 
 // EXPERIENCE CHEF'S
 // Pull boxes
@@ -41,15 +49,6 @@ for ($i = 1; $i <= $num_logos; $i++) {
     }
 }
 
-$from_the_blog_about_post = get_field("from_the_blog_about");
-$from_the_blog_about_post_id = $from_the_blog_about_post[0];
-
-$info = array(
-    "from_the_blog_about_post" => $from_the_blog_about_post,
-    'from_the_blog_about_post_id' => $from_the_blog_about_post_id
-);
-
-dpm($info);
 
 $box_blog_post = get_post($from_the_blog_about_post_id);
 
