@@ -28,10 +28,7 @@ $info = array(
     'from_the_blog_about_post_id' => $from_the_blog_about_post_id
 );
 
-dpm($info);
-
-// EXPERIENCE CHEF'S
-// Pull boxes
+dpm(get_fields());
 
 // Front Page - Logos
 $num_logos = 10;
