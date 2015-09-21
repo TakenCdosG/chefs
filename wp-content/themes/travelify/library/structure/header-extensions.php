@@ -314,7 +314,7 @@ function travelify_headerdetails() {
                 $show_title = get_post_meta($postid, $key='show_title', $single = TRUE);
             }
 
-            if (!is_page_template('templates/template-product-category-page.php') && $show_title != "FALSE") {
+            if (!is_page_template('templates/template-product-category-page.php') && !is_page_template('templates/template-about-page.php') && $show_title != "FALSE") {
                 ?>
                 <div class="page-title-wrap">
                     <div class="container clearfix">
@@ -327,6 +327,7 @@ function travelify_headerdetails() {
                 </div>
             <?php
             }
+
         }
     }
 }
