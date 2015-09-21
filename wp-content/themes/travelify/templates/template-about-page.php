@@ -63,7 +63,7 @@ $box_blog_post = get_post($from_the_blog_about_post_id);
         <?php endif; ?>
 
         <div class="row margin-grid">
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <?php
                 /**
                  * travelify_main_container hook
@@ -76,7 +76,7 @@ $box_blog_post = get_post($from_the_blog_about_post_id);
                 ?>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="box">
                     <div class="post_thumbnail">
                         <?php echo get_the_post_thumbnail($box_blog_post->ID, array("356", "235")); ?>
