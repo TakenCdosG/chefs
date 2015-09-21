@@ -15,6 +15,10 @@
  */
 do_action('travelify_before_main_container');
 
+// Header Top
+$header_top_image_about = get_field("header_top_image_about");
+
+
 // CONTACT MAP
 $location = get_field("map");
 
@@ -48,6 +52,17 @@ if ($pull_boxes == "pull_manually") {
 ?>
 
     <div id="container">
+
+        <?php if (!empty($header_top_image_about)): ?>
+            <div class="row margin-grid">
+                <div class="col-md-12">
+                    <div class="top_banner_about_page">
+                        <img width="" height="" src="<?php echo $header_top_image_about; ?>" class="img-responsive" alt="" title="">
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="row margin-grid">
             <div class="col-md-9">
                 <?php
