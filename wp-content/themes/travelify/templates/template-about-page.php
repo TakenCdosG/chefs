@@ -22,14 +22,14 @@ $header_top_image_about = get_field("header_top_image_about");
 
 $from_the_blog_about_post = get_field("from_the_blog_about");
 $from_the_blog_about_post_id = $from_the_blog_about_post[0];
-
+/*
 $info = array(
     "from_the_blog_about_post" => $from_the_blog_about_post,
     'from_the_blog_about_post_id' => $from_the_blog_about_post_id
 );
 
 dpm(get_fields());
-
+*/
 // Front Page - Logos
 $num_logos = 10;
 $post = 109;
