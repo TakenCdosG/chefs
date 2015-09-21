@@ -41,10 +41,11 @@ for ($i = 1; $i <= $num_logos; $i++) {
     }
 }
 
-$pull_boxes = get_field("pull_boxes", $post);
+$from_the_blog_about_post = get_field("from_the_blog_about");
+$from_the_blog_about_post_id = $first_post[0];
 
+$box_blog_post = get_post($from_the_blog_about_post_id);
 ?>
-
     <div id="container">
 
         <?php if (!empty($header_top_image_about)): ?>
@@ -70,12 +71,33 @@ $pull_boxes = get_field("pull_boxes", $post);
                 do_action('travelify_main_container');
                 ?>
             </div>
+
             <div class="col-md-3">
-                <?php if( !empty($location) ):  ?>
-                    <div class="acf-map">
-                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"><small><span class='color-red'><a target='_blank' style="font-size: 12px;" href="https://www.google.com/maps/place/449+Boston+Post+Rd,+Orange,+CT+06477,+EE.+UU./@41.2576974,-73.0134718,17z/data=!3m1!4b1!4m2!3m1!1s0x89e875c119620cdf:0x5bae5e90ee506a94">449 Boston Post Road Orange, CT 06477</a></span></small></div>
+                <div class="box">
+                    <div class="post_thumbnail">
+                        <?php echo get_the_post_thumbnail($box_blog_post->ID, array("356", "235")); ?>
                     </div>
-                <?php endif; ?>
+                    <div class="post-summary">
+                        <?php
+                        $categories = get_the_category($box_blog_post->ID);
+                        $category = "";
+                        if (isset($categories[0]->name)) {
+                            $category = "<span class='color-red'>" . $categories[0]->name . ": </span>";
+                        }
+                        ?>
+                        <?php if (!empty($box_blog_post->post_title)): ?>
+                            <h3 class="post-title">
+                                <?php echo $category . $box_blog_post->post_title; ?>
+                            </h3>
+                        <?php endif; ?>
+                        <?php if (!empty($box_blog_post->post_excerpt)): ?>
+                            <div class="post-excerpt">
+                                <?php echo $box_blog_post->post_excerpt; ?>
+                            </div>
+                        <?php endif; ?>
+                        <a class="post-permalink" href="<?php echo esc_url(get_permalink($box_blog_post->ID)); ?>" title="<?php echo $box_blog_post->post_title; ?>">READ MORE</a>
+                    </div>
+                </div>
             </div>
         </div>
 
