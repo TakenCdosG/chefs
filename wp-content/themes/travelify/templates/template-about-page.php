@@ -42,9 +42,10 @@ for ($i = 1; $i <= $num_logos; $i++) {
 }
 
 $from_the_blog_about_post = get_field("from_the_blog_about");
-$from_the_blog_about_post_id = $first_post[0];
+$from_the_blog_about_post_id = $from_the_blog_about_post[0];
 
 $box_blog_post = get_post($from_the_blog_about_post_id);
+
 ?>
     <div id="container">
 
