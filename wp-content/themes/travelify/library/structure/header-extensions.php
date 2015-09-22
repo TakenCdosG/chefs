@@ -434,12 +434,6 @@ if (!function_exists('travelify_featured_post_slider')) :
                 $featured_image_left_link_text = get_field("featured_image_left_link_text", $post->ID);
                 $featured_image_left_link_url = get_field("featured_image_left_link_url", $post->ID);
 
-                $featured_image_right = get_field("featured_image_right", $post->ID);
-                $featured_image_right_title_red = get_field("featured_image_right_title_red", $post->ID);
-                $featured_image_right_title_black = get_field("featured_image_right_title_black", $post->ID);
-                $featured_image_right_link_text = get_field("featured_image_right_link_text", $post->ID);
-                $featured_image_right_link_url = get_field("featured_image_right_link_url", $post->ID);
-
                 $travelify_featured_post_slider .= '<a href="' . $featured_image_left_link_url . '" title="' . $featured_image_left_link_text . '">
                                                         <figure class="featured_image_left" style="background: url('.$featured_image_left.') no-repeat center center;">
                                                             <img style="display:none;" width="" height="" src="'.$featured_image_left.'" class="img-responsive pngfix" alt="'.$featured_image_left_link_text.'" title="'.$featured_image_left_link_text.'">
@@ -450,17 +444,6 @@ if (!function_exists('travelify_featured_post_slider')) :
                                                             </article><!-- .featured-text -->
                                                         </figure>
                                                     </a>';
-
-                $travelify_featured_post_slider .= '<figure class="featured_image_right">
-                                                        <a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">
-                                                              <img width="" height="" src="'.$featured_image_right.'" class="img-responsive pngfix" alt="'.$featured_image_right_link_text.'" title="'.$featured_image_right_link_text.'">
-                                                        </a>
-                                                        <article class="featured-text">
-                                                            <div class="featured-content">' . $featured_image_right_title_red . '</div><!-- .featured-content -->
-                                                            <div class="featured-title"><a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">' . $featured_image_right_title_black . '</a></div><!-- .featured-title -->
-                                                            <a class="box-link-red" href="'.$featured_image_right_link_url.'">'.$featured_image_right_link_text.'</a>
-                                                        </article><!-- .featured-text -->
-                                                    </figure>';
 
                 $travelify_featured_post_slider .= '</div><!-- .slides -->';
 
