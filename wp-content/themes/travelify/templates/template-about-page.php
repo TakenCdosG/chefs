@@ -109,7 +109,7 @@ $box_blog_post = get_post($from_the_blog_about_post_id);
         <div class="clearfix-block"></div>
         <div class="row margin-grid">
             <div class="col-md-12">
-                <div class="flexslider">
+                <div class="flexslider margin-bottom-60">
                     <ul class="slides">
                         <?php foreach ($logos_image as $key => $item): ?>
                             <li>
