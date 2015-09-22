@@ -15,7 +15,7 @@
  */
 do_action('travelify_before_main_container');
 
-$title = ucfirst(get_the_title(get_the_ID()));
+$title = ucfirst(strtolower(get_the_title(get_the_ID())));
 // Header Top
 $header_top_image_about = get_field("header_top_image_about");
 
