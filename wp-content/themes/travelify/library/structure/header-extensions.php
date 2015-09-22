@@ -457,7 +457,7 @@ if (!function_exists('travelify_featured_post_slider')) :
             $featured_image_right_link_text = get_field("slider_featured_image_right_link_text", $home_post_id);
             $featured_image_right_link_url = get_field("slider_featured_image_right_link_url", $home_post_id);
 
-            $travelify_righ_featured_post_slider = '<figure class="featured_image_right">
+            $travelify_righ_featured_post_slider = '<figure class="featured_image_right slides">
                                                         <a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">
                                                               <img width="" height="" src="'.$featured_image_right.'" class="img-responsive pngfix" alt="'.$featured_image_right_link_text.'" title="'.$featured_image_right_link_text.'">
                                                         </a>
