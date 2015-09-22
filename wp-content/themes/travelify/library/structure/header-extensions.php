@@ -233,7 +233,7 @@ function travelify_headerdetails() {
                     <li>&nbsp;|&nbsp;</li>
                     <li>
                         <a href="<?php echo $checkout_page_url; ?>" title="<?php _e('Proceed to Checkout'); ?>">
-                           CHECKOUT >
+                            CHECKOUT >
                         </a>
                     </li>
                 </ul>
@@ -449,7 +449,27 @@ if (!function_exists('travelify_featured_post_slider')) :
 
             endwhile;
             wp_reset_query();
-            $travelify_featured_post_slider .= '</div></div><div class="right-featured-slider"></div>
+
+            $home_post_id = 109;
+            $featured_image_right = get_field("slider_featured_image_right_image", $home_post_id);
+            $featured_image_right_title_red = get_field("slider_featured_image_right_title_red", $home_post_id);
+            $featured_image_right_title_black = get_field("slider_featured_image_right_title_black", $home_post_id);
+            $featured_image_right_link_text = get_field("slider_featured_image_right_link_text", $home_post_id);
+            $featured_image_right_link_url = get_field("slider_featured_image_right_link_url", $home_post_id);
+
+            $travelify_righ_featured_post_slider = '<figure class="featured_image_right">
+                                                        <a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">
+                                                              <img width="" height="" src="'.$featured_image_right.'" class="img-responsive pngfix" alt="'.$featured_image_right_link_text.'" title="'.$featured_image_right_link_text.'">
+                                                        </a>
+                                                        <article class="featured-text">
+                                                            <div class="featured-content">' . $featured_image_right_title_red . '</div><!-- .featured-content -->
+                                                            <div class="featured-title"><a href="' . $featured_image_right_link_url . '" title="' . $featured_image_right_link_text . '">' . $featured_image_right_title_black . '</a></div><!-- .featured-title -->
+                                                            <a class="box-link-red" href="'.$featured_image_right_link_url.'">'.$featured_image_right_link_text.'</a>
+                                                        </article><!-- .featured-text -->
+                                                    </figure>';
+
+            $travelify_featured_post_slider .= '</div></div><div class="right-featured-slider">'.$travelify_righ_featured_post_slider.'</div>
+
 		<nav id="controllers" class="clearfix">
 		</nav><!-- #controllers --></section><!-- .featured-slider -->';
         }
