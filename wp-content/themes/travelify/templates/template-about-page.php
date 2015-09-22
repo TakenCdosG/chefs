@@ -15,6 +15,7 @@
  */
 do_action('travelify_before_main_container');
 
+$title = ucfirst(get_the_title(get_the_ID()));
 // Header Top
 $header_top_image_about = get_field("header_top_image_about");
 
@@ -52,7 +53,7 @@ $box_blog_post = get_post($from_the_blog_about_post_id);
 ?>
 
     <div id="container">
-        <nav class="general-breadcrumb"><a href="<?php echo get_home_url(); ?>">Home</a>&nbsp;/&nbsp;<?php echo ucfirst(get_the_title(get_the_ID())); ?></nav>
+        <nav class="general-breadcrumb"><a href="<?php echo get_home_url(); ?>">Home</a>&nbsp;/&nbsp;<?php echo $title; ?></nav>
         <?php if (!empty($header_top_image_about)): ?>
             <div class="row margin-grid">
                 <div class="col-md-12">
