@@ -2,7 +2,7 @@
 
 function get_image_url($path, $id, $width, $height){
     $image_path               = $path;
-    $upload_directory         = wp_upload_dir(get_the_date(), $id);
+    $upload_directory         = wp_upload_dir();
     $modified_image_directory = $upload_directory["path"] . "/";
     $file_name_with_ending    = explode("/", $image_path);
     $file_name_with_ending    = $file_name_with_ending[count($file_name_with_ending) - 1];
