@@ -306,61 +306,65 @@ for ($i = 1; $i <= $num_logos; $i++) {
                                 <?php echo restrict_words_number($first_blog_post["post_excerpt"], $words_number = 127); ?>
                             </div>
                         <?php endif; ?>
-                        <a class="post-permalink" href="<?php echo esc_url($first_blog_post["link"]); ?>" title="<?php echo $first_blog_post["title"]; ?>">READ MORE</a>
+                        <a target="_blank" class="post-permalink" href="<?php echo esc_url($first_blog_post["link"]); ?>" title="<?php echo $first_blog_post["title"]; ?>">READ MORE</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="box">
                     <div class="post_thumbnail">
-                        <?php echo get_the_post_thumbnail($second_blog_post->ID, array("356", "235")); ?>
+                        <?php if(!empty($second_blog_post["featured_image"])):?>
+                            <img src="<?php echo $second_blog_post["featured_image"]; ?>" class="attachment-356x235 wp-post-image" alt="box-1">
+                        <?php endif; ?>
+                        <?php //echo get_the_post_thumbnail($second_blog_post->ID, array("356", "235")); ?>
                     </div>
                     <div class="post-summary">
                         <?php
-                        $categories = get_the_category($second_blog_post->ID);
                         $category = "";
-                        if (isset($categories[0]->name)) {
-                            $category = "<span class='color-red'>" . $categories[0]->name . ": </span>";
+                        if($second_blog_post["format"] == "image"){
+                            $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
                         }
                         ?>
-                        <?php if (!empty($second_blog_post->post_title)): ?>
+                        <?php if (!empty($second_blog_post["title"])): ?>
                             <h3 class="post-title">
-                                <?php echo $category . $second_blog_post->post_title; ?>
+                                <?php echo $category . restrict_words_number($second_blog_post["title"], $words_number = 28); ?>
                             </h3>
                         <?php endif; ?>
-                        <?php if (!empty($second_blog_post->post_excerpt)): ?>
+                        <?php if (!empty($second_blog_post["post_excerpt"])): ?>
                             <div class="post-excerpt">
-                                <?php echo $second_blog_post->post_excerpt; ?>
+                                <?php echo restrict_words_number($second_blog_post["post_excerpt"], $words_number = 127); ?>
                             </div>
                         <?php endif; ?>
-                        <a class="post-permalink" href="<?php echo esc_url(get_permalink($second_blog_post->ID)); ?>" title="<?php echo $second_blog_post->post_title; ?>">READ MORE</a>
+                        <a target="_blank" class="post-permalink" href="<?php echo esc_url($second_blog_post["link"]); ?>" title="<?php echo $second_blog_post["title"]; ?>">READ MORE</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="box">
                     <div class="post_thumbnail">
-                        <?php echo get_the_post_thumbnail($third_blog_post->ID, array("356", "235")); ?>
+                        <?php if(!empty($third_blog_post["featured_image"])):?>
+                            <img src="<?php echo $third_blog_post["featured_image"]; ?>" class="attachment-356x235 wp-post-image" alt="box-1">
+                        <?php endif; ?>
+                        <?php //echo get_the_post_thumbnail($third_blog_post->ID, array("356", "235")); ?>
                     </div>
                     <div class="post-summary">
                         <?php
-                        $categories = get_the_category($third_blog_post->ID);
                         $category = "";
-                        if (isset($categories[0]->name)) {
-                            $category = "<span class='color-red'>" . $categories[0]->name . ": </span>";
+                        if($third_blog_post["format"] == "image"){
+                            $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
                         }
                         ?>
-                        <?php if (!empty($third_blog_post->post_title)): ?>
+                        <?php if (!empty($third_blog_post["title"])): ?>
                             <h3 class="post-title">
-                                <?php echo $category . $third_blog_post->post_title; ?>
+                                <?php echo $category . restrict_words_number($third_blog_post["title"], $words_number = 28); ?>
                             </h3>
                         <?php endif; ?>
-                        <?php if (!empty($third_blog_post->post_excerpt)): ?>
+                        <?php if (!empty($third_blog_post["post_excerpt"])): ?>
                             <div class="post-excerpt">
-                                <?php echo $third_blog_post->post_excerpt; ?>
+                                <?php echo restrict_words_number($third_blog_post["post_excerpt"], $words_number = 127); ?>
                             </div>
                         <?php endif; ?>
-                        <a class="post-permalink" href="<?php echo esc_url(get_permalink($third_blog_post->ID)); ?>" title="<?php echo $third_blog_post->post_title; ?>">READ MORE</a>
+                        <a target="_blank" class="post-permalink" href="<?php echo esc_url($third_blog_post["link"]); ?>" title="<?php echo $third_blog_post["title"]; ?>">READ MORE</a>
                     </div>
                 </div>
             </div>
