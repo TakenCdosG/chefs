@@ -1,6 +1,30 @@
 <?php
 
+function get_image_url($path, $id, $width, $height){
+    $image_path               = $path;
+    $upload_directory         = wp_upload_dir(get_the_date(), $id);
+    $modified_image_directory = $upload_directory["path"] . "/";
+    $file_name_with_ending    = explode("/", $image_path);
+    $file_name_with_ending    = $file_name_with_ending[count($file_name_with_ending) - 1];
+    $file_name_without_ending = explode(".", $file_name_with_ending);
+    $file_ending              = $file_name_without_ending[count($file_name_without_ending) - 1];
+    $file_name_without_ending = $file_name_without_ending[count($file_name_without_ending) - 2];
+    $modified_image_path      = $modified_image_directory . md5($file_name_without_ending) . "." . $file_ending;
 
+    if(!file_exists($modified_image_path)) {
+        $image = wp_get_image_editor($image_path);
+        if(!is_wp_error($image)) {
+            $rotate                            = 180;
+            $modified_file_name_without_ending = $file_name_without_ending . "-" . $width . "x" . $height . "-" . $rotate . "dg";
+            $image->resize($width, $height);
+            $image->rotate($rotate);
+            $image->save($modified_file_name_without_ending);
+        }
+    }
+
+    $modified_image_url = $upload_directory["url"] . "/" . $modified_file_name_without_ending . "." . $file_ending;
+    return $modified_image_url;
+}
 
 function restrict_words_number($ad, $words_number = 200){
     if(strlen($ad) < $words_number) {

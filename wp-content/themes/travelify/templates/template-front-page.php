@@ -285,7 +285,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
                 <div class="box">
                     <div class="post_thumbnail">
                         <?php if(!empty($first_blog_post["featured_image"])):?>
-                            <img src="<?php echo image_resize($first_blog_post["featured_image"], 356, 235, false ); ?>" class="attachment-356x235 wp-post-image" alt="box-1">
+                            <img src="<?php echo get_image_url($first_blog_post["featured_image"], $first_blog_post["id"], "356", "235"); ?>" class="attachment-356x235 wp-post-image" alt="box-1">
                         <?php endif; ?>
                         <?php //echo get_the_post_thumbnail($first_blog_post->ID, array("356", "235")); ?>
                     </div>
