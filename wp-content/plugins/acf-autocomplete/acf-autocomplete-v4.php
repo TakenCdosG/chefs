@@ -511,8 +511,8 @@ class acf_field_autocomplete extends acf_field {
         $term = urlencode($_REQUEST['term']);
         $post_type = $_REQUEST['post_type'];
         $suggestions = array();
-
-        $str = file_get_contents($this->rest_route.'/filter[s]='.$term);
+        $callback = $this->rest_route.'/filter[s]='.$term;
+        $str = file_get_contents($callback);
         $json = json_decode($str, true); // decode the JSON into an associative array
         foreach($json as $post){
             if(isset($post["id"])){
@@ -531,7 +531,7 @@ class acf_field_autocomplete extends acf_field {
         }
 
         // JSON encode and echo
-        $response = $_GET["callback"] . "(" . json_encode($str) . ")";
+        $response = $_GET["callback"] . "(" . json_encode($callback) . ")";
         //$response = json_encode($suggestions);
         //die(var_dump($suggestions));
 
