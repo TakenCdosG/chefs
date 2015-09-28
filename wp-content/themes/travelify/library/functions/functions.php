@@ -165,6 +165,8 @@ function travelify_scripts_styles_method() {
 
     wp_enqueue_style('travelify-webfonts-style', get_template_directory_uri() . '/library/font/MyFontsWebfontsKit.css', false);
 
+    wp_enqueue_style('travelify-custom-style', get_template_directory_uri() . '/custom.css', false);
+
     /**
      * Adds JavaScript to pages with the comment form to support
      * sites with threaded comments (when in use).
