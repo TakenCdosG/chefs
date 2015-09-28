@@ -463,6 +463,7 @@ class acf_field_autocomplete extends acf_field {
                 $post["title"] = $json["title"]["rendered"];
                 $post["link"] = $json["link"];
                 $post["id"] = $json["id"];
+                $post["post_excerpt"] = $json["excerpt"]["rendered"];
                 $posts[] = $post;
             }
         }
