@@ -453,10 +453,23 @@ class acf_field_autocomplete extends acf_field {
             $post_ids[] = trim($p_a_news);
         }
 
-        dpm($post_ids);
+        $posts = array();
+
+        foreach($post_ids as $post_id){
+            $str = file_get_contents($this->rest_route.'/'.$post_id);
+            $json = json_decode($str, true); // decode the JSON into an associative array
+            if(isset($json["id"])){
+                $post = array();
+                $post["title"] = $json["title"]["rendered"];
+                $post["link"] = $json["link"];
+                $post["id"] = $json["id"];
+                $posts[] = $post;
+            }
+        }
 
         // return the value
-        return $post_ids;
+        // return $post_ids;
+        return $posts;
     }
 
     /*
