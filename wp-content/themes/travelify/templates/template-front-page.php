@@ -298,12 +298,12 @@ for ($i = 1; $i <= $num_logos; $i++) {
                         ?>
                         <?php if (!empty($first_blog_post["title"])): ?>
                             <h3 class="post-title">
-                                <?php echo $category . $first_blog_post["title"]; ?>
+                                <?php echo $category . restrict_words_number($first_blog_post["title"], $words_number = 28); ?>
                             </h3>
                         <?php endif; ?>
                         <?php if (!empty($first_blog_post["post_excerpt"])): ?>
                             <div class="post-excerpt">
-                                <?php echo $first_blog_post["post_excerpt"]; ?>
+                                <?php echo restrict_words_number($first_blog_post["post_excerpt"], $words_number = 127); ?>
                             </div>
                         <?php endif; ?>
                         <a class="post-permalink" href="<?php echo esc_url($first_blog_post["link"]); ?>" title="<?php echo $first_blog_post["title"]; ?>">READ MORE</a>

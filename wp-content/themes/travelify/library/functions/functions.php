@@ -1,5 +1,25 @@
 <?php
 
+
+
+function restrict_words_number($ad, $words_number = 200){
+    if(strlen($ad) < $words_number) {
+        $ad = $ad;
+    }
+    else {
+        $ad = substr($ad, 0, $words_number);
+        $rpos = strrpos($ad, ' ');
+        if($rpos > 0) {
+            $ad = substr($ad, 0, $rpos);
+        }
+        $ad .= '...';
+    }
+
+    return $ad;
+}
+
+
+
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 
 
