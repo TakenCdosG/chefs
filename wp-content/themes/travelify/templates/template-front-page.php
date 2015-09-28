@@ -60,6 +60,7 @@ if ($pull_boxes == "pull_manually") {
 
 //-> From The Blog.
 $first_post = get_field("first_post");
+dpm($first_post);
 $first_post_id = $first_post[0];
 $second_post = get_field("second_post");
 $second_post_id = $second_post[0];
