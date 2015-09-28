@@ -159,18 +159,18 @@ class acf_field_autocomplete extends acf_field {
 
         $input_value = "";
         $itemlist = "";
+        $field_value = array();
         if (!empty($field['value'])) {
-
             $post_ids_array = explode("—", $field['value']);
             $post_ids = array();
             foreach ($post_ids_array as $p_a) {
                 $post_ids[] = trim($p_a);
             }
-
             foreach ($post_ids as $id) {
                 $str = file_get_contents($this->rest_route.'/'.$id);
                 $json = json_decode($str, true); // decode the JSON into an associative array
                 if(isset($json["id"])){
+                    $field_value[] = $json["id"];
                     $link = $json["link"];
                     $title = $json["title"]["rendered"];
                     $id_post = $json["id"];
@@ -184,6 +184,7 @@ class acf_field_autocomplete extends acf_field {
         // Change Field into a select
         $field['type'] = 'select';
         $field['choices'] = array();
+        $field['value'] = implode("—", $field_value);
 
         $str_post_type = implode("—", $field['post_type']);
 
