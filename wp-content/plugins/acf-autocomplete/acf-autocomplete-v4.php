@@ -166,25 +166,19 @@ class acf_field_autocomplete extends acf_field {
                 $post_ids[] = trim($p_a);
             }
 
-            $post_labels = "";
-            $query_custom = new WP_Query(array('post_type' => $field['post_type'], 'post__in' => $post_ids));
-            $post_list = $query_custom->posts;
-            if (count($post_list) > 0) {
-                foreach ($post_list as $p) {
-                    $itemlist.="<h3 class='ui-item-list'><span class='ui-accordion-header-icon ui-icon ui-icon-triangle-1-e'></span><span class='ui-item-list-content'>" . $p->post_title . " (id: " . $p->ID . ")</span><a class='acf-button-delete ir' href='#' data-item-id='" . $p->ID . "' >Remove</a></h3>";
-                    $title = $p->post_title;
+            $rest_route = 'http://blog.chefsemporiumct.com/wp-json/wp/v2/posts/';
+            foreach ($post_ids as $id) {
+                $str = file_get_contents($rest_route.$id);
+                $json = json_decode($str, true); // decode the JSON into an associative array
+                if(isset($json["id"])){
+                    $link = $json["link"];
+                    $title = $json["title"]["rendered"];
+                    $id_post = $json["id"];
+                    $itemlist.="<h3 class='ui-item-list'><span class='ui-accordion-header-icon ui-icon ui-icon-triangle-1-e'></span><span class='ui-item-list-content'>" . $title . " (id: " . $id_post . ")</span><a class='acf-button-delete ir' href='#' data-item-id='" . $id_post . "' >Remove</a></h3>";
                     $post_labels[] = $title;
                 }
             }
-            $input_value = implode("—", $post_labels);
-        }
 
-        $post_test = array(631, 628, 616);
-        $rest_route = 'http://blog.chefsemporiumct.com/wp-json/wp/v2/posts/';
-        foreach ($post_test as $id) {
-            $str = file_get_contents($rest_route.$id);
-            $json = json_decode($str, true); // decode the JSON into an associative array
-            dpm($json);
         }
 
         // Change Field into a select
