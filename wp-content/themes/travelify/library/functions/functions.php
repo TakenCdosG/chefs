@@ -3,7 +3,11 @@
 function get_image_url($path, $id, $width, $height){
     $image_path               = $path;
     $upload_directory         = wp_upload_dir();
-    $modified_image_directory = $upload_directory["path"] . "/";
+    $modified_image_directory = $upload_directory["basedir"] . "/blog/".$id . "/";
+    if(!file_exists($modified_image_directory) ){
+        wp_mkdir_p( $modified_image_directory );
+    }
+
     $file_name_with_ending    = explode("/", $image_path);
     $file_name_with_ending    = $file_name_with_ending[count($file_name_with_ending) - 1];
     $file_name_without_ending = explode(".", $file_name_with_ending);
