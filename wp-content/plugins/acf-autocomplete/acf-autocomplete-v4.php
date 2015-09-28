@@ -531,7 +531,7 @@ class acf_field_autocomplete extends acf_field {
         }
 
         // JSON encode and echo
-        $response = $_GET["callback"] . "(" . json_encode($callback) . ")";
+        $response = $_GET["callback"] . "(" . json_encode($suggestions) . ")";
         //$response = json_encode($suggestions);
         //die(var_dump($suggestions));
 
