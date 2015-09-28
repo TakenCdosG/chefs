@@ -4,7 +4,8 @@ class acf_field_autocomplete extends acf_field {
 
     // vars
     var $settings, // will hold info such as dir / path
-            $defaults; // will hold default field options
+        $defaults; // will hold default field options
+    var $rest_route = 'http://blog.chefsemporiumct.com/wp-json/wp/v2/posts';
 
     /*
      *  __construct
@@ -117,7 +118,7 @@ class acf_field_autocomplete extends acf_field {
                 ?>
             </td>
         </tr>
-        <?php
+    <?php
     }
 
     /*
@@ -166,9 +167,8 @@ class acf_field_autocomplete extends acf_field {
                 $post_ids[] = trim($p_a);
             }
 
-            $rest_route = 'http://blog.chefsemporiumct.com/wp-json/wp/v2/posts/';
             foreach ($post_ids as $id) {
-                $str = file_get_contents($rest_route.$id);
+                $str = file_get_contents($this->rest_route.'/'.$id);
                 $json = json_decode($str, true); // decode the JSON into an associative array
                 if(isset($json["id"])){
                     $link = $json["link"];
@@ -203,7 +203,7 @@ class acf_field_autocomplete extends acf_field {
             }
             ?>
         </div>
-        <?php
+    <?php
     }
 
     /*
@@ -326,31 +326,31 @@ class acf_field_autocomplete extends acf_field {
      */
 
     function update_value($value, $post_id, $field) { {
-            // validate
-            if (empty($value)) {
-                return $value;
-            }
-
-
-            if (is_object($value) && isset($value->ID)) {
-                // object
-                $value = $value->ID;
-            } elseif (is_array($value)) {
-                // array
-                foreach ($value as $k => $v) {
-
-                    // object?
-                    if (is_object($v) && isset($v->ID)) {
-                        $value[$k] = $v->ID;
-                    }
-                }
-
-                // save value as strings, so we can clearly search for them in SQL LIKE statements
-                $value = array_map('strval', $value);
-            }
-
+        // validate
+        if (empty($value)) {
             return $value;
         }
+
+
+        if (is_object($value) && isset($value->ID)) {
+            // object
+            $value = $value->ID;
+        } elseif (is_array($value)) {
+            // array
+            foreach ($value as $k => $v) {
+
+                // object?
+                if (is_object($v) && isset($v->ID)) {
+                    $value[$k] = $v->ID;
+                }
+            }
+
+            // save value as strings, so we can clearly search for them in SQL LIKE statements
+            $value = array_map('strval', $value);
+        }
+
+        return $value;
+    }
     }
 
     /*
@@ -507,32 +507,28 @@ class acf_field_autocomplete extends acf_field {
 
     function autocomplete_handler_suggestions() {
 
-
         // Query for suggestions
-        $term = $_REQUEST['term'];
+        $term = urlencode($_REQUEST['term']);
         $post_type = $_REQUEST['post_type'];
+        $suggestions = array();
 
-        //$search_query = 'SELECT ID FROM wp_posts WHERE post_type = "post" AND post_title LIKE %s';
-        global $wpdb;
-        $like_term = '%' . $term . '%';
-        $search_query = "
-                  SELECT * 
-                  FROM wp_posts 
-                  WHERE post_type = '$post_type' AND post_title LIKE '$like_term'";
-        $posts = $wpdb->get_results($search_query);
-    
-        global $post;
-        foreach ($posts as $post): setup_postdata($post);
+        $str = file_get_contents($this->rest_route.'/filter[s]='.$term);
+        $json = json_decode($str, true); // decode the JSON into an associative array
+        foreach($json as $post){
+            if(isset($post["id"])){
 
-            // Initialise suggestion array
-            $suggestion = array();
-            $suggestion['label'] = esc_html($post->post_title) . " (id: " . $post->ID . ")";
-            $suggestion['ID'] = $post->ID;
+                $link = $post["link"];
+                $title = $post["title"]["rendered"];
+                $id_post = $post["id"];
 
-            // Add suggestion to suggestions array
-            $suggestions[] = $suggestion;
-
-        endforeach;
+                // Initialise suggestion array
+                $suggestion = array();
+                $suggestion['label'] = esc_html($title) . " (id: " . $id_post . ")";
+                $suggestion['ID'] = $id_post;
+                // Add suggestion to suggestions array
+                $suggestions[] = $suggestion;
+            }
+        }
 
         // JSON encode and echo
         $response = $_GET["callback"] . "(" . json_encode($suggestions) . ")";
