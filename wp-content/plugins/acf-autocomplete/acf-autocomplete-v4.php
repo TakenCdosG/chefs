@@ -306,6 +306,7 @@ class acf_field_autocomplete extends acf_field {
 
     function load_value($value, $post_id, $field) {
         // Note: This function can be removed if not used
+        dpm($value);
         return $value;
     }
 
