@@ -62,12 +62,12 @@ if ($pull_boxes == "pull_manually") {
 //-> From The Blog.
 $first_post = get_field("first_post");
 dpm($first_post);
-$first_post_id = $first_post[0];
+$first_blog_post = $first_post[0];
 $second_post = get_field("second_post");
-$second_post_id = $second_post[0];
+$second_blog_post = $second_post[0];
 $third_post = get_field("third_post");
-$third_post_id = $third_post[0];
-
+$third_blog_post = $third_post[0];
+/*
 $info = array(
     "first_post_id" => $first_post_id[0],
     "second_post" => $second_post[0],
@@ -77,7 +77,7 @@ $info = array(
 $first_blog_post = get_post($first_post_id);
 $second_blog_post = get_post($second_post_id);
 $third_blog_post = get_post($third_post_id);
-
+*/
 // Front Page - Logos
 $num_logos = 10;
 $logos_image = array();
@@ -294,17 +294,17 @@ for ($i = 1; $i <= $num_logos; $i++) {
                         $category = "<span class='color-red'>" . $categories[0]->name . ": </span>";
                     }
                     ?>
-                    <?php if (!empty($first_blog_post->post_title)): ?>
+                    <?php if (!empty($first_blog_post["title"])): ?>
                         <h3 class="post-title">
-                            <?php echo $category . $first_blog_post->post_title; ?>
+                            <?php echo $category . $first_blog_post["title"]; ?>
                         </h3>
                     <?php endif; ?>
-                    <?php if (!empty($first_blog_post->post_excerpt)): ?>
+                    <?php if (!empty($first_blog_post["post_excerpt"])): ?>
                         <div class="post-excerpt">
-                            <?php echo $first_blog_post->post_excerpt; ?>
+                            <?php echo $first_blog_post["post_excerpt"]; ?>
                         </div>
                     <?php endif; ?>
-                    <a class="post-permalink" href="<?php echo esc_url(get_permalink($first_blog_post->ID)); ?>" title="<?php echo $first_blog_post->post_title; ?>">READ MORE</a>
+                    <a class="post-permalink" href="<?php echo esc_url($first_blog_post["link"]); ?>" title="<?php echo $first_blog_post["title"]; ?>">READ MORE</a>
                 </div>
             </div>
         </div>
