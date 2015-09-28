@@ -140,8 +140,6 @@ class acf_field_autocomplete extends acf_field {
 
         // perhaps use $field['preview_size'] to alter the markup?
         // create Field HTML
-        // global
-        global $post;
 
         // vars
         $args = array(
@@ -167,9 +165,7 @@ class acf_field_autocomplete extends acf_field {
             foreach ($post_ids_array as $p_a) {
                 $post_ids[] = trim($p_a);
             }
-            $args_ids = array(
-                'post__in' => array(1)
-            );
+
             $post_labels = "";
             $query_custom = new WP_Query(array('post_type' => $field['post_type'], 'post__in' => $post_ids));
             $post_list = $query_custom->posts;
@@ -181,6 +177,14 @@ class acf_field_autocomplete extends acf_field {
                 }
             }
             $input_value = implode("—", $post_labels);
+        }
+
+        $post_test = array(631, 628, 616);
+        $rest_route = 'http://blog.chefsemporiumct.com/wp-json/wp/v2/posts/';
+        foreach ($post_test as $id) {
+            $str = file_get_contents($rest_route.$id);
+            $json = json_decode($str, true); // decode the JSON into an associative array
+            dpm($json);
         }
 
         // Change Field into a select
