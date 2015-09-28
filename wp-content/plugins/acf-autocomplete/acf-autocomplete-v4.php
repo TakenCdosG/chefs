@@ -306,7 +306,6 @@ class acf_field_autocomplete extends acf_field {
 
     function load_value($value, $post_id, $field) {
         // Note: This function can be removed if not used
-        dpm($value);
         return $value;
     }
 
@@ -452,6 +451,9 @@ class acf_field_autocomplete extends acf_field {
         foreach ($post_ids_array as $p_a_news) {
             $post_ids[] = trim($p_a_news);
         }
+
+        dpm($post_ids);
+
         // return the value
         return $post_ids;
     }
