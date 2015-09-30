@@ -227,7 +227,7 @@ function travelify_headerdetails() {
                 <ul class="cart-contents">
                     <li>
                         <a class="color-red" href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>">
-                            CART(<?php echo sprintf (_n( '%d item', '%d items', WC()->cart->cart_contents_count ), WC()->cart->cart_contents_count ); ?> - <?php echo WC()->cart->get_cart_total(); ?>)
+                            CART(<?php echo sprintf (_n( '%d <span class="cart1">item</span>', '%d <span class="cart1">items', WC()->cart->cart_contents_count ), WC()->cart->cart_contents_count); ?> - <?php echo WC()->cart->get_cart_total()."</span>"; ?>)
                         </a>
                     </li>
                     <li>&nbsp;|&nbsp;</li>
