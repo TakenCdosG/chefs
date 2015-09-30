@@ -5,7 +5,7 @@ class acf_field_autocomplete extends acf_field {
     // vars
     var $settings, // will hold info such as dir / path
         $defaults; // will hold default field options
-    var $rest_route = 'http://blog.chefsemporiumct.com/wp-json/wp/v2/posts';
+    var $rest_route = 'http://blog.chefsemporiumct.com/wp-json/wp/v2/';
 
     /*
      *  __construct
@@ -159,18 +159,18 @@ class acf_field_autocomplete extends acf_field {
 
         $input_value = "";
         $itemlist = "";
+        $field_value = array();
         if (!empty($field['value'])) {
-
             $post_ids_array = explode("—", $field['value']);
             $post_ids = array();
             foreach ($post_ids_array as $p_a) {
                 $post_ids[] = trim($p_a);
             }
-
             foreach ($post_ids as $id) {
-                $str = file_get_contents($this->rest_route.'/'.$id);
+                $str = file_get_contents($this->rest_route.'posts/'.$id);
                 $json = json_decode($str, true); // decode the JSON into an associative array
                 if(isset($json["id"])){
+                    $field_value[] = $json["id"];
                     $link = $json["link"];
                     $title = $json["title"]["rendered"];
                     $id_post = $json["id"];
@@ -184,6 +184,7 @@ class acf_field_autocomplete extends acf_field {
         // Change Field into a select
         $field['type'] = 'select';
         $field['choices'] = array();
+        $field['value'] = implode("—", $field_value);
 
         $str_post_type = implode("—", $field['post_type']);
 
@@ -451,8 +452,35 @@ class acf_field_autocomplete extends acf_field {
         foreach ($post_ids_array as $p_a_news) {
             $post_ids[] = trim($p_a_news);
         }
+
+        $posts = array();
+
+        foreach($post_ids as $post_id){
+            $str = file_get_contents($this->rest_route.'posts/'.$post_id);
+            $json = json_decode($str, true); // decode the JSON into an associative array
+            if(isset($json["id"])){
+                $post = array();
+                $post["title"] = $json["title"]["rendered"];
+                $post["link"] = $json["link"];
+                $post["id"] = $json["id"];
+                $post["post_excerpt"] = $json["excerpt"]["rendered"];
+                $post["format"] = $json["format"];
+                $post["featured_image"] = "";
+
+                $featured_image_id = $json["featured_image"];
+                $str = file_get_contents($this->rest_route.'media/'.$featured_image_id);
+                $featured_image = json_decode($str, true); // decode the JSON into an associative array
+                if(isset($featured_image["guid"]["rendered"])){
+                    $post["featured_image"] = $featured_image["guid"]["rendered"];
+                }
+
+                $posts[] = $post;
+            }
+        }
+
         // return the value
-        return $post_ids;
+        // return $post_ids;
+        return $posts;
     }
 
     /*
