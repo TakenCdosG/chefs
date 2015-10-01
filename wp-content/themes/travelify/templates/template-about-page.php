@@ -75,32 +75,35 @@ for ($i = 1; $i <= $num_logos; $i++) {
                 ?>
             </div>
             <div class="col-md-4">
-                <div class="box margin-top-50">
-                    <div class="post_thumbnail">
-                        <?php if(!empty($box_blog_post["featured_image"])):?>
-                            <img src="<?php echo $box_blog_post["featured_image"]; ?>" class="attachment-356x235 wp-post-image" alt="box-1">
-                        <?php endif; ?>
+                <?php if($box_blog_post):?>
+                    <div class="box margin-top-50">
+
+                        <div class="post_thumbnail">
+                            <?php if(!empty($box_blog_post["featured_image"])):?>
+                                <img src="<?php echo $box_blog_post["featured_image"]; ?>" class="attachment-356x235 wp-post-image" alt="box-1">
+                            <?php endif; ?>
+                        </div>
+                        <div class="post-summary">
+                            <?php
+                            $category = "";
+                            if($box_blog_post["format"] == "image"){
+                                $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
+                            }
+                            ?>
+                            <?php if (!empty($box_blog_post["title"])): ?>
+                                <h3 class="post-title">
+                                    <?php echo $category . restrict_words_number($box_blog_post["title"], $words_number = 28); ?>
+                                </h3>
+                            <?php endif; ?>
+                            <?php if (!empty($box_blog_post["post_excerpt"])): ?>
+                                <div class="post-excerpt">
+                                    <?php echo restrict_words_number($box_blog_post["post_excerpt"], $words_number = 127); ?>
+                                </div>
+                            <?php endif; ?>
+                            <a target="_blank" class="post-permalink" href="<?php echo esc_url($box_blog_post["link"]); ?>" title="<?php echo $box_blog_post["title"]; ?>">READ MORE</a>
+                        </div>
                     </div>
-                    <div class="post-summary">
-                        <?php
-                        $category = "";
-                        if($box_blog_post["format"] == "image"){
-                            $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
-                        }
-                        ?>
-                        <?php if (!empty($box_blog_post["title"])): ?>
-                            <h3 class="post-title">
-                                <?php echo $category . restrict_words_number($box_blog_post["title"], $words_number = 28); ?>
-                            </h3>
-                        <?php endif; ?>
-                        <?php if (!empty($box_blog_post["post_excerpt"])): ?>
-                            <div class="post-excerpt">
-                                <?php echo restrict_words_number($box_blog_post["post_excerpt"], $words_number = 127); ?>
-                            </div>
-                        <?php endif; ?>
-                        <a target="_blank" class="post-permalink" href="<?php echo esc_url($box_blog_post["link"]); ?>" title="<?php echo $box_blog_post["title"]; ?>">READ MORE</a>
-                    </div>
-                </div>
+                <?php endif;?>
             </div>
         </div>
 
