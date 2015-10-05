@@ -1519,6 +1519,9 @@ thead th, tfoot th, thead tr:hover th, tfoot tr:hover th {
     margin-bottom: 60px;
 }
 
+section.featured-slider div.left-featured-slider div div.slides{
+    height: 560px;
+}
 /*
 * HOME RESPONSIVE DESIGN 320PX
 */
