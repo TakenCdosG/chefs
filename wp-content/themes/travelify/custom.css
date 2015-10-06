@@ -1642,7 +1642,7 @@ section.featured-slider div.left-featured-slider div div.slides{
         position: relative;
         top: -200px;
     }
-    .cart1, .cart1 .amonut{
+    .cart1, .color-red .amonut{
         display: none;
     }
     .cart-contents li a.color-red{
