@@ -1651,50 +1651,54 @@ section.featured-slider div.left-featured-slider div div.slides{
     .hgroup-right-header_bottom {
         display: none;
     }
-    /* FOOTER WIDGETS STYLES */
+
+
+    /*********************************************************************/
+    /*********************** FOOTER WIDGETS STYLES ***********************/
+    /*********************************************************************/
     #footerarea .widget-border-top-red{
         border: none;
     }
-    #text-3{
+    #text-3/**/{
         width: 46% !important;
         float: left;
     }
-    #text-3 .textwidget p, #text-5 .textwidget p, #text-6, .body  #text-10 .textwidget p{
+    #text-3/**/ .textwidget p, #text-5 .textwidget p/**/, #text-7/**/,#text-10 .textwidget p{
         display: none;
     }
-    #text-3.widget, #text-5, #text-5, #text-10{
+    #text-3.widget/**/, #text-5/**/, #text-9/**/, #text-10{
         border: none;
     }
-    #text-3.widget, #text-5.widget {
+    #text-3.widget/**/, #text-9.widget/**/ {
         border-right: 1px solid #ef3d42;
     }
-    #text-5{
+    #text-5/**/{
         width: 48% !important;
         float: left;
         position: relative;
         top: -2px;
     }
-    #text-5, #text-10{
+    #text-5/**/, #text-10{
         margin-left: 10px;
     }
-    #text-5{
+    #text-9/**/{
         width: 46% !important;
         float: left;
         position: relative;
         top: -55px;
     }
-    #text-5 .widget-title{
+    #text-9 .widget-title/**/{
         visibility: hidden;
     }
-    #text-5 .widget-title:after{
+    #text-9 .widget-title:after/**/{
         content: "Gift Cards";
         visibility: visible;
         display: block;
     }
-    #text-5 img{
+    #text-9 img/**/{
         width: 60%;
     }
-    #text-5 span.border-top-red, #text-10 span.border-top-red {
+    #text-9 span.border-top-red/**/, #text-10 span.border-top-red {
         border-top: 1px solid #ef3d42;
         position: relative;
         top:-50px;
@@ -1724,17 +1728,17 @@ section.featured-slider div.left-featured-slider div div.slides{
         padding: 0px 5px;
         width: 35px;
     }
-    #text-3 .widget-title, #text-5 .widget-title, #text-5 .widget-title, #text-10 .widget-title{
+    #text-3 .widget-title/**/, #text-5 .widget-title/**/, #text-9 .widget-title/**/, #text-10 .widget-title{
         font-size: 14px;
     }
-    #text-3 div .color-red, #text-5 div .color-red, #text-5 div .color-red, #text-10 div .color-red{
+    #text-3 div .color-red/**/, #text-5 div .color-red/**/, #text-9 div .color-red/**/, #text-10 div .color-red{
         font-size: 14px;
         font-weight: bold;
     }
-    #text-3, #text-6 h3, #mc_embed_signup_scroll h2{
+    #text-4/**/, #text-6 h3, #mc_embed_signup_scroll h2/**/{
         display: none;
     }
-    #text-6{
+    #text-6/**/{
         position: relative;
         top: -38px;
     }
@@ -1746,7 +1750,7 @@ section.featured-slider div.left-featured-slider div div.slides{
         position: relative;
         top: -90px;
     }
-    /*#footerarea .col-md-3:nth-child(7)*/ #text-6 {
+    /*#footerarea .col-md-3:nth-child(7)*/ #text-6/**/ {
                                                border-bottom: 1px solid #ef3d42;
                                                margin-bottom: -20px !important;
                                            }
