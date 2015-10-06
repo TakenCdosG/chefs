@@ -900,7 +900,17 @@ action amt condition can be an amt or $$
                     'error_msg'  => __('Discount Coupon Code not found - must be a valid coupon code or blank.', 'vtprd') );
               $vtprd_rule->rule_error_red_fields[] = '#only_for_this_coupon_anchor';
             }                     
-          }               
+          } 
+          
+          //v1.1.0.9 begin - disallow activation by coupon, when auto-add free in use ==>> because of the recursive aspect of re-checking the cart to pick up the coupon add/remove  
+          if ($vtprd_rule->rule_deal_info[0]['discount_auto_add_free_product'] == 'yes') {
+            $vtprd_rule->rule_error_message[] = array( 
+                  'insert_error_before_selector' => '#only_for_this_coupon_box_0',  
+                  'error_msg'  => __('Discount Coupon Code not allowed when Auto Add for Free function selected', 'vtprd') );
+            $vtprd_rule->rule_error_red_fields[] = '#only_for_this_coupon_anchor';
+            $vtprd_rule->rule_error_red_fields[] = '#discount_auto_add_free_product_label_0'; 
+          } 
+          //v1.1.0.9 end                         
        }
        //v1.1.0.8 end
     
@@ -1027,6 +1037,34 @@ action amt condition can be an amt or $$
                         
           //if another rule has the exact same FREE product, that's an ERROR
           if ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product == 'yes') {  
+
+              /*  Don't need this!!!!!!!!!!
+              //v1.1.0.9 begin - 
+              // If CURRENT rule activated by coupon, ***no AUTO ADD rules may exist*** ==>> the switches which handle add/remove for coupons go nuts. 
+              if ($vtprd_rule->only_for_this_coupon_name > ' ') {
+                $conflictPost = get_post($vtprd_rules_set[$i]->post_id);
+                $vtprd_rule->rule_error_message[] = array( 
+                      'insert_error_before_selector' => '#only_for_this_coupon_box_0',  
+                      'error_msg'  => __('Discount Coupon Code not allowed when *any rule* has Auto Add for Free function selected. CONFLICTING RULE NAME is: ', 'vtprd') .$conflictPost->post_title 
+                            );                
+                $vtprd_rule->rule_error_red_fields[] = '#only_for_this_coupon_anchor';
+              } 
+              //v1.1.0.9 end 
+              */                        
+                
+                
+                //v1.1.1 begin - disallow multiple auto adds in ruleset
+
+                $conflictPost = get_post($vtprd_rules_set[$i]->post_id);
+                $vtprd_rule->rule_error_message[] = array( 
+                    'insert_error_before_selector' => '#discount_amt_box_0',  
+                    'error_msg'  => __('When "Automatically Add Free Product to Cart" is Selected, no other Auto Add Rule may exist.  CONFLICTING RULE NAME is: ', 'vtprd') .$conflictPost->post_title 
+                    );
+                $vtprd_rule->rule_error_red_fields[] = '#discount_auto_add_free_product_label_0'; 
+                break; 
+
+                //v1.1.1 end
+
 
               switch( true ) {    
                 
@@ -1259,7 +1297,8 @@ action amt condition can be an amt or $$
     } else {
       add_option( 'vtprd_rules_set',$vtprd_rules_set );
     }
-                                                 
+    
+                                  
     //**************
     //keep a running track of $vtprd_display_type_in_rules_set   ==> used in apply-rules processing
     //*************
@@ -1276,15 +1315,19 @@ action amt condition can be an amt or $$
       }
     } 
 
-   
-    if (get_option('vtprd_ruleset_has_a_display_rule') == true) {
-      update_option( 'vtprd_ruleset_has_a_display_rule',$ruleset_has_a_display_rule );
+
+    $current_time = time();
+    $option = (get_option('vtprd_ruleset_has_a_display_rule'));
+    if ($option > '') {  //v1.1.0.9 changed 
+      update_option( 'vtprd_ruleset_has_a_display_rule',$ruleset_has_a_display_rule ); 
+      update_option( 'vtprd_ruleset_timestamp',$current_time ); //v1.1.0.9 
     } else {
       add_option( 'vtprd_ruleset_has_a_display_rule',$ruleset_has_a_display_rule );
+      add_option( 'vtprd_ruleset_timestamp',$current_time ); //v1.1.0.9 
     }
     //**************        
 
-    
+    /* //v1.1.0.9 shifted timestamp above
     //v1.0.8.4 timestamp begin
     $current_time = time();
     if (get_option('vtprd_ruleset_has_a_display_rule') == true) {
@@ -1293,8 +1336,33 @@ action amt condition can be an amt or $$
       add_option( 'vtprd_ruleset_timestamp',$current_time );
     }
     //v1.0.8.4 timestamp  end
+    */
     
-   
+    //********************
+    //v1.1.0.9 begin keep track of auto adds as well   
+    if ($vtprd_rule->rule_contains_auto_add_free_product = 'yes') {
+      $ruleset_contains_auto_add_free_product = 'yes';
+    } else { 
+      $ruleset_contains_auto_add_free_product = 'no';
+      $sizeof_rules_set = sizeof($vtprd_rules_set);
+      for($i=0; $i < $sizeof_rules_set; $i++) { 
+         if ( ($vtprd_rules_set[$i]->rule_status == 'publish') && 
+              ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product  == 'yes') ) {
+            $i =  $sizeof_rules_set;
+            $ruleset_contains_auto_add_free_product = 'yes'; 
+         }
+      }
+    } 
+    $option = (get_option('vtprd_ruleset_contains_auto_add_free_product'));
+    if ($option > '') {  
+      update_option( 'vtprd_ruleset_contains_auto_add_free_product',$ruleset_contains_auto_add_free_product );
+    } else {
+      add_option( 'vtprd_ruleset_contains_auto_add_free_product',$ruleset_contains_auto_add_free_product );
+    }
+    //v1.1.0.9 end 
+    //****************  
+
+          
     //nuke the browser session variables in this case - allows clean retest ...
     // mwn20140414 begin => added inline session_start().  allow potential dup session start, as it's only a Notice, not a warning....
     if (session_id() == "") {

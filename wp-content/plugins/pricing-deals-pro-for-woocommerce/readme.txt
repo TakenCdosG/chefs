@@ -2,8 +2,8 @@
 Contributors: varktech
 Donate link: http://www.varktech.com/woocommerce/pricing-deals-pro-for-woocommerce/
 Requires at least: 3.3
-Tested up to: 4.2.3
-Stable tag: 1.1.0.8
+Tested up to: 4.3
+Stable tag: 1.1.1.1
 *
 Copyright 2014 AardvarkPC Services NZ, all rights reserved.  See license.txt for more details.
 *
@@ -38,6 +38,16 @@ Then Download and install the Pro Version from www.varktech.com
 
 
 == Changelog ==
+
+= 1.1.1.1 - 2015-09-28 =
+* Fix - Autoadd Free item for product not yet in cart. 
+
+= 1.1.1 - 2015-09-26 =
+* Enhancement - Compatibility with woocommerce-measurement-price-calculator now available. 
+
+= 1.1.0.9 - 2015-07-31 =
+* Fix - Other rule discounts = no
+* Fix - improve efficiency for Rule Discounts activated by Coupon
 
 = 1.1.0.8 - 2015-07-25 =
 * Fix - Wp-admin Rule editing - if advanced field in error and basic rule showing, 

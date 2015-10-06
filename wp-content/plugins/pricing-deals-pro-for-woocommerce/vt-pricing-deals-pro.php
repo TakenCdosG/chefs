@@ -3,7 +3,7 @@
 Plugin Name: VarkTech Pricing Deals PRO for WooCommerce
 Plugin URI: http://varktech.com
 Description: An e-commerce add-on for WooCommerce, supplying Pricing Deals functionality.
-Version: 1.1.0.8
+Version: 1.1.1.1
 Author: VarkTech
 Author URI: http://varktech.com
 */
@@ -12,18 +12,19 @@ Author URI: http://varktech.com
    //initial setup only, overriden later in function vtprd_debug_options
 
 
-
-
  error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR); //1.0.7.7
+      
+      
+      
       
 class VTPRD_Pro_Controller{
 	
 	public function __construct(){    
     global $wpdb;
     add_action('init', array( &$this, 'vtprd_pro_controller_init' ));    
-    define('VTPRD_PRO_VERSION',                           '1.1.0.8');       
-    define('VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION',     '1.1.0.8');  //required version of
-    define('VTPRD_PRO_LAST_UPDATE_DATE',                  '2015-07-27');
+    define('VTPRD_PRO_VERSION',                           '1.1.1.1');       
+    define('VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION',     '1.1.1');  //required version of
+    define('VTPRD_PRO_LAST_UPDATE_DATE',                  '2015-09-28');
 	  define('VTPRD_PRO_PLUGIN_NAME2',                      'Pricing Deals Pro for WooCommerce');
     define('VTPRD_PRO_FREE_PLUGIN_NAME',                  'Pricing Deals for WooCommerce');
     define('VTPRD_PRO_DIRNAME',                           ( dirname( __FILE__ ) ));
@@ -44,11 +45,21 @@ class VTPRD_Pro_Controller{
 	public function vtprd_pro_controller_init(){
      if (is_admin()){
         add_action('after_plugin_row', array( &$this, 'vtprd_pro_check_plugin_version' ));
-        add_action('admin_init', array( &$this, 'vtprd_pro_check_for_free_version' ));
+        add_action('admin_init', array( &$this, 'vtprd_pro_housekeeping' )); //v1.1.1 changed to run housekeeping
         add_filter( 'plugin_action_links_' . VTPRD_PRO_PLUGIN_SLUG , array( $this, 'vtprd_custom_action_links' ) );
      }
   }
+     
+  //v1.1.1  New Function
+	public function vtprd_pro_housekeeping() {
+  			
+    $this->vtprd_pro_check_for_free_version();
     
+    wp_register_style ('vtprd-pro-admin-style', VTPRD_PRO_URL.'/admin/css/vtprd-admin-style2.css' ); 
+    wp_enqueue_style  ('vtprd-pro-admin-style');
+
+		return;
+}   
 
 	public function vtprd_pro_activation_hook() {
   
@@ -108,7 +119,35 @@ class VTPRD_Pro_Controller{
         $admin_notices = '<div id="message" class="error fade" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
         add_action( 'admin_notices', create_function( '', "echo '$admin_notices';" ) );
         return;
-    }    
+    } 
+    
+  
+    
+    //*********************
+    //v1.1.0.9 check existing installations for auto_add - only if free is ACTIVE!  Option now used in apply_rules to improve processing efficiency
+    global $vtprd_rules_set;  
+    $vtprd_rules_set = get_option( 'vtprd_rules_set' );
+    
+    $ruleset_contains_auto_add_free_product = 'no';
+    $sizeof_rules_set = sizeof($vtprd_rules_set);
+    for($i=0; $i < $sizeof_rules_set; $i++) { 
+      if ( ($vtprd_rules_set[$i]->rule_status == 'publish') && 
+           ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product  == 'yes') ) {
+          $i =  $sizeof_rules_set;
+          $ruleset_contains_auto_add_free_product = 'yes'; 
+       }
+    }
+    $option = (get_option('vtprd_ruleset_contains_auto_add_free_product'));
+    if ($option > '') {  
+      update_option( 'vtprd_ruleset_contains_auto_add_free_product',$ruleset_contains_auto_add_free_product );
+    } else {
+      add_option( 'vtprd_ruleset_contains_auto_add_free_product',$ruleset_contains_auto_add_free_product );
+    }
+    //v1.1.0.9 end 
+    //*********************  
+  
+    return; 
+       
   }
  
   /* ************************************************

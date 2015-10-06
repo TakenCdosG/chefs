@@ -142,9 +142,13 @@ class VTPRD_Apply_Rules{
             (ii) before any new auto adds are rolled in 
       */
       //v1.0.9.4 added if
+      //v1.1.0.9  IF removed ==>> prevented the 'other coupoon = no' from working
+      /*
       if ($vtprd_setup_options['discount_taken_where'] == 'discountCoupon')  { 
         vtprd_count_other_coupons();
       }
+      */
+      vtprd_count_other_coupons();
       //**********************
                
      //v1.0.9.4  moved above
@@ -315,7 +319,6 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
       }  
       //v1.1.0.8 end
 
-      
       //pick up existing invalid rules
       if ( $vtprd_rules_set[$i]->rule_status != 'publish' ) { 
         continue;  //skip out of this for loop iteration
@@ -351,8 +354,11 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
        
       //Cart Main Processing
       $sizeof_cart_items = sizeof($vtprd_cart->cart_items);
+ //error_log( print_r(  '$sizeof_cart_items= ' .$sizeof_cart_items, true ) );
       for($k=0; $k < $sizeof_cart_items; $k++) {                 
         //only do this check if the product is on special!!
+ //error_log( print_r(  '$vtprd_cart->cart_item $k= ' .$k, true ) );
+ //error_log( var_export($vtprd_cart->cart_items[$k], true ) );        
         if ($vtprd_cart->cart_items[$k]->product_is_on_special == 'yes')  { 
           $do_continue = '';  //v1.0.4 set = to ''
           switch( $vtprd_rules_set[$i]->cumulativeSalePricing) {
@@ -424,13 +430,45 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
            $vtprd_rules_set[$i]->rule_status = 'lifetimeMaxInvalid';  //temp chg of rule_status for this execution only
            $vtprd_rules_set[$i]->rule_processing_status = 'Rule has already reached lifetime max for IP purchases.';
         }
-      }      
-    
+      }  
+          
+     //v1.1.0.9 begin - coupon_activated_discount for later use in parent-cart-validation during remove_coupon, as needed
+     //  if coupon removed, this promotes the re-run of the discount at the same time. (re-use of session var, similar situation from v1.1.0.8)    
       //don't run if 'no'
-      if ( ($vtprd_rules_set[$i]->cumulativeCouponPricing == 'no') && ($vtprd_rules_set[0]->coupons_amount_without_rule_discounts > 0) ) {
-           $vtprd_rules_set[$i]->rule_status = 'cumulativeCouponPricingNo';  //temp chg of rule_status for this execution only
-           $vtprd_rules_set[$i]->rule_processing_status = 'Coupon presented, rule switch says do not run.';                
-      }      
+      if ($vtprd_rules_set[$i]->cumulativeCouponPricing == 'no') {
+         
+         //cumulativeCouponNo for later use in parent-cart-validation during add/remove_coupon, as needed
+         //  if coupon removed, this promotes the re-run of the discount at the same time.
+         //  This session var set to true will cause a re-process of the cart on Cart and checkout pages ONLY        
+        if(!isset($_SESSION)){
+          session_start();
+          header("Cache-Control: no-cache");
+          header("Pragma: no-cache");
+        }
+        $_SESSION['cumulativeCouponNo'] = true;
+        
+//error_log( print_r(  'set cumulativeCouponNo=  true', true ) );        
+        $coupon_cnt_without_deals_coupon = sizeof($vtprd_info['coupon_codes_array']);
+//error_log( print_r(  'only_for_this_coupon_name= ' .$vtprd_rules_set[$i]->only_for_this_coupon_name , true ) ); 
+//error_log( print_r(  '$coupon_cnt= ' .$coupon_cnt_without_deals_coupon, true ) ); 
+//error_log( print_r(  'coupon_codes_array= ' , true ) ); 
+//error_log( var_export($vtprd_info['coupon_codes_array'], true ) );          
+        
+        $sizeof_coupon_codes_array = (sizeof($vtprd_info['coupon_codes_array'])) ; 
+        if ( ($vtprd_rules_set[$i]->only_for_this_coupon_name > ' ')  &&
+             ($sizeof_coupon_codes_array == 1) &&
+             (in_array($vtprd_rules_set[$i]->only_for_this_coupon_name, $vtprd_info['coupon_codes_array'] )) ) {
+          //activated by coupon and 1coupon found, so all ok
+          $all_good = true;
+        } else {
+           //coupons array is **without** deals coupon
+           if ($sizeof_coupon_codes_array > 0) {
+             $vtprd_rules_set[$i]->rule_status = 'cumulativeCouponPricingNo';  //temp chg of rule_status for this execution only
+             $vtprd_rules_set[$i]->rule_processing_status = 'Coupon presented, rule switch says do not run.';         
+            }        
+        }                     
+      }
+      //v1.1.0.9 end     
    
    } 
    
@@ -2238,6 +2276,14 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
     //$vtprd_cart->cart_items[$k]->discount_price    = ($vtprd_cart->cart_items[$k]->db_unit_price * $vtprd_cart->cart_items[$k]->quantity) - $yousave_product_total_amt ;  
     $vtprd_cart->cart_items[$k]->discount_price    = ( $curr_prod_array['prod_unit_price'] * $vtprd_cart->cart_items[$k]->quantity) - $yousave_product_total_amt ; 
     
+    //v1.1.1 begin
+    if ($vtprd_cart->cart_items[$k]->discount_price > 0) {
+      $vtprd_cart->cart_items[$k]->discount_unit_price  =  round( $vtprd_cart->cart_items[$k]->discount_price / $vtprd_cart->cart_items[$k]->quantity , 2); 
+    } else {
+      $vtprd_cart->cart_items[$k]->discount_unit_price  =  '';    
+    }  
+    //v1.1.1 end
+        
     $vtprd_rules_set[$i]->discount_applied == 'yes';
     $vtprd_cart->cart_items[$k]->cartAuditTrail[$vtprd_rules_set[$i]->post_id]['discount_status'] = 'applied';
     $vtprd_cart->cart_items[$k]->cartAuditTrail[$vtprd_rules_set[$i]->post_id]['discount_msgs'][] = __('Discount Applied', 'vtprd');
@@ -3767,6 +3813,13 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
 //error_log( print_r('vtprd_pre_process_cart_for_autoAdds', true ) );
 
 
+    //v1.1.0.9 begin
+    if (get_option('vtprd_ruleset_contains_auto_add_free_product') != 'yes') {
+      return;
+    }
+    //v1.1.0.9 end
+    
+    
     //******************************
     //get auto add for free products session variable
     //******************************
@@ -3968,6 +4021,14 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
              return;
           break;
       }
+
+      //v1.1.1 begin    
+      $_product    =  get_product( $free_product_id );
+      if ( !$_product  ) {
+        $vtprd_rules_set[$i]->rule_status = 'freeProductNotFound'; 
+        continue;  //skip out of this for loop iteration
+      } 
+      //v1.1.1 end
       
 
       $d = 0;                              
@@ -3985,7 +4046,7 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
              break;          
           
           case ( $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_type'] == 'currency' ):   
-               $_product    =  get_product( $free_product_id );
+               //$_product    =  get_product( $free_product_id );  //v1.1.1 moved above
                $unit_price  =  get_option( 'woocommerce_tax_display_cart' ) == 'excl' || $woocommerce->customer->is_vat_exempt() ? $_product->get_price_excluding_tax() : $_product->get_price();                                   
                
                $action_amt_count = round ($vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_count'] / $unit_price);
@@ -4129,6 +4190,15 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
   //v1.1.0.6  refactored
   //******************************	
 	public function vtprd_post_process_cart_for_autoAdds(){ 
+
+
+      //v1.1.0.9 begin
+      if (get_option('vtprd_ruleset_contains_auto_add_free_product') != 'yes') {
+        return;
+      }
+      //v1.1.0.9 end
+    
+
       //******************************
       //get auto add session variables
       if(!isset($_SESSION)){
@@ -4202,7 +4272,7 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
       if ($exit_stage_left == true) {
         $this->vtprd_maybe_remove_previous_auto_add_array();
         $this->vtprd_maybe_remove_current_auto_add_array();
-        $this->vtprd_turn_off_auto_add_in_progress();
+        $this->vtprd_turn_off_auto_add_in_progress();        
         return;        
       }
       
@@ -4342,7 +4412,7 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
 //error_log( print_r(  'update_parent_cart_for_autoAdds  0014', true ) );  
                 
       }   
-      
+
 //error_log( print_r(  'update_parent_cart_for_autoAdds  0015', true ) );
 
 
@@ -4351,7 +4421,48 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
      //refresh the 'previous' array with the 'current' array, for the next iteration...
      $_SESSION['previous_auto_add_array'] = serialize($current_auto_add_array);
      $vtprd_info['previous_auto_add_array'] = $current_auto_add_array; //$vtprd_info['previous_auto_add_array'] used when session variable disappears due to age
-     
+
+
+        
+      //***************
+      //v1.1.1.1 begin
+      //***************
+      //IF auto add of *new product* (not of one already in the cart), vtprd_cart HAS NO cart_item_key .
+      //  cart_item_key is NOW used as the key for all loops in cart-validation
+      //  Find and fill in value
+     if ($woocommerce_free_product_processed || 
+         $woocommerce_cart_updated) {
+            
+        $woocommerce_cart_contents = $woocommerce->cart->get_cart();
+
+        $sizeof_cart_items = sizeof($vtprd_cart->cart_items);
+        for($k=0; $k < $sizeof_cart_items; $k++) {  
+      
+          if ($vtprd_cart->cart_items[$k]->cart_item_key == null) { //only if the product was auto-added
+           
+            foreach($woocommerce_cart_contents as $key => $cart_item) {
+  
+              if ($cart_item['variation_id'] > ' ') {      
+                  $cart_product_id    = $cart_item['variation_id'];
+              } else { 
+                  $cart_product_id    = $cart_item['product_id']; 
+              }   
+                          
+              if ($vtprd_cart->cart_items[$k]->product_id == $cart_product_id) {
+              
+                $vtprd_cart->cart_items[$k]->cart_item_key = $key;
+              }
+              
+            } //end inner foreach
+          
+          }
+        
+        }  //end outer for
+      }
+      //v1.1.1.1 end
+      //***************
+      
+      
      //clear out the current variable for use in next iteration, as needed
      
      
@@ -4372,8 +4483,7 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
 //error_log( var_export($vtprd_cart, true ) ); 
 //$woocommerce_cart_contents = $woocommerce->cart->get_cart();
 //error_log( print_r(  'WOO CART at end of post_process', true ) );
-//error_log( var_export($woocommerce_cart_contents, true ) ); 
-       
+//error_log( var_export($woocommerce_cart_contents, true ) );        
      return;    
   }  //end vtprd_post_process_cart_for_autoAdds  
   
@@ -4651,18 +4761,29 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
    //**********************************
    public function vtprd_sort_vtprd_cart_autoAdd_last() { 
       global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;
+      
+      //v1.1.0.9 begin handle empty cart
+      if (!isset($vtprd_cart->cart_items)) {
+        return;
+      }
+      //v1.1.0.9 end
  
       $temp_vtprd_cart_items = array();
+      $hold_cart_items = array(); //v1.1.0.9  can be MORE THAN 1!!
       foreach($vtprd_cart->cart_items as $key => $cart_item) {
          if ($cart_item->product_auto_insert_state != 'candidate') {
             $temp_vtprd_cart_items[] = $cart_item;
          } else {
-            $hold_cart_item = $cart_item;
+            $hold_cart_items[] = $cart_item;  //v1.1.0.9
          }
       }
       
       //put potentially free product at end of cart!!
-      $temp_vtprd_cart_items[] = $hold_cart_item;
+      //v1.1.0.9 begin
+      foreach ($hold_cart_items as $key => $cart_item )  {
+        $temp_vtprd_cart_items[] = $cart_item;
+      }
+       //v1.1.0.9 end
             
       //overwrite with sorted array
       $vtprd_cart->cart_items = $temp_vtprd_cart_items;
