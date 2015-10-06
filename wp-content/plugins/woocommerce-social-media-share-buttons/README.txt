@@ -5,8 +5,8 @@ Contributors: Toastie Studio
 Tags: facebook, twitter, pinterest, google plus, linkedin, tumblr, stumbleupon, share button, social media buttons, social media share buttons, woocommerce, woocommerce social media share buttons, horizontal, vertical, social icons.
 Requires at least:3.5
 
-Tested up to:4.2.4
-Stable tag: 4.2.4
+Tested up to:4.3.1
+Stable tag: 4.3.1
 License: GPLv2 or later
 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -103,7 +103,9 @@ https://help.instagram.com/158826297591430
 = 1.1.1 = Small CSS fix
 = 1.1.2 = Small CSS fix
 = 1.1.3 = Shortcode placement fix
-
+= 1.1.4 = Small CSS fix
+= 1.2.0 = Added open graph option to help sharing settings.
+= 1.2.1 = Fixed pinterest, added share title and support for YITH Quickview
 
 
 

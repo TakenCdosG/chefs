@@ -1,10 +1,10 @@
 === Pricing Deals for WooCommerce ===
 Contributors: vark
 Donate link: http://www.varktech.com/woocommerce/woocommerce-dynamic-pricing-discounts-pro/
-Tags: dynamic pricing,  WooCommerce, ecommerce, e commerce, e-commerce, commerce, store, sales, promotion, advertising, sell, shop, shopping, cart, checkout, configurable, variable, widgets, reports, marketing, deals, price, discount, group pricing, wholesale, membership, role, promotion, bogo
+Tags: dynamic pricing,  WooCommerce, ecommerce, e commerce, e-commerce, commerce, store, sales, promotion, advertising, sell, shop, shopping, cart, checkout, configurable, variable, widgets, reports, marketing, deals, price, discount, group pricing, wholesale, membership, role, promotion, bogo, catalog only
 Requires at least: 3.3
-Tested up to: 4.3
-Stable tag: 1.1.0.9
+Tested up to: 4.3.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,6 +25,9 @@ Power your store to greater success with pricing deals and sales promotions! Jus
 *   Group pricing
 *   Product and Variation Pricing
 *   Schedulable
+*   New 'Hide Wholesale Products' - Wholesale/Retail Product display
+*   New 'Hide Pricing' -  Wholesale/Retail/Catalog-only purchasability
+*   New Replace price with message
 *   Works with WooCommerce 2.4+
 
 
@@ -183,6 +186,40 @@ Direct support requests can be made here on the support tab, or at the [Support]
 
 
 == Changelog ==
+
+= 1.1.1 - 2015-09-26 =
+* Enhancement - Now Compatible with Woocommerce Measurement Price Calculator (Woocommerce + Skyverge). 
+* Enhancement - Now Compatible with Woocommerce Product Addons (Woocommerce). 
+* Enhancement - 'Cheapest in the cart' - see 'cheapest in cart filter' txt file in pro .
+* Fix - Other rule discounts = no
+* Fix - improve efficiency for Rule Discounts activated by Coupon
+* Fix - variation discount pricing display
+* Fix - shortcode in-the-loop product messaging
+* Fix - discount and sale price scheduling
+* Fix - fix for variation pricing for variation groups larger than 20, Catalog rules discount
+* Enhancement - New Filter to enable Pricing Deals to pick up pricing from other plugins 
+    
+		     // *** add to bottom of Theme Functions file
+ 		     //allows Pricing Deals to pick up current product pricing from other plugins
+ 		     //  ---  more resource intensive  ---
+     
+		    add_filter('vtprd_do_compatability_pricing', 'do_compatability_pricing', 10, 1); 
+ 		    function do_compatability_pricing ($return_status) {
+ 		     return true;
+		    }
+* Enhancement - Catalog Products Purchasability Display (pro):
+		- ** Gives you the ability to control Product Purchasability
+		- ** You can even turn your Woocommerce Store into a Catalog-only Installation!
+		- Product screen now has a 'wholesale product' checkbox in the PUBLISH box
+			- Label all wholesale products as wholesale
+		- Settings Page now has "Catalog Products Purchasability Display"
+			- Choose the Retail/Wholesale display option you want
+		- Then as each Retail or Wholesale Capability user logs in, they will see
+			- a tailored list (Not logged in = Retail)
+* Enhancement - Wholesale Product Visibility (pro):
+		- new option - Show All Products to Retail, Wholesale Products to Wholesale	
+* Note - Now recommend "Members" plugin by Justin Tadlock, rather than User Role Editor
+
 = 1.1.0.9 - 2015-08-12 = 
 * Fix - Variation product discount pricing display due to woo 2.4 changes
 
@@ -479,8 +516,42 @@ Direct support requests can be made here on the support tab, or at the [Support]
 
 == Upgrade Notice ==
 
-= 1.1.0.9 - 2015-08-12 = 
-* Fix - Variation product discount pricing display due to woo 2.4 changes
+= 1.1.1 - 2015-09-26 =
+* Enhancement - Now Compatible with Woocommerce Measurement Price Calculator (Woocommerce + Skyverge). 
+* Enhancement - Now Compatible with Woocommerce Product Addons (Woocommerce). 
+* Enhancement - 'Cheapest in the cart' - see 'cheapest in cart filter' txt file in pro .
+* Fix - Other rule discounts = no
+* Fix - improve efficiency for Rule Discounts activated by Coupon
+* Fix - variation discount pricing display
+* Fix - shortcode in-the-loop product messaging
+* Fix - discount and sale price scheduling
+* Fix - fix for variation pricing for variation groups larger than 20, Catalog rules discount
+* Enhancement - New Filter to enable Pricing Deals to pick up pricing from other plugins 
+    
+		     // *** add to bottom of Theme Functions file
+ 		     //allows Pricing Deals to pick up current product pricing from other plugins
+ 		     //  ---  more resource intensive  ---
+     
+		    add_filter('vtprd_do_compatability_pricing', 'do_compatability_pricing', 10, 1); 
+ 		    function do_compatability_pricing ($return_status) {
+ 		     return true;
+		    }
+* Enhancement - Catalog Products Purchasability Display (pro):
+		- ** Gives you the ability to control Product Purchasability
+		- ** You can even turn your Woocommerce Store into a Catalog-only Installation!
+		- Product screen now has a 'wholesale product' checkbox in the PUBLISH box
+			- Label all wholesale products as wholesale
+		- Settings Page now has "Catalog Products Purchasability Display"
+			- Choose the Retail/Wholesale display option you want
+		- Then as each Retail or Wholesale Capability user logs in, they will see
+			- a tailored list (Not logged in = Retail)
+* Enhancement - Wholesale Product Visibility (pro):
+		- new option - Show All Products to Retail, Wholesale Products to Wholesale	
+* Note - Now recommend "Members" plugin by Justin Tadlock, rather than User Role Editor
+
+= 1.1.0.9 - 2015-07-31 =
+* Fix - Other rule discounts = no
+* Fix - improve efficiency for Rule Discounts activated by Coupon
 
 = 1.1.0.8 - 2015-07-25 =
 * Fix - Wp-admin Rule editing - if advanced field in error and basic rule showing, 

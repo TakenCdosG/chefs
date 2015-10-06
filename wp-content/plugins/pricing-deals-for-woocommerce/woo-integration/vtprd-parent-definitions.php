@@ -98,7 +98,8 @@ class VTPRD_Parent_Definitions {
             //for later ajaxVariations pricing
             'this_is_a_parent_product_with_variations' => $vtprd_cart->cart_items[0]->this_is_a_parent_product_with_variations,            
             'pricing_by_rule_array'        => $vtprd_cart->cart_items[0]->pricing_by_rule_array,
-            'product_id'                   => $product_id    //v1.0.9.0                                     
+            'product_id'                   => $product_id,    //v1.0.9.0  
+            'product_has_addons'           => $product_has_addons    //v1.1.1                                      
           ) ;
          */
          'ruleset_has_a_display_rule' => $ruleset_has_a_display_rule,
@@ -156,7 +157,9 @@ class VTPRD_Parent_Definitions {
         'user_is_tax_exempt'  => '',  //v1.0.9.0
         'product_catalog_price_array' => array (),
         'previous_auto_add_array' => '',  //v1.1.0.6  added - init to spaces so is_array test can be used
-        'default_coupon_msg'  => $default_coupon_msg //v1.1.0.8
+        'default_coupon_msg'  => $default_coupon_msg, //v1.1.0.8
+        'coupon_codes_array' => array(),   //v1.1.0.9
+        'cart_has_catalog_discounts' => false   //v1.1.1  reset each time the cart is processed
       ); //end vtprd_info      
       
     if ($vtprd_info['purchaser_ip_address'] <= ' ' ) {

@@ -3,7 +3,7 @@
 Plugin Name: VarkTech Pricing Deals for WooCommerce
 Plugin URI: http://varktech.com
 Description: An e-commerce add-on for WooCommerce, supplying Pricing Deals functionality.
-Version: 1.1.0.9 
+Version: 1.1.1 
 Author: Vark
 Author URI: http://varktech.com
 */
@@ -34,12 +34,12 @@ ASK YOUR HOST TO TURN OFF magic_quotes_gpc !!!!!
    
    //initial setup only, overriden later in function vtprd_debug_options
    
-
-
-
-
-   error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR); //v1.0.7.7
-
+   
+   
+  error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR); //v1.0.7.7
+  
+  
+  
      
 class VTPRD_Controller{
 	
@@ -50,10 +50,10 @@ class VTPRD_Controller{
       header("Cache-Control: no-cache");
       header("Pragma: no-cache");
     } 
-    
-		define('VTPRD_VERSION',                               '1.1.0.9');
-    define('VTPRD_MINIMUM_PRO_VERSION',                   '1.1.0.8');
-    define('VTPRD_LAST_UPDATE_DATE',                      '2015-08-12');
+
+		define('VTPRD_VERSION',                               '1.1.1');
+    define('VTPRD_MINIMUM_PRO_VERSION',                   '1.1.1');
+    define('VTPRD_LAST_UPDATE_DATE',                      '2015-09-26');
     define('VTPRD_DIRNAME',                               ( dirname( __FILE__ ) ));
     define('VTPRD_URL',                                   plugins_url( '', __FILE__ ) );
     define('VTPRD_EARLIEST_ALLOWED_WP_VERSION',           '3.3');   //To pick up wp_get_object_terms fix, which is required for vtprd-parent-functions.php
@@ -104,6 +104,7 @@ class VTPRD_Controller{
  **   Overhead and Init
  *************************************************** */
 	public function vtprd_controller_init(){
+  //error_log( print_r(  'Function begin - vtprd_controller_init', true ) );
     global $vtprd_setup_options;
 
     //$product->get_rating_count() odd error at checkout... woocommerce/templates/single-product-reviews.php on line 20  
@@ -293,12 +294,35 @@ class VTPRD_Controller{
   
   //v1.1.0.1  new function 
   public function vtprd_maybe_plugin_mismatch(){
+  
+ //error_log( print_r(  'Function begin - vtprd_maybe_plugin_mismatch', true ) );
  
       if ( (defined('VTPRD_PRO_DIRNAME')) &&
            (version_compare(VTPRD_PRO_VERSION, VTPRD_MINIMUM_PRO_VERSION) < 0) ) {    //'<0' = 1st value is lower  
         add_action( 'admin_notices',array(&$this, 'vtprd_admin_notice_version_mismatch') );            
       }
-    
+
+      //v1.1.1
+      // Check if WooCommerce is active
+      if ( ! class_exists( 'WooCommerce' ) )  {
+      	add_action( 'admin_notices',array(&$this, 'vtprd_admin_notice_woocommerce_required') ); 
+      }
+      
+      global $vtprd_setup_options;
+      if ( ( class_exists( 'WC_Measurement_Price_Calculator' ) ) && 
+           ( isset($vtprd_setup_options['discount_taken_where']) ) &&
+           ( $vtprd_setup_options['discount_taken_where'] == 'discountUnitPrice' ) ) {
+      	add_action( 'admin_notices',array(&$this, 'vtprd_admin_notice_cant_use_unit_price') ); 
+      }      
+      if ( ( class_exists( 'WC_Product_Addons' ) ) && 
+           ( isset($vtprd_setup_options['discount_taken_where']) ) &&
+           ( $vtprd_setup_options['discount_taken_where'] == 'discountUnitPrice' ) ) {
+      	add_action( 'admin_notices',array(&$this, 'vtprd_admin_notice_cant_use_unit_price') ); 
+      }      
+            
+      
+      //v1.1.1
+       
     return;
   
   }  
@@ -306,7 +330,9 @@ class VTPRD_Controller{
 
   public function vtprd_enqueue_frontend_scripts(){
     global $vtprd_setup_options;
-        
+  
+ //error_log( print_r(  'Function begin - vtprd_enqueue_frontend_scripts', true ) );
+         
     wp_enqueue_script('jquery'); //needed universally
     
     if ( $vtprd_setup_options['use_plugin_front_end_css'] == 'yes' ){
@@ -344,6 +370,9 @@ class VTPRD_Controller{
   *  WP also executes it ++right after the update function, prior to the screen being sent back to the user.   
   */  
 	public function vtprd_admin_init(){
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_init', true ) );
+   
      if ( !current_user_can( 'edit_posts', 'vtprd-rule' ) )
           return;
 
@@ -355,7 +384,9 @@ class VTPRD_Controller{
   *************************************************** */
 	public function vtprd_admin_update_rule_cntl(){
       global $post, $vtprd_info;    
-      
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_update_rule_cntl', true ) );
+         
       
       // v1.0.7.3 begin
       if( !isset( $post ) ) {    
@@ -379,6 +410,9 @@ class VTPRD_Controller{
   **   Admin - Publish/Update Rule 
   *************************************************** */
 	public function vtprd_admin_update_rule(){
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_update_rule', true ) );
+     
     /* *****************************************************************
          The delete/trash/untrash actions *will sometimes fire save_post*
          and there is a case structure in the save_post function to handle this.
@@ -390,6 +424,12 @@ class VTPRD_Controller{
      ***************************************************************** */
       
       global $post, $vtprd_rules_set;
+      //v1.1.0.9 begin
+      if( !isset( $post ) ) {    
+        return;
+      }       
+      //v1.1.0.9 end
+      
       if ( !( 'vtprd-rule' == $post->post_type )) {
         return;
       }  
@@ -441,6 +481,15 @@ class VTPRD_Controller{
  *************************************************** */
 	public function vtprd_admin_delete_rule(){
      global $post, $vtprd_rules_set; 
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_delete_rule', true ) );
+          
+      //v1.1.0.9 begin
+      if( !isset( $post ) ) {    
+        return;
+      }       
+      //v1.1.0.9 end
+      
      if ( !( 'vtprd-rule' == $post->post_type ) ) {
       return;
      }        
@@ -464,7 +513,16 @@ class VTPRD_Controller{
   **   Admin - Trash Rule
   *************************************************** */   
 	public function vtprd_admin_trash_rule(){
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_trash_rule', true ) );
+           
      global $post, $vtprd_rules_set; 
+       //v1.1.0.9 begin
+      if( !isset( $post ) ) {    
+        return;
+      }       
+      //v1.1.0.9 end
+          
      if ( !( 'vtprd-rule' == $post->post_type ) ) {
       return;
      }        
@@ -487,7 +545,16 @@ class VTPRD_Controller{
  **   Admin - Untrash Rule
  *************************************************** */   
 	public function vtprd_admin_untrash_rule(){
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_untrash_rule', true ) );
+             
      global $post, $vtprd_rules_set; 
+      //v1.1.0.9 begin
+      if( !isset( $post ) ) {    
+        return;
+      }       
+      //v1.1.0.9 end
+           
      if ( !( 'vtprd-rule' == $post->post_type ) ) {
       return;
      }        
@@ -505,6 +572,9 @@ class VTPRD_Controller{
   *      from Meta box added to PRODUCT in rules-ui.php  
   *************************************************** */
 	public function vtprd_admin_update_product_meta_info(){
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_update_product_meta_info', true ) );
+   
       global $post, $vtprd_rules_set, $vtprd_info;
       if ( !( $vtprd_info['parent_plugin_cpt'] == $post->post_type )) {
         return;
@@ -570,6 +640,9 @@ class VTPRD_Controller{
   **   Admin - Activation Hook
   *************************************************** */  
 	public function vtprd_activation_hook() {
+  
+ //error_log( print_r(  'Function begin - vtprd_activation_hook', true ) );
+   
     global $wp_version, $vtprd_setup_options;
     //the options are added at admin_init time by the setup_options.php as soon as plugin is activated!!!
         
@@ -618,6 +691,9 @@ class VTPRD_Controller{
 
    //v1.0.7.1 begin                          
    public function vtprd_admin_notice_version_mismatch() {
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_notice_version_mismatch', true ) );
+    
       $message  =  '<strong>' . __('Please also update plugin: ' , 'vtprd') . ' &nbsp;&nbsp;'  .VTPRD_PRO_PLUGIN_NAME . '</strong>' ;
       $message .=  '<br>&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('Your Pro Version = ' , 'vtprd') .VTPRD_PRO_VERSION. ' &nbsp;&nbsp;<strong>' . __(' The minimum required Pro Version = ' , 'vtprd') .VTPRD_MINIMUM_PRO_VERSION .'</strong>' ;      
       $message .=  '<br>&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('Please delete the old Pro plugin from your installation (no rules will be affected).'  , 'vtprd');
@@ -641,18 +717,50 @@ class VTPRD_Controller{
    //v1.0.7.1 end  
 
    public function vtprd_admin_notice_coupon_enable_required() {
+     
+ //error_log( print_r(  'Function begin - vtprd_admin_notice_coupon_enable_required', true ) );
+  
       $message  =  '<strong>' . __('In order for the "Pricing Deals" plugin to function successfully, the Woo Coupons Setting must be on, and it is currently off.' , 'vtprd') . '</strong>' ;
       $message .=  '<br><br>' . __('Please go to the Woocommerce/Settings page.  Under the "Checkout" tab, check the box next to "Enable the use of coupons" and click on the "Save Changes" button.'  , 'vtprd');
       $admin_notices = '<div id="message" class="error fade" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
       echo $admin_notices;
       return;    
   } 
-    
-    
+
+   //v1.1.1 new function
+   public function vtprd_admin_notice_woocommerce_required() {
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_notice_woocommerce_required', true ) );
+     
+      $message  =  '<strong>' . __('In order for the "Pricing Deals" plugin to function, the WooCommerce must be installed and active!! ' , 'vtprd') . '</strong>' ;
+      $admin_notices = '<div id="message" class="error fade" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
+      echo $admin_notices;     
+      return;    
+  } 
+
+   //v1.1.1 new function
+   public function vtprd_admin_notice_cant_use_unit_price() {
+  
+ //error_log( print_r(  'Function begin - vtprd_admin_notice_cant_use_unit_price', true ) );
+      
+      $message  =  '*******************************&nbsp;&nbsp;'. '<span style="color: blue !important;">' . __('Pricing Deal Settings &nbsp; Change &nbsp; ** Required **'  , 'vtprd') .'</span><br><br>';
+      $message .=  __('<strong>Pricing Deals</strong> is fully compatible with &nbsp; <em>Woocommerce Product Addons</em> &nbsp; and &nbsp; <em>Woocommerce Measurement Price Calculator</em> . ' , 'vtprd')  ;
+      $message .=  '<br><br>**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('When either of these two plugins are installed and active, <strong>**A CHANGE MUST BE MADE** on your Pricing Deals Settings page.</strong>  ' , 'vtprd') ;
+      $message .=  '<br><br>**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('Please go to the Pricing Deals/Settings page.  <em>At "Unit Price Discount or Coupon Discount" select "Coupon Discount"</em> and click on the "Save Changes" button.'  , 'vtprd');
+      $message .=  '<br><br>' . __('(this is due to system limitations in the two named plugins.)'  , 'vtprd');     
+      $message .=  '<br><br>*******************************';
+      $admin_notices = '<div id="message" class="error fade" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
+      echo $admin_notices;     
+      return;      
+  } 
+  
+       
   /* ************************************************
   **   Admin - **Uninstall** Hook and cleanup
   *************************************************** */ 
 	public function vtprd_uninstall_hook() {
+  
+ //error_log( print_r(  'Function begin - vtprd_uninstall_hook', true ) );
       
       if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
       	return;
@@ -668,7 +776,10 @@ class VTPRD_Controller{
   
    
     //Add Custom Links to PLUGIN page action links                     ///wp-admin/edit.php?post_type=vtmam-rule&page=vtmam_setup_options_page
-  public function vtprd_custom_action_links( $links ) {                 
+  public function vtprd_custom_action_links( $links ) { 
+     
+ //error_log( print_r(  'Function begin - vtprd_custom_action_links', true ) );
+  
 		$plugin_links = array(
 			'<a href="' . admin_url( 'edit.php?post_type=vtprd-rule&page=vtprd_setup_options_page' ) . '">' . __( 'Settings', 'vtprd' ) . '</a>',
 			'<a href="http://www.varktech.com">' . __( 'Docs', 'vtprd' ) . '</a>'
@@ -679,6 +790,9 @@ class VTPRD_Controller{
 
 
 	public function vtprd_create_discount_log_tables() {
+     
+ //error_log( print_r(  'Function begin - vtprd_create_discount_log_tables', true ) );
+    
     global $wpdb;
     //Cart Audit Trail Tables
   	
@@ -751,7 +865,10 @@ class VTPRD_Controller{
 
   }
   
-	public function vtprd_create_table( $sql ) {   
+	public function vtprd_create_table( $sql ) {
+     
+ //error_log( print_r(  'Function begin - vtprd_create_table', true ) );
+       
       global $wpdb;
       require_once(ABSPATH . 'wp-admin/includes/upgrade.php');	        
       dbDelta($sql);
@@ -767,6 +884,9 @@ class VTPRD_Controller{
   //v1.0.9.0 moved here from functions.php, so it only executes on insall...
   //****************************************
   Public function vtprd_maybe_add_wholesale_role(){ 
+     
+ //error_log( print_r(  'Function begin - vtprd_maybe_add_wholesale_role', true ) );
+         
 		global $wp_roles;
 	
 		if ( class_exists( 'WP_Roles' ) ) {

@@ -575,7 +575,10 @@ class VTPRD_Rules_UI{
           <?php //v1.0.9.0 begin  
            $memory = wc_let_to_num( WP_MEMORY_LIMIT );
       
-      		 if ( $memory < 67108864 ) {     //test for 64mb     
+      		 //v1.1.1 begin - REMOVED MEMORY LIMIT TEST
+           //if ( $memory < 67108864 ) {     //test for 64mb             
+           if ( $memory < 1 ) {     //test for 64mb 
+           //v1.1.1 end   
           ?>
           <div class="blue-line  clear-left"> 
               <span class="left-column">                                                      

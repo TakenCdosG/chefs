@@ -97,6 +97,7 @@ class VTPRD_Cart_Item {
     public $db_unit_price_list;
     public $db_unit_price_special;
     public $product_is_on_special; 
+    public $cart_item_key; //v1.1.1
     
     //Running totals and processing switches
     public $original_quantity;
@@ -129,6 +130,8 @@ class VTPRD_Cart_Item {
     public $pricing_by_rule_array;
     
     public $discount_price;
+    public $discount_unit_price; //v1.1.1
+    public $other_plugins_info_array; //v1.1.1
     public $yousave_total_amt;
     public $yousave_total_pct;
     public $yousave_total_qty;
@@ -169,6 +172,7 @@ class VTPRD_Cart_Item {
     public $computation_summary; //text summary of unitPrice computation 
     //v1.0.9.3 end                        
     public $zero_price_auto_add_free_item; //v1.1.0.6
+    public $product_list_price_catalog_correctly_taxed;     //v1.1.1
     
 	public function __construct(){
     $this->product_id;
@@ -200,7 +204,8 @@ class VTPRD_Cart_Item {
     $this->db_unit_price = 0.00;
     $this->db_unit_price_list = 0.00;
     $this->db_unit_price_special = 0.00;
-    $this->product_is_on_special; 
+    $this->product_is_on_special;
+    $this->cart_item_key = ''; //v1.1.1 
     
     //Running totals and processing switches
     $this->original_quantity = 0.00;
@@ -307,6 +312,8 @@ class VTPRD_Cart_Item {
      ); 
                         
     $this->discount_price = '';
+    $this->discount_unit_price = ''; //v1.1.1
+    $this->other_plugins_info_array = array(); //v1.1.1
     $this->yousave_total_amt = 0.00;
     $this->yousave_total_pct = 0;
     $this->yousave_total_qty = 0;

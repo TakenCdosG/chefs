@@ -154,6 +154,10 @@
   add_shortcode('pricing_deal_store_msgs','vtprd_pricing_deal_msgs_standard'); //for backwards compatability   
   function vtprd_pricing_deal_msgs_standard($atts) {
     global $vtprd_rules_set, $post, $vtprd_setup_options, $vtprd_info, $wpdb;
+    
+//error_log( print_r(  'Shortcode $atts', true ) );
+//error_log( var_export($atts, true ) );
+
     extract(shortcode_atts (
       array (
         'type' => 'cart',            //'cart' (default) / 'catalog' / 'all' ==> "cart" msgs = cart rules type, "catalog" msgs = realtime catalog rules type        
@@ -187,17 +191,17 @@
       
     */
     
-/*    
-error_log( print_r(  '*** SHORTCODE *** ' , true ) );
-error_log( print_r(  '$type= ' .$type, true ) );
-error_log( print_r(  '$wholestore_msgs_only= ' .$wholestore_msgs_only, true ) );
-error_log( print_r(  '$roles= ' .$roles, true ) );
-error_log( print_r(  '$rules= ' .$rules, true ) );
-error_log( print_r(  '$product_category= ' .$product_category, true ) );
-error_log( print_r(  '$plugin_category= ' .$plugin_category, true ) );
-error_log( print_r(  '$force_in_the_loop= ' .$force_in_the_loop, true ) );
-error_log( print_r(  '$force_in_the_loop_product= ' .$force_in_the_loop_product, true ) );
-*/
+    
+//error_log( print_r(  '*** SHORTCODE *** ' , true ) );
+//error_log( print_r(  '$type= ' .$type, true ) );
+//error_log( print_r(  '$wholestore_msgs_only= ' .$wholestore_msgs_only, true ) );
+//error_log( print_r(  '$roles= ' .$roles, true ) );
+//error_log( print_r(  '$rules= ' .$rules, true ) );
+//error_log( print_r(  '$product_category= ' .$product_category, true ) );
+//error_log( print_r(  '$plugin_category= ' .$plugin_category, true ) );
+//error_log( print_r(  '$force_in_the_loop= ' .$force_in_the_loop, true ) );
+//error_log( print_r(  '$force_in_the_loop_product= ' .$force_in_the_loop_product, true ) );
+
     
     vtprd_set_selected_timezone();
 
@@ -280,7 +284,7 @@ if ($userRole_name = "Administrator") {
        
     $sizeof_rules_set = sizeof($vtprd_rules_set);
     for($i=0; $i < $sizeof_rules_set; $i++) { 
-//error_log( print_r(  '$i= ' . $i, true ) );
+//error_log( print_r(  '$i= ' . $i . ' rule_id= ' .$vtprd_rules_set[$i]->post_id, true ) );
       //BEGIN skip tests      
       if ( $vtprd_rules_set[$i]->rule_status != 'publish' ) {
 //error_log( print_r(  'shortcode skip 001 ', true ) );        
@@ -356,14 +360,15 @@ if ($userRole_name = "Administrator") {
       //*************************
       //INclusion test begin  -  all are implicit 'or' functions  
       //*************************   
-      
+//error_log( print_r(  'shortcode ABove001 ', true ) );       
       //if no lists are present, then the skip tests are all there is.  Print the msg and exit.
       if (($rules <= ' ' ) && 
           ($roles <= ' ' ) &&  //v1.1.0.5      
           ($products <= ' ') &&
           ($product_category <= ' ')  &&
           ($plugin_category <= ' ')  &&
-          ($force_in_the_loop != 'yes') ) {  //v1.1.0.5
+          ($force_in_the_loop != 'yes') &&
+          (!in_the_loop() ) ) {  //v1.1.1
         $msg_counter++;
         $output .= vtprd_store_deal_msg($i);  //Print
 //error_log( print_r(  'shortcode PRINT Msg 001 ', true ) );        
@@ -383,9 +388,10 @@ if ($userRole_name = "Administrator") {
       //one set of tests for in_the_loop, one for outside
       //*******************************
       //v1.1.0.5 begin
+//error_log( print_r(  'shortcode ABove002 ', true ) ); 
     if ( (in_the_loop() ) ||
          ($force_in_the_loop == 'yes') ) {
-     
+//error_log( print_r(  'IN THE LOOP ', true ) );       
               /*
               $product_category_array                   =  categories passed in with shortcode
               $product_cat_list                         =  categories selected in product
@@ -437,7 +443,10 @@ if ($userRole_name = "Administrator") {
           } 
             //v1.1.0.5 end    
           
-          if ( $products > ' ' ) { 
+          //v1.1.1 begin
+          
+          //**  replicated the if below.  here, it's just the force
+          if ( ( $products > ' ' ) && ($force_in_the_loop == 'yes') ) { 
             if ( ( ($vtprd_rules_set[$i]->inPop_singleProdID     ==  $post->ID ) ||
                    ($vtprd_rules_set[$i]->inPop_varProdID        ==  $post->ID ) ||
                    ($vtprd_rules_set[$i]->actionPop_singleProdID ==  $post->ID ) ||
@@ -450,11 +459,38 @@ if ($userRole_name = "Administrator") {
               continue; //only output the msg once 
             }      
           }
+        
+          
+//error_log( print_r(  'above test for single prod id =  $post->ID= ' .$post->ID, true ) );
+//error_log( print_r(  'inPop_singleProdID= ' .$vtprd_rules_set[$i]->inPop_singleProdID, true ) );
+  
+          //**  replicatd from above - if only in_the_loop, no other test other than agreement.
+          if   ( (in_the_loop() ) &&
+                (($vtprd_rules_set[$i]->inPop_singleProdID     ==  $post->ID ) ||
+                 ($vtprd_rules_set[$i]->inPop_varProdID        ==  $post->ID ) ||
+                 ($vtprd_rules_set[$i]->actionPop_singleProdID ==  $post->ID ) ||
+                 ($vtprd_rules_set[$i]->actionPop_varProdID    ==  $post->ID )) ) {
+            $msg_counter++;
+            $loop_msgs_array[] = $i;
+//error_log( print_r(  'shortcode PRINT Msg 005 ', true ) );              
+            continue; //only output the msg once 
+          }
+          //**  replicatd from above - if only in_the_loop, no other test other than agreement.
+          if   ( (in_the_loop() ) &&
+                (($vtprd_rules_set[$i]->inPop     ==  'wholeStore' ) ||
+                 ($vtprd_rules_set[$i]->actionPop ==  'wholeStore' )) ) {
+            $msg_counter++;
+            $loop_msgs_array[] = $i;
+//error_log( print_r(  'shortcode PRINT Msg 005 ', true ) );              
+            continue; //only output the msg once 
+          }          
+          //v1.1.1 end      
+         
 //error_log( print_r(  'shortcode NO MESSAGE 001 ', true ) );          
       } else {  //************************************************
                 //*****  NOT IN THE LOOP from here on **********
                 //************************************************
-
+//error_log( print_r(  'shortcode NOT IN THE LOOP ', true ) ); 
           if ($product_category > ' ') {
             if ( ( array_intersect($vtprd_rules_set[$i]->prodcat_in_checked,  $product_category_array ) ) ||
                  ( array_intersect($vtprd_rules_set[$i]->prodcat_out_checked, $product_category_array ) ) ) {  
@@ -615,6 +651,8 @@ if ($userRole_name = "Administrator") {
     //close owning div 
     $output .= '</div>';
   //  vtprd_enqueue_front_end_css();
+
+//error_log( print_r(  '$output = ' .$output, true ) );
         
     return $output;  
   }

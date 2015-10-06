@@ -1002,7 +1002,12 @@ function vtprd_initialize_options() {
  	  		
 	add_settings_field(	           //opt54
 		'wholesale_products_display',						// ID used to identify the field throughout the theme
-		__( 'Wholesale Products Display Options', 'vtprd' ),		// The label to the left of the option interface element        
+		//__( 'Wholesale Products Display Options', 'vtprd' ),		// The label to the left of the option interface element   
+		__( 'Catalog Products Display', 'vtprd' )
+    .'<br><br>'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>'.
+    __( 'Wholesale/Retail Product Visibility', 'vtprd' ) 
+   .'<br>'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.'<span class="vtprd-pro-only-msg">( - available in the Pro Version - )</span>'
+    .'</em>',			// The label to the left of the option interface element         
 		array(&$this, 'vtprd_wholesale_products_display_callback'), // The name of the function responsible for rendering the option interface
 		'vtprd_setup_options_page',	// The page on which this option will be displayed
 		'processing_settings_section',			// The name of the section to which this field belongs
@@ -1010,6 +1015,24 @@ function vtprd_initialize_options() {
 			 __( 'Wholesale Products Display Options', 'vtprd' )
 		)
 	);	  
+
+ 	//v1.1.1  		
+	add_settings_field(	           //opt55
+		'wholesale_products_price_display',						// ID used to identify the field throughout the theme
+		//__( 'Wholesale Products Pricing Display Options', 'vtprd' ),		// The label to the left of the option interface element  
+		__( 'Catalog Products Purchasability Display', 'vtprd' )
+    .'<br><br>'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <em>'.
+    __( 'Wholesale/Retail Product Purchasability', 'vtprd' ) 
+       .'<br>'.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.'<span class="vtprd-pro-only-msg">( - available in the Pro Version - )</span>'
+    .'</em>',			// The label to the left of the option interface element                 
+		array(&$this, 'vtprd_wholesale_products_price_display_callback'), // The name of the function responsible for rendering the option interface
+		'vtprd_setup_options_page',	// The page on which this option will be displayed
+		'processing_settings_section',			// The name of the section to which this field belongs
+		array(								// The array of arguments to pass to the callback. In this case, just a description.
+			 __( 'Wholesale Products Display Options', 'vtprd' )
+		)
+	);
+
    
  /*	  	No Longer USED	
 	add_settings_field(	           //opt47
@@ -1331,6 +1354,7 @@ function vtprd_set_default_options() {
           'show_unit_price_cart_discount_computation' => 'no',  //opt52
           'unit_price_cart_savings_message' => __('You Saved ', 'vtprd') .'{cart_save_amount}',  //opt53  shown in cartpage, checkout and thankyou
           'wholesale_products_display' =>'',  //opt54  'noAction', 'respective' = show retail to retail, wholesale to wholesale   'wholesaleAll = show retail to retail, wholesale sees all   'normal'
+          'wholesale_products_price_display' =>''  //opt55  //v1.1.1
      );
      return $options;
 }
@@ -1674,40 +1698,123 @@ function vtprd_use_this_timeZone_callback() {    //opt20
               .'<a  href="http://wwp.greenwichmeantime.com/time-zone/"  title="'. 
               __('Find Your GMT Time Zone">Find Your GMT Time Zone', 'vtprd')
               .'</a><br><br>'.
-              __('**If the time zone setting has no affect on the store, Check your php ini file whether timezone is set.**', 'vtprd');
-               
+              __('**If the time zone setting has no affect on the store, Check your php ini file whether timezone is set.**', 'vtprd');       
   $html .= '</p><br><br>';  
                                     
 	echo $html;
 }
 
-
-function vtprd_wholesale_products_display_callback() {   //opt57
+function vtprd_wholesale_products_display_callback() {   //opt54
 	$options = get_option( 'vtprd_setup_options' );	
 	$html = '<select id="wholesale_products_display" name="vtprd_setup_options[wholesale_products_display]">';
 	$html .= '<option value="noAction"'      . selected( $options['wholesale_products_display'], 'noAction', false)      . '>'   . __('Show All', 'vtprd') .  '&nbsp;</option>';
-	$html .= '<option value="respective"'    . selected( $options['wholesale_products_display'], 'respective', false)    . '>'   . __('Show Retail Products to Retail, Wholesale products to Wholesale', 'vtprd') . '</option>';
-  $html .= '<option value="wholesaleAll"'  . selected( $options['wholesale_products_display'], 'wholesaleAll', false)  . '>'   . __('Show Retail Products to Retail, All products to Wholesale', 'vtprd') . '</option>';
+	$html .= '<option value="respective"'    . selected( $options['wholesale_products_display'], 'respective', false)    . '>'   . __('Show Retail Products to Retail, Wholesale Products to Wholesale', 'vtprd') . '</option>';
+  $html .= '<option value="wholesaleAll"'  . selected( $options['wholesale_products_display'], 'wholesaleAll', false)  . '>'   . __('Show Retail Products to Retail, All Products to Wholesale', 'vtprd') . '</option>';
+  $html .= '<option value="retailAll"'     . selected( $options['wholesale_products_display'], 'retailAll', false)     . '>'   . __('Show All Products to Retail, Wholesale Products to Wholesale', 'vtprd') . '</option>'; //v1.1.1
 	$html .= '</select>';  
   
 
-  $html .= '<a id="help57" class="help-anchor" href="javascript:void(0);" >'   . __('More Info', 'vtprd') .  '</a>';
-  $html .= '<br><br><strong><em>&nbsp;&nbsp;';
-  $html .= __('(Uses **Wholesale Capability**', 'vtprd');
-  $html .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;';
-  $html .= __('to control display of Retail/Wholesale products  ==>> manage this in your ROLE MANAGER)', 'vtprd');
-  $html .=  '</em></strong>';
+  $html .= '<a id="help54" class="help-anchor" href="javascript:void(0);" >'   . __('More Info', 'vtprd') .  '</a>';
+  $html .= '<br><br><em>&nbsp;&nbsp;';
+  $html .= __(' - Works with: ', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= __(' * Product Wholesale Checkbox on Product Page', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= __(' * Wholesale Role or Capability', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= __('to control display of Retail/Wholesale products.', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;';
+  $html .= __(' - Roles and Capabilities managed in your Role Manager Plugin - [see "More Info" above].', 'vtprd');
+  $html .=  '</em>';
      
-  $html .= '<p id="help57-text" class = "help-text" >'; 
-  $html .= __('Wholesale Product Visibility', 'vtprd') .'<br>';
+  $html .= '<p id="help54-text" class = "help-text" >'; 
+  $html .= __('Catalog Products Display Options', 'vtprd') .'<br>';
   $html .= __('- Product screen now has a "wholesale product" checkbox in the PUBLISH box') .'<br>';
-  $html .= __('- Commbined with this switch, you have complete control over when Retail and Wholesale Products display.
-              Label all of the Wholesale products in the Product screen, then select the appropriate option above.  Wehn a Retail
+  $html .= __('- Combined with this switch, you have complete control over when Retail and Wholesale Products display.
+              Label all of the Wholesale products in the Product screen, then select the appropriate option above.  When a Retail
               or Wholesale customer views the products, they will receive the list tailored to the selection above.') .'<br>';
   $html .= '<strong>';   
-  $html .= __('NB => (Not logged in = Retail)');
+  $html .= __('NB => (Not logged in = Retail)', 'vtprd');
+  $html .= '</strong>'; 
+ 
+  $html .= '<br><br>';
+  $html .= '<a class="subsection-title-smaller" target="_blank" href="https://wordpress.org/plugins/members/">Recomended Role Manager Plugin</a>'; 
+
+  $html .= '<br><br><strong>';    
+  $html .= __('Please Note: ANY Role can be a Wholesale role, IF the <em>Wholesale Capability</em> is selected for that Role (using the Role Manager)', 'vtprd');
+  $html .= '</strong>'; 
+            
+  $html .= '</p><br><br>';   
+            
+	echo $html;
+}
+
+
+
+//***************************************************************
+//v1.1.1 Product purchasability and Pricing Visibility
+
+function vtprd_wholesale_products_price_display_callback() {   //opt55
+	$options = get_option( 'vtprd_setup_options' );	 
+	$html = '<select id="wholesale_products_price_display" name="vtprd_setup_options[wholesale_products_price_display]">';
+	$html .= '<option value="noAction"'      . selected( $options['wholesale_products_price_display'], 'noAction', false)      . '>'   . __('Show All', 'vtprd') .  '&nbsp;</option>';
+	$html .= '<option value="onlyOnly"'      . selected( $options['wholesale_products_price_display'], 'onlyOnly', false)      . '>'   . __('Retail Products for Retail, Wholesale Products for Wholesale', 'vtprd') . '</option>';  
+  $html .= '<option value="respective"'    . selected( $options['wholesale_products_price_display'], 'respective', false)    . '>'   . __('Retail Products for Retail, All Products for Wholesale', 'vtprd') . '</option>';  
+	$html .= '<option value="wholesaleOnly"' . selected( $options['wholesale_products_price_display'], 'wholesaleOnly', false) . '>'   . __('No Products for Retail, Wholesale Products for Wholesale', 'vtprd') . '</option>';
+	$html .= '<option value="wholesaleAll"'  . selected( $options['wholesale_products_price_display'], 'wholesaleAll', false)  . '>'   . __('No Products for Retail, All Products for Wholesale', 'vtprd') . '</option>';
+  $html .= '<option value="noPrices"'      . selected( $options['wholesale_products_price_display'], 'noPrices', false)      . '>'   . __('No Products Purchasable - use WooCommerce as a Catalog only', 'vtprd') . '</option>';
+	$html .= '</select>';  
+  
+
+  $html .= '<a id="help55" class="help-anchor" href="javascript:void(0);" >'   . __('More Info', 'vtprd') .  '</a>';
+  $html .= '<br><br><em>&nbsp;&nbsp;';
+  $html .= __(' - Works with: ', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= __(' * Product Wholesale Checkbox on Product Page', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= __(' * Wholesale Role or Capability', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= __('to control Retail/Wholesale products Purchasability.', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;';
+  $html .= __(' - Roles and Capabilities managed in your Role Manager Plugin - [see "More Info" above].', 'vtprd');
+  
+  $html .= '<br>&nbsp;&nbsp;';
+  $html .= __(' - For <strong>Price Replacement</strong> (with Spaces or a Message)', 'vtprd');
+  $html .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+  $html .= __('please use the matching Filter ("vtprd_replace_price_with_message") - [see "More Info" above].', 'vtprd'); 
+   
+  $html .=  '</em>';
+     
+  $html .= '<p id="help55-text" class = "help-text" >'; 
+  $html .= __('Catalog Products Purchasability Display Options', 'vtprd') .'<br>';
+  $html .= __('- Product screen now has a "wholesale product" checkbox in the PUBLISH box') .'<br>';
+  $html .= __('- Combined with this switch, you have complete control over when Retail and Wholesale Products ADD-to-Cart button displays.
+              Label all of the Wholesale products in the Product screen, then select the appropriate option above.  When a Retail
+              or Wholesale customer views the products, they will receive the list tailored to the selection above.') .'<br>';
+  $html .= '<strong>';   
+  $html .= __('NB => (Not logged in = Retail)', 'vtprd');
   $html .= '</strong>'; 
   
+  $html .= '<br><br>';
+  $html .= "// Copy Begin" .'<br>';
+  $html .= "// ***************************************************************************************" .'<br>';
+  $html .= "// *** TO REPLACE PRICE WITH SPACES OR MESSAGE, if desired - message may include HTML" .'<br>';
+  $html .= "// *** add filter/function to the bottom of your ** Theme Functions file**" .'<br>';
+  $html .= "// ***   (Copy the code from Copy Begin to Copy End)" .'<br>';
+  $html .= "// ***************************************************************************************" .'<br>';
+  $html .= "add_filter('vtprd_replace_price_with_message_if_product_not_purchasable', 'do_replace_price_with_message_if_product_not_purchasable', 10, 1);" .'<br>';
+  $html .= "function do_replace_price_with_message_if_product_not_purchasable() {" .'<br>';
+  $html .= "  return ' Message to replace Price, if Product may not be Purchased by User. May be Blank, Spaces, a Message and/or HTML '; " .'<br>';
+  $html .= "}" .'<br>';
+  $html .= "// Copy End";
+ 
+  $html .= '<br><br>';
+  $html .= '<a class="subsection-title-smaller" target="_blank" href="https://wordpress.org/plugins/members/">Recomended Role Manager Plugin</a>'; 
+
+  $html .= '<br><br><strong>';    
+  $html .= __('Please Note: ANY Role can be a Wholesale role, IF the <em>Wholesale Capability</em> is selected for that Role (using the Role Manager)', 'vtprd');
+  $html .= '</strong>'; 
+           
   $html .= '</p><br><br>';   
             
 	echo $html;
@@ -2495,23 +2602,43 @@ function vtprd_discount_taken_where_callback () {    //opt48
   $html .=  '</em></p>'; 
   
   $html .= '<p id="help48-text" class = "help-text" >'; 
+  //v1.1.1 message reworded
   $html .= __('Pricing Deal discounts can now be shown in one of two modes.', 'vtprd')
         .'<br><br>'.
-        __('<strong>COUPON DISCOUNT</strong> - The default mode is to report on the discounts in its own area, after the 
-        cart is summarized by Woo.  The actual discount is supplied to Woo via a Pricing Deal Coupon, called "Deals".  So the discount is reported in
-        the mini-cart, and is shown applied on the Cart and Checkout pages. This mode is the most accurate way to apply discounts.  
-        The total discount is always accurate.', 'vtprd')
+        __('<strong>COUPON DISCOUNT</strong> - In this mode, Pricing Deals reports on the discounts *in its own area*, after the 
+        <br> cart is summarized by Woo.  The actual discount total is supplied to Woo via a Pricing Deal Coupon, called "Deals".   
+        <br> The discount is also reported in the mini-cart, and is shown applied *using the "Deals" Coupon,
+        <br> on the Cart and Checkout pages. 
+        <br> This mode is the most accurate way to apply discounts, as the total discount is always accurate.', 'vtprd')
         .'<br><br>'.
-        __('<strong>UNIT COST DISCOUNT</strong> - Apply the Rule discount directly to the affected Unit Price.  For example, if an Apple costs $100 and there is a $10 discount per apple,
-        the unit price is reduced to $90.', 'vtprd')
-        .'<br>'.
-        __('However, if Apples are $100 and the Rule is $10 off only the 1st Apple, and 3 Apples are purchased, the discount cannot be accurately represented.
-        In this case, the discount is $10 / 3 = $3.3333 and the unit price is $100 - $3.33 (or $3.34) ... = $99.99 or $100.02 .  Neither one of these multiplies out
-        accurately to a $10 discount, so we have to choose whether to give more discount or less.... .', 'vtprd') 
-        .'<br><br><strong>'.
-        __('33.33 * 3 = 99.99 ==>> this would be the "More Discount" setting', 'vtprd') 
-        .'</strong><br><strong>'.
-        __('33.34 * 3 = 100.02 ==>> this would be the "Less Discount" setting', 'vtprd') .'</strong>';                 
+        __('<strong>UNIT COST DISCOUNT</strong> - Applies the Rule discount directly to the affected Product"s Unit Price.  
+        <br> For example, if an Apple costs $100 and there is a $10 discount per apple,
+        <br> the unit price is reduced to $90.', 'vtprd')
+        .'<br><br>'.
+        __('However, if Apples are $100 and the Rule is $10 off only the 1st Apple, 
+        <br>  and 3 Apples are purchased, 
+        <br>  **the discount cannot be accurately represented**.
+        <br><br>
+        - the discount total should be $100 * 3 = $300 - $10 discount = $290.
+        <br>
+        - $290 (total for 3 units) / 3 =  $96.6666667 unit price 
+        <br>
+        - BUT $96.66 * 3 = $289.98 
+        <br> 
+        - AND $96.67 * 3 = $290.01 
+        <br><br>
+        So in this case, neither discount is accurate.
+        <br><br>
+        So when Unit Price Discount is selected, you are presented with this option:
+        <br>
+        "Give More or Less - Unit Price discount"
+        <br><br>
+        In this case:
+        <br>
+        More Discount = $289.98
+        <br>
+        Less Discount = $290.01 
+        ', 'vtprd');                 
   $html .= '</p>';
 
 	echo $html;
@@ -2731,7 +2858,7 @@ function vtprd_validate_setup_input( $input ) {
 
 
      //one of these switches must be on
-     if (
+     if ( (isset ($input['use_lifetime_max_limits']) ) &&  //v1.1.1
           (($input['use_lifetime_max_limits'] == 'no' ) ||
           ($output['use_lifetime_max_limits'] == 'no' ) )
                                 &&

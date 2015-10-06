@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Social Media Share Buttons
  * Plugin URI: http://www.toastiestudio.com 
  * Description: The Woocommerce Social Media Share Buttons plugin allows visitors to your woocommerce shop to easily share your products on popular social media platforms.
- * Version: 1.1.4
+ * Version: 1.2.1
  * Author: Toastie Studio
  * Author URI: http://www.toastiestudio.com
  * Requires at least: 3.5
- * Tested up to: 4.2
+ * Tested up to: 4.3.1
  * Text Domain: woocommerce-social-media-share-buttons
  * Domain Path: /lang
  *
@@ -46,8 +46,9 @@ function toastie_wc_smsb_li_reg_like_settings() {
 	register_setting('toastie_wc_share_like', 'toastie_smsb_vk');
     register_setting('toastie_wc_share_like', 'toastie_smsb_em');	
     register_setting('toastie_wc_share_like', 'toastie_smsb_format');
+	register_setting('toastie_wc_share_like', 'toastie_smsb_title');
+	register_setting('toastie_wc_share_like', 'toastie_smsb_opengraph');
 }
-
 if (is_admin()) {
     add_action('admin_init', 'toastie_wc_smsb_li_reg_like_settings');
 }
@@ -61,10 +62,15 @@ add_option('toastie_smsb_st', 'true');
 add_option('toastie_smsb_vk', 'true');
 add_option('toastie_smsb_em', 'true');
 add_option('toastie_smsb_format', 'button');
+add_option('toastie_smsb_title', '');
+add_option('toastie_smsb_opengraph', 'false');
 
 function toastie_wc_smsb_form_code() {
     global $post;
     $social_val = '<div class="woo-social-buttons">';
+	if (get_option('toastie_smsb_title') != '' ) {
+		$social_val.='<h3 class="wsmsb_title">'.get_option('toastie_smsb_title').'</h3>';
+	};
 	if (get_option('toastie_smsb_format') == 'button') {
 		if (get_option('toastie_smsb_fb') == 'true') {	
 			$social_val.='<span class="smsb_facebook nocount fb-share-button" data-href="' . get_permalink($post->ID) . '" data-layout="button"></span>';
@@ -76,7 +82,7 @@ function toastie_wc_smsb_form_code() {
             $social_val.='<span class="smsb_googleplus nocount"><span class="g-plus" data-action="share" data-annotation="none" data-href="' . get_permalink($post->ID) . '"></span></span>';
         }
 		if (get_option('toastie_smsb_pi') == 'true') { 
-            $social_val.='<span class="smsb_pinterest nocount"><a href="//gb.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-color="red" >
+            $social_val.='<span class="smsb_pinterest nocount"><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" null  data-pin-color="red" >
 			               <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a><script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script></span>';
         }		
 		if (get_option('toastie_smsb_tu') == 'true') { 	
@@ -108,7 +114,7 @@ function toastie_wc_smsb_form_code() {
             $social_val.='<span class="smsb_googleplus hcount"><span class="g-plus" data-action="share" data-annotation="bubble" data-href="' . get_permalink($post->ID) . '"></span></span>';
         }
 		if (get_option('toastie_smsb_pi') == 'true') {
-            $social_val.='<span class="smsb_pinterest hcount"><a href="//gb.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-config="beside" data-pin-color="red" >
+            $social_val.='<span class="smsb_pinterest hcount"><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" null  data-pin-config="beside" data-pin-color="red" >
 			               <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a><script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script></span>';
         }
 		if (get_option('toastie_smsb_tu') == 'true') { 	
@@ -140,7 +146,7 @@ function toastie_wc_smsb_form_code() {
             $social_val.='<span class="smsb_googleplus vcount"><span class="g-plus" data-action="share" data-annotation="vertical-bubble" data-href="' . get_permalink($post->ID) . '"></span></span>';
         }
 		if (get_option('toastie_smsb_pi') == 'true') {
-            $social_val.='<span class="smsb_pinterest vcount"><a href="//gb.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-config="above" data-pin-color="red" >
+            $social_val.='<span class="smsb_pinterest vcount"><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-config="above" null data-pin-color="red" >
 			               <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a><script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script></span>';
         }
 		if (get_option('toastie_smsb_tu') == 'true') { 	
@@ -166,6 +172,9 @@ function toastie_wc_smsb_form_code() {
 function toastie_wc_smsb_form_short_code() {
     global $post;
     $social_val = '<div class="woo-social-buttons">';
+	if (get_option('toastie_smsb_title') != '' ) {
+		$social_val.='<h3 class="wsmsb_title">'.get_option('toastie_smsb_title').'</h3>';
+	};
 	if (get_option('toastie_smsb_format') == 'button') {
 		if (get_option('toastie_smsb_fb') == 'true') {	
 			$social_val.='<span class="smsb_facebook nocount fb-share-button" data-href="' . get_permalink($post->ID) . '" data-layout="button"></span>';
@@ -177,7 +186,7 @@ function toastie_wc_smsb_form_short_code() {
             $social_val.='<span class="smsb_googleplus nocount"><span class="g-plus" data-action="share" data-annotation="none" data-href="' . get_permalink($post->ID) . '"></span></span>';
         }
 		if (get_option('toastie_smsb_pi') == 'true') { 
-            $social_val.='<span class="smsb_pinterest nocount"><a href="//gb.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-color="red" >
+            $social_val.='<span class="smsb_pinterest nocount"><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" null data-pin-color="red" >
 			               <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a><script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script></span>';
         }		
 		if (get_option('toastie_smsb_tu') == 'true') { 	
@@ -209,7 +218,7 @@ function toastie_wc_smsb_form_short_code() {
             $social_val.='<span class="smsb_googleplus hcount"><span class="g-plus" data-action="share" data-annotation="bubble" data-href="' . get_permalink($post->ID) . '"></span></span>';
         }
 		if (get_option('toastie_smsb_pi') == 'true') {
-            $social_val.='<span class="smsb_pinterest hcount"><a href="//gb.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-config="beside" data-pin-color="red" >
+            $social_val.='<span class="smsb_pinterest hcount"><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  null data-pin-config="beside" data-pin-color="red" >
 			               <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a><script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script></span>';
         }
 		if (get_option('toastie_smsb_tu') == 'true') { 	
@@ -241,7 +250,7 @@ function toastie_wc_smsb_form_short_code() {
             $social_val.='<span class="smsb_googleplus vcount"><span class="g-plus" data-action="share" data-annotation="vertical-bubble" data-href="' . get_permalink($post->ID) . '"></span></span>';
         }
 		if (get_option('toastie_smsb_pi') == 'true') {
-            $social_val.='<span class="smsb_pinterest vcount"><a href="//gb.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"  data-pin-config="above" data-pin-color="red" >
+            $social_val.='<span class="smsb_pinterest vcount"><a href="//www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" null data-pin-config="above" data-pin-color="red" >
 			               <img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_red_20.png" /></a><script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script></span>';
         }
 		if (get_option('toastie_smsb_tu') == 'true') { 	
@@ -264,12 +273,49 @@ function toastie_wc_smsb_form_short_code() {
     return $social_val;
 }
 
+function toastie_wc_smsb_form_code_yithqv() {
+    global $post;
+    $social_val = '<div class="woo-social-buttons">';
+	
+		if (get_option('toastie_smsb_fb') == 'true') {	
+			$social_val.='<span class="smsb_facebook yithqv"><a href="http://www.facebook.com/sharer.php?u='.get_permalink($post->ID).'" target="_blank"><img src="'. plugins_url( 'img/yithqv_buttons/facebook.png', __FILE__ ) . '" alt="Facebook" /></a></span>';
+		}
+		if (get_option('toastie_smsb_tw') == 'true') {
+			$social_val.='<span class="smsb_twitter yithqv"><a href="http://twitter.com/share?text='.get_the_title($post->ID).'&url='.get_permalink($post->ID).'" target="_blank"><img src="'. plugins_url( 'img/yithqv_buttons/twitter.png', __FILE__ ) . '" alt="Twitter" /></a></span>';
+		}
+		if (get_option('toastie_smsb_gp') == 'true') {
+            $social_val.='<span class="smsb_googleplus yithqv"><a href="https://plus.google.com/share?url='.get_permalink($post->ID).'" target="_blank" ><img src="'. plugins_url( 'img/yithqv_buttons/googleplus.png', __FILE__ ) . '" alt="Google Plus" /></a></span>';
+        }
+		if (get_option('toastie_smsb_pi') == 'true') { 
+            $social_val.='<span class="smsb_pinterest yithqv"><a href="javascript:void((function()%7Bvar%20e=document.createElement(\'script\');e.setAttribute(\'type\',\'text/javascript\');e.setAttribute(\'charset\',\'UTF-8\');e.setAttribute(\'src\',\'http://assets.pinterest.com/js/pinmarklet.js?r=\'+Math.random()*99999999);document.body.appendChild(e)%7D)());"><img src="'. plugins_url( 'img/yithqv_buttons/pinterest.png', __FILE__ ) . '" alt="Pinterest" /></a></span>';
+        }       
+		if (get_option('toastie_smsb_tu') == 'true') { 	
+			$social_val.='<span class="smsb_tumblr yithqv"><a href="http://www.tumblr.com/share/link?url='.get_permalink($post->ID).'&amp;title='.get_the_title($post->ID).'" target="_blank"><img src="'. plugins_url( 'img/yithqv_buttons/tumblr.png', __FILE__ ) . '" alt="Tubmlr" /></a></span>';
+		}
+        if (get_option('toastie_smsb_li') == 'true') {
+            $social_val.='<span class="smsb_linkedin yithqv"><a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='.get_permalink($post->ID).'" target="_blank"><img src="'. plugins_url( 'img/yithqv_buttons/linkedin.png', __FILE__ ) . '" alt="Linkedin" /></a></span>';
+        }
+		if (get_option('toastie_smsb_st') == 'true') { 
+            $social_val.='<span class="smsb_stumbleupon yithqv"><a href="http://www.stumbleupon.com/submit?url='.get_permalink($post->ID).'&amp;title='.get_the_title($post->ID).'" target="_blank"><img src="'. plugins_url( 'img/yithqv_buttons/stumbleupon.png', __FILE__ ) . '" alt="StumbleUpon" /></a></span>';
+		}
+		if (get_option('toastie_smsb_vk') == 'true') {
+            $social_val.='<span class="smsb_vkontakte yithqv"><a href="http://vkontakte.ru/share.php?url='.get_permalink($post->ID).'" target="_blank"><img src="'. plugins_url( 'img/yithqv_buttons/vkontakte.png', __FILE__ ) . '" alt="Vkontakte" /></a></span>';
+        }
+        if (get_option('toastie_smsb_em') == 'true') {
+            $social_val.='<span class="smsb_email yithqv"><a href="mailto:?subject='.get_the_title($post->ID).'&amp;body=I%20saw%20this%20and%20thought%20of%20you!%20 ' . get_permalink($post->ID) . '"><img src="'. plugins_url( 'img/yithqv_buttons/email.png', __FILE__ ) . '" alt="Email" /></a></span>';
+        }
+	
+	$social_val.='<div style="clear:both"></div></div>';
+    echo $social_val;
+}
 
 add_shortcode('woocommerce_social_media_share_buttons', 'toastie_wc_smsb_form_short_code');
 add_action('woocommerce_single_product_summary', 'toastie_wc_smsb_form_code', 31);
+add_action( 'yith_wcqv_product_summary', 'toastie_wc_smsb_form_code_yithqv', 31 );
 add_action('admin_menu', 'toastie_wc_smsb_social_menu');
 add_action('wp_footer', 'toastie_wc_smsb_social_footer');
 load_plugin_textdomain( 'woocommerce-social-media-share-buttons', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' ); 
+if (get_option('toastie_smsb_opengraph') == 'true') { add_action('wp_head', 'toastie_wc_smsb_social_meta'); };
 
 function toastie_wc_smsb_social_menu() {
     add_menu_page('Woocommerce Social Media Share Button Page', 'Share Buttons', 'manage_options', 'Woocommerce-social-media-share-button-plugin', 'toastie_wc_smsb_social_init', plugins_url('/img/woo_16.png', __FILE__));
@@ -282,6 +328,7 @@ function toastie_wc_smsb_social_footer() {
 			.woo-social-buttons img {vertical-align: top;}
 			.woo-social-buttons span.nocount, .woo-social-buttons span.hcount {float:left; margin:0 5px 5px 0; height:21px;}
 			.woo-social-buttons span.vcount {float:left; margin:0 5px 5px 0; height:65px;}
+			.woo-social-buttons span.yithqv {float:left; margin:0 5px 5px 0; height:36px;}
 			.woo-social-buttons iframe {margin: 0px !important; padding: 0px !important; vertical-align:baseline;}
 			.woo-social-buttons .smsb_pinterest.vcount {position:relative; top:30px}
 			.woo-social-buttons .smsb_tumblr iframe {height:20px !important; width:50px !important;} 
@@ -292,6 +339,29 @@ function toastie_wc_smsb_social_footer() {
 			.woo-social-buttons .smsb_vkontakte a {height:auto !important;}		
 		  </style>";
 }
+
+function toastie_wc_smsb_social_meta() {
+	echo '<!-- Open Graph data -->
+		  <meta property="og:title" content="'.get_the_title($post->ID).'" />
+		  <meta property="og:type" content="website" />
+		  <meta property="og:url" content="'.get_permalink($post->ID).'" />
+		  <meta property="og:image" content="'.wp_get_attachment_url( get_post_thumbnail_id() ).'" />
+		  <meta property="og:description" content="'.get_the_title($post->ID).'" />
+		  <meta property="og:site_name" content="'.get_bloginfo( 'name', 'display' ).'"/>
+		  
+		  <!-- Twitter Card data -->
+		  <meta name="twitter:card" content="summary">
+		  <meta name="twitter:title" content="'.get_the_title($post->ID).'">
+		  <meta name="twitter:description" content="'.get_the_title($post->ID).'">
+		  <!-- Twitter Summary card images must be at least 120x120px -->
+		  <meta name="twitter:image" content="'.wp_get_attachment_url( get_post_thumbnail_id() ).'">
+		  
+		  <!-- Schema.org markup for Google+ -->
+		  <meta itemprop="name" content="'.get_the_title($post->ID).'">
+		  <meta itemprop="description" content="'.get_the_title($post->ID).'">
+		  <meta itemprop="image" content="'.wp_get_attachment_url( get_post_thumbnail_id() ).'">
+		  ';
+};
 
 function toastie_wc_smsb_social_init() {
     $submited = 0;
@@ -307,6 +377,8 @@ function toastie_wc_smsb_social_init() {
 		$smsb_vk = sanitize_text_field($_REQUEST['smsb_vk']);
         $smsb_em = sanitize_text_field($_REQUEST['smsb_em']);
         $smsb_format = sanitize_text_field($_REQUEST['smsb_format']);
+		$smsb_title = sanitize_text_field($_REQUEST['smsb_title']);
+		$smsb_opengraph = sanitize_text_field($_REQUEST['smsb_opengraph']);
         update_option('toastie_smsb_fb', $smsb_fb);
 		update_option('toastie_smsb_tw', $smsb_tw);
         update_option('toastie_smsb_gp', $smsb_gp);
@@ -317,6 +389,8 @@ function toastie_wc_smsb_social_init() {
 		update_option('toastie_smsb_vk', $smsb_vk);
         update_option('toastie_smsb_em', $smsb_em);
         update_option('toastie_smsb_format', $smsb_format);
+		update_option('toastie_smsb_title', $smsb_title);
+		update_option('toastie_smsb_opengraph', $smsb_opengraph);
         $submited = 1;
     }
     ?>
@@ -360,7 +434,16 @@ function toastie_wc_smsb_social_init() {
                                 <label> <input type="checkbox" name="smsb_em" value="true" <?php echo (get_option('toastie_smsb_em') == 'true' ? 'checked' : ''); ?>  ><span style="padding-left: 5px;font-weight: bold;"><?php _e('Email', 'woocommerce-social-media-share-buttons'); ?></span></label>
                             </fieldset></td>
                     </tr>
-                    <tr><th><h3 class="smsb_optionheader" ><?php _e("What format do you want the share buttons?", "woocommerce-social-media-share-buttons"); ?></h3></th></tr>  
+                    <tr><th><h3 class="smsb_optionheader" ><?php _e('Share button title text', 'woocommerce-social-media-share-buttons'); ?></h3></th></tr>
+                    <tr valign="top">
+                        <td>
+                        <fieldset>
+                        <label><?php _e('Add a title above the share buttons (title is set to heading 3 style format, class "wsmsb_title").', 'woocommerce-social-media-share-buttons'); ?></label><br/>
+                        <input type="text" name="smsb_title" value="<?php echo get_option('toastie_smsb_title'); ?>"/>
+                        </fieldset>
+                        </td>
+                     </tr>
+                    <tr><th><h3 class="smsb_optionheader" ><?php _e('What format do you want the share buttons?', 'woocommerce-social-media-share-buttons'); ?></h3></th></tr>  
                     <tr valign="top">
                         <td><fieldset>
                         		<img src="<? echo plugins_url( 'img/smsb_formatoptions.png', __FILE__ );?>" alt="Format Options"/><br/>
@@ -374,6 +457,14 @@ function toastie_wc_smsb_social_init() {
                             <?php _e('Note: Some buttons do not show the share count until the url has been shared atleast once. Email does not show the share count at all.', 'woocommerce-social-media-share-buttons'); ?>
                             </td>
                     </tr>
+                    <tr><th><h3 class="smsb_optionheader" ><?php _e('Open Graph Settings', 'woocommerce-social-media-share-buttons'); ?></h3></th></tr>
+                    <tr valign="top">
+                        <td>
+                        <fieldset>
+                        <label><input type="checkbox" name="smsb_opengraph" value="true" <?php echo (get_option('toastie_smsb_opengraph') == 'true' ? 'checked' : ''); ?>  ><span style="padding-left: 5px;font-weight: bold;">  <?php _e('Automatically add open graph meta data to site header. ', 'woocommerce-social-media-share-buttons'); ?></span></label>
+                        </fieldset>
+                        </td>
+                     </tr>
                 </table>
                 <p>&nbsp;</p>
                 <p><input type="submit" name="Submit" class="smsb_button" value="<?php _e("Save Settings", "woocommerce-social-media-share-buttons"); ?>"></p>

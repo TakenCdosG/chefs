@@ -1852,6 +1852,14 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
     //$vtprd_cart->cart_items[$k]->discount_price    = ($vtprd_cart->cart_items[$k]->db_unit_price * $vtprd_cart->cart_items[$k]->quantity) - $yousave_product_total_amt ;  
     $vtprd_cart->cart_items[$k]->discount_price    = ( $curr_prod_array['prod_unit_price'] * $vtprd_cart->cart_items[$k]->quantity) - $yousave_product_total_amt ; 
     
+    //v1.1.1 begin
+    if ($vtprd_cart->cart_items[$k]->discount_price > 0) {
+      $vtprd_cart->cart_items[$k]->discount_unit_price  =  round( $vtprd_cart->cart_items[$k]->discount_price / $vtprd_cart->cart_items[$k]->quantity , 2); 
+    } else {
+      $vtprd_cart->cart_items[$k]->discount_unit_price  =  0;    
+    }  
+    //v1.1.1 end
+        
     $vtprd_rules_set[$i]->discount_applied == 'yes';
     $vtprd_cart->cart_items[$k]->cartAuditTrail[$vtprd_rules_set[$i]->post_id]['discount_status'] = 'applied';
     $vtprd_cart->cart_items[$k]->cartAuditTrail[$vtprd_rules_set[$i]->post_id]['discount_msgs'][] = __('Discount Applied', 'vtprd');
