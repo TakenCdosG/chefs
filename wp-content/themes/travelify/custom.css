@@ -2154,7 +2154,22 @@ section.featured-slider div.left-featured-slider div div.slides{
 
     .mobile-menu {
         max-width: 100%;
-        margin: 0 0 40px auto;
+        margin: 0 0 15px auto;
+        font-size: 16px;
+        background: #4c4c4c;
+        padding: 5px;
+    }
+
+    .searchform{
+        display: none;
+    }
+
+    .mobile-menu .searchform{
+        display: block!important;
+    }
+
+    .mobile-menu .slicknav_menu{
+        padding: 0px!important;
     }
 
     .slicknav_menu .slicknav_icon {
@@ -2168,4 +2183,5 @@ section.featured-slider div.left-featured-slider div div.slides{
         width: 150px!important;
         float: right!important;
     }
+
 }
