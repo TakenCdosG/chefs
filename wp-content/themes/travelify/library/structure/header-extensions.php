@@ -282,7 +282,9 @@ function travelify_headerdetails() {
 					<div class="container clearfix">';
         wp_nav_menu($args);
         echo '</div><!-- .container -->
-					</nav><!-- #main-nav -->';
+					</nav><!-- #main-nav -->
+					<div class="mobile-menu"></div>
+					';
     } else {
         echo '<nav id="main-nav" class="clearfix">
 					<div class="container clearfix">';
