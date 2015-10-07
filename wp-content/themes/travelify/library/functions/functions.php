@@ -213,7 +213,10 @@ function travelify_scripts_styles_method() {
 
     wp_enqueue_style('travelify-webfonts-style', get_template_directory_uri() . '/library/font/MyFontsWebfontsKit.css', false);
 
+    wp_enqueue_style( 'slicknav', get_template_directory_uri() .'/library/css/slicknav.min.css', array(), false, 'all' );
+
     wp_enqueue_style('travelify-custom-style', get_template_directory_uri() . '/custom.css', false);
+
 
     /**
      * Adds JavaScript to pages with the comment form to support
@@ -243,11 +246,14 @@ function travelify_scripts_styles_method() {
 
     wp_enqueue_script('theme_functions', get_template_directory_uri() . '/library/js/functions.min.js', array('jquery'));
 
+    wp_enqueue_script( 'slicknav', get_template_directory_uri() .'/library/js/jquery.slicknav.min.js', '', '1.0.3', true );
+
     wp_enqueue_script('theme_global_functions', get_template_directory_uri() . '/library/js/global.js', array('jquery'));
 
     wp_enqueue_script('theme_global_dropdown', get_template_directory_uri() . '/library/js/dropdown.js', array('jquery'));
 
     wp_enqueue_style('google_font_ubuntu');
+
 
     /**
      * Browser specific queuing i.e
