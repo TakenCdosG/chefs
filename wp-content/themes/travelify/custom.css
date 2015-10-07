@@ -2162,4 +2162,10 @@ section.featured-slider div.left-featured-slider div div.slides{
         top: 10px;
         right: 10px;
     }
+
+    .slicknav_btn{
+        outline: none;
+        width: 150px;
+        float: right;
+    }
 }
