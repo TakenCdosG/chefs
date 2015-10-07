@@ -2159,6 +2159,7 @@ section.featured-slider div.left-featured-slider div div.slides{
         font-size: 16px;
         background: #231f20;
         padding: 5px;
+        min-height: 43px;
     }
 
     .searchform{
