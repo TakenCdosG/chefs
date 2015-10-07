@@ -2167,6 +2167,9 @@ section.featured-slider div.left-featured-slider div div.slides{
 
     .mobile-menu .searchform{
         display: block!important;
+        float: left;
+        position: relative;
+        min-width: 100px;
     }
 
     .mobile-menu .slicknav_menu{
