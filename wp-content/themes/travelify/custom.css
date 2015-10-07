@@ -2128,3 +2128,38 @@ section.featured-slider div.left-featured-slider div div.slides{
         display: block;
     }
 }
+
+
+.mobile-menu {
+    float: right;
+    display: none;
+    position: relative;
+}
+
+@media screen and (max-width: 640px) {
+
+    #main-nav{
+        display:none;
+    }
+
+    .mobile-menu,
+    .slicknav_menu .slicknav_btn,
+    .slicknav_menu .slicknav_menutxt {
+        float: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+        position: relative;
+    }
+
+    .mobile-menu {
+        max-width: 100%;
+        margin: 0 0 40px auto;
+    }
+
+    .slicknav_menu .slicknav_icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+}
