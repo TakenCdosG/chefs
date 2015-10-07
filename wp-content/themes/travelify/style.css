@@ -2072,7 +2072,8 @@ article {
 
 
 
-.hgroup-right .searchform input.field-submit{
+.hgroup-right .searchform input.field-submit,
+.mobile-menu .searchform input.field-submit{
     background-color: transparent!important;
     background: transparent!important;
     background-image: url('./images/btn-search.png')!important;
