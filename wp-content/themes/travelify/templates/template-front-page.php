@@ -173,7 +173,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
             <div class="col-md-12">
                 <h2 class="line"><span class='color-black'>EXPERIENCE</span><span class='color-red'> CHEF'S</span></h2>
             </div>
-            <div class="row boxes-dos-columns ceps">
+            <div class="boxes-dos-columns ceps">
                 <div class="col-md-3">
                     <div class="box">
                         <?php if(!empty($manually_first_link)): ?>
