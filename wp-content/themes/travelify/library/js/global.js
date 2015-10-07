@@ -114,7 +114,6 @@ jQuery(function ($) {
     var searchform = $('.searchform').clone();
     //var secondMenu = $('#main-menu-right ul.main-menu').clone();
 
-    $('.mobile-menu').prepend(searchform);
     //secondMenu.children('li').appendTo(combinedMenu);
     combinedMenu.slicknav({
         duplicate:false,
@@ -122,6 +121,8 @@ jQuery(function ($) {
         label: 'MENU',
         allowParentLinks: true
     });
+
+    $('.mobile-menu').prepend(searchform);
 
     /*
      *  document ready
