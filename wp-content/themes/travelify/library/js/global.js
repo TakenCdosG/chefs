@@ -111,8 +111,10 @@ jQuery(function ($) {
     // Mobile menu
     //$('ul.main-menu').mobileMenu();
     var combinedMenu = $('#main-nav ul.root').clone();
+    var searchform = $('.searchform').clone();
     //var secondMenu = $('#main-menu-right ul.main-menu').clone();
 
+    $('.mobile-menu').prepend(searchform);
     //secondMenu.children('li').appendTo(combinedMenu);
     combinedMenu.slicknav({
         duplicate:false,
