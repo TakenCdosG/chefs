@@ -117,7 +117,7 @@ jQuery(function ($) {
     combinedMenu.slicknav({
         duplicate:false,
         prependTo : '.mobile-menu',
-        label: 'Menu navigations',
+        label: 'MENU',
         allowParentLinks: true
     });
 
