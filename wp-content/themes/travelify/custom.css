@@ -2186,6 +2186,7 @@ section.featured-slider div.left-featured-slider div div.slides{
         outline: non;
         width: 150px!important;
         float: right!important;
+        margin: 0px!important;
     }
 
 }
