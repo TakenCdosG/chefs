@@ -1522,6 +1522,21 @@ thead th, tfoot th, thead tr:hover th, tfoot tr:hover th {
 section.featured-slider div.left-featured-slider div div.slides{
     height: 560px;
 }
+
+.home .text-top{
+    font-size: 19px;
+    margin-bottom: 0px;
+
+}
+.home .title_top h1{
+    color: #ef3d42;
+    font-size: 22px;
+    text-transform: uppercase;
+    font-family: Vito-Bold;
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*
 * HOME RESPONSIVE DESIGN 320PX
 */
