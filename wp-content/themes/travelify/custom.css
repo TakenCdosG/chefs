@@ -1959,7 +1959,7 @@ section.featured-slider div.left-featured-slider div div.slides{
 */
 @media only screen and (min-width: 768px) and (max-width: 991px){
 
-    #text-10, .resp-yes{
+    #text-10, .resp-yes.flexslider{
         display: none;
     }
     .resp-no{
@@ -2008,9 +2008,6 @@ section.featured-slider div.left-featured-slider div div.slides{
     }
     #text-8, .resp-yes, #text-8 .resp-no{
         display: block;
-    }
-    .resp-no{
-        display: none;
     }
     .hgroup-right-header_bottom {
         display: none;
