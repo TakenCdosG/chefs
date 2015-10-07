@@ -687,14 +687,15 @@ h2.line-red-separator{
     content: " ";
 }
 
-.hgroup-right .searchform{
+.hgroup-right .searchform,
+.hgroup-right .mobile-menu {
     float: left;
     position: relative;
     min-width: 100px;
 }
 
-
-.hgroup-right .searchform input.field{
+.hgroup-right .searchform input.field,
+.mobile-menu .searchform input.field{
     display: block;
     width: 100%;
     height: 31px;
