@@ -1816,10 +1816,10 @@ section.featured-slider div.left-featured-slider div div.slides{
     .page-id-568 .flexslider.margin-bottom-60 .flex-prev, .page-id-568 .flexslider.margin-bottom-60 .flex-next{
         background-size: 40px;
     }
-    .page-id-568 #text-10{
+    .page-id-568 #text-10, .page-id-532 #text-10{
         display: none;
     }
-    .page-id-568 #text-7 .resp-no{
+    .page-id-568 #text-7 .resp-no, .page-id-532 #text-7 .resp-no{
         display: block;
     }
     /* END ABOUT PAGE STYLES  */
@@ -1845,6 +1845,14 @@ section.featured-slider div.left-featured-slider div div.slides{
     #site-generator{
         position: relative;
         top: -215px;
+    }
+    .page-id-532 #site-generator{
+        position: relative;
+        top: -130px;
+    }
+    /* CONTACT PAGE */
+    .gmapd{
+        margin-top: 200px;
     }
 }
 /*
