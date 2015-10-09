@@ -2010,6 +2010,40 @@ section.featured-slider div.left-featured-slider div div.slides{
         position: relative;
         top: -215px;
     }
+    /* ABOUT PAGE 501PX STYLES */
+    .page-id-568 .general-breadcrumb, .page-id-568 #text-10{
+        display: none;
+    }
+    .page-id-568 .mobile-menu{
+        margin-bottom: 50px;
+    }
+    .page-id-568 #text-6 .resp-no, .page-id-568 #text-7 .resp-no{
+        display: block;
+    }
+    .page-id-568 #text-6{
+        margin-bottom: 30px !important;
+    }
+    .page-id-568 #text-8{
+        margin-bottom: 100px !important;
+    }
+    .page-id-568 #container .top_banner_about_page{
+        position: relative;
+        top: 180px;
+    }
+    .page-id-568 #content #post-568{
+        position: relative;
+        top: 170px;
+    }
+    .page-id-568 #post-568 .entry-content .color-red{
+        font-weight: bolder;
+    }
+    .page-id-568 .flexslider.margin-bottom-60{
+        margin-bottom: 95px !important;
+        top: 108px;
+    }
+    .page-id-568 #site-generator{
+        top: 0px;
+    }
 }
 
 /*
@@ -2170,6 +2204,36 @@ section.featured-slider div.left-featured-slider div div.slides{
         position: relative;
         top: -140px;
     }
+    /* ABOUT PAGE 501PX STYLES */
+    .page-id-568 .general-breadcrumb, .page-id-568 #text-10{
+        display: none;
+    }
+    .page-id-568 .mobile-menu{
+        margin-bottom: 50px;
+    }
+    .page-id-568 #text-6 .resp-no, .page-id-568 #text-7 .resp-no{
+        display: block;
+    }
+    .page-id-568 #text-6{
+        margin-bottom: 30px !important;
+    }
+    .page-id-568 #text-8{
+        margin-bottom: 100px !important;
+    }
+    .page-id-568 #container .top_banner_about_page{
+        position: relative;
+        top: 180px;
+    }
+    .page-id-568 #content #post-568{
+        position: relative;
+        top: 170px;
+    }
+    .page-id-568 #post-568 .entry-content .color-red{
+        font-weight: bolder;
+    }
+    .page-id-568 #site-generator{
+        top: 0px;
+    }
 }
 /*
 * RESPONSIVE > 992PX
@@ -2194,7 +2258,7 @@ section.featured-slider div.left-featured-slider div div.slides{
     position: relative;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (min-width: 320px) and (max-width: 768px) {
 
     #main-nav{
         display:none;
