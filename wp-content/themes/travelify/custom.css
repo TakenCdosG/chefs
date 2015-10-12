@@ -1516,6 +1516,10 @@ thead th, tfoot th, thead tr:hover th, tfoot tr:hover th {
     margin-top: 50px;
 }
 
+.margin-top-20{
+    margin-top: 20px;
+}
+
 .margin-bottom-60{
     margin-bottom: 60px;
 }
