@@ -1593,6 +1593,9 @@ section.featured-slider div.left-featured-slider div div.slides{
 .hbspt-form .hs_submit .actions{
     margin: 0px;
     padding: 0px;
+    position: absolute;
+    bottom: 42px;
+    right: 11px;
 }
 
 .hbspt-form .hs_submit .actions .hs-button{
