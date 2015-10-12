@@ -1565,10 +1565,13 @@ ul#menu-header-bottom li{
 }
 
 ul#menu-header-bottom li.current-menu-item a,
-ul#menu-header-bottom li.current-menu-ancestor a,
-ul#menu-header-bottom ul li.current-menu-item a{
+ul#menu-header-bottom li.current-menu-ancestor a{
     color: #ef3d42;
     font-weight: 600;
+}
+
+ul#menu-header-bottom li ul li.current-menu-item a{
+    color: #ef3d42;
 }
 
 ul#menu-header-bottom li ul,
