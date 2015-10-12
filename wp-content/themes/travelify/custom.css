@@ -1590,6 +1590,11 @@ section.featured-slider div.left-featured-slider div div.slides{
     word-wrap: break-word;
 }
 
+.hbspt-form .hs_submit .actions{
+    margin: 0px;
+    padding: 0px;
+}
+
 .hbspt-form .hs_submit .actions .hs-button{
     background: #2e808c;
     border: 0 none;
