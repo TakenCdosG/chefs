@@ -1643,6 +1643,31 @@ section.featured-slider div.left-featured-slider div div.slides{
     bottom: 0px;
 }
 
+.hs-form.stacked .inputs-list > li label {
+    font-weight: normal;
+    padding-top: 0px;
+    color: red;
+}
+
+.hs-form .hs-button:hover:not(.inactive), .hs-form .hs-button:focus:not(.inactive), .hs-form .hs-button.hovered:not(.inactive) {
+    box-shadow: rgba(255, 255, 255, 0.498039) 0px 1px 0px inset, rgb(46, 128, 140) 0px 0px 5px;
+    border-top: 1px solid rgb(46, 128, 140);
+    border-bottom: 1px solid rgb(46, 128, 140);
+    border-right: 1px solid rgb(46, 128, 140);
+    border-left: 1px solid rgb(46, 128, 140);
+    border-color: rgb(46, 128, 140) !important;
+}
+
+.hs-form .hs-button:active:not(.inactive):not(.link), .hs-form .hs-button.depressed:not(.inactive):not(.link), .dropdown-open > .hs-form .hs-button:not(.inactive):not(.link) {
+    box-shadow: none;
+    background-color: rgb(46, 128, 140);
+    background-image: none;
+    border-top: 1px solid rgb(46, 128, 140) !important;
+    border-bottom: 1px solid rgb(46, 128, 140) !important;
+    border-right: 1px solid rgb(46, 128, 140) !important;
+    border-left: 1px solid rgb(46, 128, 140) !important;
+}
+
 
 /* Dropdown */
 ul#menu-header-bottom{
