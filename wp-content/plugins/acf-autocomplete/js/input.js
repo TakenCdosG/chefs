@@ -96,8 +96,11 @@
 
         jQuery("a.acf-button-delete", $el).click(function (event) {
 
+            var data_input_id = "input#" + $(this).attr("data-input_id");
+            var input_hidden = jQuery(data_input_id);
             var id = $(this).attr("data-item-id");
             var input_hidden_val = input_hidden.val();
+
             var values = split(input_hidden_val);
             var newvalues = removeItem(values, id);
 
