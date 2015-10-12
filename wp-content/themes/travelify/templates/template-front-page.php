@@ -98,7 +98,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
 
     <div id="container">
         <?php if (!empty($text_top)): ?>
-            <div class="row margin-grid">
+            <div class="row margin-grid margin-top-20">
                 <div class="col-md-12">
                     <div class="text-top">
                         <?php echo $text_top; ?>
