@@ -1785,6 +1785,10 @@ ul#menu-header-bottom .default-menu {
     display: none;
 }
 
+#main-nav li:hover > a, #main-nav ul ul :hover > a, #main-nav a:focus {
+    color: #fff;
+}
+
 /*
 * HOME RESPONSIVE DESIGN 320PX
 */
