@@ -1622,6 +1622,12 @@ section.featured-slider div.left-featured-slider div div.slides{
     padding: 0px
 }
 
+.hs-form.stacked .inputs-list>li label {
+    font-weight: normal;
+    padding-top: 0;
+    color: red;
+}
+
 /*
 * HOME RESPONSIVE DESIGN 320PX
 */
