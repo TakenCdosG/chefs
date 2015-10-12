@@ -1042,6 +1042,8 @@ div.pagination-category{
     float: right;
     display: block;
     position: relative;
+    width: 50%;
+    margin: 0px;
 }
 
 .hgroup-right-header_upper .cart-contents li{
@@ -1050,12 +1052,22 @@ div.pagination-category{
     display: block;
 }
 
+/*
 .hgroup-right-header_upper .header_upper{
     display: block;
     position: relative;
     float: left;
     margin-top: 15px;
     margin-right: 5px;
+}
+*/
+
+.hgroup-right-header_upper .header_upper{
+    display: block;
+    position: relative;
+    float: right;
+    margin-top: 15px;
+    margin-right: 0px;
 }
 
 .hgroup-right-header_upper .cart-contents{
