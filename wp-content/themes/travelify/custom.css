@@ -1666,6 +1666,51 @@ section.featured-slider div.left-featured-slider div div.slides{
     border-left: 1px solid #2e808c!important;
 }
 
+ul#menu-header-bottom li ul.sub-menu{
+    border-color: #231f20;
+}
+
+ul#menu-header-bottom li ul.sub-menu li{
+    float: none;
+    border-bottom: 1px solid #EAEAEA;
+    border-left: 1px solid #EAEAEA;
+    border-right: 1px solid #EAEAEA;
+    padding: 0;
+}
+
+ul#menu-header-bottom li ul.sub-menu lis a {
+    float: none;
+    line-height: 21px;
+    font-size: 13px;
+    font-weight: normal;
+    height: 100%;
+    padding: 6px 10px;
+    color: #777;
+    text-transform: capitalize;
+    background: #fff;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+ul#menu-header-bottom li ul.sub-menu{
+    display: none;
+    z-index: 9999;
+}
+
+ul#menu-header-bottom li:hover ul.sub-menu{
+    display: block;
+}
+
+ul#menu-header-bottom li ul.sub-menu{
+    position: absolute;
+    background-color: #fff;
+    border-bottom: 4px solid #439f55;
+    top: 40px;
+    left: 0px;
+    width: 190px;
+}
+
 /*
 * HOME RESPONSIVE DESIGN 320PX
 */
