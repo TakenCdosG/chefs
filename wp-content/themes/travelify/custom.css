@@ -1564,6 +1564,11 @@ ul#menu-header-bottom li{
     display: block;
 }
 
+ul#menu-header-bottom li.current-menu-item a{
+    color: #ef3d42;
+    font-weight: 600;
+}
+
 ul#menu-header-bottom li ul,
 ul#menu-header-bottom li:hover ul ul,
 ul#menu-header-bottom ul li:hover ul ul,
