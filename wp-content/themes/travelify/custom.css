@@ -1590,6 +1590,38 @@ section.featured-slider div.left-featured-slider div div.slides{
     word-wrap: break-word;
 }
 
+.hbspt-form .hs_submit .actions .hs-button{
+    background: #2e808c;
+    border: 0 none;
+    border-radius: 0px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    height: 29px;
+    line-height: 28px;
+    margin: 0 5px 10px 0;
+    padding: 0 12px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 51px;
+    text-transform: inherit;
+    float: left;
+    position: relative;
+    display: block;
+    box-shadow: none;
+}
+
+.hbspt-form .hs-error-msgs{
+    display: block;
+    clear: both;
+    width: 100%;
+    color: red;
+    padding: 0px
+}
+
 /*
 * HOME RESPONSIVE DESIGN 320PX
 */
