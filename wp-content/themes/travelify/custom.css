@@ -1602,11 +1602,11 @@ ul#menu-header-bottom li.current-menu-ancestor ul li a,
 ul#menu-header-bottom li.current_page_item ul li a {
     float: none;
     line-height: 15px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: normal;
     height: 100%;
     padding: 6px 10px;
-    color: #777;
+    color: #231f20;
     text-transform: capitalize;
     background: #fff;
     border: none;
