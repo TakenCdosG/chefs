@@ -1601,7 +1601,7 @@ ul#menu-header-bottom li.current_page_ancestor ul li a,
 ul#menu-header-bottom li.current-menu-ancestor ul li a,
 ul#menu-header-bottom li.current_page_item ul li a {
     float: none;
-    line-height: 21px;
+    line-height: 15px;
     font-size: 13px;
     font-weight: normal;
     height: 100%;
