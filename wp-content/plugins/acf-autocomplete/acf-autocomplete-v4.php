@@ -174,7 +174,7 @@ class acf_field_autocomplete extends acf_field {
                     $link = $json["link"];
                     $title = $json["title"]["rendered"];
                     $id_post = $json["id"];
-                    $itemlist.="<h3 class='ui-item-list'><span class='ui-accordion-header-icon ui-icon ui-icon-triangle-1-e'></span><span class='ui-item-list-content'>" . $title . " (id: " . $id_post . ")</span><a class='acf-button-delete ir' href='#' data-item-id='" . $id_post . "' >Remove</a></h3>";
+                    $itemlist.="<h3 class='ui-item-list'><span class='ui-accordion-header-icon ui-icon ui-icon-triangle-1-e'></span><span class='ui-item-list-content'>" . $title . " (id: " . $id_post . ")</span><a class='acf-button-delete ir' href='#'  data-item-id='" . $id_post . "'  data-input_id='" . esc_attr($field['id']). "' >Remove</a></h3>";
                     $post_labels[] = $title;
                 }
             }
@@ -551,7 +551,7 @@ class acf_field_autocomplete extends acf_field {
 
                 // Initialise suggestion array
                 $suggestion = array();
-                $suggestion['label'] = esc_html($title) . " (id: " . $id_post . ")";
+                $suggestion['label'] = $title . " (id: " . $id_post . ")";
                 $suggestion['ID'] = $id_post;
                 // Add suggestion to suggestions array
                 $suggestions[] = $suggestion;

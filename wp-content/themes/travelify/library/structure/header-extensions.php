@@ -224,6 +224,7 @@ function travelify_headerdetails() {
                 wp_nav_menu($defaults);
                 ?>
                 <?php $checkout_page_url = get_permalink(woocommerce_get_page_id('checkout')); ?>
+                <!--
                 <ul class="cart-contents">
                     <li>
                         <a class="color-red" href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>">
@@ -237,6 +238,7 @@ function travelify_headerdetails() {
                         </a>
                     </li>
                 </ul>
+                -->
             </section>
             <section class="hgroup-right">
                 <?php travelify_socialnetworks($flag); ?>
