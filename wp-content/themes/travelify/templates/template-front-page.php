@@ -98,7 +98,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
 
     <div id="container">
         <?php if (!empty($text_top)): ?>
-            <div class="row margin-grid margin-top-25">
+            <div class="row margin-grid margin-top-25 min-height-72">
                 <div class="col-md-12">
                     <div class="text-top">
                         <?php echo $text_top; ?>
@@ -109,7 +109,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
             <div class="clearfix-block"></div>
         <?php endif; ?>
         <?php if (!empty($title_top)): ?>
-            <div class="row margin-grid">
+            <div class="row margin-grid min-height-30">
                 <div class="col-md-12">
                     <div class="title_top">
                         <h1><?php echo $title_top; ?></h1>
@@ -120,7 +120,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
             <div class="clearfix-block"></div>
         <?php endif; ?>
         <?php if (!empty($boxes_left_background_image) && !empty($boxes_right_background_image)): ?>
-            <div class="row margin-grid boxes-dos-columns">
+            <div class="row margin-grid boxes-dos-columns min-height-282">
                 <div class="col-md-6">
                     <div class="box">
                         <?php if (!empty($boxes_left_background_image)): ?>

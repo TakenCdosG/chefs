@@ -1535,8 +1535,26 @@ section.featured-slider div.left-featured-slider div div.slides{
 .home .text-top{
     font-size: 19px;
     margin-bottom: 0px;
-
 }
+
+.min-height-72{
+    min-height: 72px;
+    display: block;
+    position: relative;
+}
+
+.min-height-30{
+    min-height: 30px;
+    display: block;
+    position: relative;
+}
+
+.min-height-282{
+    min-height: 282px;
+    display: block;
+    position: relative;
+}
+
 .home .title_top h1{
     color: #1d1d1d;
     font: 14px Helvetica, sans-serif;
