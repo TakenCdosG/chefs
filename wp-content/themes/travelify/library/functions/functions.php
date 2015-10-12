@@ -131,6 +131,13 @@ add_filter('woocommerce_registration_errors', 'registration_errors_validation', 
  *
  */
 
+add_filter('tribe_event_label_plural', 'custom_tribe_event_label_plural',10,3);
+
+function custom_tribe_event_label_plural(){
+    return __( 'Classes & Events', 'the-events-calendar' );
+}
+
+
 add_filter( 'woocommerce_order_button_text', create_function( '', 'return "Make Payment";' ) );
 
 /* * ************************************************************************************* */
