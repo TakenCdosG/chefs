@@ -1571,7 +1571,7 @@ ul#menu-header-bottom li.current-menu-ancestor a{
 }
 
 ul#menu-header-bottom li ul li.current-menu-item a{
-    color: #ef3d42;
+    color: #ef3d42!important;
 }
 
 ul#menu-header-bottom li ul,
