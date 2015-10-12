@@ -1595,7 +1595,7 @@ section.featured-slider div.left-featured-slider div div.slides{
     margin: 0px;
     padding: 0px;
     position: absolute;
-    top: 75%;
+    bottom: 18px;
     right: 11px;
 }
 
@@ -1628,7 +1628,9 @@ section.featured-slider div.left-featured-slider div div.slides{
     clear: both;
     width: 100%;
     color: red;
-    padding: 0px
+    padding: 0px;
+    position: absolute;
+    bottom: 0px;
 }
 
 .hs-form.stacked .inputs-list>li label {
