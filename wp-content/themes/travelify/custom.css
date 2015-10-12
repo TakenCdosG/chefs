@@ -2238,7 +2238,78 @@ section.featured-slider div.left-featured-slider div div.slides{
     .page-id-568 #site-generator{
         top: 0px;
     }
+    /* FOOTER STYLES HOME PAGE */
+    .page-id-109/*home page id*/  #footerarea .col-md-3 {
+        width: 25%;
+        float: left;
+    }
 
+    .page-id-109 #footerarea .col-md-3 .widget-title {
+        font-size: 14px;
+        line-height: 0px;
+        padding-bottom: 15px;
+    }
+
+    .page-id-109 #footerarea .col-md-3 .textwidget .color-red {
+        font-size: 11px;
+        line-height: 5px;
+    }
+
+    .page-id-109 #footerarea .col-md-3 .textwidget p {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .page-id-109 #footerarea #text-9 span {
+        display: none;
+    }
+
+    .page-id-109 #site-generator {
+        top: 0;
+    }
+
+    .page-id-109 .mc-field-group input#mce-EMAIL {
+        width: 115px;
+        padding: 5px 2px;
+    }
+
+    .page-id-109 .mc-field-group input#mce-EMAIL::-webkit-input-placeholder {
+        font-size: 10px;
+    }
+
+    .page-id-109 .mc-field-group input#mc-embedded-subscribe {
+        font-size: 11px;
+        padding: 0px 5px;
+        width: 35px;
+    }
+
+    .page-id-109 .soc2 {
+        margin-left: 0;
+        top: 0;
+    }
+
+    .page-id-109 .soc3 {
+        margin-left: 10px;
+        top: -3px;
+    }
+
+    .page-id-109 .soc4 {
+        top: 0;
+    }
+
+    .page-id-109 .soc5 {
+        margin-left: 0;
+        top: 0;
+    }
+
+    .page-id-109 .soc6 {
+        margin-left: 0;
+        top: 0;
+    }
+    .page-id-109 .soc2 img, .page-id-109 .soc3 img, .page-id-109 .soc4 img, .page-id-109 .soc5 img{
+        max-width: 200% !important;
+        width: 30px !important;
+    }
     .page-id-109 #footerarea #text-9 span{
     display: none}
 }
