@@ -47,6 +47,14 @@ for ($i = 1; $i <= $num_logos; $i++) {
     }
 }
 
+if($box_blog_post){
+    $left_col_class = "col-md-8";
+    $right_col_class = "col-md-4";
+}else{
+    $left_col_class = "col-md-12";
+    $right_col_class = "hide hidden";
+}
+
 ?>
 
     <div id="container">
@@ -62,7 +70,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
         <?php endif; ?>
 
         <div class="row margin-grid">
-            <div class="col-md-8">
+            <div class="<?php echo $left_col_class;?>">
                 <?php
                 /**
                  * travelify_main_container hook
@@ -74,7 +82,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
                 do_action('travelify_main_container');
                 ?>
             </div>
-            <div class="col-md-4">
+            <div class="<?php echo $right_col_class;?>">
                 <?php if($box_blog_post):?>
                     <div class="box margin-top-50">
 
