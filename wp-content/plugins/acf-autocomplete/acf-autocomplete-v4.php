@@ -551,7 +551,7 @@ class acf_field_autocomplete extends acf_field {
 
                 // Initialise suggestion array
                 $suggestion = array();
-                $suggestion['label'] = esc_html($title) . " (id: " . $id_post . ")";
+                $suggestion['label'] = $title . " (id: " . $id_post . ")";
                 $suggestion['ID'] = $id_post;
                 // Add suggestion to suggestions array
                 $suggestions[] = $suggestion;
