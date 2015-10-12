@@ -34,7 +34,7 @@ function travelify_colorlib_link() {
  * @return string
  */
 function travelify_thinkcreativegroup_link() {
-    return '<a href="' . esc_url('http://thinkcreativegroup.com/') . '" target="_blank" title="' . esc_attr__('ThinkCreativeGroup', 'travelify') . '" ><span>' . __('ThinkCreativeGroup', 'travelify') . '</span></a>';
+    return '<a href="' . esc_url('http://thinkcreativegroup.com/') . '" target="_blank" title="' . esc_attr__('THINK creative group', 'travelify') . '" ><span>' . __('THINK creative group', 'travelify') . '</span></a>';
 }
 
 ?>
