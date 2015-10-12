@@ -1653,13 +1653,13 @@ section.featured-slider div.left-featured-slider div div.slides{
 .hs-form .hs-button:active:not(.inactive):not(.link),
 .hs-form .hs-button.depressed:not(.inactive):not(.link),
 .dropdown-open>.hs-form .hs-button:not(.inactive):not(.link) {
-    background-color: #2e808c;
-    background-image: none;
+    background-color: #2e808c!important;
+    background-image: none!important;
     box-shadow: none;
-    border-top: 1px solid #2e808c;
-    border-bottom: 1px solid #2e808c;
-    border-right: 1px solid #2e808c;
-    border-left: 1px solid #2e808c;
+    border-top: 1px solid #2e808c!important;
+    border-bottom: 1px solid #2e808c!important;
+    border-right: 1px solid #2e808c!important;
+    border-left: 1px solid #2e808c!important;
 }
 
 /*
