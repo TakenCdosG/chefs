@@ -1520,6 +1520,10 @@ thead th, tfoot th, thead tr:hover th, tfoot tr:hover th {
     margin-top: 20px;
 }
 
+.margin-top-25{
+    margin-top: 25px;
+}
+
 .margin-bottom-60{
     margin-bottom: 60px;
 }
@@ -1551,6 +1555,7 @@ section.featured-slider div.left-featured-slider div div.slides{
     font-family: Vito-Bold;
     font-weight: normal;
     font-style: normal;
+    margin-top: 5px;
 }
 
 .hs-form.stacked label {
