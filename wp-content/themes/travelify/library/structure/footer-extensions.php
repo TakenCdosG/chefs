@@ -34,7 +34,7 @@ add_action('travelify_footer', 'travelify_footer_info', 30);
  * function to show the footer info, copyright information
  */
 function travelify_footer_info() {
-    echo '<div class="copyright">' . __(' &copy;', 'travelify') . ' ' . date('Y') . ' ' . travelify_site_link() . '. | <a href="'.get_permalink(628).'">Terms of Use</a>  | <a href="'.get_permalink(607).'">Privacy Policy</a>  |  <a href="'.get_permalink(579).'">Return Policy</a>  | All rights reserved | ' . __('Theme by', 'ThinkCreativeGroup') . ' ' . travelify_thinkcreativegroup_link() . ' ' . __('Powered by', 'travelify') . ' ' . travelify_wp_link() . '</div><!-- .copyright -->';
+    echo '<div class="copyright">' . __(' &copy;', 'travelify') . ' ' . date('Y') . ' ' . travelify_site_link() . '. | <a href="'.get_permalink(628).'">Terms of Use</a>  | <a href="'.get_permalink(607).'">Privacy Policy</a>  |  <a href="'.get_permalink(579).'">Return Policy</a>  | All rights reserved | ' . __('site by', 'THINK creative group') . ' ' . travelify_thinkcreativegroup_link() . '</div><!-- .copyright -->';
 }
 
 /* * ************************************************************************************* */
