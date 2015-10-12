@@ -1564,7 +1564,8 @@ ul#menu-header-bottom li{
     display: block;
 }
 
-ul#menu-header-bottom li.current-menu-item a{
+ul#menu-header-bottom li.current-menu-item a,
+ul#menu-header-bottom li.current-menu-ancestor a{
     color: #ef3d42;
     font-weight: 600;
 }
