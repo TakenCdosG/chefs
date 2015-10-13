@@ -277,6 +277,7 @@ if (!empty($elements)) {
         .exposed-header ul#menu-header-bottom{
             position: relative;
             display: block;
+            margin: 0px;
         }
 
         .exposed-header ul#menu-header-bottom li{
