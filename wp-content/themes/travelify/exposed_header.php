@@ -156,6 +156,7 @@ if (!empty($elements)) {
             filter: alpha(opacity=100);
             opacity: 1;
             color: #fff;
+            background: #ef3d42;
         }
         .exposed-header #main-nav ul ul {
             text-shadow: none;
