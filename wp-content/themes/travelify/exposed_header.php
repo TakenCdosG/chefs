@@ -324,6 +324,58 @@ if (!empty($elements)) {
         #main-nav li:hover > a, #main-nav ul ul :hover > a, #main-nav a:focus {
             color: #fff;
         }
+
+        .social-icons {
+            float: left;
+        }
+
+        .middle-header-content .searchform,{
+            float: left;
+            position: relative;
+            min-width: 100px;
+        }
+
+        .middle-header-content .searchform input.field,
+        .mobile-menu .searchform input.field{
+            display: block;
+            width: 100%;
+            height: 31px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            text-indent: 0px;
+            border-radius: 0px;
+            cursor: text;
+        }
+
+        .middle-header-content .searchform input.field-submit{
+            background-color: transparent!important;
+            background: transparent!important;
+            background-image: url('./images/btn-search.png')!important;
+            background-repeat: no-repeat!important;
+            -webkit-appearance: none!important;
+            border: transparent!important;
+            color: #fff!important;
+            cursor: pointer!important;
+            font-size: 1em!important;
+            font-weight: 400!important;
+            outline: none!important;
+            padding: 0px 10px!important;
+            height: 22px!important;
+            width: 20px!important;
+            line-height: 30px!important;
+            display: block!important;
+            position: absolute!important;
+            margin-top: 0px;
+            text-indent: -999px!important;
+            right: -4px;
+            top: 6px;
+        }
     }
 
 </style>
