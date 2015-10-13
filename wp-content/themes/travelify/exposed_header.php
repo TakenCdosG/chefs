@@ -80,9 +80,10 @@ if (!empty($elements)) {
             color: #fff;
             display: block;
             float: left;
-            font-size: 14px;
-            padding: 8px 12px 0 10px;
-            height: 32px;
+            font-size: 12px;
+            padding: 0px 10px 0 10px;
+            height: auto;
+            text-decoration: none;
         }
         .exposed-header #main-nav a:hover,.exposed-header #main-nav ul li.current-menu-item a,.exposed-header #main-nav ul li.current_page_ancestor a,.exposed-header #main-nav ul li.current-menu-ancestor a,.exposed-header #main-nav ul li.current_page_item a,.exposed-header #main-nav ul li:hover > a {
             background: #231f20;
