@@ -270,6 +270,7 @@ if (!empty($elements)) {
             position: relative;
             font-weight: normal;
             cursor: pointer;
+            transition: none;
         }
 
 
