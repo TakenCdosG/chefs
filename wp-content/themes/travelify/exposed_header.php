@@ -141,7 +141,7 @@ if (!empty($elements)) {
             padding: 0px 10px 0 10px;
             height: auto;
             text-decoration: none;
-            font: 14px Helvetica, sans-serif;
+            font: 12px Helvetica, sans-serif;
             line-height: 24px;
             word-wrap: break-word;
         }
