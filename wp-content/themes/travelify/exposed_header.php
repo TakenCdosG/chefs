@@ -80,10 +80,14 @@ if (!empty($elements)) {
             cursor: pointer;
             background: #231f20;
             color: #fff;
-            position: relative;
             text-shadow: 0 1px 1px rgba(0,0,0,0.4);
             -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+            height: 23px;
+            margin: 0px;
+            padding: 0px;
+            display: block;
+            position: relative;
         }
         .exposed-header #main-nav li {
             float: left;
@@ -187,8 +191,33 @@ if (!empty($elements)) {
         .exposed-header #main-nav select {
             display: none;
         }
+
         .default-menu {
             display: none;
+        }
+
+        .menu-header-bottom{
+            float: right;
+            margin-top: 22px;
+        }
+
+
+        .menu-header-bottom .menu li{
+            float: left;
+            padding: 0px 5px;
+        }
+
+        .menu-header-bottom .menu li a{
+            color: #231f20;
+            padding: 0px;
+            background: transparent;
+            text-transform: uppercase;
+            font-size: 12px;
+            line-height: 15px;
+            display: block;
+            position: relative;
+            font-weight: normal;
+            cursor: pointer;
         }
     }
 
