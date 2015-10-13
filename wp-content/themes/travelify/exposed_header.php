@@ -96,6 +96,12 @@ if (!empty($elements)) {
             position: relative;
         }
 
+        .exposed-header .assistive-text {
+            position: absolute !important;
+            clip: rect(1px 1px 1px 1px);
+            clip: rect(1px, 1px, 1px, 1px);
+        }
+
         .exposed-header .hgroup-wrap-right .menu-header-bottom{
             display: block;
             clear: both;
@@ -225,22 +231,22 @@ if (!empty($elements)) {
             display: none;
         }
 
-        .default-menu {
+        .exposed-header .default-menu {
             display: none;
         }
 
-        .menu-header-bottom{
+        .exposed-header .menu-header-bottom{
             float: right;
             margin-top: 22px;
         }
 
 
-        .menu-header-bottom .menu li{
+        .exposed-header .menu-header-bottom .menu li{
             float: left;
             padding: 0px 5px;
         }
 
-        .menu-header-bottom .menu li a{
+        .exposed-header .menu-header-bottom .menu li a{
             color: #231f20;
             padding: 0px;
             background: transparent;
@@ -255,46 +261,47 @@ if (!empty($elements)) {
 
 
         /* Dropdown */
-        ul#menu-header-bottom{
+        .exposed-header ul#menu-header-bottom{
             position: relative;
             display: block;
         }
 
-        ul#menu-header-bottom li{
+        .exposed-header ul#menu-header-bottom li{
             position: relative;
             display: block;
         }
 
-        ul#menu-header-bottom li a{
+        .exposed-header ul#menu-header-bottom li a{
            text-decoration: none;
         }
 
-        ul#menu-header-bottom li.current-menu-item a,
-        ul#menu-header-bottom li.current-menu-ancestor a{
+        .exposed-header ul#menu-header-bottom li.current-menu-item a,
+        .exposed-header ul#menu-header-bottom li.current-menu-ancestor a{
             color: #ef3d42;
             font-weight: 600;
         }
 
-        ul#menu-header-bottom li ul li.current-menu-item a{
+        .exposed-header ul#menu-header-bottom li ul li.current-menu-item a{
             color: #ef3d42!important;
         }
 
-        ul#menu-header-bottom li ul,
-        ul#menu-header-bottom li:hover ul ul,
-        ul#menu-header-bottom ul li:hover ul ul,
-        ul#menu-header-bottom ul ul li:hover ul ul,
-        ul#menu-header-bottom ul ul ul li:hover ul ul {
+        .exposed-header ul#menu-header-bottom li ul,
+        .exposed-header ul#menu-header-bottom li:hover ul ul,
+        .exposed-header ul#menu-header-bottom ul li:hover ul ul,
+        .exposed-header ul#menu-header-bottom ul ul li:hover ul ul,
+        .exposed-header ul#menu-header-bottom ul ul ul li:hover ul ul {
             display: none;
             z-index: 9999;
         }
-        ul#menu-header-bottom li:hover ul,
-        ul#menu-header-bottom ul li:hover ul,
-        ul#menu-header-bottom ul ul li:hover ul,
-        ul#menu-header-bottom ul ul ul li:hover ul,
-        ul#menu-header-bottom ul ul ul ul li:hover ul  {
+
+        .exposed-header ul#menu-header-bottom li:hover ul,
+        .exposed-header ul#menu-header-bottom ul li:hover ul,
+        .exposed-header ul#menu-header-bottom ul ul li:hover ul,
+        .exposed-header ul#menu-header-bottom ul ul ul li:hover ul,
+        .exposed-header ul#menu-header-bottom ul ul ul ul li:hover ul  {
             display: block;
         }
-        ul#menu-header-bottom li ul {
+        .exposed-header ul#menu-header-bottom li ul {
             position: absolute;
             background-color: #fff;
             border-bottom: 4px solid #231f20;
@@ -303,19 +310,19 @@ if (!empty($elements)) {
             width: 190px;
             padding: 0px;
         }
-        ul#menu-header-bottom li ul li {
+        .exposed-header ul#menu-header-bottom li ul li {
             float: none;
             border-bottom: 1px solid #EAEAEA;
             border-left: 1px solid #EAEAEA;
             border-right: 1px solid #EAEAEA;
             padding: 0;
         }
-        ul#menu-header-bottom li ul li a,
-        ul#menu-header-bottom li.current-menu-item ul li a,
-        ul#menu-header-bottom li ul li.current-menu-item a,
-        ul#menu-header-bottom li.current_page_ancestor ul li a,
-        ul#menu-header-bottom li.current-menu-ancestor ul li a,
-        ul#menu-header-bottom li.current_page_item ul li a {
+        .exposed-header ul#menu-header-bottom li ul li a,
+        .exposed-header ul#menu-header-bottom li.current-menu-item ul li a,
+        .exposed-header ul#menu-header-bottom li ul li.current-menu-item a,
+        .exposed-header ul#menu-header-bottom li.current_page_ancestor ul li a,
+        .exposed-header  ul#menu-header-bottom li.current-menu-ancestor ul li a,
+        .exposed-header ul#menu-header-bottom li.current_page_item ul li a {
             float: none;
             line-height: 15px;
             font-size: 12px;
@@ -329,48 +336,52 @@ if (!empty($elements)) {
             -webkit-box-shadow: none;
             box-shadow: none;
         }
-        ul#menu-header-bottom li.current_page_item ul li a {
+        .exposed-header ul#menu-header-bottom li.current_page_item ul li a {
             background: #fff;
             -webkit-box-shadow: none;
             box-shadow: none;
         }
-        ul#menu-header-bottom li.current_page_item a {
+        .exposed-header ul#menu-header-bottom li.current_page_item a {
             border: none;
         }
-        ul#menu-header-bottom li ul li a:hover,ul#menu-header-bottom li ul li:hover > a,ul#menu-header-bottom li.current-menu-item ul li a:hover {
+        .exposed-header ul#menu-header-bottom li ul li a:hover,ul#menu-header-bottom li ul li:hover > a,ul#menu-header-bottom li.current-menu-item ul li a:hover {
             background-color: #F9F9F9;
             -webkit-box-shadow: none;
             box-shadow: none;
             color: #ef3d42;
         }
-        ul#menu-header-bottom li ul li ul {
+        .exposed-header ul#menu-header-bottom li ul li ul {
             left: 188px;
             top: 0px;
         }
 
-        ul#menu-header-bottom .default-menu {
+        .exposed-header ul#menu-header-bottom .default-menu {
             display: none;
         }
 
-        #main-nav li:hover > a, #main-nav ul ul :hover > a, #main-nav a:focus {
+        .exposed-header #main-nav li:hover > a,
+        .exposed-header #main-nav ul ul :hover > a,
+        .exposed-header #main-nav a:focus {
             color: #fff;
         }
 
 
         /* Social Profiles */
-        .social-icons {
+        .exposed-header .social-icons {
             float: left;
         }
-        .social-icons ul {
+
+        .exposed-header .social-icons ul {
             margin: -10px 0 0;
             float: right;
         }
-        .social-icons ul li {
+
+        .exposed-header .social-icons ul li {
             margin-top: 10px;
             float: left;
             padding-right: 1px;
         }
-        .social-icons ul li a {
+        .exposed-header .social-icons ul li a {
             display: inline-block;
             font-family: 'Genericons';
             -webkit-font-smoothing: antialiased;
@@ -394,8 +405,8 @@ if (!empty($elements)) {
             text-transform: none;
             speak: none;
         }
-        
-        .social-icons ul li a:hover {
+
+        .exposed-header .social-icons ul li a:hover {
             color: #fff !important;
         }
         .social-icons ul li.facebook a:before {
@@ -502,7 +513,7 @@ if (!empty($elements)) {
         .middle-header-content .searchform input.field-submit{
             background-color: transparent!important;
             background: transparent!important;
-            background-image: url('./images/btn-search.png')!important;
+            background-image: url('<?php echo get_template_directory_uri();?>/images/btn-search.png')!important;
             background-repeat: no-repeat!important;
             -webkit-appearance: none!important;
             border: transparent!important;
