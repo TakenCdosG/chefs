@@ -61,7 +61,11 @@ if (!empty($elements)) {
     @media only screen and (min-width: 992px){
         /* =Menu
         --------------------------------------------------------------*/
-        .exposed-header #main-nav {
+        .exposed-header #main-nav{
+
+        }
+
+        .exposed-header #main-nav ul.root{
             border: 1px solid #231f20;
             cursor: pointer;
             background: #231f20;
