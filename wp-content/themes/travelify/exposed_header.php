@@ -95,6 +95,9 @@ if (!empty($elements)) {
             clear: both;
             position: relative;
             float: right;
+            height: 31px;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
 
         .exposed-header .assistive-text {
