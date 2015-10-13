@@ -1903,8 +1903,10 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
     .flex-viewport .slides li{
-        width: 160px !important;
-        margin-left: 0.7%;
+        /*width: 160px !important;
+        margin-left: 0.7%;  OLD STYLES, KEEPING THE JUST IN CASE*/
+        width: 2.09% !important;
+        margin-left: 0.1%;
     }
     .ftb .box{
         width: 100% !important;
@@ -2228,8 +2230,10 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
     .flex-viewport .slides li{
-        width: 160px !important;
-        margin-left: 0.7%;
+        /*width: 160px !important;
+        margin-left: 0.7%; KEEPING OLD STYLES JUST IN CASE*/
+        width: 1.9% !important;
+        margin-left: 0.5%;
     }
 
     #footerarea{
