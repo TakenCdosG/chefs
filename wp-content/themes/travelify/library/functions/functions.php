@@ -686,7 +686,7 @@ function wp_exposed_header()
 function wp_exposed_header_callback()
 {
     //get_template_part('wp_exposed_header');
-    $content = return_get_template_part('wp_exposed_header');
+    $content = return_get_template_part('exposed_header');
     print $content;
 }
 
