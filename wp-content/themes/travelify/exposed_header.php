@@ -37,6 +37,32 @@ if (!empty($elements)) {
 }
 
 ?>
+<style type="text/css">
+    .exposed-header{
+        position: relative;
+        display: block;
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 500px){
+
+    }
+
+    @media only screen and (min-width: 501px) and (max-width: 767px){
+
+    }
+
+    @media only screen and (min-width: 768px) and (max-width: 991px){
+
+    }
+
+    /*
+    * RESPONSIVE > 992PX
+    */
+    @media only screen and (min-width: 992px){
+
+    }
+
+</style>
 
 <div class="exposed-header">
     <div class="container clearfix">
