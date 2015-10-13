@@ -672,6 +672,24 @@ $args = array(
 
 add_theme_support('custom-header', $args);
 
+/* * *********************************************************************************** */
+
+/**
+ * Function to create header
+ */
+
+function wp_exposed_header()
+{
+    add_feed( 'wp_exposed_header', 'wp_exposed_header_callback' );
+}
+
+function wp_exposed_header_callback()
+{
+    print '<p>It works!</p>';
+}
+
+add_action( 'init', 'wp_exposed_header' );
+
 /**
  * Styles the header image displayed on the Appearance > Header admin panel.
  */
