@@ -337,6 +337,121 @@ if (!empty($elements)) {
             color: #fff;
         }
 
+
+        /* Social Profiles */
+        .social-icons {
+            float: left;
+        }
+        .social-icons ul {
+            margin: -10px 0 0;
+            float: right;
+        }
+        .social-icons ul li {
+            margin-top: 10px;
+            float: left;
+            padding-right: 1px;
+        }
+        .social-icons ul li a {
+            display: inline-block;
+            font-family: 'Genericons';
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding: 2px 3px;
+            border-radius: 2px;
+            font-size: 21px;
+            color: #d0d0d0;
+            -webkit-transition: all 0.3s ease-out;
+            -moz-transition: all 0.3s ease-out;
+            -ms-transition: all 0.3s ease-out;
+            -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out;
+            vertical-align: top;
+            text-align: center;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            line-height: 1;
+            text-decoration: inherit;
+            text-transform: none;
+            speak: none;
+        }
+        
+        .social-icons ul li a:hover {
+            color: #fff !important;
+        }
+        .social-icons ul li.facebook a:before {
+            content: '\f204';
+        }
+        .social-icons ul li.facebook a:hover {
+            background: #3B5998;
+        }
+        .social-icons ul li.twitter a:before {
+            content: '\f202';
+        }
+        .social-icons ul li.twitter a:hover {
+            background: #00aced;
+        }
+        .social-icons ul li.google-plus a:before {
+            content: '\f218';
+        }
+        .social-icons ul li.google-plus a:hover {
+            background: #cd4132;
+        }
+        .social-icons ul li.pinterest a:before {
+            content: '\f209';
+        }
+        .social-icons ul li.pinterest a:hover {
+            background: #cb2027;
+        }
+        .social-icons ul li.linkedin a:before {
+            content: '\f207';
+        }
+        .social-icons ul li.linkedin a:hover {
+            background: #005a87;
+        }
+        .social-icons ul li.tumblr a:before {
+            content: '\f214';
+        }
+        .social-icons ul li.tumblr a:hover {
+            background: #2b4761;
+        }
+        .social-icons ul li.vimeo a:before {
+            content: '\f212';
+        }
+        .social-icons ul li.vimeo a:hover {
+            background: #1bb7ea;
+        }
+        .social-icons ul li.instagram a:before {
+            content: '\f215';
+        }
+        .social-icons ul li.instagram a:hover {
+            background: #517fa4;
+        }
+        .social-icons ul li.flickr a:before {
+            content: '\f211';
+        }
+        .social-icons ul li.flickr a:hover {
+            background: #0063db;
+        }
+        .social-icons ul li.youtube a:before {
+            content: '\f213';
+        }
+        .social-icons ul li.youtube a:hover {
+            background: #cd4132;
+        }
+        .social-icons ul li.rss a:before {
+            content: '\f413';
+        }
+        .social-icons ul li.rss a:hover {
+            background: #fc7216;
+        }
+        .social-icons ul li.github a:before {
+            content: '\f200';
+        }
+        .social-icons ul li.github a:hover {
+            background: #151013;
+        }
+
         .social-icons{
             float: left;
         }
@@ -387,6 +502,56 @@ if (!empty($elements)) {
             text-indent: -999px!important;
             right: -4px;
             top: 6px;
+        }
+        
+
+        .menu-header-top {
+            float: right;
+            display: block;
+            position: relative;
+        }
+
+        .menu-header-top .cart-contents li{
+            float: left;
+            position: relative;
+            display: block;
+        }
+
+        .menu-header-top .header_upper{
+            display: block;
+            position: relative;
+            float: left;
+            margin-top: 15px;
+            margin-right: 5px;
+        }
+
+        .menu-header-top .cart-contents{
+            background-color: #e9e9e9;
+            padding: 5px 5px;
+            display: block;
+            position: relative;
+            float: left;
+            line-height: 14px;
+            margin-top: 10px;
+            font-size: 11px;
+        }
+
+        .menu-header-top .menu li{
+            float: left;
+            padding: 0px 5px;
+        }
+
+        .menu-header-top .menu li a {
+            color: #231f20;
+            padding: 0px;
+            background: transparent;
+            text-transform: uppercase;
+            font-size: 12px;
+            line-height: 15px;
+            display: block;
+            position: relative;
+            font-weight: normal;
+            cursor: pointer;
         }
     }
 
