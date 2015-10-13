@@ -53,6 +53,9 @@
             ?>
             <header id="branding">
                 <?php
+                    wp_exposed_header_callback();
+                ?>
+                <?php
                 /**
                  * travelify_header hook
                  *
