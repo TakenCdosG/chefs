@@ -348,6 +348,7 @@ if (!empty($elements)) {
             border: none;
             -webkit-box-shadow: none;
             box-shadow: none;
+            text-align: center;
         }
         .exposed-header ul#menu-header-bottom li.current_page_item ul li a {
             background: #fff;
