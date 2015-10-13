@@ -234,6 +234,10 @@ if (!empty($elements)) {
             display: block;
         }
 
+        ul#menu-header-bottom li a{
+           text-decoration: none;
+        }
+
         ul#menu-header-bottom li.current-menu-item a,
         ul#menu-header-bottom li.current-menu-ancestor a{
             color: #ef3d42;
@@ -266,6 +270,7 @@ if (!empty($elements)) {
             top: 15px;
             left: 0px;
             width: 190px;
+            padding: 0px;
         }
         ul#menu-header-bottom li ul li {
             float: none;
