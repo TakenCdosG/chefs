@@ -685,8 +685,18 @@ function wp_exposed_header()
 
 function wp_exposed_header_callback()
 {
-    get_template_part('wp_exposed_header');
-    //print '<p>It works!</p>';
+    //get_template_part('wp_exposed_header');
+    $content = return_get_template_part('wp_exposed_header');
+    print $content;
+}
+
+function return_get_template_part($slug, $name=null) {
+    ob_start();
+    get_template_part($slug, $name);
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    return $content;
 }
 
 add_action( 'init', 'wp_exposed_header' );
