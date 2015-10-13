@@ -5,5 +5,5 @@
  */
 ?>
 <div id="main" class="clearfix">
-    <p>It works!</p>
+    <p>It works2!</p>
 </div>
