@@ -61,22 +61,22 @@ if (!empty($elements)) {
     @media only screen and (min-width: 992px){
         /* =Menu
         --------------------------------------------------------------*/
-        #main-nav {
-            border: 1px solid #439f55;
+        .exposed-header #main-nav {
+            border: 1px solid #231f20;
             cursor: pointer;
-            background: #57ad68;
+            background: #231f20;
             color: #fff;
             position: relative;
             text-shadow: 0 1px 1px rgba(0,0,0,0.4);
             -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
         }
-        #main-nav li {
+        .exposed-header #main-nav li {
             float: left;
             position: relative;
             padding: 0;
         }
-        #main-nav a {
+        .exposed-header #main-nav a {
             color: #fff;
             display: block;
             float: left;
@@ -84,8 +84,8 @@ if (!empty($elements)) {
             padding: 8px 12px 0 10px;
             height: 32px;
         }
-        #main-nav a:hover,#main-nav ul li.current-menu-item a,#main-nav ul li.current_page_ancestor a,#main-nav ul li.current-menu-ancestor a,#main-nav ul li.current_page_item a,#main-nav ul li:hover > a {
-            background: #439f55;
+        .exposed-header #main-nav a:hover,.exposed-header #main-nav ul li.current-menu-item a,.exposed-header #main-nav ul li.current_page_ancestor a,.exposed-header #main-nav ul li.current-menu-ancestor a,.exposed-header #main-nav ul li.current_page_item a,.exposed-header #main-nav ul li:hover > a {
+            background: #231f20;
             -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
             box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
             -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
@@ -93,49 +93,49 @@ if (!empty($elements)) {
             opacity: 1;
             color: #fff;
         }
-        #main-nav ul ul {
+        .exposed-header #main-nav ul ul {
             text-shadow: none;
         }
-        #main-nav li:hover > a,#main-nav ul ul :hover > a,#main-nav a:focus {
-            color: #439f55;
+        .exposed-header #main-nav li:hover > a,.exposed-header #main-nav ul ul :hover > a,.exposed-header #main-nav a:focus {
+            color: #231f20;
         }
         /* Dropdown */
-        #main-nav ul li ul,
-        #main-nav ul li:hover ul ul,
-        #main-nav ul ul li:hover ul ul,
-        #main-nav ul ul ul li:hover ul ul,
-        #main-nav ul ul ul ul li:hover ul ul {
+        .exposed-header #main-nav ul li ul,
+        .exposed-header #main-nav ul li:hover ul ul,
+        .exposed-header #main-nav ul ul li:hover ul ul,
+        .exposed-header #main-nav ul ul ul li:hover ul ul,
+        .exposed-header #main-nav ul ul ul ul li:hover ul ul {
             display: none;
             z-index: 9999;
         }
-        #main-nav ul li:hover ul,
-        #main-nav ul ul li:hover ul,
-        #main-nav ul ul ul li:hover ul,
-        #main-nav ul ul ul ul li:hover ul,
-        #main-nav ul ul ul ul ul li:hover ul  {
+        .exposed-header #main-nav ul li:hover ul,
+        .exposed-header #main-nav ul ul li:hover ul,
+        .exposed-header #main-nav ul ul ul li:hover ul,
+        .exposed-header #main-nav ul ul ul ul li:hover ul,
+        .exposed-header #main-nav ul ul ul ul ul li:hover ul  {
             display: block;
         }
-        #main-nav ul li ul {
+        .exposed-header #main-nav ul li ul {
             position: absolute;
             background-color: #fff;
-            border-bottom: 4px solid #439f55;
+            border-bottom: 4px solid #231f20;
             top: 40px;
             left: 0px;
             width: 190px;
         }
-        #main-nav ul li ul li {
+        .exposed-header #main-nav ul li ul li {
             float: none;
             border-bottom: 1px solid #EAEAEA;
             border-left: 1px solid #EAEAEA;
             border-right: 1px solid #EAEAEA;
             padding: 0;
         }
-        #main-nav ul li ul li a,
-        #main-nav ul li.current-menu-item ul li a,
-        #main-nav ul li ul li.current-menu-item a,
-        #main-nav ul li.current_page_ancestor ul li a,
-        #main-nav ul li.current-menu-ancestor ul li a,
-        #main-nav ul li.current_page_item ul li a {
+        .exposed-header #main-nav ul li ul li a,
+        .exposed-header #main-nav ul li.current-menu-item ul li a,
+        .exposed-header #main-nav ul li ul li.current-menu-item a,
+        .exposed-header #main-nav ul li.current_page_ancestor ul li a,
+        .exposed-header #main-nav ul li.current-menu-ancestor ul li a,
+        .exposed-header #main-nav ul li.current_page_item ul li a {
             float: none;
             line-height: 21px;
             font-size: 13px;
@@ -149,25 +149,25 @@ if (!empty($elements)) {
             -webkit-box-shadow: none;
             box-shadow: none;
         }
-        #main-nav ul li.current_page_item ul li a {
+        .exposed-header #main-nav ul li.current_page_item ul li a {
             background: #fff;
             -webkit-box-shadow: none;
             box-shadow: none;
         }
-        #main-nav ul li.current_page_item a {
+        .exposed-header #main-nav ul li.current_page_item a {
             border: none;
         }
-        #main-nav ul li ul li a:hover,#main-nav ul li ul li:hover > a,#main-nav ul li.current-menu-item ul li a:hover {
+        .exposed-header #main-nav ul li ul li a:hover,.exposed-header #main-nav ul li ul li:hover > a,.exposed-header #main-nav ul li.current-menu-item ul li a:hover {
             background-color: #F9F9F9;
             -webkit-box-shadow: none;
             box-shadow: none;
-            color: #439f55;
+            color: #231f20;
         }
-        #main-nav ul li ul li ul {
+        .exposed-header #main-nav ul li ul li ul {
             left: 188px;
             top: 0px;
         }
-        #main-nav select {
+        .exposed-header #main-nav select {
             display: none;
         }
         .default-menu {
@@ -240,6 +240,6 @@ if (!empty($elements)) {
         <div class="container clearfix">
             <?php  wp_nav_menu($args); ?>
         </div><!-- .container -->
-    </nav><!-- #main-nav -->
+    </nav><!-- .exposed-header #main-nav -->
     <div class="mobile-menu"></div>
 </div>
