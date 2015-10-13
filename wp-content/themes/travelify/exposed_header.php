@@ -98,8 +98,8 @@ if (!empty($elements)) {
             position: relative;
             float: right;
             height: 31px;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 25px;
+            margin-bottom: 5px;
         }
 
         .exposed-header .assistive-text {
