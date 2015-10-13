@@ -525,6 +525,11 @@ if (!empty($elements)) {
             margin-right: 5px;
         }
 
+        .menu-header-top .header_upper .menu li a img{
+            display: inline-block;
+            vertical-align: top;
+        }
+
         .menu-header-top .cart-contents{
             background-color: #e9e9e9;
             padding: 5px 5px;
@@ -534,6 +539,11 @@ if (!empty($elements)) {
             line-height: 14px;
             margin-top: 10px;
             font-size: 11px;
+        }
+
+        .menu-header-top .menu{
+            margin: 0px;
+            padding: 0px;
         }
 
         .menu-header-top .menu li{
