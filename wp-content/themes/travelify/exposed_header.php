@@ -43,6 +43,16 @@ if (!empty($elements)) {
         display: block;
     }
 
+    .exposed-header .clearfix {
+        display: block;
+    }
+
+    .exposed-header .clearfix:before, {
+        display: table;
+        content: " ";
+        clear: both;
+    }
+
     @media only screen and (min-width: 320px) and (max-width: 500px){
 
     }
