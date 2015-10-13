@@ -1973,13 +1973,16 @@ ul#menu-header-bottom .default-menu {
         top:-50px;
     }
     .page-id-109 #text-10 span.border-top-red {
-        margin-left: -10px;
+        margin-left: -150px;
     }
     .page-id-109 #text-10{
         width: 48% !important;
         float: left;
         position: relative;
         top: -30px;
+    }
+    #text-5 .widget-title, #text-5 .textwidget, #text-10 .widget-title, #text-10 .textwidget{
+        float: right;
     }
     .page-id-109 .lift{
         position: relative;
