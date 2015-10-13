@@ -41,6 +41,8 @@ if (!empty($elements)) {
     .exposed-header{
         position: relative;
         display: block;
+        clear: both;
+        width: 100%;
     }
 
     .exposed-header .clearfix {
@@ -116,6 +118,8 @@ if (!empty($elements)) {
             position: relative;
             display: block;
             clear: both;
+            background: #231f20;
+            height: 27px;
         }
 
         .exposed-header #main-nav ul.root{
@@ -126,16 +130,19 @@ if (!empty($elements)) {
             text-shadow: 0 1px 1px rgba(0,0,0,0.4);
             -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
             box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
-            height: 23px;
+            height: 27px;
             margin: 0px;
             padding: 0px;
             display: block;
             position: relative;
+            list-style: none;
         }
         .exposed-header #main-nav li {
             float: left;
             position: relative;
             padding: 0;
+            list-style: none;
+            margin: 0;
         }
         .exposed-header #main-nav a {
             color: #fff;
@@ -147,6 +154,7 @@ if (!empty($elements)) {
             font: 12px Helvetica, sans-serif;
             line-height: 24px;
             word-wrap: break-word;
+            transition: none;
         }
         .exposed-header #main-nav a:hover,.exposed-header #main-nav ul li.current-menu-item a,.exposed-header #main-nav ul li.current_page_ancestor a,.exposed-header #main-nav ul li.current-menu-ancestor a,.exposed-header #main-nav ul li.current_page_item a,.exposed-header #main-nav ul li:hover > a {
             background: #231f20;
