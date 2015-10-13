@@ -71,6 +71,18 @@ if (!empty($elements)) {
     @media only screen and (min-width: 992px){
         /* =Menu
         --------------------------------------------------------------*/
+        .exposed-header .hgroup-wrap-left{
+            float: left;
+            position: relative;
+            display: block;
+        }
+
+        .exposed-header .hgroup-wrap-right{
+            float: right;
+            position: relative;
+            display: block;
+         }
+
         .exposed-header #main-nav{
             position: relative;
             display: block;
@@ -325,11 +337,11 @@ if (!empty($elements)) {
             color: #fff;
         }
 
-        .social-icons {
+        .social-icons{
             float: left;
         }
 
-        .middle-header-content .searchform,{
+        .middle-header-content .searchform{
             float: left;
             position: relative;
             min-width: 100px;
