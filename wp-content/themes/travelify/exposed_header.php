@@ -383,6 +383,10 @@ if (!empty($elements)) {
         /* Social Profiles */
         .exposed-header .social-icons {
             float: left;
+            position: relative;
+            right: initial;
+            bottom: initial;
+            margin: initial;
         }
 
         .exposed-header .social-icons ul {
@@ -593,6 +597,8 @@ if (!empty($elements)) {
         .menu-header-top .menu li{
             float: left;
             padding: 0px 5px;
+            list-style: none;
+            margin: 0px;
         }
 
         .menu-header-top .menu li a {
