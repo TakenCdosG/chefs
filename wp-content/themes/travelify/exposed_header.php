@@ -83,6 +83,25 @@ if (!empty($elements)) {
             display: block;
          }
 
+        .exposed-header .hgroup-wrap-right .menu-header-top{
+            display: block;
+            clear: both;
+            position: relative;
+        }
+
+
+        .exposed-header .hgroup-wrap-right .middle-header-content{
+            display: block;
+            clear: both;
+            position: relative;
+        }
+
+        .exposed-header .hgroup-wrap-right .menu-header-bottom{
+            display: block;
+            clear: both;
+            position: relative;
+        }
+
         .exposed-header #main-nav{
             position: relative;
             display: block;
