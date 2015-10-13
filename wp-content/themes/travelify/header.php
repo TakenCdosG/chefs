@@ -63,7 +63,8 @@
                  *
                  * travelify_headerdetails 10
                  */
-                do_action('travelify_header');
+                //do_action('travelify_header');
+                 get_slider_or_title();
                 ?>
             </header>
             <?php

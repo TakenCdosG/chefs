@@ -701,6 +701,49 @@ function return_get_template_part($slug, $name=null) {
 
 add_action( 'init', 'wp_exposed_header' );
 
+function get_slider_or_title(){
+    global $travelify_theme_options_settings;
+    $options = $travelify_theme_options_settings;
+
+    if (is_home() || is_front_page()) {
+        if ("0" == $options['disable_slider']) {
+            if (function_exists('travelify_pass_cycle_parameters'))
+                travelify_pass_cycle_parameters();
+            if (function_exists('travelify_featured_post_slider'))
+                travelify_featured_post_slider();
+        }
+    }
+    else {
+        if (( '' != travelify_header_title() ) || function_exists('bcn_display_list')) {
+
+            $postid = get_the_ID();
+            if($postid == '8'){
+                if(is_user_logged_in()){
+                    $show_title = "TRUE";
+                }else{
+                    $show_title = "FALSE";
+                }
+            }else{
+                $show_title = get_post_meta($postid, $key='show_title', $single = TRUE);
+            }
+
+            if (!is_page_template('templates/template-product-category-page.php') && !is_page_template('templates/template-about-page.php') && $show_title != "FALSE") {
+                ?>
+                <div class="page-title-wrap">
+                    <div class="container clearfix">
+                        <?php
+                        if (function_exists('travelify_breadcrumb'))
+                            travelify_breadcrumb();
+                        ?>
+                        <h3 class="page-title"><?php echo travelify_header_title(); ?></h3><!-- .page-title -->
+                    </div>
+                </div>
+            <?php
+            }
+
+        }
+    }
+}
 /**
  * Styles the header image displayed on the Appearance > Header admin panel.
  */
