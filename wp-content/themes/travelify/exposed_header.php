@@ -361,6 +361,12 @@ if (!empty($elements)) {
             background: transparent;
         }
 
+        .exposed-header .slicknav_nav a:hover{
+            background: #ccc;
+            border-radius: 0px;
+            transition: none;
+        }
+
     }
 
     @media only screen and (min-width: 768px) and (max-width: 991px){
