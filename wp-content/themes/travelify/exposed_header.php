@@ -283,6 +283,7 @@ if (!empty($elements)) {
             color: #fff;
             font-weight: 700;
             text-shadow: 0 1px 3px #000;
+            font: 15px Helvetica, sans-serif;
         }
 
         .exposed-header .slicknav_menu .slicknav_btn {
