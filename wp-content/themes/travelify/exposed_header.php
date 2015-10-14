@@ -204,6 +204,29 @@ if (!empty($elements)) {
             text-align: right;
             padding: 0px 30px 0px 0px;
         }
+
+        .exposed-header .mobile-menu .searchform{
+            float: left;
+            position: relative;
+            min-width: 100px;
+        }
+
+        .exposed-header .mobile-menu .searchform input.field{
+            display: block;
+            width: 100%;
+            height: 31px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            text-indent: 0px;
+            border-radius: 0px;
+            cursor: text;
+        }
     }
 
     @media only screen and (min-width: 768px) and (max-width: 991px){
