@@ -352,9 +352,7 @@ if (!empty($elements)) {
         }
 
         .exposed-header .slicknav_menu .slicknav_btn span {
-            font: 14px Helvetica, sans-serif;
-            text-transform: uppercase;
-            font-weight: bold;
+            font: 15px Helvetica, sans-serif;
         }
 
     }
