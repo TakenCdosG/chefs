@@ -131,7 +131,7 @@ if (!empty($elements)) {
         background: #151013;
     }
 
-    @media only screen and (min-width: 320px) and (max-width: 500px){
+    @media only screen and (min-width: 320px) and (max-width: 549px){
 
     }
 
@@ -139,7 +139,7 @@ if (!empty($elements)) {
         display: none;
     }
 
-    @media only screen and (min-width: 501px) and (max-width: 767px){
+    @media only screen and (min-width: 550px) and (max-width: 767px){
 
         .exposed-header .container {
             width: auto;
@@ -300,12 +300,17 @@ if (!empty($elements)) {
         }
 
         .exposed-header .menu-header-top .menu {
-            margin: 0px;
             padding: 0px;
+            width: auto;
+            position: relative;
+            clear: both;
+            text-align: center;
+            display: block;
+            margin: 0px auto 8px auto;
         }
 
         .exposed-header .menu-header-top .menu li {
-            float: left;
+            display: inline-block;
             padding: 0px 5px;
             list-style: none;
             margin: 0px;
