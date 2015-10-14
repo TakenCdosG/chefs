@@ -429,91 +429,95 @@ if (!empty($elements)) {
         .exposed-header .social-icons ul li a:hover {
             color: #fff !important;
         }
-        .social-icons ul li.facebook a:before {
+
+        .exposed-header .social-icons ul li.facebook a:before {
             content: '\f204';
         }
-        .social-icons ul li.facebook a:hover {
+
+        .exposed-header .social-icons ul li.facebook a:hover {
             background: #3B5998;
         }
-        .social-icons ul li.twitter a:before {
+
+        .exposed-header .social-icons ul li.twitter a:before {
             content: '\f202';
         }
-        .social-icons ul li.twitter a:hover {
+
+        .exposed-header .social-icons ul li.twitter a:hover {
             background: #00aced;
         }
-        .social-icons ul li.google-plus a:before {
+        .exposed-header .social-icons ul li.google-plus a:before {
             content: '\f218';
         }
-        .social-icons ul li.google-plus a:hover {
+        .exposed-header .social-icons ul li.google-plus a:hover {
             background: #cd4132;
         }
-        .social-icons ul li.pinterest a:before {
+        .exposed-header .social-icons ul li.pinterest a:before {
             content: '\f209';
         }
-        .social-icons ul li.pinterest a:hover {
+        .exposed-header .social-icons ul li.pinterest a:hover {
             background: #cb2027;
         }
-        .social-icons ul li.linkedin a:before {
+        .exposed-header .social-icons ul li.linkedin a:before {
             content: '\f207';
         }
-        .social-icons ul li.linkedin a:hover {
+        .exposed-header .social-icons ul li.linkedin a:hover {
             background: #005a87;
         }
-        .social-icons ul li.tumblr a:before {
+        .exposed-header .social-icons ul li.tumblr a:before {
             content: '\f214';
         }
-        .social-icons ul li.tumblr a:hover {
+        .exposed-header .social-icons ul li.tumblr a:hover {
             background: #2b4761;
         }
-        .social-icons ul li.vimeo a:before {
+        .exposed-header .social-icons ul li.vimeo a:before {
             content: '\f212';
         }
-        .social-icons ul li.vimeo a:hover {
+        .exposed-header .social-icons ul li.vimeo a:hover {
             background: #1bb7ea;
         }
-        .social-icons ul li.instagram a:before {
+        .exposed-header .social-icons ul li.instagram a:before {
             content: '\f215';
         }
-        .social-icons ul li.instagram a:hover {
+        .exposed-header .social-icons ul li.instagram a:hover {
             background: #517fa4;
         }
-        .social-icons ul li.flickr a:before {
+        .exposed-header .social-icons ul li.flickr a:before {
             content: '\f211';
         }
-        .social-icons ul li.flickr a:hover {
+        .exposed-header .social-icons ul li.flickr a:hover {
             background: #0063db;
         }
-        .social-icons ul li.youtube a:before {
+        .exposed-header .social-icons ul li.youtube a:before {
             content: '\f213';
         }
-        .social-icons ul li.youtube a:hover {
+        .exposed-header .social-icons ul li.youtube a:hover {
             background: #cd4132;
         }
-        .social-icons ul li.rss a:before {
+        .exposed-header .social-icons ul li.rss a:before {
             content: '\f413';
         }
-        .social-icons ul li.rss a:hover {
+        .exposed-header .social-icons ul li.rss a:hover {
             background: #fc7216;
         }
-        .social-icons ul li.github a:before {
+        .exposed-header .social-icons ul li.github a:before {
             content: '\f200';
         }
-        .social-icons ul li.github a:hover {
+        .exposed-header .social-icons ul li.github a:hover {
             background: #151013;
         }
 
-        .social-icons{
+        .exposed-header .social-icons{
             float: left;
         }
 
-        .middle-header-content .searchform{
+        .exposed-header .middle-header-content .searchform{
             float: left;
             position: relative;
             min-width: 100px;
         }
 
-        .middle-header-content .searchform input.field,
-        .mobile-menu .searchform input.field{
+        .exposed-header .middle-header-content .searchform input.field,
+        .exposed-header .mobile-menu .searchform input.field{
             display: block;
             width: 100%;
             height: 31px;
@@ -530,7 +534,7 @@ if (!empty($elements)) {
             cursor: text;
         }
 
-        .middle-header-content .searchform input.field-submit{
+        .exposed-header .middle-header-content .searchform input.field-submit{
             background-color: transparent!important;
             background: transparent!important;
             background-image: url('<?php echo get_template_directory_uri();?>/images/btn-search.png')!important;
@@ -553,21 +557,21 @@ if (!empty($elements)) {
             right: -4px;
             top: 6px;
         }
-        
 
-        .menu-header-top {
+
+        .exposed-header .menu-header-top {
             float: right;
             display: block;
             position: relative;
         }
 
-        .menu-header-top .cart-contents li{
+        .exposed-header .menu-header-top .cart-contents li{
             float: left;
             position: relative;
             display: block;
         }
 
-        .menu-header-top .header_upper{
+        .exposed-header .menu-header-top .header_upper{
             display: block;
             position: relative;
             float: left;
@@ -575,12 +579,12 @@ if (!empty($elements)) {
             margin-right: 5px;
         }
 
-        .menu-header-top .header_upper .menu li a img{
+        .exposed-header .menu-header-top .header_upper .menu li a img{
             display: inline-block;
             vertical-align: top;
         }
 
-        .menu-header-top .cart-contents{
+        .exposed-header .menu-header-top .cart-contents{
             background-color: #e9e9e9;
             padding: 5px 5px;
             display: block;
@@ -591,19 +595,19 @@ if (!empty($elements)) {
             font-size: 11px;
         }
 
-        .menu-header-top .menu{
+        .exposed-header .menu-header-top .menu{
             margin: 0px;
             padding: 0px;
         }
 
-        .menu-header-top .menu li{
+        .exposed-header .menu-header-top .menu li{
             float: left;
             padding: 0px 5px;
             list-style: none;
             margin: 0px;
         }
 
-        .menu-header-top .menu li a {
+        .exposed-header .menu-header-top .menu li a {
             color: #231f20;
             padding: 0px;
             background: transparent;
