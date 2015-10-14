@@ -2520,7 +2520,7 @@ ul#menu-header-bottom .default-menu {
     }
 
     .page-id-109 .mc-field-group input#mce-EMAIL {
-        width: 80px;
+        width: 80px !important;
         padding: 5px 2px;
     }
 
