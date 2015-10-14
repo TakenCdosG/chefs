@@ -2657,3 +2657,29 @@ ul#menu-header-bottom .default-menu {
         padding: 0px 30px 0px 0px;
     }
 }
+
+.page-template-template-about-page .hbspt-form input[type=text],
+.page-template-template-about-page .hbspt-form input[type=tel],
+.page-template-template-about-page .hbspt-form input[type=password],
+.page-template-template-about-page .hbspt-form input[type="email"],{
+    width: 200px;
+    height: 29px;
+    float: left;
+    position: relative;
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid rgb(27, 30, 31);
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    margin: 4px 0px 10px;
+    background-color: rgb(249, 249, 249);
+    border-radius: 0px;
+    padding: 5px 10px;
+    color: rgb(29, 29, 29);
+    font: 400 14px/24px Helvetica, sans-serif;
+    word-wrap: break-word;
+    border: 1px solid #ccc
+}
