@@ -227,6 +227,31 @@ if (!empty($elements)) {
             border-radius: 0px;
             cursor: text;
         }
+
+        .exposed-header .mobile-menu .searchform input.field-submit{
+            background-color: transparent!important;
+            background: transparent!important;
+            background-image: url('<?php echo get_template_directory_uri();?>/images/btn-search.png')!important;
+            background-repeat: no-repeat!important;
+            -webkit-appearance: none!important;
+            border: transparent!important;
+            color: #fff!important;
+            cursor: pointer!important;
+            font-size: 1em!important;
+            font-weight: 400!important;
+            outline: none!important;
+            padding: 0px 10px!important;
+            height: 22px!important;
+            width: 20px!important;
+            line-height: 30px!important;
+            display: block!important;
+            position: absolute!important;
+            margin-top: 0px;
+            text-indent: -999px!important;
+            right: -4px;
+            top: 6px;
+        }
+
     }
 
     @media only screen and (min-width: 768px) and (max-width: 991px){
