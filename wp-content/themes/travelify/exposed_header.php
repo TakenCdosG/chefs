@@ -320,6 +320,11 @@ if (!empty($elements)) {
             cursor: pointer;
         }
 
+        .exposed-header .menu-header-top .header_upper .menu li a img {
+            display: inline-block;
+            vertical-align: top;
+        }
+
 
     }
 
