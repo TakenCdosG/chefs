@@ -136,7 +136,70 @@ if (!empty($elements)) {
     }
 
     @media only screen and (min-width: 501px) and (max-width: 767px){
+        .exposed-header #main-nav{
+            display:none;
+        }
 
+        .exposed-header .mobile-menu,
+        .exposed-header .slicknav_menu .slicknav_btn,
+        .exposed-header .slicknav_menu .slicknav_menutxt {
+            float: none;
+            display: block;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+
+        .exposed-header .mobile-menu {
+            max-width: 100%;
+            margin: 0 0 15px auto;
+            font-size: 16px;
+            background: #231f20;
+            padding: 5px;
+            min-height: 43px;
+        }
+
+        .exposed-header .searchform{
+            display: none;
+        }
+
+        .exposed-header .mobile-menu .searchform{
+            display: block!important;
+            float: left;
+            position: relative;
+            min-width: 100px;
+        }
+
+        .exposed-header .mobile-menu .slicknav_menu{
+            padding: 0px!important;
+            background: #231f20!important;
+        }
+
+        .exposed-header  .slicknav_menu .slicknav_icon {
+            position: absolute;
+            top: 7px;
+            right: 10px;
+        }
+
+        .exposed-header .slicknav_btn{
+            outline: non;
+            width: 150px!important;
+            float: right!important;
+            margin: 0px!important;
+        }
+
+        .exposed-header .mobile-menu .searchform input.field-submit{
+            right: 3px!important;
+        }
+
+        .exposed-header .mobile-menu .searchform input.field{
+            margin: 0px!important;
+        }
+
+        .exposed-header .slicknav_menu .slicknav_menutxt{
+            text-align: right;
+            padding: 0px 30px 0px 0px;
+        }
     }
 
     @media only screen and (min-width: 768px) and (max-width: 991px){
