@@ -268,11 +268,12 @@ if (!empty($elements)) {
         }
 
         .exposed-header .slicknav_menu .slicknav_btn {
-            padding: 10px;
             border-radius: 0;
             border: solid 2px #212121;
             background: none;
             margin: 0;
+            padding: .438em .625em;
+            line-height: 1.125em;
         }
 
         .exposed-header .middle-header-content,
