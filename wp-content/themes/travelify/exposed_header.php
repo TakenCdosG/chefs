@@ -335,6 +335,21 @@ if (!empty($elements)) {
             vertical-align: top;
         }
 
+        .exposed-header .slicknav_menu .slicknav_icon-bar {
+            display: block;
+            width: 1.125em;
+            height: .125em;
+            -webkit-border-radius: 1px;
+            -moz-border-radius: 1px;
+            border-radius: 1px;
+            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.25);
+            -moz-box-shadow: 0 1px 0 rgba(0,0,0,.25);
+            box-shadow: 0 1px 0 rgba(0,0,0,.25);
+        }
+
+        .exposed-header .slicknav_btn .slicknav_icon-bar+.slicknav_icon-bar {
+            margin-top: .188em;
+        }
 
     }
 
