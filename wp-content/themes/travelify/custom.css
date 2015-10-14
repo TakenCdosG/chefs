@@ -2106,7 +2106,7 @@ ul#menu-header-bottom .default-menu {
 /*
 * RESPONSIVE 501 - 766
 */
-@media only screen and (min-width: 501px) and (max-width: 767px){
+@media only screen and (min-width: 501px) and (max-width: 766px){
     .home .text-top{
         line-height: 30px;
     }
@@ -2302,7 +2302,7 @@ ul#menu-header-bottom .default-menu {
 /*******************************************************************
 *                   RESPONSIVE > 767PX < 992PX
 ********************************************************************/
-@media only screen and (min-width: 768px) and (max-width: 991px){
+@media only screen and (min-width: 767px) and (max-width: 991px){
     .home .text-top{
         line-height: 30px;
     }
