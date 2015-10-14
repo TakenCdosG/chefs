@@ -794,7 +794,7 @@ if (!empty($elements)) {
 
         .exposed-header .menu-header-bottom .menu li{
             float: left;
-            padding: 0px 5px;
+            padding: 0px 2px;
         }
 
         .exposed-header .menu-header-bottom .menu li a{
