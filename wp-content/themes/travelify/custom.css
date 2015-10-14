@@ -2661,7 +2661,7 @@ ul#menu-header-bottom .default-menu {
 .page-template-template-about-page .hbspt-form input[type=text],
 .page-template-template-about-page .hbspt-form input[type=tel],
 .page-template-template-about-page .hbspt-form input[type=password],
-.page-template-template-about-page .hbspt-form input[type="email"],{
+.page-template-template-about-page .hbspt-form input[type="email"]{
     width: 200px;
     height: 29px;
     float: left;
