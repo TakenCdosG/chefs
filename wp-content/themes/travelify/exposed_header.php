@@ -295,6 +295,31 @@ if (!empty($elements)) {
             display: none;
         }
 
+        .exposed-header .menu-header-top .menu {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .exposed-header .menu-header-top .menu li {
+            float: left;
+            padding: 0px 5px;
+            list-style: none;
+            margin: 0px;
+        }
+
+        .exposed-header .menu-header-top .menu li a {
+            color: #231f20;
+            padding: 0px;
+            background: transparent;
+            text-transform: uppercase;
+            font-size: 12px;
+            line-height: 15px;
+            display: block;
+            position: relative;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
 
     }
 
