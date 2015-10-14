@@ -674,6 +674,7 @@ if (!empty($elements)) {
             display: block;
             position: relative;
             list-style: none;
+            clear: both;
         }
         .exposed-header #main-nav li {
             float: left;
