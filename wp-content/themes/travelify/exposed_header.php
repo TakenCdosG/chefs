@@ -141,6 +141,10 @@ if (!empty($elements)) {
 
     @media only screen and (min-width: 501px) and (max-width: 767px){
 
+        .exposed-header .container {
+            width: auto;
+        }
+
         .exposed-header .hgroup-wrap-left,
         .exposed-header .hgroup-wrap-right{
             width: 100%;
