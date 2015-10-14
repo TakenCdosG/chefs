@@ -224,7 +224,7 @@ if (!empty($elements)) {
 
         .exposed-header .mobile-menu .searchform input.field{
             display: block;
-            width: 100%;
+            width: 100%!important;
             height: 31px;
             padding: 6px 12px;
             font-size: 14px;
