@@ -228,6 +228,12 @@ if (!empty($elements)) {
             cursor: text;
         }
 
+        .exposed-header .assistive-text {
+            position: absolute !important;
+            clip: rect(1px 1px 1px 1px);
+            clip: rect(1px, 1px, 1px, 1px);
+        }
+
         .exposed-header .mobile-menu .searchform input.field-submit{
             background-color: transparent!important;
             background: transparent!important;
