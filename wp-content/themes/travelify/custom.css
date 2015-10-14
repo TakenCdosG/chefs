@@ -2683,3 +2683,13 @@ ul#menu-header-bottom .default-menu {
     word-wrap: break-word;
     border: 1px solid #ccc
 }
+
+.page-template-template-about-page .hbspt-form .hs_email label span{
+    color: red;
+}
+
+.page-template-template-about-page .hs-form.stacked .inputs-list > li label {
+    font-weight: normal;
+    padding-top: 0px;
+    color: #414141;
+}
