@@ -275,6 +275,12 @@ if (!empty($elements)) {
             margin: 0;
         }
 
+        .exposed-header .middle-header-content,
+        .exposed-header .menu-header-bottom{
+            display: none;
+        }
+
+
     }
 
     @media only screen and (min-width: 768px) and (max-width: 991px){
