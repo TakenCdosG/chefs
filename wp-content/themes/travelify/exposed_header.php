@@ -244,6 +244,9 @@ if (!empty($elements)) {
             text-indent: 0px;
             border-radius: 0px;
             cursor: text;
+            font: 14px Helvetica, sans-serif;
+            font-style: italic;
+            border-color: transparent;
         }
 
         .exposed-header .assistive-text {
