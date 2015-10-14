@@ -1086,6 +1086,12 @@ if (!empty($elements)) {
         }
     }
 
+    @media only screen and (min-width: 768px) and (max-width: 800px){
+        .exposed-header #main-nav a {
+            padding: 0px 4px 0 4px!important;
+            font: 11px Helvetica, sans-serif!important;
+        }
+    }
     /*
     * RESPONSIVE > 992PX
     */
