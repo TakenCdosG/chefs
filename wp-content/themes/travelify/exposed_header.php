@@ -355,6 +355,12 @@ if (!empty($elements)) {
             font: 15px Helvetica, sans-serif;
         }
 
+        .exposed-header .slicknav_nav a {
+            text-decoration: none;
+            color: #fff;
+            background: transparent;
+        }
+
     }
 
     @media only screen and (min-width: 768px) and (max-width: 991px){
