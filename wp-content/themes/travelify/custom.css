@@ -2520,10 +2520,21 @@ ul#menu-header-bottom .default-menu {
     }
 
     .page-id-109 .mc-field-group input#mce-EMAIL {
-        width: 80px !important;
+        width: 115px;
         padding: 5px 2px;
     }
-
+    /* STYLES FOR INPUT MAILING LIST BETA SITE */
+    .hs_email .hs-input{
+        width: 102px;
+    }
+    .hs_email input#email-f38f2aba-54bd-47e2-9366-9ccac2aebbf9::-webkit-input-placeholder {
+        font-size: 10px;
+                                                                 }
+    .hs_submit .actions .hs-button{
+        margin: 0px 19px 22px 0px;
+        padding: 0px 7px;
+    }
+    /* --------------------------------------- */
     .page-id-109 .mc-field-group input#mce-EMAIL::-webkit-input-placeholder {
         font-size: 10px;
     }
