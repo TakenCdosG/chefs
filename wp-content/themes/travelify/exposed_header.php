@@ -258,6 +258,23 @@ if (!empty($elements)) {
             top: 6px;
         }
 
+        .exposed-header .slicknav_menu .slicknav_menutxt {
+            display: block;
+            line-height: 1.188em;
+            float: left;
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 1px 3px #000;
+        }
+
+        .exposed-header .slicknav_menu .slicknav_btn {
+            padding: 10px;
+            border-radius: 0;
+            border: solid 2px #212121;
+            background: none;
+            margin: 0;
+        }
+
     }
 
     @media only screen and (min-width: 768px) and (max-width: 991px){
