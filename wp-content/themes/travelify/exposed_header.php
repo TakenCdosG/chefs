@@ -219,6 +219,7 @@ if (!empty($elements)) {
             float: left;
             position: relative;
             min-width: 100px;
+            width: 160px !important;
         }
 
         .exposed-header .mobile-menu .searchform input.field{
@@ -288,6 +289,7 @@ if (!empty($elements)) {
             margin: 0;
             padding: .438em .625em;
             line-height: 1.125em;
+            max-width: 100px;
         }
 
         .exposed-header .middle-header-content,
