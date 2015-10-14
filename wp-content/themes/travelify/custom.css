@@ -2111,7 +2111,7 @@ ul#menu-header-bottom .default-menu {
         line-height: 30px;
     }
     ul#menu-header-upper.menu li#menu-item-493, ul#menu-header-upper.menu li#menu-item-541, ul#menu-header-upper.menu li#menu-item-531{
-        display: none;
+        /*display: none;*/
     }
 
     div.left-featured-slider{
