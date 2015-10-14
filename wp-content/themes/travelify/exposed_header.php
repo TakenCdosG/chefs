@@ -135,6 +135,10 @@ if (!empty($elements)) {
 
     }
 
+    .mobile-menu{
+        display: none;
+    }
+
     @media only screen and (min-width: 501px) and (max-width: 767px){
         .exposed-header #main-nav{
             display:none;
