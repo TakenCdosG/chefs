@@ -312,6 +312,11 @@ if (!empty($elements)) {
             padding: 0px 5px;
             list-style: none;
             margin: 0px;
+            display: none;
+        }
+
+        .exposed-header .menu-header-top .menu li:first-child{
+            display: block!important;
         }
 
         .exposed-header .menu-header-top .menu li a {
