@@ -2684,7 +2684,7 @@ ul#menu-header-bottom .default-menu {
     border: 1px solid #ccc
 }
 
-.page-template-template-about-page .hbspt-form .hs_email label span{
+.page-template-template-about-page .hbspt-form .hs_email label span.hs-form-required{
     color: red;
 }
 
