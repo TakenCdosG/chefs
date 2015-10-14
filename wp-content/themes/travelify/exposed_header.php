@@ -989,7 +989,7 @@ if (!empty($elements)) {
             color: #555;
             background-color: #fff;
             background-image: none;
-            border: 1px solid #ccc;
+            border: 1px solid #ccc!important;
             margin-left: 10px;
             text-indent: 0px;
             border-radius: 0px;
