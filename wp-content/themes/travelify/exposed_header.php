@@ -133,6 +133,235 @@ if (!empty($elements)) {
 
     @media only screen and (min-width: 320px) and (max-width: 549px){
 
+        .exposed-header .container {
+            width: auto;
+        }
+
+        .exposed-header .hgroup-wrap-left,
+        .exposed-header .hgroup-wrap-right{
+            width: 100%;
+            position: relative;
+            clear: both;
+            text-align: center;
+        }
+
+        .exposed-header .hgroup-wrap-left #site-logo{
+            float: none;
+            margin: 7px auto;
+        }
+
+        .exposed-header #main-nav{
+            display:none;
+        }
+
+        .exposed-header .mobile-menu,
+        .exposed-header .slicknav_menu .slicknav_btn,
+        .exposed-header .slicknav_menu .slicknav_menutxt {
+            float: none;
+            display: block;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+
+        .exposed-header .mobile-menu {
+            max-width: 100%;
+            margin: 0 0 15px auto;
+            font-size: 16px;
+            background: #231f20;
+            padding: 5px;
+            min-height: 43px;
+        }
+
+        .exposed-header .searchform{
+            display: none;
+        }
+
+        .exposed-header .mobile-menu .searchform{
+            display: block!important;
+            float: left;
+            position: relative;
+            min-width: 100px;
+        }
+
+        .exposed-header .mobile-menu .slicknav_menu{
+            padding: 0px!important;
+            background: #231f20!important;
+        }
+
+        .exposed-header  .slicknav_menu .slicknav_icon {
+            position: absolute;
+            top: 7px;
+            right: 10px;
+        }
+
+        .exposed-header .slicknav_btn{
+            outline: non;
+            width: 150px!important;
+            float: right!important;
+            margin: 0px!important;
+        }
+
+        .exposed-header .mobile-menu .searchform input.field-submit{
+            right: 3px!important;
+        }
+
+        .exposed-header .mobile-menu .searchform input.field{
+            margin: 0px!important;
+        }
+
+        .exposed-header .slicknav_menu .slicknav_menutxt{
+            text-align: right;
+            padding: 0px 30px 0px 0px;
+        }
+
+        .exposed-header .mobile-menu .searchform{
+            float: left;
+            position: relative;
+            min-width: 100px;
+        }
+
+        .exposed-header .mobile-menu .searchform input.field{
+            display: block;
+            width: 100%;
+            height: 31px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #555;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            text-indent: 0px;
+            border-radius: 0px;
+            cursor: text;
+            font: 14px Helvetica, sans-serif;
+            font-style: italic;
+            border-color: transparent;
+        }
+
+        .exposed-header .assistive-text {
+            position: absolute !important;
+            clip: rect(1px 1px 1px 1px);
+            clip: rect(1px, 1px, 1px, 1px);
+        }
+
+        .exposed-header .mobile-menu .searchform input.field-submit{
+            background-color: transparent!important;
+            background: transparent!important;
+            background-image: url('<?php echo get_template_directory_uri();?>/images/btn-search.png')!important;
+            background-repeat: no-repeat!important;
+            -webkit-appearance: none!important;
+            border: transparent!important;
+            color: #fff!important;
+            cursor: pointer!important;
+            font-size: 1em!important;
+            font-weight: 400!important;
+            outline: none!important;
+            padding: 0px 10px!important;
+            height: 22px!important;
+            width: 20px!important;
+            line-height: 30px!important;
+            display: block!important;
+            position: absolute!important;
+            margin-top: 0px;
+            text-indent: -999px!important;
+            right: -4px;
+            top: 6px;
+        }
+
+        .exposed-header .slicknav_menu .slicknav_menutxt {
+            display: block;
+            line-height: 1.188em;
+            float: left;
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 0 1px 3px #000;
+            font: 15px Helvetica, sans-serif;
+        }
+
+        .exposed-header .slicknav_menu .slicknav_btn {
+            border-radius: 0;
+            border: solid 2px #212121;
+            background: none;
+            margin: 0;
+            padding: .438em .625em;
+            line-height: 1.125em;
+        }
+
+        .exposed-header .middle-header-content,
+        .exposed-header .menu-header-bottom{
+            display: none;
+        }
+
+        .exposed-header .menu-header-top .menu {
+            padding: 0px;
+            width: auto;
+            position: relative;
+            clear: both;
+            text-align: center;
+            display: block;
+            margin: 0px auto 8px auto;
+        }
+
+        .exposed-header .menu-header-top .menu li {
+            display: inline-block;
+            padding: 0px 5px;
+            list-style: none;
+            margin: 0px;
+        }
+
+        .exposed-header .menu-header-top .menu li a {
+            color: #231f20;
+            padding: 0px;
+            background: transparent;
+            text-transform: uppercase;
+            font-size: 12px;
+            line-height: 15px;
+            display: block;
+            position: relative;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .exposed-header .menu-header-top .header_upper .menu li a img {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .exposed-header .slicknav_menu .slicknav_icon-bar {
+            display: block;
+            width: 1.125em;
+            height: .125em;
+            -webkit-border-radius: 1px;
+            -moz-border-radius: 1px;
+            border-radius: 1px;
+            -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.25);
+            -moz-box-shadow: 0 1px 0 rgba(0,0,0,.25);
+            box-shadow: 0 1px 0 rgba(0,0,0,.25);
+        }
+
+        .exposed-header .slicknav_btn .slicknav_icon-bar+.slicknav_icon-bar {
+            margin-top: .188em;
+        }
+
+        .exposed-header .slicknav_menu .slicknav_btn span {
+            font: 15px Helvetica, sans-serif;
+        }
+
+        .exposed-header .slicknav_nav a {
+            text-decoration: none;
+            color: #fff;
+            background: transparent;
+        }
+
+        .exposed-header .slicknav_nav a:hover{
+            background: #ccc;
+            border-radius: 0px;
+            transition: none!important;
+        }
+
     }
 
     .mobile-menu{
