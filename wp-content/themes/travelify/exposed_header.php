@@ -364,7 +364,7 @@ if (!empty($elements)) {
         .exposed-header .slicknav_nav a:hover{
             background: #ccc;
             border-radius: 0px;
-            transition: none;
+            transition: none!important;
         }
 
     }
