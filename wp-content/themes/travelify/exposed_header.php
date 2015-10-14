@@ -140,6 +140,20 @@ if (!empty($elements)) {
     }
 
     @media only screen and (min-width: 501px) and (max-width: 767px){
+
+        .exposed-header .hgroup-wrap-left,
+        .exposed-header .hgroup-wrap-right{
+            width: 100%;
+            position: relative;
+            clear: both;
+            text-align: center;
+        }
+
+        .exposed-header .hgroup-wrap-left #site-logo{
+            float: none;
+            margin: 7px auto;
+        }
+
         .exposed-header #main-nav{
             display:none;
         }
