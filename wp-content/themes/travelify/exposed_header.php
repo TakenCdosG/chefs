@@ -351,6 +351,12 @@ if (!empty($elements)) {
             margin-top: .188em;
         }
 
+        .exposed-header .slicknav_menu .slicknav_btn span {
+            font: 14px Helvetica, sans-serif;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
     }
 
     @media only screen and (min-width: 768px) and (max-width: 991px){
