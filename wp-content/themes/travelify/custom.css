@@ -2751,3 +2751,7 @@ ul#menu-header-bottom .default-menu {
     text-shadow: none;
     border: none;
 }
+
+.woocommerce div.product .stock{
+    color: #ef3d42;
+}
