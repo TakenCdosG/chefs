@@ -1986,8 +1986,12 @@ ul#menu-header-bottom .default-menu {
         position: relative;
         top: -30px;
     }
+    #text-3 .widget-title, #text-3 .textwidget, #text-9 .widget-title, #text-9 .lift{
+        margin-left: 15%;
+    }
     #text-5 .widget-title, #text-5 .textwidget, #text-10 .widget-title, #text-10 .textwidget{
         float: right;
+        margin-right: 13%;
     }
     .page-id-109 .lift{
         position: relative;
