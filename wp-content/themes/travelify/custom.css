@@ -1986,10 +1986,10 @@ ul#menu-header-bottom .default-menu {
         position: relative;
         top: -30px;
     }
-    #text-3 .widget-title, #text-3 .textwidget, #text-9 .widget-title, #text-9 .lift{
+    .page-id-109 #text-3 .widget-title, .page-id-109 #text-3 .textwidget, .page-id-109 #text-9 .widget-title, .page-id-109 #text-9 .lift{
         margin-left: 15%;
     }
-    #text-5 .widget-title, #text-5 .textwidget, #text-10 .widget-title, #text-10 .textwidget{
+    .page-id-109 #text-5 .widget-title, .page-id-109 #text-5 .textwidget, .page-id-109 #text-10 .widget-title, .page-id-109 #text-10 .textwidget{
         float: right;
         margin-right: 13%;
     }
@@ -2039,9 +2039,7 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 .general-breadcrumb{
         display: none;
     }
-    .page-id-568 .mobile-menu{
-        margin-bottom: 50px;
-    }
+
     .page-id-568 #text-6 .resp-no{
         display: block;
     }
@@ -2050,6 +2048,12 @@ ul#menu-header-bottom .default-menu {
     }
     .page-id-568 #text-8{
         margin-bottom: 100px !important;
+    }
+    .page-id-568 #text-7{
+        border-top: 1px solid #ef3d42;
+    }
+    .page-id-568 #text-7 .widget-title{
+        margin-top: 10px;
     }
     .page-id-568 #container .top_banner_about_page{
         position: relative;
@@ -2063,7 +2067,7 @@ ul#menu-header-bottom .default-menu {
         font-weight: bolder;
     }
     .page-id-568 .flexslider.margin-bottom-60{
-        margin-bottom: -30px !important;
+        margin-bottom: 10px !important;
     }
     .page-id-568 .flexslider.margin-bottom-60 .flex-prev, .page-id-568 .flexslider.margin-bottom-60 .flex-next{
         background-size: 40px;

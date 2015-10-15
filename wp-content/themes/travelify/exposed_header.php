@@ -171,6 +171,7 @@ if (!empty($elements)) {
             background: #231f20;
             padding: 5px;
             min-height: 43px;
+            z-index:9999;
         }
 
         .exposed-header .searchform{
