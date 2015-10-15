@@ -2629,20 +2629,28 @@ ul#menu-header-bottom .default-menu {
         font-size: 15px;
     }
     /*FOOTER STYLES - THESE ARE GENERAL, IF NEEDED ADD PAGE ID CLASS FOR SPECIFIC PAGE*/
-    .page-id-568 #text-3,.page-id-568 #text-5,.page-id-568 #text-2,.page-id-568 #text-7,.page-id-568 #text-11{
+    .page-id-568 #text-3,.page-id-568 #text-5,.page-id-568 #text-2,.page-id-568 #text-7,.page-id-568 #text-11,/* ABOUT PAGE   */
+    .page-id-532 #text-3,.page-id-532 #text-5,.page-id-532 #text-2,.page-id-532 #text-7,.page-id-532 #text-11 /* CONTACT PAGE */
+    {
         width: 45% ;
         float: left ;
         margin-bottom: 0px ;
     }
-    .page-id-568 #text-4,.page-id-568 #text-9,.page-id-568 #text-6,.page-id-568 #text-8{
+    .page-id-568 #text-4,.page-id-568 #text-9,.page-id-568 #text-6,.page-id-568 #text-8, /* ABOUT PAGE   */
+    .page-id-532 #text-4,.page-id-532 #text-9,.page-id-532 #text-6,.page-id-532 #text-8 /* CONTACT PAGE */
+    {
         width: 45% ;
         float: right ;
         margin-bottom: 0px ;
     }
-    .page-id-568 #text-3 .textwidget, .page-id-568 #text-4 .textwidget{
+    .page-id-568 #text-3 .textwidget, .page-id-568 #text-4 .textwidget, /* ABOUT PAGE   */
+    .page-id-532 #text-3 .textwidget, .page-id-532 #text-4 .textwidget /* CONTACT PAGE */
+    {
         height: 100px;
     }
-    .page-id-568 #text-2 .textwidget, .page-id-568 #text-6 .textwidget{
+    .page-id-568 #text-2 .textwidget, .page-id-568 #text-6 .textwidget, /* ABOUT PAGE   */
+    .page-id-532 #text-2 .textwidget, .page-id-532 #text-6 .textwidget /* CONTACT PAGE */
+    {
         height: 230px;
     }
 }
