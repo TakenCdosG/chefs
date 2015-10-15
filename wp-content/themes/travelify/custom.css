@@ -1916,7 +1916,7 @@ ul#menu-header-bottom .default-menu {
     }
     #footerarea{
         position: relative;
-        top: -200px;
+        margin-top: -230px;
     }
     .cart1, .color-red .amount{
         display: none;
