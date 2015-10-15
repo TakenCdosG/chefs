@@ -2153,8 +2153,11 @@ ul#menu-header-bottom .default-menu {
     .resp-yes{
         display: block;
     }
-    #text-8, .resp-no{
+    #text-10, .resp-no{
         display: none;
+    }
+    #text-7 .resp-no, #text-11 .resp-no{
+        display: block;
     }
     .hgroup-right-header_bottom {
         display: none;
@@ -2255,13 +2258,13 @@ ul#menu-header-bottom .default-menu {
         margin-left: 57px;
         top: -84px;
     }
-    .body  .soc6{
+    .soc6{
         margin-left: 127px;
         top: -112px;
     }
     #site-generator{
         position: relative;
-        top: -215px;
+        top: 0px;
     }
     /* ABOUT PAGE 501PX STYLES */
     .page-id-568 .general-breadcrumb, .page-id-568 #text-10{
