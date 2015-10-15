@@ -2763,3 +2763,11 @@ h2.tribe-events-page-title{
     text-transform: uppercase;
     margin-bottom: 0px;
 }
+
+.woocommerce .woocommerce-error {
+    border-top-color: #ef3d42;
+}
+
+.woocommerce form .form-row.woocommerce-invalid .select2-container, .woocommerce form .form-row.woocommerce-invalid input.input-text, .woocommerce form .form-row.woocommerce-invalid select {
+    border-color: #ef3d42;
+}
