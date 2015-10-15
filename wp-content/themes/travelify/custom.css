@@ -2775,3 +2775,16 @@ h2.tribe-events-page-title{
 .woocommerce form .form-row.woocommerce-invalid .select2-container, .woocommerce form .form-row.woocommerce-invalid input.input-text, .woocommerce form .form-row.woocommerce-invalid select {
     border-color: #ef3d42;
 }
+
+.link-red{
+    color: #ef3d42;
+    font-size: 13px;
+    text-transform: uppercase;
+    border: 1px solid #ef3d42;
+    padding: 5px 10px;
+    vertical-align: bottom;
+    display: inline-block;
+    position: relative;
+    line-height: 20px;
+    margin-left: 15px;
+}
