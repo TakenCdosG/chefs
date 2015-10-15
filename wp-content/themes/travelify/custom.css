@@ -1937,7 +1937,7 @@ ul#menu-header-bottom .default-menu {
         width: 46% !important;
         float: left;
     }
-    .page-id-109 #text-3/**/ .textwidget p, .page-id-109 #text-5 .textwidget p/**/, .page-id-109 #text-7/**/,.page-id-109 #text-10 .textwidget p{
+    .page-id-109 #text-3/**/ .textwidget p, .page-id-109 #text-5 .textwidget p/**/, .page-id-109 #text-7/**/, .page-id-109 #text-11,.page-id-109 #text-10 .textwidget p{
         display: none;
     }
     .page-id-109 #text-3.widget/**/, .page-id-109 #text-5/**/, .page-id-109 #text-9/**/, .page-id-109 #text-10{
@@ -2067,7 +2067,7 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 #text-10, .page-id-532 #text-10{
         display: none;
     }
-    .page-id-568 #text-7 .resp-no, .page-id-532 #text-7 .resp-no{
+    .page-id-568 #text-7 .resp-no, .page-id-532 #text-7 .resp-no, .page-id-568 #text-11 .resp-no, .page-id-532 #text-11 .resp-no{
         display: block;
     }
     /* END ABOUT PAGE STYLES  */
@@ -2270,7 +2270,7 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 .mobile-menu{
         margin-bottom: 50px;
     }
-    .page-id-568 #text-6 .resp-no, .page-id-568 #text-7 .resp-no{
+    .page-id-568 #text-6 .resp-no, .page-id-568 #text-7 .resp-no, .page-id-568 #text-11 .resp-no{
         display: block;
     }
     .page-id-568 #text-6{
@@ -2466,7 +2466,7 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 .mobile-menu{
         margin-bottom: 50px;
     }
-    .page-id-568 #text-6 .resp-no, .page-id-568 #text-7 .resp-no{
+    .page-id-568 #text-6 .resp-no, .page-id-568 #text-7 .resp-no, .page-id-568 #text-11 .resp-no{
         display: block;
     }
     .page-id-568 #text-6{
