@@ -2238,7 +2238,7 @@ ul#menu-header-bottom .default-menu {
 
     #footerarea{
         position: relative;
-       /* top: -200px; */
+        top: -200px;
     }
     .soc2{
         margin-left: 57px;
@@ -2434,7 +2434,7 @@ ul#menu-header-bottom .default-menu {
 
     #footerarea{
         position: relative;
-        /*top: -200px;*/
+        top: -200px;
     }
     .soc2{
         margin-left: 57px;
