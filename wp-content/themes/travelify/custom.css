@@ -2628,6 +2628,23 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 .ftb .post-summary .post-title{
         font-size: 15px;
     }
+    /*FOOTER STYLES - THESE ARE GENERAL, IF NEEDED ADD PAGE ID CLASS FOR SPECIFIC PAGE*/
+    .page-id-568 #text-3,.page-id-568 #text-5,.page-id-568 #text-2,.page-id-568 #text-7,.page-id-568 #text-11{
+        width: 45% ;
+        float: left ;
+        margin-bottom: 0px ;
+    }
+    .page-id-568 #text-4,.page-id-568 #text-9,.page-id-568 #text-6,.page-id-568 #text-8{
+        width: 45% ;
+        float: right ;
+        margin-bottom: 0px ;
+    }
+    .page-id-568 #text-3 .textwidget, .page-id-568 #text-4 .textwidget{
+        height: 100px;
+    }
+    .page-id-568 #text-2 .textwidget, .page-id-568 #text-6 .textwidget{
+        height: 230px;
+    }
 }
 /*
 * RESPONSIVE > 992PX
