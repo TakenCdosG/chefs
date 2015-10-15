@@ -82,6 +82,10 @@ if($box_blog_post){
                 do_action('travelify_main_container');
                 ?>
             </div>
+
+        </div>
+
+        <div class="row margin-grid ftb">
             <div class="<?php echo $right_col_class;?>">
                 <?php if($box_blog_post):?>
                     <div class="box margin-top-50">

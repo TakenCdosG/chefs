@@ -2057,7 +2057,8 @@ ul#menu-header-bottom .default-menu {
     }
     .page-id-568 #container .top_banner_about_page{
         position: relative;
-        top: 180px;
+        margin-top: 205px;
+        margin-bottom: -180px;
     }
     .page-id-568 #content #post-568{
         position: relative;
@@ -2287,12 +2288,19 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 #text-6{
         margin-bottom: 30px !important;
     }
+    .page-id-568 #text-7, .page-id-568 #text-11{
+        border-top: 1px solid #ef3d42;
+    }
+    .page-id-568 #text-7 .widget-title, .page-id-568 #text-11 .widget-title{
+        margin-top: 10px;
+    }
     .page-id-568 #text-8{
         margin-bottom: 100px !important;
     }
     .page-id-568 #container .top_banner_about_page{
         position: relative;
-        top: 180px;
+        margin-top: 205px;
+        margin-bottom: -180px;
     }
     .page-id-568 #content #post-568{
         position: relative;
@@ -2302,12 +2310,29 @@ ul#menu-header-bottom .default-menu {
         font-weight: bolder;
     }
     .page-id-568 .flexslider.margin-bottom-60{
-        margin-bottom: 95px !important;
-        top: 108px;
+        margin-bottom: 20px !important;
     }
     .page-id-568 #site-generator{
         top: 0px;
     }
+    /*FROM THE BLOG STYLES - ABOUT PAGE*/
+    .page-id-568 .ftb{
+        margin-top: 75px;
+    }
+    .page-id-568 .ftb .post_thumbnail{
+        float: left;
+        width: 50%;
+        border-bottom: 2px solid #7c7c7c;
+    }
+    .page-id-568 .ftb .post-summary{
+        float: right;
+        width: 50%;
+        height: 235px;
+    }
+    .page-id-568 .ftb .post-summary .post-title{
+        font-size: 15px;
+    }
+
 }
 
 /*******************************************************************
@@ -2584,7 +2609,25 @@ ul#menu-header-bottom .default-menu {
         width: 30px !important;
     }
     .page-id-109 #footerarea #text-9 span{
-    display: none}
+    display: none
+    }
+    /*FROM THE BLOG STYLES - ABOUT PAGE*/
+    .page-id-568 .ftb{
+        margin-top: 75px;
+    }
+    .page-id-568 .ftb .post_thumbnail{
+        float: left;
+        width: 50%;
+        border-bottom: 2px solid #7c7c7c;
+    }
+    .page-id-568 .ftb .post-summary{
+        float: right;
+        width: 50%;
+        height: 235px;
+    }
+    .page-id-568 .ftb .post-summary .post-title{
+        font-size: 15px;
+    }
 }
 /*
 * RESPONSIVE > 992PX
