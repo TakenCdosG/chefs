@@ -2467,11 +2467,6 @@ ul#menu-header-bottom .default-menu {
         width: 160px !important;
         margin-left: 0.7%;
     }
-
-    #footerarea{
-        position: relative;
-        top: -200px;
-    }
     .soc2{
         margin-left: 57px;
         top: -27px;
@@ -2491,13 +2486,16 @@ ul#menu-header-bottom .default-menu {
         margin-left: 127px;
         top: -112px;
     }
-    #site-generator{
+    /*#site-generator{
         position: relative;
         top: -140px;
-    }
-    /* ABOUT PAGE 501PX STYLES */
-    .page-id-568 .general-breadcrumb, .page-id-568 #text-10{
+    }*/
+    /* ABOUT PAGE 768PX STYLES */
+    .page-id-568 #text-10{
         display: none;
+    }
+    .page-id-568 .general-breadcrumb{
+        margin-top: 230px;
     }
     .page-id-568 .mobile-menu{
         margin-bottom: 50px;
@@ -2508,24 +2506,28 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 #text-6{
         margin-bottom: 30px !important;
     }
-    .page-id-568 #text-8{
-        margin-bottom: 100px !important;
-    }
-    .page-id-568 #container .top_banner_about_page{
-        position: relative;
-        top: 180px;
-    }
-    .page-id-568 #content #post-568{
-        position: relative;
-        top: 170px;
-    }
     .page-id-568 #post-568 .entry-content .color-red{
         font-weight: bolder;
     }
-    .page-id-568 #site-generator{
-        top: 0px;
+    .page-id-568 #post-568 .layoutArea .column{
+        margin-left: 0;
     }
-    /* FOOTER STYLES HOME PAGE */
+    .page-id-568 .ftb{
+        margin-top: 0;
+    }
+    .page-id-568 .ftb .box.margin-top-50{
+        margin-top: -50px;
+    }
+    .page-id-568 .flexslider.margin-bottom-60{
+        margin-bottom: -77px;
+    }
+    .page-id-568 #footerarea{
+        margin-top: -120px;
+    }
+    .page-id-568 #site-generator{
+        margin-top: -76px;
+    }
+        /* FOOTER STYLES HOME PAGE */
     .page-id-109/*home page id*/  #footerarea .col-md-3 {
         width: 25%;
         float: left;
@@ -2612,9 +2614,6 @@ ul#menu-header-bottom .default-menu {
     display: none
     }
     /*FROM THE BLOG STYLES - ABOUT PAGE*/
-    .page-id-568 .ftb{
-        margin-top: 75px;
-    }
     .page-id-568 .ftb .post_thumbnail{
         float: left;
         width: 50%;
