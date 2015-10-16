@@ -1415,7 +1415,7 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
 }
 
 #mc_embed_signup .email{
-    width: 160px;
+    width: 140px;
     height: 29px;
     float: left;
     position: relative;
@@ -2104,8 +2104,13 @@ ul#menu-header-bottom .default-menu {
         margin-bottom: -100px;
     }
     /* CONTACT PAGE */
+    .page-id-532 #primary #content{
+        margin-top: 510px;
+        margin-bottom: -769px;
+    }
     .gmapd{
         margin-top: 200px;
+        margin-bottom: 250px;
     }
     .gmapd .acf-map, .gmapd .acf-map .gm-style{
         height: 300px;
@@ -2170,9 +2175,15 @@ ul#menu-header-bottom .default-menu {
     .hgroup-right-header_bottom {
         display: none;
     }
+    .wrapper #branding{
+        margin-bottom: -50px;
+    }
     div#main.clearfix{
-        bottom: 210px;
+        margin-top: 0px;
         position: relative;
+    }
+    #container{
+        margin-top: -220px;
     }
     #container .title_top h1{
         font-size: 22px;
@@ -2246,11 +2257,6 @@ ul#menu-header-bottom .default-menu {
         width: 1.9% !important;
         margin-left: 0.5%;
     }
-
-    #footerarea{
-        position: relative;
-        top: -200px;
-    }
     .soc2{
         margin-left: 57px;
         top: -27px;
@@ -2274,6 +2280,10 @@ ul#menu-header-bottom .default-menu {
         position: relative;
         top: 0px;
     }
+    #text-8{
+        margin-bottom: -80px !important;
+    }
+
     /* ABOUT PAGE 501PX STYLES */
     .page-id-568 .general-breadcrumb, .page-id-568 #text-10{
         display: none;
@@ -2293,12 +2303,9 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 #text-7 .widget-title, .page-id-568 #text-11 .widget-title{
         margin-top: 10px;
     }
-    .page-id-568 #text-8{
-        margin-bottom: 100px !important;
-    }
     .page-id-568 #container .top_banner_about_page{
         position: relative;
-        margin-top: 205px;
+        margin-top: 260px;
         margin-bottom: -180px;
     }
     .page-id-568 #content #post-568{
@@ -2330,6 +2337,18 @@ ul#menu-header-bottom .default-menu {
     }
     .page-id-568 .ftb .post-summary .post-title{
         font-size: 15px;
+    }
+    /* CONTACT PAGE STYLES */
+    .page-id-532 #container #primary.no-margin-left{
+        margin-top: 260px !important;
+        margin-bottom: -284px !important;
+    }
+    .page-id-532 #container .gmapd{
+        float: right;
+        width: 60%;
+    }
+    .page-id-532 #container .gmapd .acf-map{
+        height: 237px;
     }
 
 }
@@ -2405,7 +2424,6 @@ ul#menu-header-bottom .default-menu {
     div.boxes-dos-columns .box{
         width: 48%;
         float: left;
-        margin-right: 2%;
     }
     div.boxes-dos-columns .box img{
         height: 250px;
@@ -2447,8 +2465,12 @@ ul#menu-header-bottom .default-menu {
         top: 2px;
     }
     div.boxes-dos-columns.ceps .box{
-        margin-bottom: 3px;
-        width: 23%;
+        margin-bottom: 10px;
+        width: 50%;
+    }
+    div.boxes-dos-columns.ceps .box a img{
+        height: 210px;
+        width: 97%;
     }
     div.boxes-dos-columns.ftb .box{
         width: 31%;
@@ -2485,10 +2507,9 @@ ul#menu-header-bottom .default-menu {
         margin-left: 127px;
         top: -112px;
     }
-    /*#site-generator{
-        position: relative;
-        top: -140px;
-    }*/
+    #footerarea{
+        margin-top: -230px;
+    }
     /* ABOUT PAGE 768PX STYLES */
     .page-id-568 #text-10{
         display: none;
@@ -2644,12 +2665,21 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 #text-3 .textwidget, .page-id-568 #text-4 .textwidget, /* ABOUT PAGE   */
     .page-id-532 #text-3 .textwidget, .page-id-532 #text-4 .textwidget /* CONTACT PAGE */
     {
-        height: 100px;
+        height: 140px;
     }
     .page-id-568 #text-2 .textwidget, .page-id-568 #text-6 .textwidget, /* ABOUT PAGE   */
     .page-id-532 #text-2 .textwidget, .page-id-532 #text-6 .textwidget /* CONTACT PAGE */
     {
         height: 230px;
+    }
+    /*  CONTACT PAGE STYLES  */
+    .page-id-532 #container #primary.no-margin-left{
+        margin-top: 230px !important;
+        margin-bottom: -284px !important;
+    }
+    .page-id-532 #container .gmapd{
+        float: right;
+        width: 70%;
     }
 }
 /*

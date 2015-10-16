@@ -49,13 +49,7 @@ if ($pull_boxes == "pull_manually") {
 
     <div id="container">
         <div class="row margin-grid">
-            <div class="col-md-9 gmapd">
-                <?php if( !empty($location) ):  ?>
-                    <div class="acf-map">
-                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"><small><span class='color-red'><a target='_blank' style="font-size: 12px;" href="https://www.google.com/maps/place/449+Boston+Post+Rd,+Orange,+CT+06477,+EE.+UU./@41.2576974,-73.0134718,17z/data=!3m1!4b1!4m2!3m1!1s0x89e875c119620cdf:0x5bae5e90ee506a94">449 Boston Post Road Orange, CT 06477</a></span></small></div>
-                    </div>
-                <?php endif; ?>
-            </div>
+
             <div class="col-md-3">
                 <?php
                 /**
@@ -67,6 +61,13 @@ if ($pull_boxes == "pull_manually") {
                  */
                 do_action('travelify_main_container');
                 ?>
+            </div>
+            <div class="col-md-9 gmapd">
+                <?php if( !empty($location) ):  ?>
+                    <div class="acf-map">
+                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>"><small><span class='color-red'><a target='_blank' style="font-size: 12px;" href="https://www.google.com/maps/place/449+Boston+Post+Rd,+Orange,+CT+06477,+EE.+UU./@41.2576974,-73.0134718,17z/data=!3m1!4b1!4m2!3m1!1s0x89e875c119620cdf:0x5bae5e90ee506a94">449 Boston Post Road Orange, CT 06477</a></span></small></div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
         <!-- Add clearfix -->
