@@ -2046,13 +2046,10 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 #text-6{
         margin-bottom: 30px !important;
     }
-    .page-id-568 #text-8{
-        margin-bottom: 100px !important;
-    }
-    .page-id-568 #text-7{
+    .page-id-568 #text-7, .page-id-568 #text-11, .page-id-532 #text-7, .page-id-532 #text-11{
         border-top: 1px solid #ef3d42;
     }
-    .page-id-568 #text-7 .widget-title{
+    .page-id-568 #text-7 .widget-title, .page-id-568 #text-11 .widget-title, .page-id-532 #text-7 .widget-title, .page-id-532 #text-11 .widget-title{
         margin-top: 10px;
     }
     .page-id-568 #container .top_banner_about_page{
@@ -2099,17 +2096,15 @@ ul#menu-header-bottom .default-menu {
         margin-left: 127px;
         top: -112px;
     }
-    #site-generator{
-        position: relative;
-        top: -215px;
-    }
-    .page-id-532 #site-generator{
-        position: relative;
-        top: -130px;
+    #footerarea .widget-wrap{
+        margin-bottom: -100px;
     }
     /* CONTACT PAGE */
     .gmapd{
         margin-top: 200px;
+    }
+    .gmapd .acf-map, .gmapd .acf-map .gm-style{
+        height: 300px;
     }
 }
 /*
