@@ -1099,6 +1099,11 @@ if (!empty($elements)) {
     @media only screen and (min-width: 992px){
         /* =Menu
         --------------------------------------------------------------*/
+        .exposed-header #site-logo {
+            float: left;
+            margin-top: 0px;
+        }
+
         .exposed-header .hgroup-wrap-left{
             float: left;
             position: relative;
