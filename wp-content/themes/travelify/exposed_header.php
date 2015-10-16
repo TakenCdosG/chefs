@@ -1124,7 +1124,7 @@ if (!empty($elements)) {
             position: relative;
             float: right;
             height: 31px;
-            margin-top: 25px;
+            margin-top: 18px;
             margin-bottom: 5px;
         }
 
@@ -1276,7 +1276,8 @@ if (!empty($elements)) {
 
         .exposed-header .menu-header-bottom{
             float: right;
-            margin-top: 22px;
+            margin-top: 15px;
+            margin-bottom: 15px;
         }
 
 
