@@ -171,7 +171,6 @@ if (!empty($elements)) {
             background: #231f20;
             padding: 5px;
             min-height: 43px;
-            z-index:9999;
         }
 
         .exposed-header .searchform{
@@ -416,7 +415,6 @@ if (!empty($elements)) {
             background: #231f20;
             padding: 5px;
             min-height: 43px;
-            z-index: 9999;
         }
 
         .exposed-header .searchform{
@@ -1089,16 +1087,7 @@ if (!empty($elements)) {
         }
     }
 
-    @media only screen and (min-width: 768px) and (max-width: 841px){
-
-        .exposed-header .hgroup-wrap-right{
-            float: right;
-            position: relative;
-            display: block;
-            margin-top: -100px !important;
-        }
-
-    @media only screen and (min-width: 768px) and (max-width: 944px){
+    @media only screen and (min-width: 768px) and (max-width: 800px){
         .exposed-header #main-nav a {
             padding: 0px 4px 0 4px!important;
             font-size: 11px!important;
