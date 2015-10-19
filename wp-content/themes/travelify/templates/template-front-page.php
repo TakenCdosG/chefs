@@ -59,13 +59,7 @@ if ($pull_boxes == "pull_manually") {
 }
 
 
-//-> From The Blog.
-$first_post = get_field("first_post");
-$first_blog_post = $first_post[0];
-$second_post = get_field("second_post");
-$second_blog_post = $second_post[0];
-$third_post = get_field("third_post");
-$third_blog_post = $third_post[0];
+
 /*
 $info = array(
     "first_post_id" => $first_post_id[0],
@@ -291,100 +285,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
                 </div>
             </div>
         </div>
-        <!-- Add clearfix -->
-        <div class="clearfix-block"></div>
-        <div class="row margin-grid boxes-dos-columns ftb">
-            <div class="col-md-12">
-                <h2 class="line"><span class='color-black'>FROM THE</span><span class='color-red'> BLOG</span></h2>
-            </div>
-            <div class="col-md-4">
-                <div class="box">
-                    <div class="post_thumbnail">
-                        <?php if(!empty($first_blog_post["featured_image"])):?>
-                            <img src="<?php echo $first_blog_post["featured_image"]; ?>" class="attachment-356x235 wp-post-image" alt="box-1">
-                        <?php endif; ?>
-                        <?php //echo get_the_post_thumbnail($first_blog_post->ID, array("356", "235")); ?>
-                    </div>
-                    <div class="post-summary">
-                        <?php
-                        $category = "";
-                        if($first_blog_post["format"] == "image"){
-                            $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
-                        }
-                        ?>
-                        <?php if (!empty($first_blog_post["title"])): ?>
-                            <h3 class="post-title">
-                                <?php echo $category . restrict_words_number($first_blog_post["title"], $words_number = 28); ?>
-                            </h3>
-                        <?php endif; ?>
-                        <?php if (!empty($first_blog_post["post_excerpt"])): ?>
-                            <div class="post-excerpt">
-                                <?php echo restrict_words_number($first_blog_post["post_excerpt"], $words_number = 127); ?>
-                            </div>
-                        <?php endif; ?>
-                        <a target="_blank" class="post-permalink" href="<?php echo esc_url($first_blog_post["link"]); ?>" title="<?php echo $first_blog_post["title"]; ?>">READ MORE</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="box">
-                    <div class="post_thumbnail">
-                        <?php if(!empty($second_blog_post["featured_image"])):?>
-                            <img src="<?php echo $second_blog_post["featured_image"]; ?>" class="attachment-356x235 wp-post-image" alt="box-1">
-                        <?php endif; ?>
-                        <?php //echo get_the_post_thumbnail($second_blog_post->ID, array("356", "235")); ?>
-                    </div>
-                    <div class="post-summary">
-                        <?php
-                        $category = "";
-                        if($second_blog_post["format"] == "image"){
-                            $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
-                        }
-                        ?>
-                        <?php if (!empty($second_blog_post["title"])): ?>
-                            <h3 class="post-title">
-                                <?php echo $category . restrict_words_number($second_blog_post["title"], $words_number = 28); ?>
-                            </h3>
-                        <?php endif; ?>
-                        <?php if (!empty($second_blog_post["post_excerpt"])): ?>
-                            <div class="post-excerpt">
-                                <?php echo restrict_words_number($second_blog_post["post_excerpt"], $words_number = 127); ?>
-                            </div>
-                        <?php endif; ?>
-                        <a target="_blank" class="post-permalink" href="<?php echo esc_url($second_blog_post["link"]); ?>" title="<?php echo $second_blog_post["title"]; ?>">READ MORE</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="box">
-                    <div class="post_thumbnail">
-                        <?php if(!empty($third_blog_post["featured_image"])):?>
-                            <img src="<?php echo $third_blog_post["featured_image"]; ?>" class="attachment-356x235 wp-post-image" alt="box-1">
-                        <?php endif; ?>
-                        <?php //echo get_the_post_thumbnail($third_blog_post->ID, array("356", "235")); ?>
-                    </div>
-                    <div class="post-summary">
-                        <?php
-                        $category = "";
-                        if($third_blog_post["format"] == "image"){
-                            $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
-                        }
-                        ?>
-                        <?php if (!empty($third_blog_post["title"])): ?>
-                            <h3 class="post-title">
-                                <?php echo $category . restrict_words_number($third_blog_post["title"], $words_number = 28); ?>
-                            </h3>
-                        <?php endif; ?>
-                        <?php if (!empty($third_blog_post["post_excerpt"])): ?>
-                            <div class="post-excerpt">
-                                <?php echo restrict_words_number($third_blog_post["post_excerpt"], $words_number = 127); ?>
-                            </div>
-                        <?php endif; ?>
-                        <a target="_blank" class="post-permalink" href="<?php echo esc_url($third_blog_post["link"]); ?>" title="<?php echo $third_blog_post["title"]; ?>">READ MORE</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     <!-- Add clearfix -->
     <div class="clearfix-block"></div>
         <div class="row margin-grid">
