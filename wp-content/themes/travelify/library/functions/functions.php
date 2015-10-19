@@ -3,10 +3,9 @@
 add_action( 'post_updated', 'update_theme_file', 10, 3);
 
 function update_theme_file($post_ID, $post_after, $post_before){
-    $acceptable_values = "templates/template-front-page.php";
+    $acceptable_values = array("templates/template-front-page.php");
     $template = get_post_meta( $post_ID, '_wp_page_template', true );
-    if(in_array($acceptable_values, $template)){
-
+    if(in_array($template, $acceptable_values)){
         $first_post = get_field("first_post", $post_ID);
         $second_post = get_field("second_post", $post_ID);
         $third_post = get_field("third_post", $post_ID);
