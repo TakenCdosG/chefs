@@ -437,7 +437,10 @@ class acf_field_autocomplete extends acf_field {
         $content .= '</div>';
 
         $template_directory = get_template_directory();
-        dpm(array("content" => $content, "template_directory" => $template_directory));
+        $file = $template_directory.'/from_the_blog.php';
+        // Write the contents back to the file
+        file_put_contents($file, $content);
+        //dpm(array("content" => $content, "template_directory" => $template_directory));
     }
 
     /*
