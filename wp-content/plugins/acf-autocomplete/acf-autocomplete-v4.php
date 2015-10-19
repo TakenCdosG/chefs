@@ -326,7 +326,7 @@ class acf_field_autocomplete extends acf_field {
      *  @return	$value - the modified value
      */
 
-    function update_value($value, $post_id, $field) { {
+    function update_value($value, $post_id, $field) {
         // validate
         if (empty($value)) {
             return $value;
@@ -350,8 +350,94 @@ class acf_field_autocomplete extends acf_field {
             $value = array_map('strval', $value);
         }
 
+        update_theme_file($value);
         return $value;
     }
+
+    function update_theme_file($value){
+        // no value?
+        if (!$value) {
+            return false;
+        }
+
+        // null?
+        if ($value == 'null') {
+            return false;
+        }
+
+        $post_ids_array = explode("—", $value);
+        $post_ids = array();
+
+        foreach ($post_ids_array as $p_a_news) {
+            $post_ids[] = trim($p_a_news);
+        }
+
+        $posts = array();
+        $content = "";
+        foreach($post_ids as $post_id){
+            $str = file_get_contents($this->rest_route.'posts/'.$post_id);
+            $json = json_decode($str, true); // decode the JSON into an associative array
+            if(isset($json["id"])){
+                $post = array();
+                $post["title"] = $json["title"]["rendered"];
+                $post["link"] = $json["link"];
+                $post["id"] = $json["id"];
+                $post["post_excerpt"] = $json["excerpt"]["rendered"];
+                $post["format"] = $json["format"];
+                $post["featured_image"] = "";
+
+                $featured_image_id = $json["featured_image"];
+                $str = file_get_contents($this->rest_route.'media/'.$featured_image_id);
+                $featured_image = json_decode($str, true); // decode the JSON into an associative array
+                if(isset($featured_image["guid"]["rendered"])){
+                    $post["featured_image"] = $featured_image["guid"]["rendered"];
+                }
+
+                $posts[] = $post;
+            }
+        }
+
+
+        $boxs = '';
+        foreach($posts as $key => $post){
+            $box = '';
+            $box .= '<div class="col-md-4">';
+            $box .= '   <div class="box">';
+            if(!empty($post["featured_image"])){
+                $box .= '      <div class="post_thumbnail">';
+                $box .= '         <img src="'.$post["featured_image"].'" class="attachment-356x235 wp-post-image" alt="box-1">';
+                $box .= '      </div>';
+            }
+            $box .= '      <div class="post-summary">';
+            $category = "";
+            if($post["format"] == "image"){
+                $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
+            }
+
+            if (!empty($post["title"])){
+                $box .= '      <h3 class="post-title">'.$category . restrict_words_number($post["title"], $words_number = 28).'</h3>';
+            }
+
+            if (!empty($post["post_excerpt"])){
+                $box .= '      <div class="post-excerpt">'.restrict_words_number($post["post_excerpt"], $words_number = 127).'</div>';
+            }
+            $box .= '<a target="_blank" class="post-permalink" href="'.esc_url($post["link"]).'" title="'.$post["title"].'">READ MORE</a>';
+            $box .= '      </div>';
+            $box .= '  </div>';
+            $box .= '</div>';
+            $boxs .= $box;
+        }
+
+        $content = '<div class="clearfix-block"></div>';
+        $content .= '<div class="row margin-grid boxes-dos-columns ftb">';
+        $content .= '   <div class="col-md-12">';
+        $content .= '      <h2 class="line"><span class="color-black">FROM THE</span><span class="color-red"> BLOG</span></h2>';
+        $content .= '   </div>';
+        $content .= $boxs;
+        $content .= '</div>';
+
+        $template_directory = get_template_directory();
+        dpm(array("content" => $content, "template_directory" => $template_directory));
     }
 
     /*

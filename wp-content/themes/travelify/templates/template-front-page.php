@@ -285,7 +285,7 @@ for ($i = 1; $i <= $num_logos; $i++) {
                 </div>
             </div>
         </div>
-
+        <?php  get_template_part($slug = "from_the_blog", $name);?>
     <!-- Add clearfix -->
     <div class="clearfix-block"></div>
         <div class="row margin-grid">
