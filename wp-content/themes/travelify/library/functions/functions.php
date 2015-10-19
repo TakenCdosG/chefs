@@ -1,5 +1,74 @@
 <?php
 
+add_action( 'post_updated', 'update_theme_file', 10, 3);
+
+function update_theme_file($post_ID, $post_after, $post_before){
+
+    $first_post = get_field("first_post", $post_ID);
+    $second_post = get_field("second_post", $post_ID);
+    $third_post = get_field("third_post", $post_ID);
+    $posts = array();
+
+    if(isset($first_post[0])){
+        $posts[] = $first_post[0];
+    }
+
+    if(isset($second_post[0])){
+        $posts[] = $second_post[0];
+    }
+
+    if(isset($third_post[0])){
+        $posts[] = $third_post[0];
+    }
+
+    $boxs = '';
+    foreach($posts as $key => $post){
+        $box = '';
+        $box .= '<div class="col-md-4">';
+        $box .= '   <div class="box">';
+        if(!empty($post["featured_image"])){
+            $box .= '      <div class="post_thumbnail">';
+            $box .= '         <img src="'.$post["featured_image"].'" class="attachment-356x235 wp-post-image" alt="box-1">';
+            $box .= '      </div>';
+        }
+        $box .= '      <div class="post-summary">';
+        $category = "";
+        if($post["format"] == "image"){
+            $category = "<span class='color-red'>FEATURED BLOG POST: </span>";
+        }
+
+        if (!empty($post["title"])){
+            $box .= '      <h3 class="post-title">'.$category . restrict_words_number($post["title"], $words_number = 28).'</h3>';
+        }
+
+        if (!empty($post["post_excerpt"])){
+            $box .= '      <div class="post-excerpt">'.restrict_words_number($post["post_excerpt"], $words_number = 127).'</div>';
+        }
+        $box .= '<a target="_blank" class="post-permalink" href="'.esc_url($post["link"]).'" title="'.$post["title"].'">READ MORE</a>';
+        $box .= '      </div>';
+        $box .= '  </div>';
+        $box .= '</div>';
+        $boxs .= $box;
+    }
+
+    $content = '<div class="clearfix-block"></div>';
+    $content .= '<div class="row margin-grid boxes-dos-columns ftb">';
+    $content .= '   <div class="col-md-12">';
+    $content .= '      <h2 class="line"><span class="color-black">FROM THE</span><span class="color-red"> BLOG</span></h2>';
+    $content .= '   </div>';
+    $content .= $boxs;
+    $content .= '</div>';
+
+    $template_directory = get_template_directory();
+    $file = $template_directory.'/from_the_blog.php';
+    // Write the contents back to the file
+    file_put_contents($file, $content);
+    //dpm(array("content" => $content, "template_directory" => $template_directory));
+}
+
+
+/* * ************************************************************************************* */
+
 function get_image_url($path, $id, $width, $height){
     $image_path               = $path;
     $upload_directory         = wp_upload_dir();
