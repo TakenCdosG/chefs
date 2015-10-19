@@ -3,6 +3,8 @@
 add_action( 'post_updated', 'update_theme_file', 10, 3);
 
 function update_theme_file($post_ID, $post_after, $post_before){
+    $template = get_post_meta( $post_ID, '_wp_page_template', true );
+    dpm(array("template" => $template));
 
     $first_post = get_field("first_post", $post_ID);
     $second_post = get_field("second_post", $post_ID);
