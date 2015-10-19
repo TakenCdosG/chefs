@@ -350,7 +350,7 @@ class acf_field_autocomplete extends acf_field {
             $value = array_map('strval', $value);
         }
 
-        update_theme_file($value);
+        $this->update_theme_file($value);
         return $value;
     }
 
