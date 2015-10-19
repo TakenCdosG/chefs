@@ -2903,3 +2903,11 @@ h2.tribe-events-page-title{
     line-height: 20px;
     margin-left: 15px;
 }
+#content .woocommerce h3{
+    padding-bottom: 10px;
+    color: #ef3d42;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 32px;
+    width: 100%;
+}
