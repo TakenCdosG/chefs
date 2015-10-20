@@ -1624,8 +1624,6 @@ section.featured-slider div.left-featured-slider div div.slides{
     margin: 0px;
     padding: 0px;
     position: absolute;
-    bottom: 18px;
-    right: 11px;
 }
 
 .hbspt-form .hs_submit .actions .hs-button {
@@ -2117,9 +2115,9 @@ ul#menu-header-bottom .default-menu {
         height: 300px;
     }
 }
-/*
-* RESPONSIVE 501 - 766
-*/
+/****************************************************************
+*                      RESPONSIVE 501 - 766
+****************************************************************/
 @media only screen and (min-width: 501px) and (max-width: 766px){
     .home .text-top{
         line-height: 30px;
@@ -2283,6 +2281,15 @@ ul#menu-header-bottom .default-menu {
     }
     #text-8{
         margin-bottom: -80px !important;
+    }
+    /* LIVE SITE JOIN OUR COMMUNITY WIDGET STYLES */
+    .hs_email input#email-f38f2aba-54bd-47e2-9366-9ccac2aebbf9{
+        width: 140px;
+    }
+    .hs_submit .actions{
+        position: relative;
+        margin-left: 140px;
+        margin-top: -57px;
     }
 
     /* ABOUT PAGE 501PX STYLES */
