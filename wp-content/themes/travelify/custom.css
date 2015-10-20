@@ -2711,6 +2711,13 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 .col-md-8 #primary{
         float: left;
     }
+    .hs_email input#email-f38f2aba-54bd-47e2-9366-9ccac2aebbf9{
+        width: 140px;
+    }
+    .hs_submit .actions input.hs-button{
+        margin-left: 140px;
+        margin-top: -57px;
+    }
 }
 @media only screen and (min-width: 992px) and (max-width: 1053px){
     .page-id-568 .ftb .col-md-4{
