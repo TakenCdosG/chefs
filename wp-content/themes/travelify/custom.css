@@ -2286,10 +2286,10 @@ ul#menu-header-bottom .default-menu {
     .hs_email input#email-f38f2aba-54bd-47e2-9366-9ccac2aebbf9{
         width: 140px;
     }
-    .hs_submit .actions .hs-button{
+    .hs_submit .actions input.hs-button{
         position: relative;
-        margin-left: 140px;
-        margin-top: -57px;
+        margin-left: 140px !important;
+        margin-top: -57px !important;
     }
 
     /* ABOUT PAGE 501PX STYLES */
