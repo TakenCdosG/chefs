@@ -2715,8 +2715,8 @@ ul#menu-header-bottom .default-menu {
         width: 140px;
     }
     .hs_submit .actions input.hs-button{
-        margin-left: 140px;
-        margin-top: -57px;
+        margin-left: 140px !important;
+        margin-top: -57px !important;
     }
 }
 @media only screen and (min-width: 992px) and (max-width: 1053px){
