@@ -2286,7 +2286,7 @@ ul#menu-header-bottom .default-menu {
     .hs_email input#email-f38f2aba-54bd-47e2-9366-9ccac2aebbf9{
         width: 140px;
     }
-    .hs_submit .actions{
+    .hs_submit .actions .hs-button{
         position: relative;
         margin-left: 140px;
         margin-top: -57px;
