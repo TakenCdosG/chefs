@@ -14,6 +14,7 @@ function travelify_add_meta() {
     ?>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="p:domain_verify" content="1bd9e7871a3e3b91533bb6bfba5a6c24"/>
 <?php
 }
 
