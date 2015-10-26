@@ -2810,6 +2810,7 @@ ul#menu-header-bottom .default-menu {
 }
 
 .page-template-template-about-page #main .hbspt-form input[type=text],
+.page-template-template-about-page #main .hbspt-form input[type=number],
 .page-template-template-about-page #main .hbspt-form input[type=tel],
 .page-template-template-about-page #main .hbspt-form input[type=password],
 .page-template-template-about-page #main .hbspt-form input[type="email"]{
