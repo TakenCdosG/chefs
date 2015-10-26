@@ -2873,7 +2873,7 @@ ul#menu-header-bottom .default-menu {
     font-weight: bold;
     height: 29px;
     line-height: 28px;
-    margin: 0px 5px 10px 0px;
+    margin: 0px 5px 10px 0px!important;
     padding: 0px 12px;
     text-align: center;
     text-decoration: none;
