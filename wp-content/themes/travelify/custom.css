@@ -1503,7 +1503,8 @@ thead th, tfoot th, thead tr:hover th, tfoot tr:hover th {
     padding-left: 20px;
 }
 
-.page-template-template-about-page .entry-title{
+.page-template-template-about-page .entry-title,
+.page-template-default .entry-title{
     color: #ef3d42;
     font-size: 30px;
     font-weight: bold
