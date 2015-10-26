@@ -2846,6 +2846,13 @@ ul#menu-header-bottom .default-menu {
     color: #414141;
 }
 
+
+.page-template-template-about-page #main .hs-form.stacked .hs-error-msgs > li label {
+    font-weight: normal;
+    padding-top: 0px;
+    color: #ef3d42;
+}
+
 .page-template-template-about-page #main .hbspt-form .hs_email label span{
     font-family: inherit;
 }
