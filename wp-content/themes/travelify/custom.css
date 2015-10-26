@@ -2848,8 +2848,8 @@ ul#menu-header-bottom .default-menu {
 
 
 .page-template-template-about-page #main .hs-form.stacked .hs-error-msgs > li label {
-    font-weight: normal;
-    padding-top: 0px;
+    padding: 0px;
+    margin: 0px;
     color: #ef3d42;
 }
 
