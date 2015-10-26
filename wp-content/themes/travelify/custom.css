@@ -2846,10 +2846,12 @@ ul#menu-header-bottom .default-menu {
     color: #414141;
 }
 
-
-.page-template-template-about-page #main .hs-form.stacked .hs-error-msgs > li label {
+.page-template-template-about-page #main .hs-form.stacked .hs-error-msgs{
     padding: 0px;
     margin: 0px;
+}
+
+.page-template-template-about-page #main .hs-form.stacked .hs-error-msgs > li label {
     color: #ef3d42;
 }
 
