@@ -1835,6 +1835,9 @@ ul#menu-header-bottom .default-menu {
         height: 300px;
         width: 100%;
     }
+    div.right-featured-slider figure a img{
+        display: none;
+    }
     div#main.clearfix{
         bottom: 210px;
         position: relative;
@@ -2165,7 +2168,7 @@ ul#menu-header-bottom .default-menu {
     .resp-yes{
         display: block;
     }
-    #text-10, .resp-no{
+    #text-10, .resp-no, .img-resp-ver-right-slider{
         display: none;
     }
     #text-7 .resp-no, #text-11 .resp-no{
@@ -2418,7 +2421,7 @@ ul#menu-header-bottom .default-menu {
     #text-8, .resp-yes, #text-8 .resp-no{
         display: block;
     }
-    .hgroup-right-header_bottom {
+    .hgroup-right-header_bottom, .img-resp-ver-right-slider {
         display: none;
     }
     div#main.clearfix{
@@ -2699,7 +2702,7 @@ ul#menu-header-bottom .default-menu {
         bottom: 50px;
     }
 
-    #text-10, .resp-yes{
+    #text-10, .resp-yes, .img-resp-ver-right-slider{
         display: none;
     }
     .resp-no{
