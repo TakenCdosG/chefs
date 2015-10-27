@@ -57,6 +57,16 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
 embed,iframe,object {
     max-width: 100%;
 }
+
+
+/* @import must be at top of file, otherwise CSS will not work */
+@import url("//hello.myfonts.net/count/2f52b3");
+
+
+@font-face {font-family: 'Vito-Bold';src: url('library/font/webfonts/2F52B3_0_0.eot');src: url('library/font/webfonts/2F52B3_0_0.eot?#iefix') format('embedded-opentype'),url('library/font/webfonts/2F52B3_0_0.woff2') format('woff2'),url('library/font/webfonts/2F52B3_0_0.woff') format('woff'),url('library/font/webfonts/2F52B3_0_0.ttf') format('truetype');}
+
+
+
 /* =Global
 -----------------------------------------------*/
 body,input,textarea,article {
@@ -115,7 +125,7 @@ hr {
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     @font-face {
         font-family: "Genericons";
-        src: url("library/font//Genericons.svg#Genericons") format("svg");
+        src: url("library/font/Genericons.svg#Genericons") format("svg");
     }
 }
 
@@ -583,7 +593,6 @@ a.more-link:hover {
     line-height: 1;
     text-decoration: inherit;
     text-transform: none;
-    speak: none;
 }
 .social-icons ul li a:hover {
     color: #fff !important;
@@ -1599,7 +1608,7 @@ ul.default-wp-page li a:active {
     width: 95%;
     text-align: center;
     margin: auto;
-    border-radius: none;
+    border-radius: 0;
 }
 .widget_calendar #wp-calendar caption,.widget_calendar #wp-calendar td,.widget_calendar #wp-calendar th {
     text-align: center;
