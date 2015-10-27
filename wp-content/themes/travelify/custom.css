@@ -1157,6 +1157,7 @@ div.pagination-category{
     margin-top: 3px;
     display: block;
     position: relative;
+    clear: both;
 }
 
 .featured-slider .left-featured-slider{
