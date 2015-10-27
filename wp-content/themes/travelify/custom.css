@@ -1790,9 +1790,9 @@ ul#menu-header-bottom .default-menu {
     color: #fff;
 }
 
-/*
-* HOME RESPONSIVE DESIGN 320PX
-*/
+/**************************************************
+*           RESPONSIVE DESIGN 320PX
+**************************************************/
 @media only screen and (min-width: 320px) and (max-width: 370px){
     .mobile-menu .s.field{
         width: 129px !important;
@@ -1870,6 +1870,9 @@ ul#menu-header-bottom .default-menu {
     div.boxes-dos-columns .box div.box-summary-right{
         right: inherit;
         margin-left: 5%;
+    }
+    div.boxes-dos-columns .box.rl-boxes img{
+        display: none;
     }
     h2.line{
         font-size: 20px;
@@ -2170,7 +2173,7 @@ ul#menu-header-bottom .default-menu {
     .resp-yes{
         display: block;
     }
-    #text-10, .resp-no, .img-resp-ver-right-slider{
+    #text-10, .resp-no, .img-resp-ver-right-slider, div.boxes-dos-columns .box.rl-boxes img{
         display: none;
     }
     #text-7 .resp-no, #text-11 .resp-no{
@@ -2423,7 +2426,7 @@ ul#menu-header-bottom .default-menu {
     #text-8, .resp-yes, #text-8 .resp-no{
         display: block;
     }
-    .hgroup-right-header_bottom, .img-resp-ver-right-slider {
+    .hgroup-right-header_bottom, .img-resp-ver-right-slider, div.boxes-dos-columns .img-boxbg {
         display: none;
     }
     div#main.clearfix{
@@ -2437,6 +2440,11 @@ ul#menu-header-bottom .default-menu {
     div.boxes-dos-columns .box{
         width: 48%;
         float: left;
+    }
+    div.boxes-dos-columns .box.rl-boxes{
+        width: 48%;
+        float: left;
+        margin-right: 2%;
     }
     div.boxes-dos-columns .box img{
         height: 250px;
@@ -2704,7 +2712,7 @@ ul#menu-header-bottom .default-menu {
         bottom: 50px;
     }
 
-    #text-10, .resp-yes, .img-resp-ver-right-slider{
+    #text-10, .resp-yes, .img-resp-ver-right-slider, div.boxes-dos-columns .img-boxbg{
         display: none;
     }
     .resp-no{

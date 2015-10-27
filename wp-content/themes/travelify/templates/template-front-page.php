@@ -116,9 +116,12 @@ for ($i = 1; $i <= $num_logos; $i++) {
         <?php if (!empty($boxes_left_background_image) && !empty($boxes_right_background_image)): ?>
             <div class="row margin-grid boxes-dos-columns min-height-282">
                 <div class="col-md-6">
-                    <div class="box">
+                    <div class="box rl-boxes">
                         <?php if (!empty($boxes_left_background_image)): ?>
                             <img width="" height="" src="<?php echo $boxes_left_background_image; ?>" class="img-responsive" alt="<?php echo $boxes_left_title_red . " " . $boxes_left_title_black; ?>" title="<?php echo $boxes_left_title_red . " " . $boxes_left_title_black; ?>">
+                            <div class="img-boxbg" style="background-image: url(<?php echo $boxes_left_background_image ?>);
+                                                                                         min-height: 250px;
+                                                                                         background-size: cover;"></div>
                         <?php endif; ?>
                         <div class="box-summary-right">
                             <?php if (!empty($boxes_left_title_red)): ?>
@@ -138,9 +141,12 @@ for ($i = 1; $i <= $num_logos; $i++) {
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="box">
+                    <div class="box rl-boxes">
                         <?php if (!empty($boxes_right_background_image)): ?>
                             <img width="" height="" src="<?php echo $boxes_right_background_image; ?>" class="img-responsive" alt="<?php echo $boxes_right_title_red . " " . $boxes_right_title_black; ?>" title="<?php echo $boxes_right_title_red . " " . $boxes_right_title_black; ?>">
+                            <div class="img-boxbg" style="background-image: url(<?php echo $boxes_right_background_image ?>);
+                                min-height: 250px;
+                                background-size: cover;"></div>
                         <?php endif; ?>
                         <div class="box-summary-right">
                             <?php if (!empty($boxes_right_title_red)): ?>
