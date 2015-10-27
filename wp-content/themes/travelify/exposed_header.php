@@ -131,6 +131,10 @@ if (!empty($elements)) {
         background: #151013;
     }
 
+    .exposed-header #main-nav ul.root li:last-child a {
+        color: '#ef3d42';
+    }
+
     @media only screen and (min-width: 320px) and (max-width: 549px){
 
         .exposed-header .container {
