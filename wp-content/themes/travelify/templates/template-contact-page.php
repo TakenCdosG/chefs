@@ -77,106 +77,118 @@ if ($pull_boxes == "pull_manually") {
                 <h2 class="line"><span class='color-black'>EXPERIENCE</span><span class='color-red'> CHEF'S</span></h2>
             </div>
             <div class="boxes-dos-columns ceps">
-            <div class="col-md-3">
-                <div class="box">
-                    <?php if(!empty($manually_first_link)): ?>
-                    <a href="<?php echo $manually_first_link; ?>">
-                        <?php endif; ?>
-                        <?php if (!empty($manually_first_background_image)): ?>
-                            <img width="" height="" src="<?php echo $manually_first_background_image; ?>" class="img-responsive" alt="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>" title="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>">
-                        <?php endif; ?>
-                        <div class="box-summary-middle">
-                            <?php if (!empty($manually_first_title_black)): ?>
-                                <h3 class="title-color-black">
-                                    <?php echo $manually_first_title_black; ?>
-                                </h3>
-                            <?php endif; ?>
-                            <?php if (!empty($manually_first_title_red)): ?>
-                                <h2 class="title-color-red">
-                                    <?php echo $manually_first_title_red; ?>
-                                </h2>
-                            <?php endif; ?>
-                        </div>
+                <div class="col-md-3">
+                    <div class="box rl-boxes">
                         <?php if(!empty($manually_first_link)): ?>
-                    </a>
-                <?php endif; ?>
+                        <a href="<?php echo $manually_first_link; ?>">
+                            <?php endif; ?>
+                            <?php if (!empty($manually_first_background_image)): ?>
+                                <img width="" height="" src="<?php echo $manually_first_background_image; ?>" class="img-responsive" alt="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>" title="<?php echo $manually_first_title_black . " " . $manually_first_title_red; ?>">
+                                <div class="img-boxbg" style="background-image: url(<?php echo $manually_first_background_image ?>);
+                                    min-height: 250px;
+                                    background-size: cover;"></div>
+                            <?php endif; ?>
+                            <div class="box-summary-middle">
+                                <?php if (!empty($manually_first_title_black)): ?>
+                                    <h3 class="title-color-black">
+                                        <?php echo $manually_first_title_black; ?>
+                                    </h3>
+                                <?php endif; ?>
+                                <?php if (!empty($manually_first_title_red)): ?>
+                                    <h2 class="title-color-red">
+                                        <?php echo $manually_first_title_red; ?>
+                                    </h2>
+                                <?php endif; ?>
+                            </div>
+                            <?php if(!empty($manually_first_link)): ?>
+                        </a>
+                    <?php endif; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="box">
-                    <?php if(!empty($manually_second_link)): ?>
-                    <a href="<?php echo $manually_second_link; ?>">
-                        <?php endif; ?>
-                        <?php if (!empty($manually_second_background_image)): ?>
-                            <img width="" height="" src="<?php echo $manually_second_background_image; ?>" class="img-responsive" alt="<?php echo $manually_second_title_black . " " . $manually_second_title_red; ?>" title="<?php echo $manually_second_title_black . " " . $manually_second_title_red; ?>">
-                        <?php endif; ?>
-                        <div class="box-summary-middle">
-                            <?php if (!empty($manually_second_title_black)): ?>
-                                <h3 class="title-color-black">
-                                    <?php echo $manually_second_title_black; ?>
-                                </h3>
-                            <?php endif; ?>
-                            <?php if (!empty($manually_second_title_red)): ?>
-                                <h2 class="title-color-red">
-                                    <?php echo $manually_second_title_red; ?>
-                                </h2>
-                            <?php endif; ?>
-                        </div>
+                <div class="col-md-3">
+                    <div class="box rl-boxes">
                         <?php if(!empty($manually_second_link)): ?>
-                    </a>
-                <?php endif; ?>
+                        <a href="<?php echo $manually_second_link; ?>">
+                            <?php endif; ?>
+                            <?php if (!empty($manually_second_background_image)): ?>
+                                <img width="" height="" src="<?php echo $manually_second_background_image; ?>" class="img-responsive" alt="<?php echo $manually_second_title_black . " " . $manually_second_title_red; ?>" title="<?php echo $manually_second_title_black . " " . $manually_second_title_red; ?>">
+                                <div class="img-boxbg" style="background-image: url(<?php echo $manually_second_background_image ?>);
+                                    min-height: 250px;
+                                    background-size: cover;"></div>
+                            <?php endif; ?>
+                            <div class="box-summary-middle">
+                                <?php if (!empty($manually_second_title_black)): ?>
+                                    <h3 class="title-color-black">
+                                        <?php echo $manually_second_title_black; ?>
+                                    </h3>
+                                <?php endif; ?>
+                                <?php if (!empty($manually_second_title_red)): ?>
+                                    <h2 class="title-color-red">
+                                        <?php echo $manually_second_title_red; ?>
+                                    </h2>
+                                <?php endif; ?>
+                            </div>
+                            <?php if(!empty($manually_second_link)): ?>
+                        </a>
+                    <?php endif; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="box">
-                    <?php if(!empty($manually_third_link)): ?>
-                    <a href="<?php echo $manually_third_link; ?>">
-                        <?php endif; ?>
-                        <?php if (!empty($manually_third_background_image)): ?>
-                            <img width="" height="" src="<?php echo $manually_third_background_image; ?>" class="img-responsive" alt="<?php echo $manually_third_title_black . " " . $manually_third_title_red; ?>" title="<?php echo $manually_third_title_black . " " . $manually_third_title_red; ?>">
-                        <?php endif; ?>
-                        <div class="box-summary-middle">
-                            <?php if (!empty($manually_third_title_black)): ?>
-                                <h3 class="title-color-black">
-                                    <?php echo $manually_third_title_black; ?>
-                                </h3>
-                            <?php endif; ?>
-                            <?php if (!empty($manually_third_title_red)): ?>
-                                <h2 class="title-color-red">
-                                    <?php echo $manually_third_title_red; ?>
-                                </h2>
-                            <?php endif; ?>
-                        </div>
+                <div class="col-md-3">
+                    <div class="box rl-boxes">
                         <?php if(!empty($manually_third_link)): ?>
-                    </a>
-                <?php endif; ?>
+                        <a href="<?php echo $manually_third_link; ?>">
+                            <?php endif; ?>
+                            <?php if (!empty($manually_third_background_image)): ?>
+                                <img width="" height="" src="<?php echo $manually_third_background_image; ?>" class="img-responsive" alt="<?php echo $manually_third_title_black . " " . $manually_third_title_red; ?>" title="<?php echo $manually_third_title_black . " " . $manually_third_title_red; ?>">
+                                <div class="img-boxbg" style="background-image: url(<?php echo $manually_third_background_image ?>);
+                                    min-height: 250px;
+                                    background-size: cover;"></div>
+                            <?php endif; ?>
+                            <div class="box-summary-middle">
+                                <?php if (!empty($manually_third_title_black)): ?>
+                                    <h3 class="title-color-black">
+                                        <?php echo $manually_third_title_black; ?>
+                                    </h3>
+                                <?php endif; ?>
+                                <?php if (!empty($manually_third_title_red)): ?>
+                                    <h2 class="title-color-red">
+                                        <?php echo $manually_third_title_red; ?>
+                                    </h2>
+                                <?php endif; ?>
+                            </div>
+                            <?php if(!empty($manually_third_link)): ?>
+                        </a>
+                    <?php endif; ?>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="box">
-                    <?php if(!empty($manually_fourth_link)): ?>
-                    <a href="<?php echo $manually_fourth_link; ?>">
-                        <?php endif; ?>
-                        <?php if (!empty($manually_fourth_background_image)): ?>
-                            <img width="" height="" src="<?php echo $manually_fourth_background_image; ?>" class="img-responsive" alt="<?php echo $manually_fourth_title_black . " " . $manually_fourth_title_red; ?>" title="<?php echo $manually_fourth_title_black . " " . $manually_fourth_title_red; ?>">
-                        <?php endif; ?>
-                        <div class="box-summary-middle">
-                            <?php if (!empty($manually_fourth_title_black)): ?>
-                                <h3 class="title-color-black">
-                                    <?php echo $manually_fourth_title_black; ?>
-                                </h3>
-                            <?php endif; ?>
-                            <?php if (!empty($manually_fourth_title_red)): ?>
-                                <h2 class="title-color-red">
-                                    <?php echo $manually_fourth_title_red; ?>
-                                </h2>
-                            <?php endif; ?>
-                        </div>
+                <div class="col-md-3">
+                    <div class="box rl-boxes">
                         <?php if(!empty($manually_fourth_link)): ?>
-                    </a>
-                <?php endif; ?>
+                        <a href="<?php echo $manually_fourth_link; ?>">
+                            <?php endif; ?>
+                            <?php if (!empty($manually_fourth_background_image)): ?>
+                                <img width="" height="" src="<?php echo $manually_fourth_background_image; ?>" class="img-responsive" alt="<?php echo $manually_fourth_title_black . " " . $manually_fourth_title_red; ?>" title="<?php echo $manually_fourth_title_black . " " . $manually_fourth_title_red; ?>">
+                                <div class="img-boxbg" style="background-image: url(<?php echo $manually_fourth_background_image ?>);
+                                    min-height: 250px;
+                                    background-size: cover;"></div>
+                            <?php endif; ?>
+                            <div class="box-summary-middle">
+                                <?php if (!empty($manually_fourth_title_black)): ?>
+                                    <h3 class="title-color-black">
+                                        <?php echo $manually_fourth_title_black; ?>
+                                    </h3>
+                                <?php endif; ?>
+                                <?php if (!empty($manually_fourth_title_red)): ?>
+                                    <h2 class="title-color-red">
+                                        <?php echo $manually_fourth_title_red; ?>
+                                    </h2>
+                                <?php endif; ?>
+                            </div>
+                            <?php if(!empty($manually_fourth_link)): ?>
+                        </a>
+                    <?php endif; ?>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
         <!-- Add clearfix -->
