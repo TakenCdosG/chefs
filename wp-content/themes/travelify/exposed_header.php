@@ -1191,7 +1191,7 @@ if (!empty($elements)) {
             color: #fff;
             display: block;
             float: left;
-            padding: 0px 10px 0 10px;
+            padding: 0px 9px 0 9px;
             height: auto;
             text-decoration: none;
             font: 12px Helvetica, sans-serif;
