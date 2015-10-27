@@ -131,7 +131,7 @@ if (!empty($elements)) {
         background: #151013;
     }
 
-    .exposed-header #main-nav ul.root li.menu-item:last-child a {
+    .exposed-header #main-nav ul.root li.menu-item-847 a {
         color: #ef3d42;
     }
 
