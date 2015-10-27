@@ -2426,7 +2426,7 @@ ul#menu-header-bottom .default-menu {
     #text-8, .resp-yes, #text-8 .resp-no{
         display: block;
     }
-    .hgroup-right-header_bottom, .img-resp-ver-right-slider, div.boxes-dos-columns .img-boxbg {
+    .hgroup-right-header_bottom, .img-resp-ver-right-slider, div.boxes-dos-columns .box.rl-boxes img {
         display: none;
     }
     div#main.clearfix{
