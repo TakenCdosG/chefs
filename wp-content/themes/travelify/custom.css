@@ -1789,7 +1789,9 @@ ul#menu-header-bottom .default-menu {
 #main-nav li:hover > a, #main-nav ul ul :hover > a, #main-nav a:focus {
     color: #fff;
 }
-
+.img-boxbg{
+    background-position: center;
+}
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
