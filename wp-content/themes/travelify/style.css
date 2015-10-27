@@ -957,8 +957,9 @@ a.more-link:hover {
     color: #555;
 }
 .entry-title {
-    font: 24px 'Ubuntu', sans-serif;
+    font: 24px 'Vito-Bold', sans-serif;
     line-height: 1.4em;
+    font-family: 'Vito-Bold' !important;
 }
 .entry-title,.entry-title a {
     color: #1b1e1f;

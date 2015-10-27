@@ -1507,7 +1507,7 @@ thead th, tfoot th, thead tr:hover th, tfoot tr:hover th {
 .page-template-default .entry-title{
     color: #ef3d42;
     font-size: 30px;
-    font-weight: bold
+    font-weight: 400;
 }
 
 .page-template-template-about-page #primary.no-margin-left {
@@ -2559,7 +2559,7 @@ ul#menu-header-bottom .default-menu {
     .page-id-568 #site-generator{
         margin-top: -76px;
     }
-        /* FOOTER STYLES HOME PAGE */
+    /* FOOTER STYLES HOME PAGE */
     .page-id-109/*home page id*/  #footerarea .col-md-3 {
         width: 25%;
         float: left;
@@ -2599,7 +2599,7 @@ ul#menu-header-bottom .default-menu {
     }
     .hs_email input#email-f38f2aba-54bd-47e2-9366-9ccac2aebbf9::-webkit-input-placeholder {
         font-size: 10px;
-                                                                 }
+    }
     .hs_submit .actions input.hs-button{
         position: absolute !important;
         margin-left: 102px !important;
@@ -2644,7 +2644,7 @@ ul#menu-header-bottom .default-menu {
         width: 30px !important;
     }
     .page-id-109 #footerarea #text-9 span{
-    display: none
+        display: none
     }
     /*FROM THE BLOG STYLES - ABOUT PAGE*/
     .page-id-568 .ftb .post_thumbnail{
