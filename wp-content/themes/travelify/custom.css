@@ -3004,3 +3004,9 @@ h2.tribe-events-page-title{
     width: 100%;
     text-transform: uppercase;
 }
+
+.tribe_events ol,
+.tribe_events ul{
+    list-style: initial;
+    padding-left: 20px;
+}
