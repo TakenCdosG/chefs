@@ -2070,14 +2070,14 @@ ul#menu-header-bottom .default-menu {
         margin-top: 10px;
     }
     /*.page-id-568*/ #container .top_banner_about_page{
-        position: relative;
-        margin-top: 205px;
-        margin-bottom: -180px;
-    }
+                         position: relative;
+                         margin-top: 205px;
+                         margin-bottom: -180px;
+                     }
     /*.page-id-568*/ #content /*#post-568*/ section{
-        position: relative;
-        margin-top: 170px;
-    }
+                         position: relative;
+                         margin-top: 170px;
+                     }
     .page-id-579 #content section, .page-id-607 #content section, .page-id-628 #content section{
         margin-top: 190px !important;
     }
@@ -2352,19 +2352,19 @@ ul#menu-header-bottom .default-menu {
         margin-top: 10px;
     }
     /*.page-id-568*/ #container .top_banner_about_page{
-        position: relative;
-        margin-top: 260px;
-        margin-bottom: -180px;
-    }
+                         position: relative;
+                         margin-top: 260px;
+                         margin-bottom: -180px;
+                     }
     .page-id-601 #container .top_banner_about_page, .page-id-609 #container .top_banner_about_page{
         position: relative;
         margin-top: 220px;
         margin-bottom: -180px;
     }
     /*.page-id-568*/.page #content /*#post-568*/ section{
-        position: relative;
-        top: 170px;
-    }
+                        position: relative;
+                        top: 170px;
+                    }
     .page-id-568 #post-568 .entry-content .color-red{
         font-weight: bolder;
     }
@@ -2473,7 +2473,7 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
     div#main.clearfix{
-       bottom: 230px;
+        bottom: 230px;
         position: relative;
     }
     #container .title_top h1{
@@ -3009,4 +3009,19 @@ h2.tribe-events-page-title{
 .tribe_events ul{
     list-style: initial;
     padding-left: 20px;
+}
+
+.entry-content{
+    color: #757575;
+}
+
+.entry-content p{
+    margin-bottom: 15px;
+    word-break: normal;
+    line-height: 24px;
+    font-weight: 400;
+    font-style: normal;
+    font-family: Helvetica, sans-serif;
+    color: #757575;
+    font-size: 14px;
 }
