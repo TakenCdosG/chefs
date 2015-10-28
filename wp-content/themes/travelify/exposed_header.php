@@ -141,6 +141,11 @@ if (!empty($elements)) {
         font-weight: normal;
     }
 
+    .exposed-header #main-nav ul.root li.current-menu-item.menu-item-847 a {
+        color: #fff;
+        font-weight: normal;
+    }
+
     @media only screen and (min-width: 320px) and (max-width: 549px){
 
         .exposed-header .container {
