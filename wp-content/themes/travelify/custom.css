@@ -2386,8 +2386,13 @@ ul#menu-header-bottom .default-menu {
     }
     /*FROM THE BLOG STYLES - ABOUT PAGE*/
     .page-id-568 .ftb{
-        margin-top: 75px;
+        /*margin-top: 75px;*/
     }
+
+    .margin-top-50 {
+        margin-top: 0px;
+    }
+
     .page-id-568 .ftb .post_thumbnail{
         float: left;
         width: 50%;
