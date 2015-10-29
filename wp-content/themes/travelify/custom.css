@@ -1847,8 +1847,11 @@ ul#menu-header-bottom .default-menu {
         position: relative !important;
     }
     div#main.clearfix{
-        margin-top: -210px;
+        margin-top: 0px;
+        clear: both;
         position: relative;
+        display: block;
+        width: 100%;
     }
     .body #container .title_top h1{
         font-size: 19px;
@@ -1928,8 +1931,11 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
     #footerarea{
+        margin-top: 0px;
+        clear: both;
         position: relative;
-        margin-top: -230px;
+        display: block;
+        width: 100%;
     }
     .cart1, .color-red .amount{
         display: none;
@@ -2076,7 +2082,6 @@ ul#menu-header-bottom .default-menu {
                      }
     /*.page-id-568*/ #content /*#post-568*/ section{
                          position: relative;
-                         margin-top: 170px;
                      }
     .page-id-579 #content section, .page-id-607 #content section, .page-id-628 #content section{
         margin-top: 190px !important;
