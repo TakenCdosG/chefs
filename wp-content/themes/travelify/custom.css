@@ -1801,6 +1801,21 @@ ul#menu-header-bottom .default-menu {
     }
 }
 @media only screen and (min-width: 320px) and (max-width: 500px){
+
+    .hs-form.stacked .inputs-list {
+        margin-bottom: 0;
+        clear: both;
+        position: relative;
+        display: block;
+        padding: 0px;
+    }
+
+    .hbspt-form .hs_submit .actions {
+        margin: 0px;
+        padding: 0px;
+        position: relative;
+    }
+
     .home .text-top{
         line-height: 26px;
     }
