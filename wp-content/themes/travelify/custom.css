@@ -2489,8 +2489,11 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
     div#main.clearfix{
-        bottom: 230px;
+        margin-top: 0px;
+        clear: both;
         position: relative;
+        display: block;
+        width: 100%;
     }
     #container .title_top h1{
         font-size: 22px;
@@ -2588,7 +2591,11 @@ ul#menu-header-bottom .default-menu {
         top: -112px;
     }
     #footerarea{
-        margin-top: -230px;
+        margin-top: 0px;
+        clear: both;
+        position: relative;
+        display: block;
+        width: 100%;
     }
 
     .page-id-601 #container .row.margin-grid:nth-child(2),
