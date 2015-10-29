@@ -2272,7 +2272,7 @@ ul#menu-header-bottom .default-menu {
         width: 100%;
     }
     #container{
-        /*margin-top: -220px;*/
+        margin-top: -265px;
     }
     #container .title_top h1{
         font-size: 22px;
@@ -2469,6 +2469,9 @@ ul#menu-header-bottom .default-menu {
 *                   RESPONSIVE > 767PX < 992PX
 ********************************************************************/
 @media only screen and (min-width: 767px) and (max-width: 991px){
+    #container{
+        margin-top: -265px;
+    }
     .home .text-top{
         line-height: 30px;
     }
@@ -2848,6 +2851,9 @@ ul#menu-header-bottom .default-menu {
     .hs_submit .actions input.hs-button{
         margin-left: 140px !important;
         margin-top: -57px !important;
+    }
+    figure.featured_image_right.slides{
+        margin-top: 2px;
     }
 }
 @media only screen and (min-width: 992px) and (max-width: 1053px){
