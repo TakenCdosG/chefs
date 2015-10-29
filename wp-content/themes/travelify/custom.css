@@ -2228,7 +2228,7 @@ ul#menu-header-bottom .default-menu {
         width: 100%;
     }
     #container{
-        margin-top: -220px;
+        /*margin-top: -220px;*/
     }
     #container .title_top h1{
         font-size: 22px;
@@ -2359,8 +2359,6 @@ ul#menu-header-bottom .default-menu {
     }
     /*.page-id-568*/ #container .top_banner_about_page{
                          position: relative;
-                         margin-top: 260px;
-                         margin-bottom: -180px;
                      }
     .page-id-601 #container .top_banner_about_page, .page-id-609 #container .top_banner_about_page{
         position: relative;
@@ -2369,7 +2367,7 @@ ul#menu-header-bottom .default-menu {
     }
     /*.page-id-568*/.page #content /*#post-568*/ section{
                         position: relative;
-                        top: 170px;
+                        /*top: 170px;*/
                     }
     .page-id-568 #post-568 .entry-content .color-red{
         font-weight: bolder;
