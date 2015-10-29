@@ -2613,7 +2613,11 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
     .page-id-568 .general-breadcrumb{
-        margin-top: 230px;
+        margin-top: 0px;
+        clear: both;
+        position: relative;
+        display: block;
+        width: 100%;
     }
     .page-id-568 .mobile-menu{
         margin-bottom: 50px;
