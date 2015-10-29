@@ -2076,9 +2076,11 @@ ul#menu-header-bottom .default-menu {
         margin-top: 10px;
     }
     /*.page-id-568*/ #container .top_banner_about_page{
+                         margin-top: 0px;
+                         clear: both;
                          position: relative;
-                         margin-top: 205px;
-                         margin-bottom: -180px;
+                         display: block;
+                         width: 100%;
                      }
     /*.page-id-568*/ #content /*#post-568*/ section{
                          position: relative;
