@@ -30,7 +30,9 @@ function update_theme_file($post_ID, $post_after, $post_before){
             $box .= '   <div class="box">';
             if(!empty($post["featured_image"])){
                 $box .= '      <div class="post_thumbnail">';
-                $box .= '         <img src="'.$post["featured_image"].'" class="attachment-356x235 wp-post-image" alt="box-1">';
+                $box .= '           <a target="_blank" class="post-img-permalink" href="'.esc_url($post["link"]).'" title="'.$post["title"].'">';
+                $box .= '            <img src="'.$post["featured_image"].'" class="attachment-356x235 wp-post-image" alt="box-1">';
+                $box .= '           </a>';
                 $box .= '      </div>';
             }
             $box .= '      <div class="post-summary">';
