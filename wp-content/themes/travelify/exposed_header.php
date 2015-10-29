@@ -43,6 +43,7 @@ if (!empty($elements)) {
         display: block;
         clear: both;
         width: 100%;
+        z-index: 9999;
     }
 
     .exposed-header .clearfix {
