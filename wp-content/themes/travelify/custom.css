@@ -2215,11 +2215,17 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
     .wrapper #branding{
-        margin-bottom: -50px;
+        clear: both;
+        position: relative;
+        display: block;
+        width: 100%;
     }
     div#main.clearfix{
         margin-top: 0px;
+        clear: both;
         position: relative;
+        display: block;
+        width: 100%;
     }
     #container{
         margin-top: -220px;
