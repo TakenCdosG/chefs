@@ -1939,6 +1939,14 @@ ul#menu-header-bottom .default-menu {
         width: 2.09% !important;
         margin-left: 0.1%;
     }
+    .flex-direction-nav .flex-prev {
+        opacity: 1;
+        left: -9px;
+    }
+    .flex-direction-nav .flex-next {
+        opacity: 1;
+        right: -35px;
+    }
     .ftb .box{
         width: 100% !important;
     }
@@ -2342,6 +2350,14 @@ ul#menu-header-bottom .default-menu {
         margin-left: 0.7%; KEEPING OLD STYLES JUST IN CASE*/
         width: 1.9% !important;
         margin-left: 0.5%;
+    }
+    .flex-direction-nav .flex-prev {
+        opacity: 1;
+        left: -9px;
+    }
+    .flex-direction-nav .flex-next {
+        opacity: 1;
+        right: -35px;
     }
     .soc2{
         margin-left: 57px;
