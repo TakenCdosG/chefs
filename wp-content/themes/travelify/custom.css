@@ -1823,6 +1823,10 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
 
+    .slicknav_menu .menu-item-492{
+        display: none;
+    }
+
     div.left-featured-slider{
         width: 100% !important;
     }
