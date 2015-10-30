@@ -170,6 +170,10 @@ if (!empty($elements)) {
             display:none;
         }
 
+        ul.slicknav_nav li.default-menu{
+            display: none;
+        }
+
         .exposed-header .mobile-menu,
         .exposed-header .slicknav_menu .slicknav_btn,
         .exposed-header .slicknav_menu .slicknav_menutxt {
@@ -396,6 +400,10 @@ if (!empty($elements)) {
 
         .exposed-header .container {
             width: auto;
+        }
+
+        ul.slicknav_nav li.default-menu{
+            display: none;
         }
 
         .exposed-header .hgroup-wrap-left,
