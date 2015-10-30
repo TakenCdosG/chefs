@@ -2100,9 +2100,6 @@ ul#menu-header-bottom .default-menu {
     /*.page-id-568*/ #content /*#post-568*/ section{
                          position: relative;
                      }
-    .page-id-579 #content section, .page-id-607 #content section, .page-id-628 #content section{
-        margin-top: 190px !important;
-    }
     .page-id-568 #container .ftb .box.margin-top-50{
         margin-top: 0px;
         margin-bottom: 0px;
