@@ -115,12 +115,8 @@ jQuery(function ($) {
     var secondMenu = $('ul#menu-header-bottom').clone();
     var thirdMenu = $('ul#menu-header-upper').clone();
 
-    secondMenu.prepend('<div class="category2">');
     secondMenu.children('li').appendTo(combinedMenu);
-    secondMenu.append('</div>');
-
     thirdMenu.children('li').appendTo(combinedMenu);
-    thirdMenu.addClass('category3');
     combinedMenu.slicknav({
         duplicate:false,
         prependTo : '.mobile-menu',

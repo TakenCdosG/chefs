@@ -1823,7 +1823,7 @@ ul#menu-header-bottom .default-menu {
         display: none;
     }
 
-    .slicknav_menu .menu-item-492{
+    .slicknav_menu li.menu-item-492{
         display: none;
     }
 
@@ -2197,6 +2197,10 @@ ul#menu-header-bottom .default-menu {
         position: relative;
         display: block;
         padding: 0px;
+    }
+
+    .slicknav_menu li.menu-item-492{
+        display: none;
     }
 
     #footerarea .widget {
