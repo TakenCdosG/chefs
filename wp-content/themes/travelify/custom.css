@@ -1826,7 +1826,16 @@ ul#menu-header-bottom .default-menu {
     .slicknav_menu li.menu-item-492{
         display: none;
     }
+    ul.slicknav_nav{
+        float: left;
+    }
 
+    .slicknav_menu ul.menu.category2{
+
+    }
+    .slicknav_menu ul.menu.category3{
+
+    }
     div.left-featured-slider{
         width: 100% !important;
     }
@@ -1985,6 +1994,15 @@ ul#menu-header-bottom .default-menu {
     }
     .page-id-109 #text-3/**/ .textwidget p, .page-id-109 #text-5 .textwidget p/**/, .page-id-109 #text-7/**/, .page-id-109 #text-11,.page-id-109 #text-10 .textwidget p{
         display: none;
+    }
+    #text-7, #text-11{
+        display: none;
+    }
+    .page-id-109 #site-generator{
+        margin-top: 10px;
+    }
+    #site-generator{
+        margin-top: 70px;
     }
     .page-id-109 #text-3.widget/**/, .page-id-109 #text-5/**/, .page-id-109 #text-9/**/, .page-id-109 #text-10{
         border: none;
