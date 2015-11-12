@@ -115,6 +115,7 @@ jQuery(function ($) {
     var secondMenu = $('ul#menu-header-bottom').clone();
     var thirdMenu = $('ul#menu-header-upper').clone();
 
+
     secondMenu.addClass("category2");
     secondMenu.appendTo(combinedMenu);
     thirdMenu.addClass("category3");
@@ -127,9 +128,6 @@ jQuery(function ($) {
     });
 
     $('.mobile-menu').prepend(searchform);
-
-    $('ul.slicknav_nav li.menu-item-707').before('<div class="category1">');
-    $('ul.slicknav_nav li.menu-item-720').after('</div>');
 
     /*
      *  document ready
