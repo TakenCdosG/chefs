@@ -1973,6 +1973,9 @@ ul#menu-header-bottom .default-menu {
         display: block;
         width: 100%;
     }
+    .page-id-8 #footerarea, .single .single-product{
+        margin-top: 5px;
+    }
     .cart1, .color-red .amount{
         display: none;
     }
@@ -1981,6 +1984,9 @@ ul#menu-header-bottom .default-menu {
     }
     .hgroup-right-header_bottom {
         display: none;
+    }
+    #post-8 label[for=rememberme]{
+        font-size: 10.7px;
     }
     /*********************************************************************/
     /*********************** FOOTER WIDGETS STYLES ***********************/
@@ -2448,10 +2454,14 @@ ul#menu-header-bottom .default-menu {
         margin-top: 220px;
         margin-bottom: -180px;
     }
+    .page-id-8 #content section{
+        margin-top: 260px !important;
+    }
     /*.page-id-568*/.page #content /*#post-568*/ section{
                         position: relative;
                         margin-top: 200px;
                     }
+
     .page-id-568 #post-568 .entry-content .color-red{
         font-weight: bolder;
     }
@@ -2535,6 +2545,9 @@ ul#menu-header-bottom .default-menu {
                         position: relative;
                         margin-top: 30px;
                     }
+    .page-id-8 section{
+        margin-top: 260px !important;
+    }
     .featured-title, .featured-content, .featured-text{
         display: block;
     }
