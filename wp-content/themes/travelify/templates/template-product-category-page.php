@@ -287,7 +287,7 @@ $info = array(
                 <?php endif; ?>
                 <!-- Add Filtros -->
                 <div class="row margin-grid">
-                     <div class="col-md-3">
+                     <div class="col-md-3 catfilter">
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-1" class="jq-dropdown-link">
                                 Category
@@ -300,7 +300,7 @@ $info = array(
                             </div>
                          </div>
                      </div>
-                     <div class="col-md-3">
+                     <div class="col-md-3 matfilter">
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-2" class="jq-dropdown-link">
                                 Material
@@ -313,7 +313,7 @@ $info = array(
                             </div>
                          </div>
                      </div>
-                     <div class="col-md-3">
+                     <div class="col-md-3 brfilter">
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-3" class="jq-dropdown-link">
                                 Brand
