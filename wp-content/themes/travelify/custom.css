@@ -329,7 +329,9 @@ html[xmlns] .flexslider .slides {
 body {
     border: none;
 }
-
+#gallery-2 img {
+    border: 0px solid #cfcfcf!important;
+}
 .featured-text .featured-title a {
     color: #fff;
     font-family: 'Ubuntu', sans-serif;
