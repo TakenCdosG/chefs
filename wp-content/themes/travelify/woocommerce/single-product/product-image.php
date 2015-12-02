@@ -45,7 +45,4 @@ global $post, $woocommerce, $product;
 	?>
 </div>
 
-<?php
-	// Social buttons below de image
-	do_action( 'woocommerce_share' );
-?>
+<?php echo do_shortcode( '[woocommerce_social_media_share_buttons]' ); ?>
