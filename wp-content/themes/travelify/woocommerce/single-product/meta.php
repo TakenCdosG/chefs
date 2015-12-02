@@ -35,7 +35,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 
 </div>
 <?php
-	$value = get_field( "delivery_text" );
+	$value = get_field_object( "delivery_text" );
 	$keys = $value['value'];
 	$choices = $value['choices'];
 ?>
@@ -44,7 +44,7 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	<div class="delivery-information">
 
 		<h3>Delivery</h3>
-	    <?php print_r($value); ?>
+
 	    <?php foreach( $keys as $k ): ?>
 		<p><?php echo $choices[ $k ]; ?></p>
 		<?php endforeach; ?>
