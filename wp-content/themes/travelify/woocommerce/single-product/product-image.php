@@ -44,3 +44,8 @@ global $post, $woocommerce, $product;
 		}
 	?>
 </div>
+
+<?php
+	// Social buttons below de image
+	do_action( 'woocommerce_share' );
+?>

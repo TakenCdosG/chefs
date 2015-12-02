@@ -15,4 +15,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<?php do_action( 'woocommerce_share' ); // Sharing plugins can hook into here ?>
+<?php // do_action( 'woocommerce_share' ); // Sharing plugins can hook into here ?>
