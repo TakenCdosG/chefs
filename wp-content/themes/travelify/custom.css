@@ -3195,3 +3195,5 @@ h2.tribe-events-page-title{
 .stock { display: none; }
 .product_meta { display: none; }
 .woocommerce div.product form.cart div.quantity { float: none; margin-bottom: 20px; }
+.woocommerce div.product div.summary .woo-social-buttons { display: none; }
+
