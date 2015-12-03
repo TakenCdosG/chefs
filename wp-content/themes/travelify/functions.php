@@ -115,4 +115,20 @@ if (!function_exists('travelify_setup')):
     }
 
 endif; // travelify_setup
+
+/* Too late to implement a child theme */
+/* Adding this here againts proper programming practices */
+add_filter('woocommerce_variable_price_html', 'custom_variation_price', 10, 2);
+
+function custom_variation_price( $price, $product ) {
+
+	$price = '';
+
+	if ( !$product->min_variation_price || $product->min_variation_price !== $product->max_variation_price ) {
+		$price .= '<span class="from">' . _x('From', 'min_price', 'woocommerce') . ' </span>';
+		$price .= woocommerce_price($product->get_price());
+	}
+
+	return $price;
+}
 ?>
