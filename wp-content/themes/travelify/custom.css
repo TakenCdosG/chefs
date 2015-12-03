@@ -2992,11 +2992,16 @@ ul#menu-header-bottom .default-menu {
         width: 75%;
         float: right;
     }
+    .catfilter .category-filter a{
+        z-index: 9999;
+    }
     .matfilter .category-filter a{
         margin-left: 30%;
+        z-index: 9999
     }
     .brfilter .category-filter a{
         margin-left: 60%;
+        z-index: 9999
     }
     .page-template-template-product-category-page div.woocommerce{
         margin-top: 260px;
