@@ -34,3 +34,19 @@ $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
 	<?php do_action( 'woocommerce_product_meta_end' ); ?>
 
 </div>
+<?php
+	$value = get_field_object( "delivery_text" );
+	$keys = $value['value'];
+	$choices = $value['choices'];
+?>
+
+<?php if( $value ) : ?> 
+	<div class="delivery-information">
+
+		<h3>Delivery</h3>
+
+	    <?php foreach( $keys as $k ): ?>
+		<p><?php echo $choices[ $k ]; ?></p>
+		<?php endforeach; ?>
+	</div>
+<?php endif; ?>

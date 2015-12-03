@@ -43,4 +43,6 @@ global $post, $woocommerce, $product;
 
 		}
 	?>
+	
+	<?php echo do_shortcode( '[woocommerce_social_media_share_buttons]' ); ?>
 </div>

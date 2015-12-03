@@ -855,6 +855,8 @@ h2.line-red-separator{
     font-size: 30px;
     line-height: 25px;
     text-transform: uppercase;
+    font-family: "Vito-Bold";
+    letter-spacing: 2px;
 }
 
 .top_banner_product_category .header_top_summary a{
@@ -3273,3 +3275,10 @@ h2.tribe-events-page-title{
     color: #757575;
     font-size: 14px;
 }
+
+.stock { display: none; }
+.product_meta { display: none; }
+.woocommerce div.product form.cart div.quantity { float: none; margin-bottom: 20px; }
+.woocommerce div.product div.summary .woo-social-buttons { display: none; }
+.delivery-information h3 { font-size: 16px; }
+
