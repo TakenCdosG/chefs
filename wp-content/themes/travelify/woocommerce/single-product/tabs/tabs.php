@@ -12,6 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $post, $woocommerce, $product;
+?>
+<div class="clearfix-block"></div>
+<div class="woocommerce_product_thumbnails">
+    <?php do_action( 'woocommerce_product_thumbnails' ); ?>
+</div>
+
+<?php
 /**
  * Filter tabs and allow third parties to add their own
  *
@@ -38,8 +45,3 @@ if ( ! empty( $tabs ) ) : ?>
 	</div>
 
 <?php endif; ?>
-
-<div class="clearfix-block"></div>
-<div class="woocommerce_product_thumbnails">
-    <?php do_action( 'woocommerce_product_thumbnails' ); ?>
-</div>
