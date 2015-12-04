@@ -3007,7 +3007,9 @@ ul#menu-header-bottom .default-menu {
     .page-template-template-product-category-page div.woocommerce{
         margin-top: 260px;
     }
-    .page-template-template-product-category-page .woocommerce ul.products li.post-244, .page-template-template-product-category-page .woocommerce ul.products li.post-232{
+    .page-template-template-product-category-page .woocommerce ul.products li.post-244, .page-template-template-product-category-page .woocommerce ul.products li.post-232,
+    .page-template-template-product-category-page .woocommerce ul.products li.post-194, .page-template-template-product-category-page .woocommerce ul.products li.post-181
+    {
         margin-left: 3%;
     }
 }
