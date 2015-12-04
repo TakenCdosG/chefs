@@ -122,7 +122,7 @@ add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
 
 function custom_price( $price, $product ) {
 	
-	if (!property_exists('sale_price', $product) || $product->price == $product->regular_price) {
+	if (!property_exists('sale_price', $product)) {
 		$price = '<span class="amount">Price: $' . $product->regular_price . '</span>';
 	}
 
