@@ -2971,8 +2971,9 @@ ul#menu-header-bottom .default-menu {
     .page-template-template-product-category-page nav.woocommerce-breadcrumb{
         display: none;
     }
-
-
+    .page-template-template-product-category-page #container{
+        margin-top: -260px !important;
+    }
     .page-template-template-product-category-page .top_banner_product_category .header_top_summary h2{
         font-size: 20px;
     }
