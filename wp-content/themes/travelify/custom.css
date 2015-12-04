@@ -1001,7 +1001,7 @@ div.pagination-category{
 }
 
 .jq-dropdown.jq-dropdown-scroll .jq-dropdown-menu,.jq-dropdown.jq-dropdown-scroll .jq-dropdown-panel {
-    max-height:180px;
+    /*max-height:180px;*/
     overflow:auto;
 }
 
