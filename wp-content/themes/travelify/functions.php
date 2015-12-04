@@ -4,6 +4,39 @@
  * Travelify defining constants, adding files and WordPress core functionality.
  *
  */
+ 
+ /* Too late to implement a child theme */
+/* Adding this here againts proper programming practices */
+
+function custom_price( $price, $product ) {
+	
+	$new_price = '';
+	
+	if ($product->regular_price == $product->price) {
+		$new_price = '<span class="custom-price">$' . $product->regular_price . '</span>';
+	}
+	else {
+		$new_price = '<del><span class="amount">Regular price: ' . $product->regular_price . '</span></del><br /><ins><span class="amount">Sale price: ' . $product->regular_price . '</span></ins>'; 
+	}
+
+	return $new_price;
+}
+
+function add_woocommerce_cart_nav_item($items, $args) {
+	global $woocommerce;
+	
+	if ($args->menu == 77) {
+        $items .= '<li class="menu-item-cart-item">'
+        			. '<a class="cart-items" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart">CART('. $woocommerce->cart->cart_contents_count . ') </a> | '
+        			. '<a class="checkout-cart" href="' . $woocommerce->cart->get_checkout_url() . '" title="' . __( 'Checkout' ) . '">' . __( 'Checkout' ) . '</a>'
+        		. '</li>';
+    }
+    return $items;
+}
+
+//add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
+add_filter('wp_nav_menu_items','add_woocommerce_cart_nav_item', 10, 2);
+
 /**
  * Set the content width based on the theme's design and stylesheet.
  */
@@ -115,33 +148,5 @@ if (!function_exists('travelify_setup')):
     }
 
 endif; // travelify_setup
-
-/* Too late to implement a child theme */
-/* Adding this here againts proper programming practices */
-add_filter('woocommerce_get_price_html', 'custom_price');
-add_filter('wp_nav_menu_items','add_woocommerce_cart_nav_item');
-
-function custom_price( $price, $product ) {
-	
-	if ($product->regular_price == $product->price) {
-		$price = '<span class="custom-price">$' . $product->regular_price . '</span>';
-	}
-	else {
-		$price = '<del><span class="amount">Regular price: ' . $product->regular_price . '</span></del><ins><span class="amount">Sale price: ' . $product->regular_price . '</span></ins>'; 
-	}
-
-	return $price;
-}
-
-function add_woocommerce_cart_nav_item($items, $args) {
-	print_r($args);
-	
-	//global $woocommerce;
-	
-	if ($args->menu == 77) {
-        $items .= '<li class="menu-item-cart-item"><a class="cart-contents" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart"> CART('. $woocommerce->cart->cart_contents_count . ') </a></li>';
-    }
-    return $items;
-}
 
 ?>

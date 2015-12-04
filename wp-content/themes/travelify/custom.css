@@ -3290,4 +3290,6 @@ h2.tribe-events-page-title{
 .woocommerce div.product div.summary .woo-social-buttons { display: none; }
 .delivery-information h3 { font-size: 16px; }
 .delivery-information p { margin-bottom: 0; }
+#menu-header-upper .menu-item-cart-item { line-height: 14px; }
+#menu-header-upper .menu-item-cart-item a { margin-top: 0; display: inline; }
 
