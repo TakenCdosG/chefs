@@ -8,7 +8,7 @@
  /* Too late to implement a child theme */
 /* Adding this here againts proper programming practices */
 
-function custom_price( $price, $product ) {
+/*function custom_price( $price, $product ) {
 	
 	$new_price = '';
 	
@@ -20,7 +20,7 @@ function custom_price( $price, $product ) {
 	}
 
 	return $new_price;
-}
+}*/
 
 function add_woocommerce_cart_nav_item($items, $args) {
 	global $woocommerce;
@@ -34,7 +34,7 @@ function add_woocommerce_cart_nav_item($items, $args) {
     return $items;
 }
 
-//add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
+/*add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);*/
 add_filter('wp_nav_menu_items','add_woocommerce_cart_nav_item', 10, 2);
 
 /**
