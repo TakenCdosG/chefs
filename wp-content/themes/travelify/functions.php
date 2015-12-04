@@ -118,24 +118,26 @@ endif; // travelify_setup
 
 /* Too late to implement a child theme */
 /* Adding this here againts proper programming practices */
-add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
+add_filter('woocommerce_get_price_html', 'custom_price');
 add_filter('wp_nav_menu_items','add_woocommerce_cart_nav_item');
 
 function custom_price( $price, $product ) {
 	
-	/*if ($product->regular_price == $product->price) {
+	if ($product->regular_price == $product->price) {
 		$price = '<span class="custom-price">$' . $product->regular_price . '</span>';
 	}
 	else {
-		
-	}*/
+		$price = '<del><span class="amount">Regular price: ' . $product->regular_price . '</span></del><ins><span class="amount">Sale price: ' . $product->regular_price . '</span></ins>'; 
+	}
 
 	return $price;
 }
 
 function add_woocommerce_cart_nav_item($items, $args) {
-	global $woocommerce;
 	print_r($args);
+	
+	//global $woocommerce;
+	
 	if ($args->menu == 77) {
         $items .= '<li class="menu-item-cart-item"><a class="cart-contents" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart"> CART('. $woocommerce->cart->cart_contents_count . ') </a></li>';
     }
