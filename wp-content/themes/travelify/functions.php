@@ -119,25 +119,27 @@ endif; // travelify_setup
 /* Too late to implement a child theme */
 /* Adding this here againts proper programming practices */
 add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
-add_filter('wp_nav_menu_header_upper_items','add_woocommerce_cart_nav_item');
+add_filter('wp_nav_menu_items','add_woocommerce_cart_nav_item');
 
 function custom_price( $price, $product ) {
 	
-	if ($product->regular_price == $product->price) {
-		$price = '<span class="amount">$' . $product->regular_price . '</span>';
+	/*if ($product->regular_price == $product->price) {
+		$price = '<span class="custom-price">$' . $product->regular_price . '</span>';
 	}
-	/*else {
+	else {
 		
 	}*/
-	print_r($price);
 
 	return $price;
 }
 
-function add_woocommerce_cart_nav_item($items) {
+function add_woocommerce_cart_nav_item($items, $args) {
 	global $woocommerce;
- 
-	return $items .= '<li class="menu-item-cart-item"><a class="cart-contents" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart"> CART('. $woocommerce->cart->cart_contents_count . ') </a></li>';
+	print_r($args);
+	if ($args->menu == 77) {
+        $items .= '<li class="menu-item-cart-item"><a class="cart-contents" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart"> CART('. $woocommerce->cart->cart_contents_count . ') </a></li>';
+    }
+    return $items;
 }
 
 ?>
