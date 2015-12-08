@@ -941,6 +941,7 @@ a.pp_close {
     top: 5px;
     display: block;
     text-indent: -10000px;
+    z-index: 10000;
 }
 
 a.pp_expand {
