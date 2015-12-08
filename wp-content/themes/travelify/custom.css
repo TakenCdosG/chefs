@@ -935,6 +935,19 @@ div.pagination-category{
     color: #1b1e1f;
 }
 
+a.pp_close {
+    position: absolute;
+    right: 23px;
+    top: 5px;
+    display: block;
+    text-indent: -10000px;
+}
+
+a.pp_expand {
+    right: 0px;
+    top: 4px;
+}
+
 /* = End Custom Css.
 -----------------------------------------------*/
 
