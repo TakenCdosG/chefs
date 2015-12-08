@@ -40,15 +40,15 @@ add_filter('woocommerce_get_variation_prices_hash', 'disable_variation_prices_ca
 function custom_price( $price, $product ) {
 	
 	$new_price = '';
-	
 	if ($product->regular_price == $product->price) {
 		$new_price = '<span class="custom-price">$' . $product->regular_price . '</span>';
 	}
 	else {
 		$new_price = '<del><span class="amount">Regular price: ' . $product->regular_price . '</span></del><br /><ins><span class="amount">Sale price: ' . $product->regular_price . '</span></ins>'; 
 	}
-
+    dpm($product);
 	return $new_price;
+
 }
 
 function add_woocommerce_cart_nav_item($items, $args) {
@@ -63,7 +63,7 @@ function add_woocommerce_cart_nav_item($items, $args) {
     return $items;
 }
 
-//add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
+add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
 add_filter('wp_nav_menu_items','add_woocommerce_cart_nav_item', 10, 2);
 
 /**
