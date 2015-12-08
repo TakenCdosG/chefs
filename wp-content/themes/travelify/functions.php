@@ -68,6 +68,33 @@ add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
 add_filter('wp_nav_menu_items','add_woocommerce_cart_nav_item', 10, 2);
 
 /**
+ * Disables the product price cache. This function looks for the cache key
+ * that is about to be retrieved by WooCommerce, and deletes the cached data
+ * associated to it.
+ *
+ * IMPORTANT
+ * This function can have an impact on WooCommerce's performance, and it
+ * should not be used unless necessary.
+ *
+ * @param array cache_key_args The arguments that form the cache key.
+ * @param WC_Product product The product for which the key is being generated.
+ * @param bool display Indicates if the prices are being retrieved for display
+ * purposes.
+ * @return array
+ * @since WooCommerce 2.4
+ * @author Aelia <support@aelia.co>
+ * @link http://aelia.co/2015/08/11/wc-2-4-workaround-for-price-cache
+ */
+function disable_variation_prices_cache($cache_key_args, $product, $display) {
+    // Delete the cached data, if it exists
+    $cache_key = 'wc_var_prices' . md5(json_encode($cache_key_args));
+    delete_transient($cache_key);
+
+    return $cache_key_args;
+}
+add_filter('woocommerce_get_variation_prices_hash', 'disable_variation_prices_cache', 10, 3);
+
+/**
  * Set the content width based on the theme's design and stylesheet.
  */
 if (!isset($content_width))
