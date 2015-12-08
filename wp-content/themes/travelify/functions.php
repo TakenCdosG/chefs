@@ -46,7 +46,7 @@ function custom_price( $price, $product ) {
 	else {
 		$new_price = '<del><span class="amount">Regular price: ' . $product->regular_price . '</span></del><br /><ins><span class="amount">Sale price: ' . $product->sale_price . '</span></ins>';
 	}
-    dpm($new_price);
+    //dpm($new_price);
     //dpm($product);
 	return $new_price;
 
