@@ -63,7 +63,7 @@ function add_woocommerce_cart_nav_item($items, $args) {
     return $items;
 }
 
-add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
+//add_filter('woocommerce_get_price_html', 'custom_price', 10, 2);
 add_filter('wp_nav_menu_items','add_woocommerce_cart_nav_item', 10, 2);
 
 /**
