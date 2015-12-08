@@ -738,7 +738,7 @@ h2.line-red-separator{
 .woocommerce ul.products li.product .product-summary{
     background-color: #e0e0e0;
     padding: 7px 10px 5px 10px;
-    height: 64px;
+    height: auto;
 }
 
 .woocommerce ul.products li.product h3 {
