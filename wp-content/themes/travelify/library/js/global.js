@@ -115,9 +115,11 @@ jQuery(function ($) {
     var secondMenu = $('ul#menu-header-bottom').clone();
     var thirdMenu = $('ul#menu-header-upper').clone();
 
+    combinedMenu.addClass("menu-left");
     secondMenu.addClass("category2");
     secondMenu.addClass("slicknav_nav");
     secondMenu.removeAttr("id");
+    secondMenu.addClass("menu-right");
 
     //secondMenu.appendTo(combinedMenu);
     thirdMenu.addClass("category3");
