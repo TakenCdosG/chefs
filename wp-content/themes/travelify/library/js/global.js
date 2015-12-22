@@ -109,14 +109,16 @@ jQuery(function ($) {
     }
 
     // Mobile menu
-    //$('ul.main-menu').mobileMenu();
+    // $('ul.main-menu').mobileMenu();
     var combinedMenu = $('#main-nav ul.root').clone();
     var searchform = $('.searchform').clone();
     var secondMenu = $('ul#menu-header-bottom').clone();
     var thirdMenu = $('ul#menu-header-upper').clone();
 
-
     secondMenu.addClass("category2");
+    secondMenu.addClass("slicknav_nav");
+    secondMenu.removeAttr("id");
+
     //secondMenu.appendTo(combinedMenu);
     thirdMenu.addClass("category3");
     //thirdMenu.appendTo(combinedMenu);
