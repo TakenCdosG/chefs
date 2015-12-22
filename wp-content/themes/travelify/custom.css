@@ -3313,3 +3313,16 @@ h2.tribe-events-page-title{
 #menu-header-upper .menu-item-cart-item { line-height: 14px; }
 #menu-header-upper .menu-item-cart-item a { margin-top: 0; display: inline; }
 
+.slicknav_nav {
+    clear: none;
+}
+
+.slicknav_menu > ul.slicknav_nav{
+    float:left;
+    width: 50%;
+}
+
+.slicknav_menu > ul.slicknav_nav.menu-right{
+    float:right;
+    width: 50%;
+}
