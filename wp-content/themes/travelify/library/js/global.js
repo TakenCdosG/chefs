@@ -117,15 +117,20 @@ jQuery(function ($) {
 
 
     secondMenu.addClass("category2");
-    secondMenu.appendTo(combinedMenu);
+    //secondMenu.appendTo(combinedMenu);
     thirdMenu.addClass("category3");
-    thirdMenu.appendTo(combinedMenu);
+    //thirdMenu.appendTo(combinedMenu);
     combinedMenu.slicknav({
         duplicate:false,
         prependTo : '.mobile-menu',
         label: 'MENU',
         allowParentLinks: true
     });
+
+    // Second Menu.
+    $("ul.slicknav_nav").after(secondMenu);
+    // Third Menu.
+    // $("ul.category2").after(secondMenu);
 
     $('.mobile-menu').prepend(searchform);
 
@@ -171,6 +176,11 @@ jQuery(function ($) {
 
         $('.acf-map').each(function(){
             render_map( $(this) );
+        });
+        jQuery("a[data-rel^='prettyPhoto[product-gallery]']").click(function() {
+            event.preventDefault();
+            //console.log( "Handler for .click() called." );
+            jQuery("a[rel^='prettyPhoto[product-gallery]']").prettyPhoto();
         });
     }); // End doc ready
     $(window).load(function () {
