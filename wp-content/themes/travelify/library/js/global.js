@@ -132,12 +132,9 @@ jQuery(function ($) {
     // Second Menu.
     $("ul.slicknav_nav").after(secondMenu);
     $("a.slicknav_btn").click(function() {
-        $("ul.category2").toggle();
-        /*
-            .toggle( "slow", function() {
-                // Animation complete.
-            });
-        */
+        $("ul.category2").toggle( "fast", function() {
+            // Animation complete.
+        });
     });
     // Third Menu.
     // $("ul.category2").after(secondMenu);
