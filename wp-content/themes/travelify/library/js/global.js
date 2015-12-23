@@ -116,10 +116,8 @@ jQuery(function ($) {
     var thirdMenu = $('ul#menu-header-upper').clone();
 
     combinedMenu.addClass("menu-left");
-    secondMenu.addClass("category2");
-    secondMenu.addClass("slicknav_nav");
+    secondMenu.addClass("category2 slicknav_nav hide menu-right");
     secondMenu.removeAttr("id");
-    secondMenu.addClass("menu-right");
 
     //secondMenu.appendTo(combinedMenu);
     thirdMenu.addClass("category3");
@@ -133,6 +131,11 @@ jQuery(function ($) {
 
     // Second Menu.
     $("ul.slicknav_nav").after(secondMenu);
+    $("a.slicknav_btn").click(function() {
+        $("ul.category2").toggle( "slow", function() {
+            // Animation complete.
+        });
+    });
     // Third Menu.
     // $("ul.category2").after(secondMenu);
 
