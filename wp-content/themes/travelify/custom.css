@@ -3326,3 +3326,7 @@ h2.tribe-events-page-title{
     float:right;
     width: 50%;
 }
+
+.hide{
+    display: none;
+}
