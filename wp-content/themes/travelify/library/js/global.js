@@ -120,7 +120,8 @@ jQuery(function ($) {
     secondMenu.removeAttr("id");
 
     //secondMenu.appendTo(combinedMenu);
-    thirdMenu.addClass("category3");
+    thirdMenu.addClass("category3 slicknav_nav hide menu-right");
+    thirdMenu.removeAttr("id");
     //thirdMenu.appendTo(combinedMenu);
     combinedMenu.slicknav({
         duplicate:false,
@@ -131,13 +132,17 @@ jQuery(function ($) {
 
     // Second Menu.
     $("ul.slicknav_nav").after(secondMenu);
+    // Third Menu.
+    $("ul.category2").after(thirdMenu);
     $("a.slicknav_btn").click(function() {
         $("ul.category2").slideToggle( "fast", function() {
             // Animation complete.
         });
+        $("ul.category3").slideToggle( "fast", function() {
+            // Animation complete.
+        });
     });
-    // Third Menu.
-    // $("ul.category2").after(secondMenu);
+
 
     $('.mobile-menu').prepend(searchform);
 
