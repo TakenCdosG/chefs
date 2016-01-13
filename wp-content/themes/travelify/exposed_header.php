@@ -1614,21 +1614,14 @@ if (!empty($elements)) {
     }
 
     @media only screen and (min-width: 320px) and (max-width: 768px){
-        ul.menu.category3 li.menu-item-cart-item{
-            display: none;
-        }
-        ul#menu-header-upper li.menu-item-cart-item, li#menu-item-492.menu-item-492{
-            display: block;
-        }
-        .exposed-header .menu-header-top .menu li{
-            display: none;
+        ul.menu.category3 li.menu-item-cart-item, li#menu-item-492.menu-item-492, .exposed-header .menu-header-top .menu li{
+            display: none !important;
         }
         ul#menu-header-upper li.menu-item-cart-item{
-            margin-left: 45%;
-            margin-top: -20px;
+            display: block !important;
         }
-        li#menu-item-492.menu-item-492{
-            margin-left:-45%;
+        li#menu-item-832 a{
+            text-transform: uppercase;
         }
     }
 
