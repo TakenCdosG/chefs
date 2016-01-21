@@ -2109,3 +2109,6 @@ div#inPop-varProdID-cntl, div#actionPop-varProdID-cntl {
 .wizard-turn-hover-help-off { margin-left:20px;}
 .wizard-turn-hover-help-off:hover, .wizard-more-info:hover {text-decoration:underline; border:1px solid #F1D031;/*background-color:white;*/} 
 .wizard-am-i-blue {color:blue;font-size:16px !important;} 
+
+
+#wpseo-score {display:none;}

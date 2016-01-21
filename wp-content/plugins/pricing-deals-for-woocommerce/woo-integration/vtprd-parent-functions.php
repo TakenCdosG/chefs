@@ -581,7 +581,7 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
   //*****************************************
   function vtprd_get_current_active_price($product_id,$product) {	
       global $post, $vtprd_cart_item;
-   // error_log( print_r(  'vtprd_get_current_active_price, product_id= ' .$product_id, true ) );       
+   //error_log( print_r(  'vtprd_get_current_active_price, product_id= ' .$product_id, true ) );       
       //************************************************************************************************************************************************
       //ACTIVATED externally by the client, or internally for the Addons or Calculator plugins
       //the apply_filter is done twice - once in parent-cart-validation in housekeeping, and once in parent-functions in vtprd_get_current_active_price
@@ -687,7 +687,7 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
         if ( ( get_option( 'woocommerce_calc_taxes' ) == 'yes' ) &&
              ( get_option( 'woocommerce_prices_include_tax' ) == 'yes' ) ) {           
            $_tax  = new WC_Tax();                
-          //$product = get_product( $product_id ); already there v1.1.1
+           $product = get_product( $product_id ); //restored v1.1.1.2, occassional issues due to incomplete WOO data conversion on update
   
            $tax_rates  = $_tax->get_rates( $product->get_tax_class() );
   			 	 $taxes      = $_tax->calc_tax( $price , $tax_rates, false );

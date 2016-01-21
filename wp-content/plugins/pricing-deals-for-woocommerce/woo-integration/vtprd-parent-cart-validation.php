@@ -366,7 +366,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
 
   //the form validation filter executes ONLY at click-to-pay time, just to access the global variables!!!!!!!!! 
 	public function vtprd_woo_validate_order(){
-//error_log( print_r(  'Function begin - vtprd_woo_validate_order', true ) );   
+   //error_log( print_r(  'Function begin - vtprd_woo_validate_order', true ) );   
 		
     //v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -470,7 +470,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   ONLY called for parent product of variations, or for standalone products
   */
 	public function vtprd_maybe_catalog_price_html($price_html, $product_info){    
- //error_log( print_r(  'Function begin - vtprd_maybe_catalog_price_html', true ) ); 
+    //error_log( print_r(  'Function begin - vtprd_maybe_catalog_price_html', true ) ); 
 
 
 		//v1.1.1 begin - 
@@ -883,7 +883,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   ************************************************************** */
 	public function vtprd_maybe_variable_price_html($price_html, $product){    
     global $woocommerce, $vtprd_info, $vtprd_setup_options, $vtprd_cart, $vtprd_cart_item, $vtprd_rules_set;
- //error_log( print_r(  'Function begin - vtprd_maybe_variable_price_html', true ) );   
+    //error_log( print_r(  'Function begin - vtprd_maybe_variable_price_html', true ) );   
 		
     //v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -979,7 +979,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   **  Refresh the mini-cart numbers as needed ==> UnitPrice AND coupon both  
   ************************************************************** */
 	public function vtprd_maybe_before_mini_cart(){ 
-  //error_log( print_r(  'Function begin - vtprd_maybe_before_mini_cart', true ) ); 
+     //error_log( print_r(  'Function begin - vtprd_maybe_before_mini_cart', true ) ); 
    
 		//v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -991,6 +991,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
 
     if ( (isset ($_SESSION['do_no_actions'])) &&
          ($_SESSION['do_no_actions']) ) {
+     //error_log( print_r(  'before_mini_cart - do_no_actions EXIT ', true ) );            
       return;   
 		}
 	  //v1.1.1 end
@@ -1002,7 +1003,8 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
     if ( ($vtprd_cart == null) ||
          (!isset ($vtprd_cart->cart_items)) ) { //v1.1.1 was losing addressability to cart_items array...
        $data_chain = $this->vtprd_get_data_chain();
-      if ($vtprd_cart == null) {  //haven't had the cart call yet...         
+      if ($vtprd_cart == null) {  //haven't had the cart call yet...  
+     //error_log( print_r(  'before_mini_cart - $vtprd_cart == null EXIT ', true ) );             
         return;
       } 
     } 
@@ -1122,9 +1124,23 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
     if ($mini_cart_updated) {
       $_SESSION['internal_call_for_calculate_totals'] = true;           
       $woocommerce->cart->calculate_totals(); 
-    }
+     //error_log( print_r(  'before_mini_cart - calculate_totals ', true ) );       
+    } 
+      else {  //v1.1.1.2 begin -  totals are messed up session 1st time through  (very weird)
+        if ( ($vtprd_setup_options['discount_taken_where'] == 'discountCoupon')  &&
+             ($vtprd_info['ruleset_contains_auto_add_free_product'] == 'yes') )  {
+            $_SESSION['internal_call_for_calculate_totals'] = true;           
+            $woocommerce->cart->calculate_totals();
+        }
+      }
+      //v1.1.1.2 end
 
-      
+     //error_log( print_r(  'before_mini_cart - $woocommerce->cart at END', true ) );
+     //error_log( var_export($woocommerce->cart, true ) ); 
+     //error_log( print_r(  'before_mini_cart - $vtprd_cart at END', true ) );
+     //error_log( var_export($vtprd_cart, true ) );   
+    
+           
     return;
  } 
  
@@ -1134,7 +1150,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   **  Unit price taxation choice for cart   
   ************************************************************** */
 	public function vtprd_choose_mini_cart_price($vtprd_cart_item){ 
-    //error_log( print_r(  'Function begin - vtprd_choose_mini_cart_price', true ) ); 
+       //error_log( print_r(  'Function begin - vtprd_choose_mini_cart_price', true ) ); 
      global $woocommerce, $vtprd_info, $vtprd_setup_options, $vtprd_cart, $vtprd_cart_item, $vtprd_rules_set;
      
     $price = $vtprd_cart_item->product_inline_discount_price_woo;
@@ -1170,7 +1186,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   ************************************************************** */
 	public function vtprd_maybe_before_calculate_totals($cart_object){
 
-  //error_log( print_r(  'Function begin - vtprd_maybe_before_calculate_totals', true ) ); 
+     //error_log( print_r(  'Function begin - vtprd_maybe_before_calculate_totals', true ) ); 
   
 
    
@@ -1189,7 +1205,8 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
 
     if ( (isset ($_SESSION['do_no_actions'])) &&
-         ($_SESSION['do_no_actions']) ) {             
+         ($_SESSION['do_no_actions']) ) { 
+ //error_log( print_r(  'return 001' , true ) );                     
       return $cart_object;   
 		}
 	  //v1.1.1 end
@@ -1199,7 +1216,8 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
     //	This switch is set to true wherever the plugin itself calls calculate_totals
     if (isset($_SESSION['internal_call_for_calculate_totals'])) {
       if ($_SESSION['internal_call_for_calculate_totals'] == true) {    
-        $_SESSION['internal_call_for_calculate_totals'] = false;      
+        $_SESSION['internal_call_for_calculate_totals'] = false; 
+ //error_log( print_r(  'return 002' , true ) );              
         return $cart_object;
       } 
     }
@@ -1221,6 +1239,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
           $this->vtprd_process_discount();
           $discount_already_processed_here = true; //v1.0.9.3 
         } else { //v1.1.1 begin
+ //error_log( print_r(  'return 003' , true ) );         
           return $cart_object;      
         } //v1.1.1 end
       } 
@@ -1339,7 +1358,8 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
       }
 
     }
-
+       //error_log( print_r(  'vtprd_maybe_before_calculate_totals $cart_object', true ) );
+       //error_log( var_export($cart_object, true ) ); 
     return $cart_object;
 
  } 
@@ -1350,7 +1370,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   //**************************************
   public function vtprd_maybe_cart_item_price_html($price_html, $cart_item, $cart_item_key){ 
 
-  //error_log( print_r(  'Function begin - vtprd_maybe_cart_item_price_html', true ) );
+     //error_log( print_r(  'Function begin - vtprd_maybe_cart_item_price_html', true ) );
 
     global $post, $vtprd_info, $vtprd_setup_options, $woocommerce, $vtprd_cart;
     vtprd_debug_options();  //v1.0.5
@@ -1562,7 +1582,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   //**************************************
   public function vtprd_maybe_taxation_fix($price_html, $cart_item, $cart_item_key) {
 
-  //error_log( print_r(  'Function begin - vtprd_maybe_taxation_fix', true ) );
+     //error_log( print_r(  'Function begin - vtprd_maybe_taxation_fix', true ) );
 
     global $post, $vtprd_info, $vtprd_setup_options, $woocommerce, $vtprd_cart;
     
@@ -1611,7 +1631,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   // ONLY used for Bolt-on Plugins
   //**************************************
   public function vtprd_get_taxation_price_cart($product_id, $price) {
-  //error_log( print_r(  'Function begin - vtprd_choose_discount_price', true ) );
+     //error_log( print_r(  'Function begin - vtprd_choose_discount_price', true ) );
     global $vtprd_info, $vtprd_setup_options, $woocommerce, $vtprd_cart; 
 
     if ( get_option( 'woocommerce_calc_taxes' ) == 'yes' ) { 
@@ -1657,7 +1677,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   //  add crossouts when at checkout (not on the Cart page)
   //**************************************
   public function vtprd_maybe_cart_item_subtotal($subtotal, $cart_item, $cart_item_key){  // $cart_item, $cart_item_key 
-  //error_log( print_r(  'Function begin - vtprd_maybe_cart_item_subtotal', true ) );
+     //error_log( print_r(  'Function begin - vtprd_maybe_cart_item_subtotal', true ) );
     global $post, $vtprd_info, $vtprd_setup_options, $woocommerce, $vtprd_cart;
     vtprd_debug_options();  //v1.0.5
 
@@ -1792,7 +1812,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   //  add crossouts when order placed, to order-details and emails
   //**************************************
   public function vtprd_maybe_order_formatted_line_subtotal($subtotal, $item, $data){
-  //error_log( print_r(  'Function begin - vtprd_maybe_order_formatted_line_subtotal', true ) );  
+     //error_log( print_r(  'Function begin - vtprd_maybe_order_formatted_line_subtotal', true ) );  
     global $post, $vtprd_info, $vtprd_setup_options, $woocommerce, $vtprd_cart;
     vtprd_debug_options();  //v1.0.5
 
@@ -1878,7 +1898,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
   /*
   public function vtprd_maybe_cart_subtotal($cart_subtotal, $compound, $context ) {  //$context = $this from the call...
   
-  //error_log( print_r(  'Function begin - vtprd_maybe_cart_subtotal', true ) );   
+    error_log( print_r(  'Function begin - vtprd_maybe_cart_subtotal', true ) );   
        
       if ($_SESSION['calculator_product_in_cart'] == 'no') {
   error_log( print_r(  'tprd_maybe_cart_subtotal - exit with no processing ', true ) );        
@@ -1933,7 +1953,7 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
 /*
   public function vtprd_cart_contents_total() {
   
-  //error_log( print_r(  'Function begin - vtprd_cart_contents_total', true ) );   
+    error_log( print_r(  'Function begin - vtprd_cart_contents_total', true ) );   
   error_log( print_r(  '$cart_contents_total on input= ' .$cart_contents_total, true ) );
        
       if ($_SESSION['calculator_product_in_cart'] == 'no') {
@@ -1974,7 +1994,7 @@ error_log( var_export($vtprd_cart, true ) );
   
   //v1.0.7.4 new function
   public function vtprd_show_shop_price() {
-  //error_log( print_r(  'Function begin - vtprd_show_shop_price', true ) );
+     //error_log( print_r(  'Function begin - vtprd_show_shop_price', true ) );
     global $vtprd_info, $vtprd_setup_options, $woocommerce, $vtprd_cart; 
    
     if ( get_option( 'woocommerce_calc_taxes' ) == 'yes' ) {         
@@ -2021,7 +2041,7 @@ error_log( var_export($vtprd_cart, true ) );
   //  $justThePricing = yes only when doing variation group presentation - crossouts and suffixes are introduced later
   //****************************
   public function vtprd_show_shop_price_html($justThePricing = null) {
-  //error_log( print_r(  'Function begin - vtprd_show_shop_price_html', true ) );
+     //error_log( print_r(  'Function begin - vtprd_show_shop_price_html', true ) );
     global $vtprd_info, $vtprd_setup_options, $woocommerce, $vtprd_cart; 
 
     vtprd_debug_options();  //v1.1
@@ -2085,7 +2105,7 @@ error_log( var_export($vtprd_cart, true ) );
   //v1.0.9.3 refactored
 //  public function vtprd_maybe_show_crossouts($price_contents, $justGetOldPrice = null) {
   public function vtprd_maybe_show_crossouts($price_contents) {
-  //error_log( print_r(  'Function begin - vtprd_maybe_show_crossouts', true ) );  
+     //error_log( print_r(  'Function begin - vtprd_maybe_show_crossouts', true ) );  
     global $vtprd_setup_options, $vtprd_info;     
     
      
@@ -2112,7 +2132,7 @@ error_log( var_export($vtprd_cart, true ) );
   //v1.0.9.3 new function
   //*************************************************************************
 	public function vtprd_maybe_show_pricing_suffix($price_html){
-  //error_log( print_r(  'Function begin - vtprd_maybe_show_pricing_suffix', true ) ); 
+     //error_log( print_r(  'Function begin - vtprd_maybe_show_pricing_suffix', true ) ); 
     global $vtprd_setup_options, $vtprd_info;    
    
     //v1.0.9.0  begin
@@ -2171,7 +2191,7 @@ error_log( var_export($vtprd_cart, true ) );
   //v1.0.9.3 new function
   //*************************************************************************
 	public function vtprd_show_price_save_amount(){ 
-  //error_log( print_r(  'Function begin - vtprd_show_price_save_amount', true ) ); 
+     //error_log( print_r(  'Function begin - vtprd_show_price_save_amount', true ) ); 
     global $vtprd_setup_options, $vtprd_info; 
 
     if ( get_option( 'woocommerce_calc_taxes' ) == 'yes' ) {
@@ -2271,7 +2291,7 @@ error_log( var_export($vtprd_cart, true ) );
   //*************************************************************************
  //*************************************************************************
 	public function vtprd_maybe_get_price($price, $product_info){    
- //error_log( print_r(  'Function begin - vtprd_maybe_get_price', true ) );
+    //error_log( print_r(  'Function begin - vtprd_maybe_get_price', true ) );
 
 		//v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -2463,7 +2483,7 @@ error_log( var_export($vtprd_cart, true ) );
  
  
 	public function vtprd_get_product_catalog_price_do_convert($price, $product_id = null, $variation = null){ 
-  //error_log( print_r(  'Function begin - vtprd_get_product_catalog_price_do_convert', true ) );  
+     //error_log( print_r(  'Function begin - vtprd_get_product_catalog_price_do_convert', true ) );  
 
     global $post, $vtprd_info;
 	vtprd_debug_options();  //v1.0.5
@@ -2526,7 +2546,7 @@ error_log( var_export($vtprd_cart, true ) );
  
   *************************************************** */
 	public function vtprd_test_for_html_crossout_use(){
-  //error_log( print_r(  'Function begin - vtprd_test_for_html_crossout_use', true ) );
+     //error_log( print_r(  'Function begin - vtprd_test_for_html_crossout_use', true ) );
     global $vtprd_setup_options;
     
     //replaced by using this instead:  ($vtprd_setup_options['show_catalog_price_crossout'] == 'yes') 
@@ -2587,9 +2607,9 @@ error_log( var_export($vtprd_cart, true ) );
  
 	public function vtprd_maybe_woocommerce_is_purchasable($purchasable, $product, $product_ID = null){
   
-//  error_log( print_r(  'Function begin - vtprd_maybe_woocommerce_is_purchasable', true ) );
+ //error_log( print_r(  'Function begin - vtprd_maybe_woocommerce_is_purchasable', true ) );
   
-//  error_log( print_r(  'wholesale_products_price_display= ' .$vtprd_setup_options['wholesale_products_price_display'], true ) );
+ //error_log( print_r(  'wholesale_products_price_display= ' .$vtprd_setup_options['wholesale_products_price_display'], true ) );
   
     global $vtprd_setup_options,$current_user; 
   
@@ -2734,7 +2754,7 @@ error_log( var_export($vtprd_cart, true ) );
   ** v1.1.1 Refactored for clarity, some additions  
   *************************************************** */
 	public function vtprd_maybe_woocommerce_is_visible($visible, $id){
- //error_log( print_r(  'Function begin - vtprd_maybe_woocommerce_is_visible', true ) );
+    //error_log( print_r(  'Function begin - vtprd_maybe_woocommerce_is_visible', true ) );
     global $vtprd_setup_options,$current_user; 
   
    vtprd_debug_options(); 
@@ -2848,7 +2868,7 @@ error_log( var_export($vtprd_cart, true ) );
   ** Template Tag / Filter -  full_msg_line   => can be accessed by both display and cart rule types    
   *************************************************** */
 	public function vtprd_show_product_discount_full_msg_line($product_id=null){
-  //error_log( print_r(  'Function begin - vtprd_show_product_discount_full_msg_line', true ) );
+     //error_log( print_r(  'Function begin - vtprd_show_product_discount_full_msg_line', true ) );
     global $post, $vtprd_info;
        
     if ($post->ID > ' ' ) {
@@ -2876,7 +2896,7 @@ error_log( var_export($vtprd_cart, true ) );
    
   // from woocommerce/classes/class-wc-cart.php 
   public function vtprd_woo_get_url($pageName) {
-  //error_log( print_r(  'Function begin - vtprd_woo_get_url', true ) );           
+     //error_log( print_r(  'Function begin - vtprd_woo_get_url', true ) );           
      global $woocommerce;
       $checkout_page_id = $this->vtprd_woo_get_page_id($pageName);
   		if ( $checkout_page_id ) {
@@ -2889,7 +2909,7 @@ error_log( var_export($vtprd_cart, true ) );
       
   // from woocommerce/woocommerce-core-functions.php 
   public function vtprd_woo_get_page_id($pageName) {
-  //error_log( print_r(  'Function begin - vtprd_woo_get_page_id', true ) );  
+     //error_log( print_r(  'Function begin - vtprd_woo_get_page_id', true ) );  
     $page = apply_filters('woocommerce_get_' . $pageName . '_page_id', get_option('woocommerce_' . $pageName . '_page_id'));
 		return ( $page ) ? $page : -1;
   }    
@@ -2899,7 +2919,7 @@ error_log( var_export($vtprd_cart, true ) );
 
    // do_action( 'woocommerce_add_to_cart', $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data );
    public function vtprd_ajax_add_to_cart_hook($cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
-   //error_log( print_r(  'Function begin - vtprd_ajax_add_to_cart_hook', true ) );
+      //error_log( print_r(  'Function begin - vtprd_ajax_add_to_cart_hook', true ) );
       if(!isset($_SESSION)){
         session_start();
         header("Cache-Control: no-cache");
@@ -2963,7 +2983,7 @@ error_log( var_export($vtprd_cart, true ) );
    //recalc the cart if user changes, to pick up user/role-based rules
    //*************************************
    public function vtprd_update_on_login_change($user_login, $user) {
-   //error_log( print_r(  'Function begin - vtprd_update_on_login_change', true ) );
+      //error_log( print_r(  'Function begin - vtprd_update_on_login_change', true ) );
       global $woocommerce;
       
       //v1.0.9.4 begin - force the CATALOG rules to be redone
@@ -2999,7 +3019,7 @@ error_log( var_export($vtprd_cart, true ) );
  
    // do_action( 'woocommerce_add_to_cart', $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data );
    public function vtprd_cart_updated() {
-   //error_log( print_r(  'Function begin - vtprd_cart_updated', true ) );
+      //error_log( print_r(  'Function begin - vtprd_cart_updated', true ) );
   		//v1.1.1 begin - 
       // "do_no_actions" set/unset in function  vtprd_build_product_price_array
       if(!isset($_SESSION)){
@@ -3095,7 +3115,7 @@ error_log( var_export($vtprd_cart, true ) );
        
     
 	public function vtprd_process_discount(){  //and print discount info...
-  //error_log( print_r(  'Function begin - vtprd_process_discount', true ) ); 
+     //error_log( print_r(  'Function begin - vtprd_process_discount', true ) ); 
     global $woocommerce, $vtprd_cart, $vtprd_cart_item, $vtprd_info, $vtprd_rules_set, $vtprd_rule, $wpsc_coupons, $vtprd_setup_options; //v1.0.9.0   
     /*
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -3167,7 +3187,7 @@ error_log( var_export($vtprd_cart, true ) );
      
     
 	public function vtprd_woo_maybe_add_remove_discount_cart_coupon(){  //and print discount info...  
-  //error_log( print_r(  'Function begin - vtprd_woo_maybe_add_remove_discount_cart_coupon', true ) );   
+     //error_log( print_r(  'Function begin - vtprd_woo_maybe_add_remove_discount_cart_coupon', true ) );   
 
   		//v1.1.1 begin - 
       // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -3238,7 +3258,7 @@ error_log( var_export($vtprd_cart, true ) );
 
   //clears coupon from cart
    public function vtprd_woo_maybe_remove_coupon_from_cart($coupon_title) {
-   //error_log( print_r(  'Function begin - vtprd_woo_maybe_remove_coupon_from_cart', true ) );
+      //error_log( print_r(  'Function begin - vtprd_woo_maybe_remove_coupon_from_cart', true ) );
  
   		//v1.1.1 begin - 
       // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -3281,7 +3301,7 @@ error_log( var_export($vtprd_cart, true ) );
    //  with the discount amount
    //****************************************************************
    public function vtprd_woo_maybe_load_discount_amount_to_coupon($status, $code) {
-   //error_log( print_r(  'Function begin - vtprd_woo_maybe_load_discount_amount_to_coupon', true ) );
+      //error_log( print_r(  'Function begin - vtprd_woo_maybe_load_discount_amount_to_coupon', true ) );
    
 		//v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -3406,7 +3426,7 @@ error_log( var_export($vtprd_cart, true ) );
   //  Maybe print discount, always update the coupon info for post-payment processing
   //**************************************************
 	public function vtprd_maybe_print_checkout_discount(){  //and print discount info...
-  //error_log( print_r(  'Function begin - vtprd_maybe_print_checkout_discount', true ) );
+     //error_log( print_r(  'Function begin - vtprd_maybe_print_checkout_discount', true ) );
   
   		//v1.1.1 begin - 
       // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -3486,7 +3506,7 @@ error_log( var_export($vtprd_cart, true ) );
   //  Maybe print Widget discount
   //**************************************************
 	public function vtprd_maybe_print_widget_discount(){  //and print discount info...
-  //error_log( print_r(  'Function begin - vtprd_maybe_print_widget_discount', true ) );
+     //error_log( print_r(  'Function begin - vtprd_maybe_print_widget_discount', true ) );
   
 		//v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -3505,7 +3525,10 @@ error_log( var_export($vtprd_cart, true ) );
 
     global $woocommerce, $vtprd_cart, $vtprd_cart_item, $vtprd_info, $vtprd_rules_set, $vtprd_rule, $wpsc_coupons, $vtprd_setup_options;
     vtprd_debug_options();  //v1.0.5        
-    
+
+       //error_log( print_r(  '$vtprd_cart at maybe_print_widget begin', true ) );
+       //error_log( var_export($vtprd_cart, true ) );
+
     //v1.0.9.3 begin
     //  NO widget print for inline pricing
     if ($vtprd_setup_options['discount_taken_where'] != 'discountCoupon')  {   		
@@ -3515,7 +3538,26 @@ error_log( var_export($vtprd_cart, true ) );
     
     //Open Session Variable, get rules_set and cart if not there....
     $data_chain = $this->vtprd_get_data_chain();
-
+    
+    //****************
+    //v1.1.1.2 begin -  1st discountCoupon mini cart display can loose its data chain on auto add - check and rerun discount
+    /*
+    if ( ( ($vtprd_cart == null) ||
+           (!isset ($vtprd_cart->cart_items)) )  &&
+        ($vtprd_info['ruleset_contains_auto_add_free_product'] == 'yes')  )  {
+    */
+    if ( ($vtprd_cart == null) ||
+         (!isset ($vtprd_cart->cart_items)) || 
+         (sizeof($vtprd_cart->cart_items) == 0) ) {        
+      //re-run the apply_discount
+      $woocommerce_cart_contents = $woocommerce->cart->get_cart();  
+      if (sizeof($woocommerce_cart_contents) > 0) {   
+        $this->vtprd_process_discount();  
+      }  
+    }
+    //v1.1.1.2 end
+    //****************
+  
     
     //set one-time switch for use in function vtprd_post_purchase_maybe_save_log_info
     $_SESSION['do_log_function'] = true;
@@ -3538,6 +3580,10 @@ error_log( var_export($vtprd_cart, true ) );
     //  $wpsc_cart->coupons_amount has ALREADY been re-computed in apply-rules.php at add to cart time
     //**************************************************    
 
+       //error_log( print_r(  '$vtprd_cart at maybe_print_widget AFTER DATa-chain get', true ) );
+       //error_log( var_export($vtprd_cart, true ) );
+      
+      
     if ($vtprd_cart->yousave_cart_total_amt > 0) {
     //   vtprd_enqueue_front_end_css();   
         vtprd_print_widget_discount();
@@ -3554,7 +3600,7 @@ error_log( var_export($vtprd_cart, true ) );
   * //				do_action( 'woocommerce_checkout_order_processed', $order_id, $this->posted );     
   *************************************************** */ 
   public function vtprd_post_purchase_maybe_save_log_info($log_id, $posted_info) {   //$log_id comes in as an argument from wpsc call...
-  //error_log( print_r(  'Function begin - vtprd_post_purchase_maybe_save_log_info', true ) );
+     //error_log( print_r(  'Function begin - vtprd_post_purchase_maybe_save_log_info', true ) );
 
 		//v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -3612,7 +3658,7 @@ error_log( var_export($vtprd_cart, true ) );
   USING THIS filter in this way, puts discounts within the existing products table, after products are shown, but before the close of the table...
   *************************************************** */ 
  public function vtprd_post_purchase_maybe_email($message, $order_info) { 
- //error_log( print_r(  'Function begin - vtprd_post_purchase_maybe_email', true ) );  
+    //error_log( print_r(  'Function begin - vtprd_post_purchase_maybe_email', true ) );  
 
 		//v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -3673,7 +3719,7 @@ error_log( var_export($vtprd_cart, true ) );
   //  do_action( 'woocommerce_order_details_after_order_table', $order );
   *************************************************** */ 
   public function vtprd_post_purchase_maybe_before_thankyou($order_id) { 
-  //error_log( print_r(  'Function begin - vtprd_post_purchase_maybe_before_thankyou', true ) ); 
+     //error_log( print_r(  'Function begin - vtprd_post_purchase_maybe_before_thankyou', true ) ); 
     
 		//v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -3768,7 +3814,7 @@ error_log( var_export($vtprd_cart, true ) );
   *       ONLY at transaction time...
   *********************************************** */     
  public function vtprd_post_purchase_maybe_purchase_log($message, $notification) { 
- //error_log( print_r(  'Function begin - vtprd_post_purchase_maybe_purchase_log', true ) );   
+    //error_log( print_r(  'Function begin - vtprd_post_purchase_maybe_purchase_log', true ) );   
     global $woocommerce, $vtprd_rules_set, $vtprd_cart, $vtprd_setup_options, $vtprd_info;    
     vtprd_debug_options();  //v1.0.5             
     //Open Session Variable, get rules_set and cart if not there....
@@ -3937,7 +3983,7 @@ error_log( var_export($vtprd_cart, true ) );
   **   Application - On Error Display Message on E-Commerce Checkout Screen  
   *************************************************** */ 
   public function vtprd_display_rule_error_msg_at_checkout(){
-  //error_log( print_r(  'Function begin - vtprd_display_rule_error_msg_at_checkout', true ) );
+     //error_log( print_r(  'Function begin - vtprd_display_rule_error_msg_at_checkout', true ) );
     global $vtprd_info, $vtprd_cart, $vtprd_setup_options;
     
     vtprd_debug_options();  //v1.1 
@@ -3984,7 +4030,7 @@ error_log( var_export($vtprd_cart, true ) );
 
    //Ajax-only
    public function vtprd_ajax_empty_cart() {
-   //error_log( print_r(  'Function begin - vtprd_ajax_empty_cart', true ) );
+      //error_log( print_r(  'Function begin - vtprd_ajax_empty_cart', true ) );
      //clears ALL the session variables, also clears out coupons
      $this->vtprd_maybe_clear_auto_add_session_vars();
      
@@ -3995,14 +4041,14 @@ error_log( var_export($vtprd_cart, true ) );
 
    //supply woo with ersatz pricing deals discount type
    public function vtprd_woo_add_pricing_deal_discount_type($coupon_types_array) {
-   //error_log( print_r(  'Function begin - vtprd_woo_add_pricing_deal_discount_type', true ) );
+      //error_log( print_r(  'Function begin - vtprd_woo_add_pricing_deal_discount_type', true ) );
       $coupon_types_array['pricing_deal_discount']	=  __( 'Pricing Deal Discount', 'woocommerce' );
      return $coupon_types_array;
    }
 
 
    public function vtprd_get_data_chain() {
-   //error_log( print_r(  'Function begin - vtprd_get_data_chain', true ) );      
+      //error_log( print_r(  'Function begin - vtprd_get_data_chain', true ) );      
       if(!isset($_SESSION)){
         session_start();
         header("Cache-Control: no-cache");
@@ -4076,7 +4122,7 @@ error_log( var_export($vtprd_cart, true ) );
    
  //Clean Up Session Variables which would otherwise persist during Discount Processing       
   public function vtprd_maybe_clear_auto_add_session_vars() {
-  //error_log( print_r(  'Function begin - vtprd_maybe_clear_auto_add_session_vars', true ) );
+     //error_log( print_r(  'Function begin - vtprd_maybe_clear_auto_add_session_vars', true ) );
     if(!isset($_SESSION)){
       session_start();
       header("Cache-Control: no-cache");
@@ -4111,7 +4157,7 @@ error_log( var_export($vtprd_cart, true ) );
    //v1.0.7.2 begin    New function, to pick up a zero total produced by catalog discounts...
    //  really only needed if ALL products have a catalog discount which ends up with ALL products FREE ...
    public function vtprd_maybe_recalc_woo_totals() {
-   //error_log( print_r(  'Function begin - vtprd_maybe_recalc_woo_totals', true ) );
+      //error_log( print_r(  'Function begin - vtprd_maybe_recalc_woo_totals', true ) );
 
   		//v1.1.1 begin - 
       // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -4147,7 +4193,7 @@ error_log( var_export($vtprd_cart, true ) );
 		do_action( 'wpsc_sales_log_process_bulk_action', $current_action );
   */
 	public function vtprd_pro_lifetime_log_roll_out($log_id ){ 
-  //error_log( print_r(  'Function begin - vtprd_pro_lifetime_log_roll_out', true ) ); 
+     //error_log( print_r(  'Function begin - vtprd_pro_lifetime_log_roll_out', true ) ); 
  
 		//v1.1.1 begin - 
     // "do_no_actions" set/unset in function  vtprd_build_product_price_array
@@ -4176,7 +4222,7 @@ error_log( var_export($vtprd_cart, true ) );
  		do_action( 'wpsc_purchase_log_before_delete', $log_id ); 
   */
 	public function vtprd_pro_lifetime_bulk_log_roll_out($current_action){  
-  //error_log( print_r(  'Function begin - vtprd_pro_lifetime_bulk_log_roll_out', true ) );
+     //error_log( print_r(  'Function begin - vtprd_pro_lifetime_bulk_log_roll_out', true ) );
 
     if ( (is_admin()) && (defined('VTPRD_PRO_DIRNAME')) ) {     
        vtprd_debug_options();  //v1.1
@@ -4189,7 +4235,7 @@ error_log( var_export($vtprd_cart, true ) );
   // v1.0.9.0  New function - do various housekeeping stuff
   //********************************************************
 	public function vtprd_do_loaded_housekeeping(){
-  //error_log( print_r(  'Function begin - vtprd_do_loaded_housekeeping', true ) );  
+     //error_log( print_r(  'Function begin - vtprd_do_loaded_housekeeping', true ) );  
 
 		//v1.1.1 begin - 
     
@@ -4318,7 +4364,7 @@ error_log( var_export($vtprd_cart, true ) );
     // check user-level tax exemption (plugin-specific checkbox on user screen)
     //USER LEVEL TAX EXEMPTION = ALL TRANSACTIONS TAX EXEMPT
     if (get_user_meta( $current_user->ID, 'vtprd_user_is_tax_exempt', true ) == 'yes') {
-       $woocommerce->customer->is_vat_exempt == true;
+       $woocommerce->customer->is_vat_exempt = true; //v1.1.1.2 chged '==' to '='
        return;
     }
 

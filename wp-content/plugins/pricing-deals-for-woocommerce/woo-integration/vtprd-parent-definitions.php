@@ -1,6 +1,6 @@
 <?php
 /*
-
+ 
 */
 
 
@@ -39,6 +39,15 @@ class VTPRD_Parent_Definitions {
     } else {
       $ruleset_has_a_display_rule = 'no';
     }
+
+    //v1.1.1.2 begin
+    //option set during update rule process
+    if (get_option('vtprd_ruleset_contains_auto_add_free_product') == true) {
+      $ruleset_contains_auto_add_free_product = get_option('vtprd_ruleset_contains_auto_add_free_product');
+    } else {
+      $ruleset_contains_auto_add_free_product = 'no';
+    }
+    //v1.1.1.2 end
     
     $coupon_code_discount_deal_title  = __('deals', 'vtprd');
     $default_short_msg  =  __('Short checkout message required', 'vtprd');
@@ -102,7 +111,8 @@ class VTPRD_Parent_Definitions {
             'product_has_addons'           => $product_has_addons    //v1.1.1                                      
           ) ;
          */
-         'ruleset_has_a_display_rule' => $ruleset_has_a_display_rule,
+         'ruleset_has_a_display_rule'     => $ruleset_has_a_display_rule,
+         'ruleset_contains_auto_add_free_product' => $ruleset_contains_auto_add_free_product,  //v1.1.1.2 
         
         //elements used in vtprd-apply-rules.php at the ruleset processing level
         //'at_least_one_rule_condition_satisfied' => 'no',

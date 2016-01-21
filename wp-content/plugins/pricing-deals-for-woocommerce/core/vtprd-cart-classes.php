@@ -142,6 +142,7 @@ class VTPRD_Cart_Item {
     public $product_discount_price_html_woo;
     public $product_in_rule_allowing_display;
     public $product_auto_insert_state;    //used only during auto insert processing ...
+    public $product_auto_insert_rule_id;    //v1.1.1.2
     public $variation_name_html;    //v1.0.7.9  pre-load variation name... 
     public $lifetime_line_subtotal;     //v1.0.8.0  for lifetime processing only...      
     public $product_already_in_an_all_rule;     //v1.0.8.4  for cumulativeRulePricing processing only...                            
@@ -215,7 +216,10 @@ class VTPRD_Cart_Item {
     $this->running_nth_total_price = 0.00;
     
     $this->product_in_rule_allowing_display = 'no'; //used during pricing/shortcode calls, initialized to 'no'
-    
+
+    $this->product_auto_insert_state;    //v1.1.1.2
+    $this->product_auto_insert_rule_id;    //v1.1.1.2
+
     //pricing deal switching fields from the product custom fields
     $this->ignore_all_rules = 'no';  //in a metabox on product screen, set to no rules apply to product
     $this->apply_only_rule_id;  //in a metabox on product screen, set rule_id of only rule to apply to this product   => PRODUCT MUST BE IN inPop

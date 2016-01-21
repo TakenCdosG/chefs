@@ -1,18 +1,23 @@
 window.wp = window.wp || {};
+window.eml = window.eml || { l10n: {} };
+
 
 ( function( $, _ ) {
-    
+
     var media = wp.media,
         Attachments = media.model.Attachments,
         Query = media.model.Query;
-    
-    
-    
-      
+
+
+
+    _.extend( eml.l10n, wpuxss_eml_media_models_l10n );
+
+
+
     _.extend( Query.prototype, {
-        
+
         initialize: function( models, options ) {
-            
+
             var allowed;
 
             options = options || {};
@@ -23,6 +28,7 @@ window.wp = window.wp || {};
             this.created  = new Date();
 
             this.filters.order = function( attachment ) {
+
                 var orderby = this.props.get('orderby'),
                     order = this.props.get('order');
 
@@ -64,23 +70,32 @@ window.wp = window.wp || {};
             }
         }
     });
-    
-   
-    
-    
+
+
+
+    // add 'rand' to allowed
+    _.extend( Query.orderby.allowed, [ 'name', 'author', 'date', 'title', 'rand', 'modified', 'uploadedTo', 'id', 'post__in', 'menuOrder' ] );
+
+
+
     _.extend( Query, {
-    
+
+        defaultProps: {
+    		orderby: eml.l10n.media_orderby,
+    		order: eml.l10n.media_order
+    	},
+
         queries: [],
-        
+
         cleanQueries: function(){
-            
+
             this.queries = [];
         },
-        
+
         get: (function(){
 
             return function( props, options ) {
-                
+
                 var args       = {},
                     orderby    = Query.orderby,
                     defaults   = Query.defaultProps,
@@ -120,7 +135,7 @@ window.wp = window.wp || {};
                 // `props.orderby` does not always map directly to `args.orderby`.
                 // Substitute exceptions specified in orderby.keymap.
                 args.orderby = orderby.valuemap[ props.orderby ] || props.orderby;
-                
+
                 // Search the query cache for matches.
                 if ( cache ) {
                     query = _.find( this.queries, function( query ) {
@@ -143,7 +158,17 @@ window.wp = window.wp || {};
             };
         }())
     });
-    
-        
-        
+
+
+
+    media.query = function( props ) {
+
+    	return new Attachments( null, {
+    		props: _.extend( _.defaults( props || {}, {
+                orderby: eml.l10n.media_orderby,
+                order: eml.l10n.media_order
+            } ), { query: true } )
+    	});
+    };
+
 })( jQuery, _ );

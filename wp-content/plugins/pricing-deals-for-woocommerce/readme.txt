@@ -3,8 +3,8 @@ Contributors: vark
 Donate link: http://www.varktech.com/woocommerce/woocommerce-dynamic-pricing-discounts-pro/
 Tags: dynamic pricing,  WooCommerce, ecommerce, e commerce, e-commerce, commerce, store, sales, promotion, advertising, sell, shop, shopping, cart, checkout, configurable, variable, widgets, reports, marketing, deals, price, discount, group pricing, wholesale, membership, role, promotion, bogo, catalog only
 Requires at least: 3.3
-Tested up to: 4.3.1
-Stable tag: 1.1.1
+Tested up to: 4.4.1
+Stable tag: 1.1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,10 +25,11 @@ Power your store to greater success with pricing deals and sales promotions! Jus
 *   Group pricing
 *   Product and Variation Pricing
 *   Schedulable
-*   New 'Hide Wholesale Products' - Wholesale/Retail Product display
-*   New 'Hide Pricing' -  Wholesale/Retail/Catalog-only purchasability
-*   New Replace price with message
-*   Works with WooCommerce 2.4+
+*   New Product Visibility Setting - Wholesale/Retail Product display
+*   New Product Purchasability Setting -  Wholesale/Retail/Catalog-only purchasability
+*   New Product Purchasability Price Filter - Replace price with message
+*   Works with WooCommerce 2.5+
+*   Multilanguage support through [QTranslate](https://wordpress.org/plugins/qtranslate-x/) 
 
 
 = Unparalleled Customer Service =
@@ -187,6 +188,11 @@ Direct support requests can be made here on the support tab, or at the [Support]
 
 == Changelog ==
 
+= 1.1.1.2 - 2015-11-07 =
+* Fix - Coupon discount mini-cart intermittent display issue on 1st time for auto adds
+* Enhancement - Formerly, only a single "auto add for free" rule was allowed.
+		Now multiple "auto add for free" rules is fully supported. 
+
 = 1.1.1 - 2015-09-26 =
 * Enhancement - Now Compatible with Woocommerce Measurement Price Calculator (Woocommerce + Skyverge). 
 * Enhancement - Now Compatible with Woocommerce Product Addons (Woocommerce). 
@@ -197,6 +203,13 @@ Direct support requests can be made here on the support tab, or at the [Support]
 * Fix - shortcode in-the-loop product messaging
 * Fix - discount and sale price scheduling
 * Fix - fix for variation pricing for variation groups larger than 20, Catalog rules discount
+* Fix - on Users screen
+		Pricing Deals User Tax Free (box) User Transactions are Tax-Free
+		- is now recognized by the system correctly
+		- NB - if the switch is set on, then toggled off, to clear same browser sesion of the setting:
+			- Pricing Deal Settings 'nuke session variables'
+			- log out/log back in to Uswer
+		
 * Enhancement - New Filter to enable Pricing Deals to pick up pricing from other plugins 
     
 		     // *** add to bottom of Theme Functions file
@@ -515,6 +528,11 @@ Direct support requests can be made here on the support tab, or at the [Support]
 
 
 == Upgrade Notice ==
+
+= 1.1.1.2 - 2015-11-07 =
+* Fix - Coupon discount mini-cart intermittent display issue on 1st time 
+* Enhancement - Formerly, only a single "auto add for free" rule was allowed.
+		Now multiple "auto add for free" rules is fully supported. 
 
 = 1.1.1 - 2015-09-26 =
 * Enhancement - Now Compatible with Woocommerce Measurement Price Calculator (Woocommerce + Skyverge). 
