@@ -39,7 +39,7 @@ function chef_gift_search_registry_shortcode($atts){
     $args["meta_query"] = array();
 
     if(!empty($registrant_name)){
-        $args["s"] => $registrant_name,
+        $args["s"] => $registrant_name;
     }
 
     if(!empty($registry_no) && is_numeric($registry_no)){
