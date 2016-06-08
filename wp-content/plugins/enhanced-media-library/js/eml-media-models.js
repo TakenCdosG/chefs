@@ -14,6 +14,42 @@ window.eml = window.eml || { l10n: {} };
 
 
 
+    _.extend( Attachments.prototype, {
+
+        saveMenuOrder: function() {
+
+            var nonce = wp.media.model.settings.post.nonce || eml.l10n.bulk_edit_nonce;
+
+            if ( 'menuOrder' !== this.props.get('orderby') ) {
+                return;
+            }
+
+            // Removes any uploading attachments, updates each attachment's
+            // menu order, and returns an object with an { id: menuOrder }
+            // mapping to pass to the request.
+            var attachments = this.chain().filter( function( attachment ) {
+                return ! _.isUndefined( attachment.id );
+            }).map( function( attachment, index ) {
+                // Indices start at 1.
+                index = index + 1;
+                attachment.set( 'menuOrder', index );
+                return [ attachment.id, index ];
+            }).object().value();
+
+            if ( _.isEmpty( attachments ) ) {
+                return;
+            }
+
+            return wp.media.post( 'save-attachment-order', {
+                nonce: nonce,
+                post_id: wp.media.model.settings.post.id,
+                attachments: attachments
+            });
+        }
+    });
+
+
+
     _.extend( Query.prototype, {
 
         initialize: function( models, options ) {
@@ -28,34 +64,7 @@ window.eml = window.eml || { l10n: {} };
             this.created  = new Date();
 
             this.filters.order = function( attachment ) {
-
-                var orderby = this.props.get('orderby'),
-                    order = this.props.get('order');
-
-                if ( ! this.comparator ) {
-                    return true;
-                }
-
-                // We want any items that can be placed before the last
-                // item in the set. If we add any items after the last
-                // item, then we can't guarantee the set is complete.
-                if ( this.length ) {
-                    return 1 !== this.comparator( attachment, this.last(), { ties: true });
-
-                // Handle the case where there are no items yet and
-                // we're sorting for recent items. In that case, we want
-                // changes that occurred after we created the query.
-                } else if ( 'DESC' === order && ( 'date' === orderby || 'modified' === orderby ) ) {
-                    return attachment.get( orderby ) >= this.created;
-
-                // If we're sorting by menu order and we have no items,
-                // accept any items that have the default menu order (0).
-                } else if ( 'ASC' === order && 'menuOrder' === orderby ) {
-                    return attachment.get( orderby ) === 0;
-                }
-
-                // Otherwise, we don't want any items yet.
-                return false;
+                return attachment.get( 'menuOrder' ) === 0;
             };
 
             // Observe the central `wp.Uploader.queue` collection to watch for
@@ -81,9 +90,9 @@ window.eml = window.eml || { l10n: {} };
     _.extend( Query, {
 
         defaultProps: {
-    		orderby: eml.l10n.media_orderby,
-    		order: eml.l10n.media_order
-    	},
+            orderby: eml.l10n.media_orderby,
+            order: eml.l10n.media_order
+        },
 
         queries: [],
 
@@ -163,12 +172,12 @@ window.eml = window.eml || { l10n: {} };
 
     media.query = function( props ) {
 
-    	return new Attachments( null, {
-    		props: _.extend( _.defaults( props || {}, {
+        return new Attachments( null, {
+            props: _.extend( _.defaults( props || {}, {
                 orderby: eml.l10n.media_orderby,
                 order: eml.l10n.media_order
             } ), { query: true } )
-    	});
+        });
     };
 
 })( jQuery, _ );

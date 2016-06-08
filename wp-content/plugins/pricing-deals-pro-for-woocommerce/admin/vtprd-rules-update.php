@@ -1038,7 +1038,7 @@ action amt condition can be an amt or $$
           //if another rule has the exact same FREE product, that's an ERROR
           if ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product == 'yes') {  
 
-              /*  Don't need this!!!!!!!!!!
+              //v1.1.1.2 begin ADDED ==>> can't do auto adds when activated by coupon
               //v1.1.0.9 begin - 
               // If CURRENT rule activated by coupon, ***no AUTO ADD rules may exist*** ==>> the switches which handle add/remove for coupons go nuts. 
               if ($vtprd_rule->only_for_this_coupon_name > ' ') {
@@ -1050,20 +1050,22 @@ action amt condition can be an amt or $$
                 $vtprd_rule->rule_error_red_fields[] = '#only_for_this_coupon_anchor';
               } 
               //v1.1.0.9 end 
-              */                        
+              //v1.1.1.2 end                      
                 
                 
-                //v1.1.1 begin - disallow multiple auto adds in ruleset
-
-                $conflictPost = get_post($vtprd_rules_set[$i]->post_id);
-                $vtprd_rule->rule_error_message[] = array( 
-                    'insert_error_before_selector' => '#discount_amt_box_0',  
-                    'error_msg'  => __('When "Automatically Add Free Product to Cart" is Selected, no other Auto Add Rule may exist.  CONFLICTING RULE NAME is: ', 'vtprd') .$conflictPost->post_title 
-                    );
-                $vtprd_rule->rule_error_red_fields[] = '#discount_auto_add_free_product_label_0'; 
-                break; 
-
-                //v1.1.1 end
+              //v1.1.1.2 REMOVED - multiples now allowed 
+              /*
+              //v1.1.1 begin - disallow multiple auto adds in ruleset
+              $conflictPost = get_post($vtprd_rules_set[$i]->post_id);
+              $vtprd_rule->rule_error_message[] = array( 
+                  'insert_error_before_selector' => '#discount_amt_box_0',  
+                  'error_msg'  => __('When "Automatically Add Free Product to Cart" is Selected, no other Auto Add Rule may exist.  CONFLICTING RULE NAME is: ', 'vtprd') .$conflictPost->post_title 
+                  );
+              $vtprd_rule->rule_error_red_fields[] = '#discount_auto_add_free_product_label_0'; 
+              break; 
+              //v1.1.1 end
+              */
+              //v1.1.1.2 end
 
 
               switch( true ) {    

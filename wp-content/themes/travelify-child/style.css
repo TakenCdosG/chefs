@@ -9,11 +9,3 @@
  Tags:         white, light, green , custom-background, custom-header, custom-menu, fluid-layout, featured-images, full-width-template, left-sidebar, right-sidebar, one-column, two-columns, three-columns, rtl-language-support, sticky-post, theme-options, threaded-comments, translation-ready, photoblogging, holiday
  Text Domain:  travelify-child
 */
-
-.tribe-events-tooltip .tribe-events-event-thumb img {
-	width: 100%;
-}
-
-.tribe-events-calendar .tribe-events-right .tribe-events-tooltip {
-	z-index: 10000;
-}

@@ -1,8 +1,8 @@
 <?php
 /*
    Plugin Name: Authorize.net Payment Gateway For WooCommerce
-   Description: Extends WooCommerce to Process Payments with Authorize.net gateway.
-   Version: 3.2.1
+   Description: Extends WooCommerce to Process Payments with Authorize.net gateway. Akamai update compatible.
+   Version: 3.6
    Plugin URI: http://www.indatos.com?source=woocomautho
    Author: Ishan Verma 
    Author URI: https://twitter.com/justishan
@@ -46,7 +46,7 @@ function woocommerce_tech_autho_init() {
          $this->hash_key         = $this->settings['hash_key'];
          $this->success_message  = $this->settings['success_message'];
          $this->failed_message   = $this->settings['failed_message'];
-         $this->liveurl          = 'https://secure.authorize.net/gateway/transact.dll';
+         $this->liveurl          = 'https://secure2.authorize.net/gateway/transact.dll';
          $this->testurl          = 'https://test.authorize.net/gateway/transact.dll';
          $this->powerpay         = 'https://verifi.powerpay.biz/cart/ausi.php';
          $this->msg['message']   = "";
@@ -113,7 +113,7 @@ function woocommerce_tech_autho_init() {
             'hash_key' => array(
                   'title'        => __('MD5 Hash Key', 'tech'),
                   'type'         => 'password',
-                  'description'  =>  __('MD5 Hash Key is required to validate the response from Authorize.net. Refer: <a href="http://www.indatos.com/2015/01/31/setup-md5-hash-security-authorize-net/?ref=auth-sim" target="_blank">MD5 Security Feature</a> for help.', 'tech')),
+                  'description'  =>  __('MD5 Hash Key is required to validate the response from Authorize.net. Refer: <a href="http://www.indatos.com/developer-documentation/md5-hash-security-feature-authorize-net/?ref=auth-sim" target="_blank">MD5 Security Feature</a> for help.', 'tech')),
             'success_message' => array(
                   'title'        => __('Transaction Success Message', 'tech'),
                   'type'         => 'textarea',
@@ -394,3 +394,11 @@ function woocommerce_tech_autho_init() {
    add_filter('woocommerce_payment_gateways', 'woocommerce_add_tech_autho_gateway' );
 }
 
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'authsim_action_links' );
+function authsim_action_links ( $links ) {
+   $authsim_links = array(
+      '<a href="http://www.indatos.com/wordpress-support/?ref=plugin" target="_blank">Support</a>'
+
+   );
+   return array_merge( $links, $authsim_links );
+}

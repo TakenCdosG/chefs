@@ -3,10 +3,10 @@
 Contributors: Toastie Studio
 
 Tags: facebook, twitter, pinterest, google plus, linkedin, tumblr, stumbleupon, share button, social media buttons, social media share buttons, woocommerce, woocommerce social media share buttons, horizontal, vertical, social icons.
-Requires at least:3.5
+Requires at least: 3.5
 
-Tested up to:4.3.1
-Stable tag: 4.3.1
+Tested up to: 4.4.2
+Stable tag: 4.4.2
 License: GPLv2 or later
 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -23,26 +23,17 @@ By default the plugin adds social media share buttons to your woocommerce store 
 
 You can also customize the plugin with the following features:
 
-* Pick from 3 layout options, button, button with counter or box with counter.
+* Pick from 4 layout options, button, button with counter, box with counter custom button images.
 
 * Select which social media share buttons to display. Pick from:
-
   - Facebook
-
   - Twitter
-
   - Google+
-
   - Pinterest
-
   - Tumblr
-
   - Linkedin
-
   - StumbleUpon
-
   - Email
-
   - VKontakte
 
 * Use shortcode to add social media share buttons to posts, pages, products, events etc. [woocommerce_social_media_share_buttons]
@@ -91,6 +82,11 @@ Please take the time to let us and others know about your experiences by leaving
 The only way to post a picture to Instagram is by uploading it yourself as Instagram specifically don't want users posting/sharing other peoples photos on its platform.
 https://help.instagram.com/158826297591430
 
+= Products do not share correctly to Facebook
+= Facebook is a picky social media for sharing and looks for open graph meta tags in your sites code. This plugin includes an option to automatically add these tags, so if you are having trouble with facebook share, turn this on.
+However if you have another SEO plugin installed, I recommend leaving them off, else you may have duplicate meta tags.
+You can trouble shoot facebook share using their debug tool: https://developers.facebook.com/tools/debug/
+
 
 
 
@@ -106,9 +102,9 @@ https://help.instagram.com/158826297591430
 = 1.1.4 = Small CSS fix
 = 1.2.0 = Added open graph option to help sharing settings.
 = 1.2.1 = Fixed pinterest, added share title and support for YITH Quickview
+= 1.3.0 = Checked for latest WooCommerce update, added extra customisation options like email template, share icon and more.
 
 
 
 == Upgrade Notice ==
 
-= 1.0.0 = First version, no upgrades

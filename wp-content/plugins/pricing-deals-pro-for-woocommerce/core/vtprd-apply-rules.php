@@ -1,6 +1,42 @@
 <?php
 
 /*
+       *******************************
+       *  v1.1.1.2 CHANGES       
+       *******************************
+       Alter auto_add_for_free to allow MULTIPLE rules processing       
+       
+       New cart fields:
+          product_auto_insert_rule_id;
+          
+      Change in session_variable structure:
+      
+        $current_auto_add_array = array ();  ==>? now indexed by $free_product_id
+          
+        $current_auto_add_array_row = array (       
+          'free_product_id' => '',
+          'free_product_add_action_cnt' => '', 
+          'free_product_in_inPop' => '',
+          'free_rule_actionPop' => '',         
+          'rule_id' => '',
+          'current_qty' => '', 
+          'purchased_qty' => '',
+          'candidate_qty' => '',
+          'free_qty' => '',
+          'variations_parameter' => ''                  
+      );         
+
+      At add to INPOP and ACTIONPOP time add to array time, verify that any Candidate or free items
+      already in the Cart **ARE ONLY** carried into the inpop and actionpop arrays
+      for a given rule, **IF** the rule id == product_auto_insert_rule_id .
+
+    *  v1.1.1.2 end 
+*/
+
+
+/*
+v1.1.0.6 begin
+
 Issue:
   When Buy qty/amt Pop 1 get *next* Pop2 (different) gwith repeating discount
     when the discount items are 'behind' the qualifying items in the cart
@@ -104,6 +140,7 @@ class VTPRD_Apply_Rules{
 	
 	public function __construct(){
 		global $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_info, $vtprd_setup_options, $vtprd_rule;
+    
     
     //GET RULES SET     
     $vtprd_rules_set = get_option( 'vtprd_rules_set' );
@@ -222,7 +259,9 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
 
   public function vtprd_process_cart() { 
     global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info;	
-
+      
+    //error_log( print_r(  'vtprd_process_cart ', true ) ); 
+ 
     //cart may be empty...
     if (sizeof($vtprd_cart) == 0) {
       $vtprd_cart->cart_level_status = 'rejected';
@@ -284,7 +323,8 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
   //************************************************
   public function vtprd_test_cart_for_rules_populations() { 
     global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info;
-     
+    
+    //error_log( print_r(  'vtprd_test_cart_for_rules_populations ', true ) );     
      
     //************************************************
     //BEGIN processing to mark product as participating in the rule or not...
@@ -354,11 +394,11 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
        
       //Cart Main Processing
       $sizeof_cart_items = sizeof($vtprd_cart->cart_items);
- //error_log( print_r(  '$sizeof_cart_items= ' .$sizeof_cart_items, true ) );
+    //error_log( print_r(  '$sizeof_cart_items= ' .$sizeof_cart_items, true ) );
       for($k=0; $k < $sizeof_cart_items; $k++) {                 
         //only do this check if the product is on special!!
- //error_log( print_r(  '$vtprd_cart->cart_item $k= ' .$k, true ) );
- //error_log( var_export($vtprd_cart->cart_items[$k], true ) );        
+    //error_log( print_r(  '$vtprd_cart->cart_item $k= ' .$k, true ) );
+    //error_log( var_export($vtprd_cart->cart_items[$k], true ) );        
         if ($vtprd_cart->cart_items[$k]->product_is_on_special == 'yes')  { 
           $do_continue = '';  //v1.0.4 set = to ''
           switch( $vtprd_rules_set[$i]->cumulativeSalePricing) {
@@ -410,9 +450,10 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
  
         
    public function vtprd_manage_shared_rule_tests($i) { 
-
       global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;
-    
+      
+    //error_log( print_r(  'vtprd_manage_shared_rule_tests ', true ) ); 
+     
       $rule_is_date_valid = vtprd_rule_date_validity_test($i);
       if (!$rule_is_date_valid) {
          $vtprd_rules_set[$i]->rule_status = 'dateInvalid';  //temp chg of rule_status for this execution only
@@ -447,12 +488,12 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
         }
         $_SESSION['cumulativeCouponNo'] = true;
         
-//error_log( print_r(  'set cumulativeCouponNo=  true', true ) );        
-        $coupon_cnt_without_deals_coupon = sizeof($vtprd_info['coupon_codes_array']);
-//error_log( print_r(  'only_for_this_coupon_name= ' .$vtprd_rules_set[$i]->only_for_this_coupon_name , true ) ); 
-//error_log( print_r(  '$coupon_cnt= ' .$coupon_cnt_without_deals_coupon, true ) ); 
-//error_log( print_r(  'coupon_codes_array= ' , true ) ); 
-//error_log( var_export($vtprd_info['coupon_codes_array'], true ) );          
+   //error_log( print_r(  'set cumulativeCouponNo=  true', true ) );        
+//        $coupon_cnt_without_deals_coupon = sizeof($vtprd_info['coupon_codes_array']);
+   //error_log( print_r(  'only_for_this_coupon_name= ' .$vtprd_rules_set[$i]->only_for_this_coupon_name , true ) ); 
+   //error_log( print_r(  '$coupon_cnt= ' .$coupon_cnt_without_deals_coupon, true ) ); 
+   //error_log( print_r(  'coupon_codes_array= ' , true ) ); 
+   //error_log( var_export($vtprd_info['coupon_codes_array'], true ) );          
         
         $sizeof_coupon_codes_array = (sizeof($vtprd_info['coupon_codes_array'])) ; 
         if ( ($vtprd_rules_set[$i]->only_for_this_coupon_name > ' ')  &&
@@ -478,6 +519,9 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
         
    public function vtprd_test_if_inPop_product($i, $k) { 
       global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;
+      
+    //error_log( print_r(  'vtprd_test_if_inPop_product ', true ) ); 
+       
       /*  v1.0.5 
       ADDTIONAL RULE CRITERIA FILTER - optional, default = TRUE   (useful to add additional checks on a specific rule)
       
@@ -620,7 +664,10 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
   // **************** 
            
    public function vtprd_test_if_actionPop_product($i, $k) { 
+   
       global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;
+      
+    //error_log( print_r(  'vtprd_test_if_actionPop_product ', true ) );      
       /*  v1.0.5 
       ADDTIONAL RULE CRITERIA FILTER - optional, default = TRUE   (useful to add additional checks on a specific rule)
       
@@ -735,7 +782,10 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
 
 
   public function vtprd_process_cart_for_rules_discounts() {
-    global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info;      
+    global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info;  
+      
+    //error_log( print_r(  'vtprd_process_cart_for_rules_discounts ', true ) ); 
+        
     //************************************************
     //SECOND PASS - have the inPop, output and rule conditions been met
     //************************************************
@@ -819,11 +869,11 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
   
         //REPEAT count only augments IF a discount successfully processes...
         for($br=0; $br < $buy_repeat_count; $br++) {
-//error_log( print_r(  'Just above vtprd_repeating_group_discount_cntl, $br= ' . $br, true ) );            
+   //error_log( print_r(  'Just above vtprd_repeating_group_discount_cntl, $br= ' . $br, true ) );            
            $this->vtprd_repeating_group_discount_cntl($i, $d, $br );             
            
            if ($vtprd_rules_set[$i]->discount_processing_status != 'inProcess') { 
-//error_log( print_r(  'rule no longer inProcess, broke out of $br loop ' . $br, true ) );              
+   //error_log( print_r(  'rule no longer inProcess, broke out of $br loop ' . $br, true ) );              
              break; // exit repeat for loop
            }                     
         } // $buy_repeat_count for loop        
@@ -909,7 +959,7 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
   public function vtprd_repeating_group_discount_cntl($i, $d, $br) {
     global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework, $vtprd_deal_structure_framework;        
 
-//error_log( print_r(  'Top Of vtprd_repeating_group_discount_cntl, $br= ' . $br, true ) ); 
+    //error_log( print_r(  'Top Of vtprd_repeating_group_discount_cntl, $br= ' . $br, true ) ); 
             
     //initialize rule_processing_trail(
     $vtprd_rules_set[$i]->rule_processing_trail[] = $vtprd_deal_structure_framework;
@@ -965,7 +1015,7 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
     if ($vtprd_rules_set[$i]->rule_processing_status == 'cartGroupFailedTest') {
       //if buy criteria not met, discount processing for rule is done
       $vtprd_rules_set[$i]->discount_processing_status = 'InPopEnd';
-//error_log( print_r(  'reached INPOPEND, $br= ' . $br, true ) );       
+   //error_log( print_r(  'reached INPOPEND, $br= ' . $br, true ) );       
       return;
     } 
 
@@ -995,18 +1045,21 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
  
   public function vtprd_process_actionPop_and_discount($i, $d, $br, $ar ) {      
     global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;        
-                    
+      
+    //error_log( print_r(  'vtprd_process_actionPop_and_discount  $i= ' .$i. ' $d= ' .$d.  ' $br= ' .$br. ' $ar= ' .$ar, true ) ); 
+                     
     //v1.1.0.6 begin
     //If 2nd to nth repeat where INPOP has been blessed, then add more free candidates!
     if ( ($br > 0) ||
          ($ar > 0) ) {
          
- //error_log( print_r(  'just above exec of vtprd_add_free_item_candidate, $br= ' . $br, true ) ); 
-//error_log( print_r(  'just above exec of vtprd_add_free_item_candidate, $ar= ' . $ar, true ) ); 
-//error_log( print_r(  'just above exec of vtprd_add_free_item_candidate, $inPop_exploded_group_end= ' .$vtprd_rules_set[$i]->inPop_exploded_group_end , true ) ); 
+    //error_log( print_r(  'just above exec of vtprd_add_free_item_candidate, $br= ' . $br, true ) ); 
+   //error_log( print_r(  'just above exec of vtprd_add_free_item_candidate, $ar= ' . $ar, true ) ); 
+   //error_log( print_r(  'just above exec of vtprd_add_free_item_candidate, $inPop_exploded_group_end= ' .$vtprd_rules_set[$i]->inPop_exploded_group_end , true ) ); 
 //$sizeof_inPop_exploded_found_list = sizeof($vtprd_rules_set[$i]->inPop_exploded_found_list); 
-//error_log( print_r(  'just above exec of vtprd_add_free_item_candidate, $sizeof_inPop_exploded_found_list= ' .$sizeof_inPop_exploded_found_list , true ) );      
+   //error_log( print_r(  'just above exec of vtprd_add_free_item_candidate, $sizeof_inPop_exploded_found_list= ' .$sizeof_inPop_exploded_found_list , true ) );      
       
+      //2nd => nth
       if ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product == 'yes') {    
         $this->vtprd_add_free_item_candidate($i); //v1.1.0.6 if $br or $ar > 0, add to exploded!
       }
@@ -1087,7 +1140,7 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
           $sizeOf_actionPop_exploded_found_list = sizeof($vtprd_rules_set[$i]->actionPop_exploded_found_list);
           if ($vtprd_rules_set[$i]->actionPop_exploded_group_begin >= $sizeOf_actionPop_exploded_found_list ) {
              $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
-//error_log( print_r('cartGroupFailedTest 001 ', true ) );              
+   //error_log( print_r('cartGroupFailedTest 001 ', true ) );              
              break;
           }
       
@@ -1095,19 +1148,19 @@ wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT Minimum Purchase not 
           
 /*
 //echo 'group begin= ' . $ss . 'group begin ProdID= ' .$ProdID .'<br>';
-      error_log( print_r(  'SizeOf exploded list= ' . $sizeOf_actionPop_exploded_found_list, true ) );
+        error_log( print_r(  'SizeOf exploded list= ' . $sizeOf_actionPop_exploded_found_list, true ) );
                 
 $ss = $vtprd_rules_set[$i]->actionPop_exploded_group_begin;
 $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
 //echo 'group begin= ' . $ss . 'group begin ProdID= ' .$ProdID .'<br>';
-      error_log( print_r(  'group begin= ' . $ss . ' group begin ProdID= ' .$ProdID, true ) );
+        error_log( print_r(  'group begin= ' . $ss . ' group begin ProdID= ' .$ProdID, true ) );
 
 
 
 $ss = $vtprd_rules_set[$i]->actionPop_exploded_group_end;
 $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
 //echo 'group end = ' . $ss . 'group begin ProdID= ' .$ProdID .'<br>';
-    error_log( print_r(  'group end= ' . $ss . ' group end ProdID= ' .$ProdID, true ) );
+      error_log( print_r(  'group end= ' . $ss . ' group end ProdID= ' .$ProdID, true ) );
           //here for test  MWN
           
 */          
@@ -1118,13 +1171,13 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
           if (($br > 0) ||    //if 2nd to nth buy repeat or actionpop repeat, , use the previous actionPop group end to begin the next group
               ($ar > 0)) { 
             $vtprd_rules_set[$i]->actionPop_exploded_group_begin = $vtprd_rules_set[$i]->actionPop_exploded_group_end;// + 1;
-//error_log( print_r(  'at nextInActionPop,  actionPop_exploded_group_begin= ' . $vtprd_rules_set[$i]->actionPop_exploded_group_begin, true ) );             
+   //error_log( print_r(  'at nextInActionPop,  actionPop_exploded_group_begin= ' . $vtprd_rules_set[$i]->actionPop_exploded_group_begin, true ) );             
           } 
           // first time through,  $vtprd_rules_set[$i]->actionPop_exploded_group_begin = 0;
             
           //SETS action amt "window" for the actionPop_exploded_group
           $this->vtprd_set_action_group_end($i, $d, $ar );  //vtprd_action_amt_process      
-//error_log( print_r(  'after vtprd_set_action_group_end,  actionPop_exploded_group_end= ' . $vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );           
+   //error_log( print_r(  'after vtprd_set_action_group_end,  actionPop_exploded_group_end= ' . $vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );           
         break;   
     } 
     
@@ -1132,10 +1185,10 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
     if ($vtprd_rules_set[$i]->rule_processing_status == 'cartGroupFailedTest') {
       //THIS PATH can either end processing for the rule, or just this iteration of actionPop processing, based on settings in set_action_group...    
 
-//error_log( print_r(  'Inpop end reached ' , true ) );      
+   //error_log( print_r(  'Inpop end reached ' , true ) );      
       
       $vtprd_rules_set[$i]->discount_processing_status = 'InPopEnd';
-//error_log( print_r(  'discount_processing_status = InPopEnd #001 br/ar = ' . $br . '  ' . $ar, true ) ); 
+   //error_log( print_r(  'discount_processing_status = InPopEnd #001 br/ar = ' . $br . '  ' . $ar, true ) ); 
       return;
     }         
 
@@ -1199,7 +1252,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
          ($vtprd_rules_set[$i]->actionPop_exploded_group_end >= $sizeof_actionpop_list) )  {
       //emulate having the future additonal free item which will be added next iteration, if $br or $ar have "room" left...
       $sizeof_actionpop_list++;
-//error_log( print_r(  'sizeof actionpop increased, sizeof/br/ar= ' . $sizeof_actionpop_list . '  ' . $br . '  ' . $ar, true ) );      
+   //error_log( print_r(  'sizeof actionpop increased, sizeof/br/ar= ' . $sizeof_actionpop_list . '  ' . $br . '  ' . $ar, true ) );      
     }
     //v1.1.0.6 END
     
@@ -1208,10 +1261,10 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
          ($ar >= ($sizeof_actionpop_list) ) ||  //v1.0.3 exit if infinite repeat  
          ($vtprd_rules_set[$i]->end_of_actionPop_reached == 'yes') ) {
          
-//error_log( print_r(  'discount_processing_status = InPopEnd #002 br/ar= ' . $br . '  ' . $ar, true ) );
-//error_log( print_r(  '$vtprd_rules_set[$i]->actionPop_exploded_group_end / sizeof = ' . $vtprd_rules_set[$i]->actionPop_exploded_group_end . '  '. $sizeof_actionpop_list, true ) ); 
-//error_log( print_r(  '$ar= , $sizeof_actionpop_list = ' . $ar . '  '. $sizeof_actionpop_list, true ) );
-//error_log( print_r(  '$vtprd_rules_set[$i]->end_of_actionPop_reached = ' . $vtprd_rules_set[$i]->end_of_actionPop_reached, true ) );  
+   //error_log( print_r(  'discount_processing_status = InPopEnd #002 br/ar= ' . $br . '  ' . $ar, true ) );
+   //error_log( print_r(  '$vtprd_rules_set[$i]->actionPop_exploded_group_end / sizeof = ' . $vtprd_rules_set[$i]->actionPop_exploded_group_end . '  '. $sizeof_actionpop_list, true ) ); 
+   //error_log( print_r(  '$ar= , $sizeof_actionpop_list = ' . $ar . '  '. $sizeof_actionpop_list, true ) );
+   //error_log( print_r(  '$vtprd_rules_set[$i]->end_of_actionPop_reached = ' . $vtprd_rules_set[$i]->end_of_actionPop_reached, true ) );  
        
        $vtprd_rules_set[$i]->discount_processing_status = 'InPopEnd';
 
@@ -1219,7 +1272,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
       switch ($vtprd_rules_set[$i]->discountAppliesWhere)  {
         case 'allActionPop':
            $vtprd_rules_set[$i]->discount_processing_status = 'InPopEnd'; //all done - process all actionPop in one go 
-//error_log( print_r(  'discount_processing_status = InPopEnd #002A br/ar= ' . $br . '  ' . $ar, true ) );             
+   //error_log( print_r(  'discount_processing_status = InPopEnd #002A br/ar= ' . $br . '  ' . $ar, true ) );             
           break;
         case 'inCurrentInPopOnly':              
         case 'nextInInPop':       
@@ -1234,7 +1287,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
  
   public function vtprd_apply_discount_to_each_product($i, $d, $ar ) {  
      global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;        
-
+      
+    //error_log( print_r(  'vtprd_apply_discount_to_each_product $i= ' .$i. ' $d= ' .$d. ' $ar= ' .$ar, true ) ); 
+ 
      //if we're doing action nth processing, only the LAST product in the list gets the discount.
      if ($vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_type'] == 'nthQuantity') {
        $each_product_group_begin = $vtprd_rules_set[$i]->actionPop_exploded_group_end - 1;
@@ -1249,7 +1304,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
         $this->vtprd_upd_cart_discount($i, $d, $curr_prod_array);
         //just in case...
         if ($s >= sizeof($vtprd_rules_set[$i]->actionPop_exploded_found_list)) {
-//error_log( print_r(  'discount_processing_status = InPopEnd #003 br/ar' . $br . '  ' . $ar, true ) );         
+   //error_log( print_r(  'discount_processing_status = InPopEnd #003 br/ar' . $br . '  ' . $ar, true ) );         
           $vtprd_rules_set[$i]->discount_processing_status = 'InPopEnd';
           return;
         }  
@@ -1260,7 +1315,10 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
   }
  
   public function vtprd_apply_discount_as_a_group($i, $d, $ar ) {   
-     global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;        
+     global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework; 
+      
+    //error_log( print_r(  'vtprd_apply_discount_as_a_group ', true ) ); 
+             
     $prod_discount = 0;    
     switch( true ) {
       case ($vtprd_rules_set[$i]->rule_deal_info[$d]['discount_amt_type']   == 'forThePriceOf_Units') :
@@ -1657,16 +1715,28 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
     -------------------------- */
   public function vtprd_upd_cart_discount($i, $d, $curr_prod_array) {   
     global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;  
-
+      
+     //error_log( print_r(  'vtprd_upd_cart_discount AT TOP, $i= ' .$i. ' $d= ' .$d, true ) ); 
+     //error_log( print_r(  '$curr_prod_array AT TOP= ', true ) );
+     //error_log( var_export($curr_prod_array, true ) );
+ 
     $k = $curr_prod_array['prod_id_cart_occurrence'];
     $rule_id = $vtprd_rules_set[$i]->post_id; 
+    
+    $product_id = $vtprd_cart->cart_items[$k]->product_id; //v1.1.1.2 
 
     if ($curr_prod_array['prod_discount_amt'] == 0) {
       //v1.1.0.6 begin -  don't skip this if there is a zero priced product on an auto insert rule...
-      $current_auto_add_array = $this->vtprd_get_current_auto_add_array();  
+            
+      $current_auto_add_array = $this->vtprd_get_current_auto_add_array();
+        
       if ( ($vtprd_info['current_processing_request']  ==  'cart') &&
            ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product  ==  'yes') &&
-           ($vtprd_cart->cart_items[$k]->product_id  ==  $current_auto_add_array['free_product_id']) &&
+           //v1.1.1.2 begin
+           //($vtprd_cart->cart_items[$k]->product_id  ==  $current_auto_add_array['free_product_id']) &&
+           ($vtprd_cart->cart_items[$k]->product_auto_insert_rule_id  ==  $vtprd_rules_set[$i]->post_id) &&
+           (isset ($current_auto_add_array[$product_id]) ) &&
+           //v1.1.1.2 end
            ($vtprd_cart->cart_items[$k]->unit_price  ==  0) ) {
         $vtprd_cart->cart_items[$k]->cartAuditTrail[$vtprd_rules_set[$i]->post_id]['discount_msgs'][] = 'Zero price auto add product';
         $vtprd_cart->cart_items[$k]->zero_price_auto_add_free_item = 'yes'; //MARK FOR PRINTING FUNCTIONS
@@ -2347,21 +2417,35 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
     }
     
     //********************
+    //v1.1.1.2 begin - reworked for multiple free 
     //v1.1.0.6 begin
     //  SINGLE UNIT - mark free candidate as free, increment/decrement counters
-    $current_auto_add_array = $this->vtprd_get_current_auto_add_array(); //will get an initialized array, as none exists currently...
-      
+    $current_auto_add_array = $this->vtprd_get_current_auto_add_array(); 
+    $free_product_id = $vtprd_cart->cart_items[$k]->product_id; //v1.1.1.2 
+
 //    if ( ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product == 'yes') && 
 //         ($vtprd_cart->cart_items[$k]->product_auto_insert_state == 'candidate') ) {
     if ( ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product == 'yes') &&
-         ($vtprd_cart->cart_items[$k]->product_id == $current_auto_add_array['free_product_id']) ){
-      $vtprd_cart->cart_items[$k]->product_auto_insert_state == 'free';
-      $current_auto_add_array['free_qty'] ++;
-//TEST      $current_auto_add_array['current_qty'] ++; 
-      $current_auto_add_array['candidate_qty'] --;
+         ($vtprd_cart->cart_items[$k]->product_auto_insert_rule_id  ==  $vtprd_rules_set[$i]->post_id) &&
+         //($vtprd_cart->cart_items[$k]->product_id == $current_auto_add_array['free_product_id']) ){
+         (isset($current_auto_add_array[$free_product_id])) ) {
+       
+     
+      $vtprd_cart->cart_items[$k]->product_auto_insert_state = 'free';
+      $current_auto_add_array[$free_product_id]['free_qty'] ++;
+      $current_auto_add_array[$free_product_id]['candidate_qty'] --;
+      
+      $current_auto_add_array[$free_product_id]['current_qty'] = 
+        ($current_auto_add_array[$free_product_id]['purchased_qty'] + $current_auto_add_array[$free_product_id]['free_qty']); //v1.1.1.2
+
+       
+      //error_log( print_r(  '$current_auto_add_array at ADD TO FREE_QTY time = ', true ) );
+      //error_log( var_export($current_auto_add_array, true ) ); 
+        
       $_SESSION['current_auto_add_array'] = serialize($current_auto_add_array);
     }
     //v1.1.0.6 end
+    //v1.1.1.2 end
     //********************
     
     return;
@@ -2369,7 +2453,10 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
  
  
   public function vtprd_compute_each_discount($i, $d, $prod_unit_price ) {   
-    global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;        
+    global $post, $vtprd_setup_options, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;    
+       
+     //error_log( print_r(  'vtprd_compute_each_discount ', true ) ); 
+        
      //$vtprd_rules_set[$i]->inPop_exploded_found_list[$e]['prod_unit_price']
     switch( $vtprd_rules_set[$i]->rule_deal_info[$d]['discount_amt_type']  ) {            
       case 'free':
@@ -2416,7 +2503,10 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
   }
  
   public function vtprd_set_buy_group_end($i, $d, $r ) { 
-    global $post, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;     
+    global $post, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;  
+      
+     //error_log( print_r(  'vtprd_set_buy_group_end i= ' .$i.  ' $d= ' .$d.  ' $r= ' .$r , true ) ); 
+        
     //mwn change
     /* 
     can only set begin here: 
@@ -2447,7 +2537,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                 if ( $temp_end > $sizeof_inPop_exploded_found_list ) {  //v1.1.0.6 
                    $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                    $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining qty in cart to fulfill buy amt qty';
-//error_log( print_r('cartGroupFailedTest 002 ', true ) );                   
+    //error_log( print_r('cartGroupFailedTest 002 ', true ) );                   
                    return;
                 }              
                switch( $vtprd_rules_set[$i]->rule_deal_info[$d]['buy_amt_applies_to'] ) {             
@@ -2482,7 +2572,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                                 $failed_test_total++;
                                 $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                                 $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill minimum buy amt qty';
- //error_log( print_r('cartGroupFailedTest 003 ', true ) );  
+     //error_log( print_r('cartGroupFailedTest 003 ', true ) );  
                                 return; //v1.1.0.6                                                               
                               }
                            break;
@@ -2491,7 +2581,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                                 $failed_test_total++;
                                 $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                                 $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill maximum buy amt qty';
-//error_log( print_r('cartGroupFailedTest 004 ', true ) );
+    //error_log( print_r('cartGroupFailedTest 004 ', true ) );
                                 return; //v1.1.0.6    
                               }                              
                            break;                                            
@@ -2508,7 +2598,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                 if ( $temp_end > $sizeof_inPop_exploded_found_list ) {    //v1.1.0.6  
                    $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                     $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill buy amt qty';
-//error_log( print_r('cartGroupFailedTest 005 ', true ) );                     
+    //error_log( print_r('cartGroupFailedTest 005 ', true ) );                     
                    return;
                 }             
                switch( $vtprd_rules_set[$i]->rule_deal_info[$d]['buy_amt_applies_to'] ) {             
@@ -2544,7 +2634,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                               $failed_test_total++;
                               $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                               $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill minimum buy amt mod count';
-//error_log( print_r('cartGroupFailedTest 006 ', true ) ); 
+    //error_log( print_r('cartGroupFailedTest 006 ', true ) ); 
                               return; //v1.1.0.6
                             }
                          break;
@@ -2553,7 +2643,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                               $failed_test_total++;
                               $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                               $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill maximum buy amt mod count';
-//error_log( print_r('cartGroupFailedTest 007 ', true ) ); 
+    //error_log( print_r('cartGroupFailedTest 007 ', true ) ); 
                               return; //v1.1.0.6
                             }                              
                          break;                                              
@@ -2572,8 +2662,8 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
       if ($e >= $sizeof_inPop_exploded_found_list ) { //v1.1.0.6 
         $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
         $vtprd_rules_set[$i]->rule_processing_msgs[] = 'reached end of inPop_exploded_found_list';
-//error_log( print_r('cartGroupFailedTest 008 $e= ' .$e, true ) ); 
-//error_log( print_r('$sizeof_inPop_exploded_found_list= ' .$sizeof_inPop_exploded_found_list, true ) );         
+    //error_log( print_r('cartGroupFailedTest 008 $e= ' .$e, true ) ); 
+    //error_log( print_r('$sizeof_inPop_exploded_found_list= ' .$sizeof_inPop_exploded_found_list, true ) );         
         return;
       }
     } else {//end if 'quantity' or 'currency'
@@ -2588,7 +2678,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
           if ( $temp_end > $sizeof_inPop_exploded_found_list ) { //v1.1.0.6 
              $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
              $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining buy qty for nth';
-//error_log( print_r('cartGroupFailedTest 009 ', true ) );              
+    //error_log( print_r('cartGroupFailedTest 009 ', true ) );              
              return;
           }
           
@@ -2620,7 +2710,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                         $failed_test_total++;
                         $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                         $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining minimum buy $$ for nth';
-//error_log( print_r('cartGroupFailedTest 010 ', true ) ); 
+    //error_log( print_r('cartGroupFailedTest 010 ', true ) ); 
                       }
                    break;
                  case 'maxCurrency':
@@ -2628,7 +2718,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                         $failed_test_total++;
                         $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                         $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining maximum buy $$ for nth';
-//error_log( print_r('cartGroupFailedTest 011 ', true ) );                         
+    //error_log( print_r('cartGroupFailedTest 011 ', true ) );                         
                       }                              
                    break;                                              
               } //end switch                                    
@@ -2640,7 +2730,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
           if ( $e >= $sizeof_inPop_exploded_found_list ) {  //v1.1.0.6      
             $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
             $vtprd_rules_set[$i]->rule_processing_msgs[] = 'End of inPop reached during Nth processing';
-//error_log( print_r('cartGroupFailedTest 012 ', true ) );
+    //error_log( print_r('cartGroupFailedTest 012 ', true ) );
             $end_of_nth_test = 'yes';
             return;
           }         
@@ -2658,7 +2748,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
  
   public function vtprd_set_action_group_end($i, $d, $ar ) { 
     global $post, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;     
-
+      
+     //error_log( print_r(  'vtprd_set_action_group_end ', true ) ); 
+ 
     /*
     DETERMINE THE BEGIN AND END OF ACTIONPOP PROCESSING "WINDOW"
     
@@ -2669,7 +2761,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                   the setup/edit fails.     
     */
 
-//error_log( print_r('TOP OF vtprd_set_action_group_end, actionPop_exploded_group_begin =  ' .$vtprd_rules_set[$i]->actionPop_exploded_group_begin , true ) );  
+    //error_log( print_r('TOP OF vtprd_set_action_group_end, actionPop_exploded_group_begin =  ' .$vtprd_rules_set[$i]->actionPop_exploded_group_begin , true ) );  
     
     $templateKey = $vtprd_rules_set[$i]->rule_template;
     
@@ -2690,7 +2782,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                    $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                    $vtprd_rules_set[$i]->end_of_actionPop_reached = 'yes';
                    $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining qty in cart to fulfill action amt qty';
-//error_log( print_r('cartGroupFailedTest 013 ', true ) );                   
+    //error_log( print_r('cartGroupFailedTest 013 ', true ) );                   
                    return;
                 }               
                switch( $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_applies_to'] ) {             
@@ -2713,7 +2805,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                } //end switch  $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_applies_to']            
                if ($for_loop_unit_count == $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_count']) {
                   $vtprd_rules_set[$i]->actionPop_exploded_group_end = $vtprd_rules_set[$i]->actionPop_exploded_group_begin + $for_loop_elapsed_count;                     
-//error_log( print_r('actionPop_exploded_group_end reset here = ' .$vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );                  
+    //error_log( print_r('actionPop_exploded_group_end reset here = ' .$vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );                  
                   if ($vtprd_template_structures_framework[$templateKey]['action_amt_mod'] > ' ' ) {
                      switch( $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_mod'] ) {
                          case 'none':
@@ -2723,7 +2815,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                                 $failed_test_total++;
                                 $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                                 $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill minimum action amt qty'; 
-//error_log( print_r('cartGroupFailedTest 014 ', true ) );                                                                                                                               
+    //error_log( print_r('cartGroupFailedTest 014 ', true ) );                                                                                                                               
                               }
                            break;
                          case 'maxCurrency':
@@ -2731,7 +2823,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                                 $failed_test_total++;
                                 $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                                 $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill maximum action amt qty'; 
-//error_log( print_r('cartGroupFailedTest 015 ', true ) );                                                               
+    //error_log( print_r('cartGroupFailedTest 015 ', true ) );                                                               
                               }                              
                            break;                                            
                      } //end switch 
@@ -2764,7 +2856,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                if ($for_loop_price_total >= $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_count']) {
                   
                   $vtprd_rules_set[$i]->actionPop_exploded_group_end = $vtprd_rules_set[$i]->actionPop_exploded_group_begin + $for_loop_elapsed_count;                     
-//error_log( print_r('actionPop_exploded_group_end reset here2 = ' .$vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );                                     
+    //error_log( print_r('actionPop_exploded_group_end reset here2 = ' .$vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );                                     
                   if ($vtprd_template_structures_framework[$templateKey]['action_amt_mod'] > ' ' ) {
                     switch( $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_mod'] ) {
                        case 'none':
@@ -2774,7 +2866,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                               $failed_test_total++;
                               $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                               $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill minimum action amt mod count';
-//error_log( print_r('cartGroupFailedTest 016 ', true ) );                              
+    //error_log( print_r('cartGroupFailedTest 016 ', true ) );                              
                             }
                          break;
                        case 'maxCurrency':
@@ -2782,7 +2874,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                               $failed_test_total++;
                               $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                               $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining $$ in cart to fulfill maximum action amt mod count';
-//error_log( print_r('cartGroupFailedTest 017 ', true ) );                                                            
+    //error_log( print_r('cartGroupFailedTest 017 ', true ) );                                                            
                             }                              
                          break;                                              
                     } //end switch                                    
@@ -2799,9 +2891,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
       if ($e >= sizeof($vtprd_rules_set[$i]->actionPop_exploded_found_list) ) {
         $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
         $vtprd_rules_set[$i]->rule_processing_msgs[] = 'reached end of actionPop_exploded_found_list';
- //error_log( print_r('cartGroupFailedTest 018; $e=  ' .$e, true ) );  
+     //error_log( print_r('cartGroupFailedTest 018; $e=  ' .$e, true ) );  
      
- //error_log( print_r('$sizeof_actionPop_exploded_found_list = ' .$sizeof_actionPop_exploded_found_list, true ) );       
+     //error_log( print_r('$sizeof_actionPop_exploded_found_list = ' .$sizeof_actionPop_exploded_found_list, true ) );       
         return;
       }
     } else {//end if 'quanity' or 'currency'
@@ -2815,7 +2907,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
              $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
              $vtprd_rules_set[$i]->end_of_actionPop_reached = 'yes';
              $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining action qty for nth';
-//error_log( print_r('cartGroupFailedTest 019 ', true ) );             
+    //error_log( print_r('cartGroupFailedTest 019 ', true ) );             
              return;
           }
           
@@ -2837,7 +2929,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                
           if ($for_loop_unit_count == $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_count']) {
             $vtprd_rules_set[$i]->actionPop_exploded_group_end = $vtprd_rules_set[$i]->actionPop_exploded_group_begin + $for_loop_elapsed_count; 
-//error_log( print_r('actionPop_exploded_group_end reset here3 = ' .$vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );                                 
+    //error_log( print_r('actionPop_exploded_group_end reset here3 = ' .$vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );                                 
             if ($vtprd_template_structures_framework[$templateKey]['action_amt_mod'] > ' ' ) {
               switch( $vtprd_rules_set[$i]->rule_deal_info[$d]['action_amt_mod'] ) {
                  case 'none':
@@ -2847,7 +2939,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                         $failed_test_total++;
                         $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                         $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining minimum action $$ for nth';
-//error_log( print_r('cartGroupFailedTest 020 ', true ) );                        
+    //error_log( print_r('cartGroupFailedTest 020 ', true ) );                        
                       }
                    break;
                  case 'maxCurrency':
@@ -2855,7 +2947,7 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                         $failed_test_total++;
                         $vtprd_rules_set[$i]->rule_processing_status = 'cartGroupFailedTest';
                         $vtprd_rules_set[$i]->rule_processing_msgs[] = 'Insufficient remaining maximum action $$ for nth';
-//error_log( print_r('cartGroupFailedTest 021 ', true ) );
+    //error_log( print_r('cartGroupFailedTest 021 ', true ) );
                       }                              
                    break;                                              
               } //end switch                                    
@@ -2875,7 +2967,10 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
  the group valuation is computed.  if it doesn't fulfill the buy_amt_mod requirements, that part of the cart fails this test (for this rule). 
  */ 
   public function vtprd_buy_amt_mod_all_process($i,$d, $failed_test_total) { 
-    global $post, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;     
+    global $post, $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_template_structures_framework;    
+       
+     //error_log( print_r(  'vtprd_buy_amt_mod_all_process ', true ) ); 
+     
     //walk through the cart imits 1 by 1 until inPop_running_unit_group_begin_pointer reached
 
     //preset to 'fail', on success it is switched to 'pass' in the routine
@@ -2994,6 +3089,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
         
    public function vtprd_is_product_in_inPop_group($i, $k) { 
       global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;
+      
+     //error_log( print_r(  'vtprd_is_product_in_inPop_group ', true ) ); 
+       
       /* at this point, the checked list produced at rule store time could be out of sync with the db, as the cats/roles originally selected to be
       *  part of this rule could have been deleted.  this won't affect these loops, as the deleted cats/roles will simply not be in the 
       *  'get_object_terms' list. */
@@ -3023,6 +3121,8 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
     public function vtprd_is_role_in_inPop_list_check($i,$k) {
     	global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;     
       
+     //error_log( print_r(  'vtprd_is_role_in_inPop_list_check ', true ) ); 
+ 
       $userRole = vtprd_get_current_user_role();
       $vtprd_cart->cart_items[$k]->cartAuditTrail[$vtprd_rules_set[$i]->post_id]['userRole'] = $userRole;
       
@@ -3052,6 +3152,8 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
     public function vtprd_are_cats_in_inPop_list_check($i,$k) {
     	global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;     
       
+     //error_log( print_r(  'vtprd_are_cats_in_inPop_list_check ', true ) ); 
+ 
       //Test PRODCAT
       if ( ( sizeof($vtprd_cart->cart_items[$k]->prod_cat_list) > 0 ) && ( sizeof($vtprd_rules_set[$i]->prodcat_in_checked) > 0 ) ){   
         //$vtprd_cart->cart_items[$k]->prod_cat_list = wp_get_object_terms( $vtprd_cart->cart_items[$k]->product_id, $vtprd_info['parent_plugin_taxonomy'] );
@@ -3124,6 +3226,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
          
    public function vtprd_is_product_in_actionPop_group($i,$k) { 
       global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;
+      
+     //error_log( print_r(  'vtprd_is_product_in_actionPop_group ', true ) ); 
+ 
       /* at this point, the checked list produced at rule store time could be out of sync with the db, as the cats/roles originally selected to be
       *  part of this rule could have been deleted.  this won't affect these loops, as the deleted cats/roles will simply not be in the 
       *  'get_object_terms' list. */
@@ -3152,7 +3257,10 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
    } 
   
     public function vtprd_is_role_in_actionPop_list_check($i,$k) {
-    	global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;     
+    	global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options; 
+      
+     //error_log( print_r(  'vtprd_is_role_in_actionPop_list_check ', true ) ); 
+           
       if ( sizeof($vtprd_rules_set[$i]->role_out_checked) > 0 ) {
             if (in_array(vtprd_get_current_user_role(), $vtprd_rules_set[$i]->role_out_checked )) {   //if role is in previously checked_list
                   if ( $vtprd_setup_options['debugging_mode_on'] == 'yes' ){ 
@@ -3175,6 +3283,8 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
     public function vtprd_are_cats_in_actionPop_list_check($i,$k) {
     	global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;     
       
+     //error_log( print_r(  'vtprd_are_cats_in_actionPop_list_check ', true ) ); 
+       
       //Test PRODCAT
       if ( ( sizeof($vtprd_cart->cart_items[$k]->prod_cat_list) > 0 ) && ( sizeof($vtprd_rules_set[$i]->prodcat_out_checked) > 0 ) ){   
         //$vtprd_cart->cart_items[$k]->prod_cat_list = wp_get_object_terms( $vtprd_cart->cart_items[$k]->product_id, $vtprd_info['parent_plugin_taxonomy'] );
@@ -3236,6 +3346,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
 
       
     public function vtprd_list_out_product_names($i) {
+      
+     //error_log( print_r(  'vtprd_list_out_product_names ', true ) ); 
+       
       $prodnames;
     	global $vtprd_rules_set;     
     	for($p=0; $p < sizeof($vtprd_rules_set[$i]->errProds_names); $p++) {
@@ -3248,7 +3361,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
       
    public function vtprd_load_inPop_found_list($i,$k) {
     	global $vtprd_cart, $vtprd_rules_set, $vtprd_info;
-    
+      
+     //error_log( print_r(  'vtprd_load_inPop_found_list ', true ) ); 
+ 
       //******************************************
       //****  CHECK for PRODUCT EXCLUSIONS 
       //******************************************   
@@ -3272,26 +3387,50 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
         } 
       }   
       //END product exclusions check
-      
-      
+       
+
       //***********************
       //v1.1.0.6 begin
+      //v1.1.1.2 reworked for multiples
       //***********************
-      //reduce qty of candidate/free items to just what was purchased
+      //reduce qty of candidate/free items to just what was purchased, if free items in cart
       
       $current_auto_add_array = $this->vtprd_get_current_auto_add_array();
 
-      $computed_qty  =  $vtprd_cart->cart_items[$k]->quantity; //initialize the value for fallthrough
+      $computed_qty          =  $vtprd_cart->cart_items[$k]->quantity; //initialize the value for fallthrough
+      $computed_total_price  =  $vtprd_cart->cart_items[$k]->total_price; //initialize the value for fallthrough
+
+      //v1.1.1.2 begin - reworked for multiple free
+      $free_product_id = $vtprd_cart->cart_items[$k]->product_id; //v1.1.1.2 
+
+/*
+ error_log( print_r(  'vtprd_load_inPop_found_list, just above the auto add logic', true ) ); 
+ error_log( print_r(  'rule_contains_auto_add_free_product= ' .$vtprd_rules_set[$i]->rule_contains_auto_add_free_product , true ) );
+ error_log( print_r(  'product_auto_insert_rule_id= ' .$vtprd_cart->cart_items[$k]->product_auto_insert_rule_id , true ) );
+ error_log( print_r(  'post_id= ' .$vtprd_rules_set[$i]->post_id , true ) );
+ error_log( print_r(  '$current_auto_add_array', true ) );
+ error_log( var_export($current_auto_add_array, true ) ); 
+*/
       
-      if ($current_auto_add_array['free_product_id'] == $vtprd_cart->cart_items[$k]->product_id) {
-        if ($vtprd_cart->cart_items[$k]->quantity > $current_auto_add_array['purchased_qty']) {        
-          if ($current_auto_add_array['purchased_qty'] == 0) {  //item is purely free, none purchased ==> not in inpop atall!
+      if ( ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product == 'yes') &&
+           ($vtprd_cart->cart_items[$k]->product_auto_insert_rule_id  ==  $vtprd_rules_set[$i]->post_id) &&
+           (isset($current_auto_add_array[$free_product_id])) &&
+           ($vtprd_cart->cart_items[$k]->quantity > $current_auto_add_array[$free_product_id]['purchased_qty']) ) {        
+          if ($current_auto_add_array[$free_product_id]['purchased_qty'] == 0) {  //item is purely free, none purchased ==> not in inpop atall!
+            //rolling out would leave nothing left, so exit!
             return;  
           } else {
-            $computed_qty  =  $current_auto_add_array['purchased_qty']; 
-          }
-        }    
+      //error_log( print_r(  'vtprd_load_inPop_found_list, $computed_qty altered!! ', true ) );          
+            //free stuff must be ONLY available in actionPop!!!
+            $computed_qty         =  $current_auto_add_array[$free_product_id]['purchased_qty'];
+            $computed_total_price =  $vtprd_cart->cart_items[$k]->unit_price * $computed_qty;
+          }   
       } 
+
+     //error_log( print_r(  'vtprd_load_inPop_found_list, $computed_qty= ' .$computed_qty , true ) ); 
+     //error_log( print_r(  'vtprd_load_inPop_found_list, $computed_total_price= ' .$computed_total_price , true ) );
+
+      //v1.1.1.2 end
       
       //v1.1.0.6 end
       //***********************
@@ -3307,8 +3446,8 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                                                        'prod_running_qty' => $computed_qty, //v1.1.0.6
                                                        'prod_unit_price' => $vtprd_cart->cart_items[$k]->unit_price,
                                                        'prod_db_unit_price' => $vtprd_cart->cart_items[$k]->db_unit_price, 
-                                                       'prod_total_price' => $vtprd_cart->cart_items[$k]->total_price,
-                                                       'prod_running_total_price' => $vtprd_cart->cart_items[$k]->total_price,
+                                                       'prod_total_price' => $computed_total_price,  //v1.1.1.2
+                                                       'prod_running_total_price' => $computed_total_price,  //v1.1.1.2
                                                        'prod_cat_list' => $vtprd_cart->cart_items[$k]->prod_cat_list,
                                                        'rule_cat_list' => $vtprd_cart->cart_items[$k]->rule_cat_list,
                                                        'prod_id_cart_occurrence' => $k, //used to mark product in cart if failed a rule 
@@ -3356,7 +3495,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
         
    public function vtprd_load_actionPop_found_list($i,$k) {
     	global $vtprd_cart, $vtprd_rules_set, $vtprd_info;
-
+      
+     //error_log( print_r(  'vtprd_load_actionPop_found_list ', true ) ); 
+ 
       //******************************************
       //****  CHECK for PRODUCT EXCLUSIONS 
       //******************************************     
@@ -3383,24 +3524,38 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
       
       //***********************
       //v1.1.0.6 begin
+      //v1.1.1.2 reworked for multiples
       //***********************
-      //reduce qty of candidate/free items to just what was purchased IF NOT ON AUTO ADD RULE
+      //reduce qty of candidate/free items to just what was purchased **IF NOT ON --matching-- AUTO ADD RULE
       
       $current_auto_add_array = $this->vtprd_get_current_auto_add_array();
       
-      $computed_qty  =  $vtprd_cart->cart_items[$k]->quantity; //initialize the value for fallthrough
-      
-      if ( ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product != 'yes') &&  //APPLY to ALL RULES ***except** AUTO ADD
-           ($current_auto_add_array['free_product_id'] == $vtprd_cart->cart_items[$k]->product_id) ) {
+      $computed_qty          =  $vtprd_cart->cart_items[$k]->quantity; //initialize the value for fallthrough
+      $computed_total_price  =  $vtprd_cart->cart_items[$k]->total_price; //initialize the value for fallthrough      
 
-        if ($vtprd_cart->cart_items[$k]->quantity > $current_auto_add_array['purchased_qty']) {        
-          if ($current_auto_add_array['purchased_qty'] == 0) {  //item is purely free, none purchased ==> not in inpop atall!
-            return;  
-          } else {
-            $computed_qty  =  $current_auto_add_array['purchased_qty'];
-          }
-        }             
-      } 
+
+      $free_product_id = $vtprd_cart->cart_items[$k]->product_id; //v1.1.1.2 
+
+      //if this product has an auto_add AND auto add has been applied
+      if ( ($vtprd_info['ruleset_contains_auto_add_free_product'] == 'yes') &&
+           (isset($current_auto_add_array[$free_product_id]))  &&
+           ($vtprd_cart->cart_items[$k]->quantity > $current_auto_add_array[$free_product_id]['purchased_qty']) ) {
+         //are we on the correct auto add rule? 
+         if ($current_auto_add_array[$free_product_id]['rule_id'] == $vtprd_rules_set[$i]->post_id) {
+            //pass, friend - continue processing with free items added
+            $all_good = true;
+         }  else {
+            if ($current_auto_add_array[$free_product_id]['purchased_qty'] == 0) {  //item is purely free, none purchased!
+              //rolling out would leave nothing left, so exit!
+              return;  
+            } else {            
+              //roll out free items added, by replacing qty with original purchased qty!!
+              $computed_qty         =  $current_auto_add_array[$free_product_id]['purchased_qty'];
+              $computed_total_price =  $vtprd_cart->cart_items[$k]->unit_price *  $computed_qty;
+            }
+         }   
+      }
+      //v1.1.1.2 end 
       
       /* Marking no longer used.  Now use purchased_qty + free_qty
       if ( ($vtprd_rules_set[$i]->rule_contains_auto_add_free_product == 'yes') {
@@ -3441,8 +3596,8 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
                                                        'prod_running_qty' => $computed_qty,  //v1.1.0.6 
                                                        'prod_unit_price' => $prod_unit_price,
                                                        'prod_db_unit_price' => $vtprd_cart->cart_items[$k]->db_unit_price,
-                                                       'prod_total_price' => $vtprd_cart->cart_items[$k]->total_price,
-                                                       'prod_running_total_price' => $vtprd_cart->cart_items[$k]->total_price,
+                                                       'prod_total_price' => $computed_total_price, //v1.1.1.2
+                                                       'prod_running_total_price' => $computed_total_price, //v1.1.1.2
                                                        'prod_cat_list' => $vtprd_cart->cart_items[$k]->prod_cat_list,
                                                        'rule_cat_list' => $vtprd_cart->cart_items[$k]->rule_cat_list,
                                                        'prod_id_cart_occurrence' => $k, //used to access product in later processing
@@ -3523,7 +3678,9 @@ $ProdID = $vtprd_rules_set[$i]->actionPop_exploded_found_list[$ss]['prod_id'];
 
    public  function vtprd_sort_rules_set_for_cart() {
     global $vtprd_cart, $vtprd_rules_set;
-
+      
+     //error_log( print_r(  'vtprd_sort_rules_set_for_cart ', true ) ); 
+ 
     //***********************************************************
     //DELETE ALL "DISPLAY" RULES from the array for this iteration, leaving only the 'cart' rules
     //***********************************************************
@@ -3805,16 +3962,19 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
 
 
   /*******************************************************  
-  //v1.1.0.6 REFACTORED!!!    
+  //v1.1.0.6 REFACTORED!!!  
+  //v1.1.1.2 reworked to handle multiple autoadds  
   ******************************************************** */
 	public function vtprd_pre_process_cart_for_autoAdds(){
   
-//error_log( print_r(' ', true ) );
-//error_log( print_r('vtprd_pre_process_cart_for_autoAdds', true ) );
+     //error_log( print_r(' ', true ) );
+     //error_log( print_r('vtprd_pre_process_cart_for_autoAdds', true ) );
 
-
+    global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_cart_item, $vtprd_setup_options, $vtprd_rules_set, $vtprd_info; //v1.1.1.2 moved here      
+  
     //v1.1.0.9 begin
-    if (get_option('vtprd_ruleset_contains_auto_add_free_product') != 'yes') {
+    if ($vtprd_info['ruleset_contains_auto_add_free_product'] != 'yes') {  //v1.1.1.2 
+    //if (get_option('vtprd_ruleset_contains_auto_add_free_product') != 'yes') {
       return;
     }
     //v1.1.0.9 end
@@ -3828,8 +3988,7 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
       header("Cache-Control: no-cache");
       header("Pragma: no-cache");
     }      
-    global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_cart_item, $vtprd_setup_options, $vtprd_rules_set, $vtprd_info;       
-  
+
     if ($vtprd_info['current_processing_request'] != 'cart') {
       return;
     }   
@@ -3842,14 +4001,14 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
     //******************************
     $previous_auto_add_array = $this->vtprd_get_previous_auto_add_array(); 
 
-//error_log( print_r(  'pre-process at top, $previous_auto_add_array=', true ) );
-//error_log( var_export($previous_auto_add_array, true ) );   
-//error_log( print_r(  'Pre-Process $vtprd_cart items before UNSET', true ) );
-//error_log( var_export($vtprd_cart->cart_items, true ) );              
-    
-//$woocommerce_cart_contents = $woocommerce->cart->get_cart();
-//error_log( print_r(  'Pre-Process WOO CART before unset for comparison', true ) );
-//error_log( var_export($woocommerce_cart_contents, true ) ); 
+     //error_log( print_r(  'pre-process at top, $previous_auto_add_array=', true ) );
+     //error_log( var_export($previous_auto_add_array, true ) );   
+     //error_log( print_r(  'Pre-Process $vtprd_cart items before UNSET', true ) );
+     //error_log( var_export($vtprd_cart->cart_items, true ) );              
+  
+ //$woocommerce_cart_contents = $woocommerce->cart->get_cart();
+    //error_log( print_r(  'Pre-Process WOO CART before unset for comparison', true ) );
+    //error_log( var_export($woocommerce_cart_contents, true ) ); 
     
     //**********************************
     //ROLL OUT PREVIOUS free qty from VTPRD-CART
@@ -3866,109 +4025,150 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
     If current contents < previous contents, we don't know 
     
     
+    
     */
-    if ($previous_auto_add_array['free_qty'] > 0)  {
-        $remove_item = false;
-        $free_product_occurrence = false;
-        $free_product_found = false;    
-        $sizeof_cart_items = sizeof($vtprd_cart->cart_items);
-        for($c=0; $c < $sizeof_cart_items; $c++) {  
-           if ($vtprd_cart->cart_items[$c]->product_id == $previous_auto_add_array['free_product_id']) {
-             $free_product_found = true;
-             $free_product_occurrence = $c;
-             break; //breaks out of this for loop
-           }
-        } 
-
-        if ($free_product_found) {
- 
-            switch(true) { 
-              case ($vtprd_cart->cart_items[$free_product_occurrence]->quantity == $previous_auto_add_array['current_qty']):
-                   //carry on, nothing changed from prev...
-//error_log( print_r('$free_product_found 001 ', true ) );                   
-                break; 
-              case ($vtprd_cart->cart_items[$free_product_occurrence]->quantity > $previous_auto_add_array['current_qty']):
-                  //if cart qty > previous, user has purchased, so the difference is added to previous purchase 
-                   $additonal_purch = $vtprd_cart->cart_items[$free_product_occurrence]->quantity - $previous_auto_add_array['current_qty'];  
-                   $previous_auto_add_array['purchased_qty'] += $additonal_purch;
-                   //save updated previous array for post process
-                   $_SESSION['previous_auto_add_array'] = serialize($previous_auto_add_array);
-                   $vtprd_info['previous_auto_add_array'] = $previous_auto_add_array; //$vtprd_info['previous_auto_add_array'] used when session variable disappears due to age
-//error_log( print_r('$free_product_found 002 ', true ) );   
-                break;
-              case ($vtprd_cart->cart_items[$free_product_occurrence]->quantity < $previous_auto_add_array['current_qty']):
-                   //if cart qty < previous, user has removed purchases, so the difference is subtracted from previous purchase 
-                   $subtract_from_purch = $previous_auto_add_array['current_qty'] - $vtprd_cart->cart_items[$free_product_occurrence]->quantity;
-                  
-//error_log( print_r('$free_product_found 003 ', true ) );                     
-                   //subtract from free and purchased equally@@@@@!!!!!!!!!!!!
-                   
-                   
-                   if ($previous_auto_add_array['purchased_qty'] <= $subtract_from_purch) {
-                     $previous_auto_add_array['purchased_qty'] = 0;
-//error_log( print_r('$free_product_found 003a ', true ) );                        
-                     //treat all as new adds
-                     //$previous_auto_add_array = $this->vtprd_init_previous_auto_add_array();
-                   } else {
-                     $previous_auto_add_array['purchased_qty'] -= $subtract_from_purch;
-//error_log( print_r('$free_product_found 003b ', true ) );                                         
-                   } 
-                     
-                   //only if the FREE rule is ***sameAsInPop***, do we allow the entered quantity in this case to stand as the purchased qty!
-                   //  clearing out prev free_qty means that quantity will be ignored below in the subtraction.
-                   if ( ($vtprd_cart->cart_items[$free_product_occurrence]->quantity <= $previous_auto_add_array['free_qty']) &&
-                        ($previous_auto_add_array['free_rule_actionPop'] == 'sameAsInPop') ) {
-                      $previous_auto_add_array['free_qty'] = 0;
-//error_log( print_r('$free_product_found 003c ', true ) );                            
-                   }          
-                            
-                   //save updated previous array for post process
-                   $_SESSION['previous_auto_add_array'] = serialize($previous_auto_add_array); 
-                   $vtprd_info['previous_auto_add_array'] = $previous_auto_add_array; //$vtprd_info['previous_auto_add_array'] used when session variable disappears due to age                 
-                break;
-            } 
-            
-            //always subtract out the previous free qty
-            $vtprd_cart->cart_items[$free_product_occurrence]->quantity -= $previous_auto_add_array['free_qty'];
-          
+    //********************
+    //v1.1.1.2 begin - reworked for multiple free 
+    // added foreach, changed update to apply to the forearch row
+    // put updates at bottom after foreach
+    //********************  
+    $update_previous = false; //v1.1.1.2
+    $unset_row_array = array(); //v1.1.1.2 
+    foreach ( $previous_auto_add_array as $free_product_id => $previous_auto_add_array_row ) {
+    
+      //error_log( print_r(  'pre-process $previous_auto_add_array_row, key= ' .$free_product_id, true ) );
+      //error_log( var_export($previous_auto_add_array_row, true ) );    
+    
+      if ($previous_auto_add_array_row['free_qty'] > 0)  {
+          $remove_item = false;
+          $free_product_occurrence = false;
+          $free_product_found = false;    
+          $sizeof_cart_items = sizeof($vtprd_cart->cart_items);
+          for($c=0; $c < $sizeof_cart_items; $c++) {  
+             if ($vtprd_cart->cart_items[$c]->product_id == $previous_auto_add_array_row['free_product_id']) {
+               $free_product_found = true;
+               $free_product_occurrence = $c;
+               break; //breaks out of this for loop
+             }
+          } 
+  
+          if ($free_product_found) {
    
-    //error_log( print_r(  'AFTER SUBTRACTING previous free_qty from current quantity= ' .$vtprd_cart->cart_items[$free_product_occurrence]->quantity, true ) ); 
-           
-            if ($vtprd_cart->cart_items[$free_product_occurrence]->quantity <= 0) {
-              //this product was entirely auto-added due to external trigger rules, or the qty has been reduced below the auto adds from prev..
-              //  delete it! and it will be re-added as necessary in the coming processing
+              switch(true) { 
+                case ($vtprd_cart->cart_items[$free_product_occurrence]->quantity == $previous_auto_add_array_row['current_qty']):
+                     //carry on, nothing changed from prev...
+      //error_log( print_r('$free_product_found 001 ', true ) );                   
+                  break; 
+                case ($vtprd_cart->cart_items[$free_product_occurrence]->quantity > $previous_auto_add_array_row['current_qty']):
+                    //if cart qty > previous, user has purchased, so the difference is added to previous purchase 
+                     $additonal_purch = $vtprd_cart->cart_items[$free_product_occurrence]->quantity - $previous_auto_add_array_row['current_qty'];  
+                     $previous_auto_add_array_row['purchased_qty'] += $additonal_purch;
+                     //save updated previous array for post process
+                     $update_previous = true;
+      //error_log( print_r('$free_product_found 002 ', true ) );   
+                  break;
+                case ($vtprd_cart->cart_items[$free_product_occurrence]->quantity < $previous_auto_add_array_row['current_qty']):
+                     //if cart qty < previous, user has removed purchases, so the difference is subtracted from previous purchase 
+                     $subtract_from_purch = $previous_auto_add_array_row['current_qty'] - $vtprd_cart->cart_items[$free_product_occurrence]->quantity;
+                    
+      //error_log( print_r('$free_product_found 003 ', true ) );                     
+                     //subtract from free and purchased equally@@@@@!!!!!!!!!!!!
+                     
+                     
+                     if ($previous_auto_add_array_row['purchased_qty'] <= $subtract_from_purch) {
+                       $previous_auto_add_array_row['purchased_qty'] = 0;
+      //error_log( print_r('$free_product_found 003a ', true ) );                        
+                       //treat all as new adds
+                       //$previous_auto_add_array = $this->vtprd_init_previous_auto_add_array();
+                     } else {
+                       $previous_auto_add_array_row['purchased_qty'] -= $subtract_from_purch;
+      //error_log( print_r('$free_product_found 003b ', true ) );                                         
+                     } 
+                       
+                     //only if the FREE rule is ***sameAsInPop***, do we allow the entered quantity in this case to stand as the purchased qty!
+                     //  clearing out prev free_qty means that quantity will be ignored below in the subtraction.
+                     if ( ($vtprd_cart->cart_items[$free_product_occurrence]->quantity <= $previous_auto_add_array_row['free_qty']) &&
+                          ($previous_auto_add_array_row['free_rule_actionPop'] == 'sameAsInPop') ) {
+                        $previous_auto_add_array_row['free_qty'] = 0;
+      //error_log( print_r('$free_product_found 003c ', true ) );                            
+                     }          
+                              
+                     //save updated previous array for post process
+                     $update_previous = true;
+                  break;
+              } //end switch
               
-              //**************************************************
+              //always subtract out the previous free qty
+              $vtprd_cart->cart_items[$free_product_occurrence]->quantity -= $previous_auto_add_array_row['free_qty'];
+            
+     
+          //error_log( print_r(  'AFTER SUBTRACTING previous free_qty from current quantity= ' .$vtprd_cart->cart_items[$free_product_occurrence]->quantity, true ) ); 
+             
+              if ($vtprd_cart->cart_items[$free_product_occurrence]->quantity <= 0) {
+                //this product was entirely auto-added due to external trigger rules, or the qty has been reduced below the auto adds from prev..
+                //  delete it! and it will be re-added as necessary in the coming processing
+                
+                //**************************************************
+  
+       //error_log( print_r(  'Pre-Process cart item unset, key= ' .$free_product_occurrence, true ) );              
+                
+                 //this UNSETS the CART item
+                  unset($vtprd_cart->cart_items[$free_product_occurrence]);
+                 $vtprd_cart->cart_items = array_values($vtprd_cart->cart_items);
+                 
+              //error_log( print_r(  '$vtprd_cart items after UNSET', true ) );
+              //error_log( var_export($vtprd_cart->cart_items, true ) );        
+              } 
+          
+          } else {
+            //no purchases, and free items (if any) deleted by customer.         
+            //$previous_auto_add_array_row['purchased_qty'] = 0;
+            //$previous_auto_add_array_row['free_qty'] = 0;
 
- //error_log( print_r(  'Pre-Process cart item unset, key= ' .$free_product_occurrence, true ) );              
-                unset($vtprd_cart->cart_items[$free_product_occurrence]);
-               $vtprd_cart->cart_items = array_values($vtprd_cart->cart_items);
-        //error_log( print_r(  '$vtprd_cart items after UNSET', true ) );
-        //error_log( var_export($vtprd_cart->cart_items, true ) );        
-            } 
+            $unset_row_array[] = $free_product_id;
+            $update_previous = true;
+          }
+       } 
+      //*********************************  
+      // end ROLL OUT of previous stuff...
+      //*********************************      
+      
+      if ($previous_auto_add_array_row['purchased_qty'] > 0) {
+        $purchased_qty = $previous_auto_add_array_row['purchased_qty'];
+      //error_log( print_r(  '$purchased_qty 001  from previous = ' .$purchased_qty, true ) );
+      }  else  {  
+        $purchased_qty = 0;
+      //error_log( print_r(  '$purchased_qty 002  set to zero = ' .$purchased_qty, true ) );       
+      }
+    
+    } //end foreach 
+    
+    
+    if ($update_previous) {
         
-        } else {
-          //no purchases, and free items (if any) deleted by customer.         
-          //$previous_auto_add_array['purchased_qty'] = 0;
-          //$previous_auto_add_array['free_qty'] = 0;
-          $previous_auto_add_array = $this->vtprd_init_previous_auto_add_array();
-          //save updated previous array for post process
-          $_SESSION['previous_auto_add_array'] = serialize($previous_auto_add_array);
-          $vtprd_info['previous_auto_add_array'] = $previous_auto_add_array; //$vtprd_info['previous_auto_add_array'] used when session variable disappears due to age         
+        switch( true ) {
+          case ( sizeof($unset_row_array) == sizeof(previous_auto_add_array) ) :              
+              $previous_auto_add_array = array();                  
+            break;        
+          case ( sizeof($unset_row_array) > 0)  :              
+              foreach ( $unset_row_array as $iteration => $unset_key ) { 
+                 unset($previous_auto_add_array[$unset_key]);
+              }   
+              $previous_auto_add_array = array_values($previous_auto_add_array);                 
+            break;             
         }
-     } 
-    //*********************************  
-    // end ROLL OUT of previous stuff...
-    //*********************************      
-    
-    if ($previous_auto_add_array['purchased_qty'] > 0) {
-      $purchased_qty = $previous_auto_add_array['purchased_qty'];
-//error_log( print_r(  '$purchased_qty 001  from previous = ' .$purchased_qty, true ) );
-    }  else  {  
-      $purchased_qty = 0;
-//error_log( print_r(  '$purchased_qty 002  set to zero = ' .$purchased_qty, true ) );       
+        
+        //update array
+        $_SESSION['previous_auto_add_array'] = serialize($previous_auto_add_array); 
+        $vtprd_info['previous_auto_add_array'] = $previous_auto_add_array; //$vtprd_info['previous_auto_add_array'] used when session variable disappears due to age                                   
     }
+               
+    //v1.1.1.2 end
+    //********************  
     
+    
+    
+      
     /* NO - need the previous array in post_process for potential cleanout!!
     OLD PREVIOUS is kept around for this test:
         case ($previous_auto_add_array['free_qty']  > 0)
@@ -3977,7 +4177,7 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
     $this->vtprd_maybe_remove_previous_auto_add_array();
     */
     
-    $current_auto_add_array = $this->vtprd_init_current_auto_add_array();
+    $current_auto_add_array = array();
    
     $sizeof_rules_set = sizeof($vtprd_rules_set);
     for($i=0; $i < $sizeof_rules_set; $i++) {                                                               
@@ -4064,50 +4264,68 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
         $sizeof_cart_items = sizeof($vtprd_cart->cart_items);
         for($c=0; $c < $sizeof_cart_items; $c++) {  
            if ($vtprd_cart->cart_items[$c]->product_id == $free_product_id) {
-//error_log( print_r(  'free productg id FOUND' , true ) );           
+     //error_log( print_r(  'free productg id FOUND' , true ) );           
              $free_product_status = 'found';
              break; //breaks out of this for loop
            }
         }  
        
-//error_log( print_r( 'add/upd free item ', true ) );  
+     //error_log( print_r( 'add/upd free item ', true ) );  
 
         if ($free_product_status == 'found') {
-//error_log( print_r(  'free product id FOUND processing, purchased qty 003 = ' .$vtprd_cart->cart_items[$c]->quantity , true ) ); 
+     //error_log( print_r(  'free product id FOUND processing, purchased qty 003 = ' .$vtprd_cart->cart_items[$c]->quantity , true ) ); 
           //updates to both inpop and inpop exploded...
           $purchased_qty = $vtprd_cart->cart_items[$c]->quantity;
           //ADD to $vtprd_cart
           $vtprd_cart->cart_items[$c]->quantity += $action_amt_count; 
           $vtprd_cart->cart_items[$c]->total_price  =  $vtprd_cart->cart_items[$c]->quantity  * $vtprd_cart->cart_items[$c]->unit_price;
           $vtprd_cart->cart_items[$c]->product_auto_insert_state = 'candidate';
-          
+
+          //v1.1.1.2 begin
+          //MARK the inserted item to be used ONLY for this rule 
+          //      (update edit only allows unique product across all free rules in ruleset)
+          $vtprd_cart->cart_items[$c]->product_auto_insert_rule_id = $vtprd_rules_set[$i]->post_id;
+          //v1.1.1.2 end  
+                  
         } else { 
-//error_log( print_r(  'run add_to_vtprd_cart, qty= ' .$action_amt_count , true ) );         
-          $price_add_to_total = $this->vtprd_auto_add_to_vtprd_cart($free_product_id, $action_amt_count, $i);    
+     //error_log( print_r(  'run add_to_vtprd_cart, qty= ' .$action_amt_count , true ) );         
+          $price_add_to_total = $this->vtprd_auto_add_to_vtprd_cart($free_product_id, $action_amt_count, $i);
+          $purchased_qty = 0; //v1.1.1.2   
         }
-                    
-      }
-//error_log( print_r(  '$purchased_qty 004 = ' .$purchased_qty, true ) );
-      $current_auto_add_array['free_product_id']              =  $free_product_id;
-      $current_auto_add_array['free_product_add_action_cnt']  =  $action_amt_count;
-      $current_auto_add_array['rule_id']                      =  $vtprd_rules_set[$i]->post_id;;
-      $current_auto_add_array['current_qty']                  =  $vtprd_cart->cart_items[$c]->quantity;
-      $current_auto_add_array['purchased_qty']                =  $purchased_qty;
-      $current_auto_add_array['candidate_qty']                =  $action_amt_count;
-      $current_auto_add_array['free_qty']                     =  0;
-      $current_auto_add_array['variations_parameter']         =  $vtprd_rules_set[$i]->var_out_product_variations_parameter;
-      
-      if ( ($vtprd_rules_set[$i]->actionPop == 'sameAsInPop')  ||                                                  
-          (($vtprd_rules_set[$i]->actionPop                ==   $vtprd_rules_set[$i]->inPop) &&
-           ($vtprd_rules_set[$i]->var_out_checked          ==   $vtprd_rules_set[$i]->var_in_checked) &&  
-           ($vtprd_rules_set[$i]->actionPop_singleProdID   ==   $vtprd_rules_set[$i]->inPop_singleProdID)) ) {  
-         $current_auto_add_array['free_rule_actionPop'] = 'sameAsInPop';  
+       
+        
+        //**************************
+        //v1.1.1.2 begin - reworked for multiple free 
+        // moved all of this into the 'for' loop, as it now occurs multiple times
+        //**************************
+        $current_auto_add_array_row = $this->vtprd_init_auto_add_array_row();      
+      //error_log( print_r(  '$purchased_qty 004 = ' .$purchased_qty, true ) );
+        $current_auto_add_array_row['free_product_id']              =  $free_product_id;
+        $current_auto_add_array_row['free_product_add_action_cnt']  =  $action_amt_count;
+        $current_auto_add_array_row['rule_id']                      =  $vtprd_rules_set[$i]->post_id;
+        $current_auto_add_array_row['current_qty']                  =  $vtprd_cart->cart_items[$c]->quantity;
+        $current_auto_add_array_row['purchased_qty']                =  $purchased_qty;
+        $current_auto_add_array_row['candidate_qty']                =  $action_amt_count;
+        $current_auto_add_array_row['free_qty']                     =  0;
+        $current_auto_add_array_row['variations_parameter']         =  $vtprd_rules_set[$i]->var_out_product_variations_parameter;
+        
+        if ( ($vtprd_rules_set[$i]->actionPop == 'sameAsInPop')  ||                                                  
+            (($vtprd_rules_set[$i]->actionPop                ==   $vtprd_rules_set[$i]->inPop) &&
+             ($vtprd_rules_set[$i]->var_out_checked          ==   $vtprd_rules_set[$i]->var_in_checked) &&  
+             ($vtprd_rules_set[$i]->actionPop_singleProdID   ==   $vtprd_rules_set[$i]->inPop_singleProdID)) ) {  
+           $current_auto_add_array_row['free_rule_actionPop'] = 'sameAsInPop';  
+        }
+        
+        $current_auto_add_array[$free_product_id] = $current_auto_add_array_row;
+                   
       }
 
+      //v1.1.1.2 removed this line - need whole loop to run, to allow multiples
+      //break; //break out of 'for' loop - once single rule with auto-add processed, no further processing necessary
       
-      break; //break out of 'for' loop - once single rule with auto-add processed, no further processing necessary
-      
-    }
+    }   
+     
+    //v1.1.1.2 end
 
     //populate the SESSION, SERIALIZE AND STORE!!
 
@@ -4118,10 +4336,13 @@ NO LONGER NECESSARY - ACTIONPOP LOAD IGNORES NON-PURCHASED STUFF IF ***NOT*** IN
     
     $_SESSION['current_auto_add_array'] = serialize($current_auto_add_array);
 
-//error_log( print_r('pre-process at BOTTOM, $current_auto_add_array=', true ) );
-//error_log( var_export($current_auto_add_array, true ) );
-
+     //error_log( print_r('pre-process at BOTTOM, $previous_auto_add_array=', true ) );
+     //error_log( var_export($previous_auto_add_array, true ) );
+     //error_log( print_r('pre-process at BOTTOM, $current_auto_add_array=', true ) );
+     //error_log( var_export($current_auto_add_array, true ) );
+ 
     return;
+    
   } //end  vtprd_pre_process_cart_for_autoAdds
 
 
@@ -4188,16 +4409,41 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
   //******************************
   //insert/delete free stuff as warranted...
   //v1.1.0.6  refactored
+  //v1.1.1.2 refactored for multiple auto adds 
   //******************************	
 	public function vtprd_post_process_cart_for_autoAdds(){ 
 
-
+      global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_item, $vtprd_info; //v1.1.1.2 moved here
+       
+     //error_log( print_r(' ', true ) );
+     //error_log( print_r(  'TOP OF vtprd_post_process_cart_for_autoAdds ', true ) );      
+      
+  /* v1.1.1.2
+  New approach:
+    
+    loop woocommerce cart
+      hit current_auto_add_array by product key
+      upd to reflect auto adds
+      count number of updated products
+      
+    if number of updated products = count of free products occurrences in array
+      all done
+    else
+      Loop the current_auto_add_array by product
+        access the woocommerce cart by key
+          if there, no add
+          if *not* there, add new product to cart
+    
+    housekeeping...
+  
+  */
       //v1.1.0.9 begin
-      if (get_option('vtprd_ruleset_contains_auto_add_free_product') != 'yes') {
+      if ($vtprd_info['ruleset_contains_auto_add_free_product'] != 'yes') {  //v1.1.1.2 
+      //if (get_option('vtprd_ruleset_contains_auto_add_free_product') != 'yes') {
         return;
       }
       //v1.1.0.9 end
-    
+  
 
       //******************************
       //get auto add session variables
@@ -4206,13 +4452,19 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
         header("Cache-Control: no-cache");
         header("Pragma: no-cache");
       }  
-       
-//error_log( print_r(' ', true ) );
-//error_log( print_r(  'TOP OF vtprd_post_process_cart_for_autoAdds ', true ) );
 
-global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_item, $vtprd_info;
 
-          
+
+      //v1.1.1.2 moved here
+      $previous_auto_add_array = $this->vtprd_get_previous_auto_add_array();          
+      $current_auto_add_array  = $this->vtprd_get_current_auto_add_array();
+
+      //v1.1.1.2 new edit...
+      if ( (sizeof($previous_auto_add_array) == 0) &&
+           (sizeof($current_auto_add_array)  == 0) ) {
+         return; 
+      }        
+
       //******************************
       //prevents recursive processing during auto add execution of add_to_cart!
       //v1.1.0.6 placed at top of routine
@@ -4222,64 +4474,32 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
       //add_in_progress switch will be overriden in 10 seconds using the timestamp (also shut off at bottom of this routine)
       $_SESSION['auto_add_in_progress_timestamp'] = time();
       //******************************
+
+
+      //only roll out previous stuff, if NO current stuff to add
+      if ( (sizeof($previous_auto_add_array) > 0) &&
+           (sizeof($current_auto_add_array)  == 0) ) {
+         $this->vtprd_maybe_roll_out_prev_auto_insert_from_woo_cart($previous_auto_add_array, 'all');
+         $this->vtprd_maybe_remove_previous_auto_add_array();
+         $this->vtprd_turn_off_auto_add_in_progress();          
+         return; 
+      }
+
+
       
-      $previous_auto_add_array = $this->vtprd_get_previous_auto_add_array(); 
+     //error_log( print_r(  '$current_auto_add_array=', true ) );
+     //error_log( var_export($current_auto_add_array, true ) );
+     //error_log( print_r(  '$previous_auto_add_array=', true ) );
+     //error_log( var_export($previous_auto_add_array, true ) );
+     //error_log( print_r(  '$vtprd_rules_set', true ) );
+     //error_log( var_export($vtprd_rules_set, true ) );
+     //error_log( print_r(  '$vtprd_cart', true ) );
+     //error_log( var_export($vtprd_cart, true ) ); 
          
-      $current_auto_add_array = $this->vtprd_get_current_auto_add_array();
-      
-      //adjust current_qty to be what is needed!
-      $current_auto_add_array['current_qty'] = ($current_auto_add_array['purchased_qty'] + $current_auto_add_array['free_qty']);
-      
-//error_log( print_r(  '$current_auto_add_array=', true ) );
-//error_log( var_export($current_auto_add_array, true ) );
-//error_log( print_r(  '$previous_auto_add_array=', true ) );
-//error_log( var_export($previous_auto_add_array, true ) );
-//error_log( print_r(  '$vtprd_rules_set', true ) );
-//error_log( var_export($vtprd_rules_set, true ) );
-//error_log( print_r(  '$vtprd_cart', true ) );
-//error_log( var_export($vtprd_cart, true ) ); 
-      
-      $exit_stage_left = false;
-     
-      switch( true ) {  
-        
-        case ( ($previous_auto_add_array['free_qty'] <= 0) &&
-               ($current_auto_add_array['free_qty']  <= 0) ): 
-              //nothing done currently or previously, off we go!
-              $exit_stage_left = true;
-//error_log( print_r(  'post_process nothing done', true ) );              
-          break;
-                                                                                                 
-        case ($current_auto_add_array['free_qty']  > 0): 
-              //auto_add generated, no need to worry about prev - carry on with main add/upd logic                                                                                                                               
-//error_log( print_r(  'post_process ADD Current free_qty , = ' .$current_auto_add_array['free_qty'], true ) );  
-              $current_total_quantity  = $current_auto_add_array['current_qty']; 
-          break; 
-/*                                                                                                 
-        case ($previous_auto_add_array['purchased_qty']  > 0) : 
-              //adjust to previous purchased qty...
-              $current_total_quantity  =  $previous_auto_add_array['purchased_qty'];
-          break;                  
-*/                                                                                                     
-        case ($previous_auto_add_array['free_qty']  > 0): 
-              //no auto adds generated, delete prev and exit                                                                                                
-//error_log( print_r(  'post_process Remove PREVIOUS free_qty , = ' .$previous_auto_add_array['free_qty'], true ) );
-              $this->vtprd_maybe_roll_out_prev_auto_insert_from_woo_cart($previous_auto_add_array);
-              $exit_stage_left = true;               
-          break;                  
-      }
-     
-      if ($exit_stage_left == true) {
-        $this->vtprd_maybe_remove_previous_auto_add_array();
-        $this->vtprd_maybe_remove_current_auto_add_array();
-        $this->vtprd_turn_off_auto_add_in_progress();        
-        return;        
-      }
-      
 
       global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_item, $vtprd_info;
       
-      $woocommerce_free_product_processed = false;
+      //$woocommerce_free_product_processed = false; //v1.1.1.2 moved
       $woocommerce_cart_updated = false;
      
       //********************************
@@ -4287,121 +4507,207 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
       // Process updates to the Cart
       //********************************
       
+      $free_product_already_in_cart_cnt = 0;
+      
+      $current_auto_add_array_items_processed = array(); //v1.1.1.2 track all the upds as they happen...
+      
       $woocommerce_cart_contents = $woocommerce->cart->get_cart(); 
       foreach($woocommerce_cart_contents as $key => $cart_item) {
 
+        $woocommerce_free_product_processed = false; //v1.1.1.2 moved here
+        
         if ($cart_item['variation_id'] > ' ') {      
             $cart_product_id    = $cart_item['variation_id'];
         } else { 
             $cart_product_id    = $cart_item['product_id']; 
         }    
              
-//error_log( print_r(  'update_parent_cart_for_autoAdds  003  IN $woocommerce_cart_contents, PROD ID= '  .$cart_product_id , true ) );
-
-       
-       if ($cart_product_id == $current_auto_add_array['free_product_id'] ) { 
-          /*  moved above
+     //error_log( print_r(  'update_parent_cart_for_autoAdds  003  IN $woocommerce_cart_contents, PROD ID= '  .$cart_product_id , true ) );
+        
+        //if this ID not getting a free item, skip
+        if (isset($current_auto_add_array[$cart_product_id] )) {
+          
+          $free_product_already_in_cart_cnt ++;
+          
+          //GET THE ROW
+          $current_auto_add_array_row = $current_auto_add_array[$cart_product_id];
+          
+          //adjust current_qty to be what is needed!
+          $current_auto_add_array_row['current_qty'] = ($current_auto_add_array_row['purchased_qty'] + $current_auto_add_array_row['free_qty']);          
+          //v1.1.1.2 
+          /*  moved above $current_total_quantity replaced with $current_auto_add_array_row['current_qty']
           $current_total_quantity =  $current_auto_add_array['purchased_qty'] +
                                      $current_auto_add_array['free_qty'];        
           */
-          if ($cart_item['quantity'] != $current_total_quantity) { 
+          if ($cart_item['quantity'] != $current_auto_add_array_row['current_qty']) { 
                    
-  //error_log( print_r(  'update_parent_cart_for_autoAdds  004', true ) );
+      //error_log( print_r(  'update_parent_cart_for_autoAdds  004', true ) );
   
-             if ($current_total_quantity <= 0) {
+             if ($current_auto_add_array_row['current_qty'] <= 0) { //(nothing purchased, no adds)
              
-  //error_log( print_r(  'update_parent_cart_for_autoAdds  004a', true ) );  
+      //error_log( print_r(  'update_parent_cart_for_autoAdds  004a', true ) );  
   // COMMENT OUT SET QTY
                 $woocommerce->cart->set_quantity($key,0,false); //set_quantity = 0 ==> delete the product
   
              } else {
-  //error_log( print_r(  'update_parent_cart_for_autoAdds  005', true ) );
+      //error_log( print_r(  'update_parent_cart_for_autoAdds  005', true ) );
   
              // COMMENT OUT SET QTY
-                $woocommerce->cart->set_quantity($key,$current_total_quantity,false); //false = don't refresh totals
+                //$woocommerce->cart->set_quantity($key,$current_total_quantity,false); //false = don't refresh totals
+                $woocommerce->cart->set_quantity($key,$current_auto_add_array_row['current_qty'],false); //false = don't refresh totals
   
              }
              
              $woocommerce_cart_updated = true;
              
           }
-  //error_log( print_r(  '$woocommerce_free_product_processed = true', true ) );         
-          $woocommerce_free_product_processed = true;
+      //error_log( print_r(  '$woocommerce_free_product_processed = true', true ) );         
+          $woocommerce_free_product_processed = true; 
           
-       } 
-        
+          //update the current array row in the parent array
+          $current_auto_add_array[$cart_product_id] = $current_auto_add_array_row;
+          
+          $current_auto_add_array_items_processed[] = $cart_product_id; //mark key as processed
+          
+       } else {
+          //if no current free stuff, but there is previous free stuff, roll it out for *this key*
+          if ( (isset($previous_auto_add_array[$cart_product_id] )) &&
+               ($previous_auto_add_array[$cart_product_id]['free_qty']  > 0) ) {
+            $this->vtprd_maybe_roll_out_prev_auto_insert_from_woo_cart($previous_auto_add_array, 'single', $cart_product_id );
+            $woocommerce_cart_updated = true;
+          }
+       }
+       
+        //********************************
+        //Process Auto Add of new Products - If any current free products were not processed above, then they are added here.
+        //********************************
+        //  for WOO, see http://docs.woothemes.com/document/automatically-add-product-to-cart-on-visit/
+        if ( (!$woocommerce_free_product_processed) &&  //so free item wasn't already in the cart
+             (isset($current_auto_add_array[$cart_product_id])) ) {  
+  
+      //error_log( print_r(  '$vtprd_rules_set', true ) );
+      //error_log( var_export($vtprd_rules_set, true ) ); 
+   
+           /* -------------------------------------- 
+            add to cart logic from woocommerce-functions.php  function woocommerce_add_to_cart_action
+           -------------------------------------- */
+                 
+            //$current_auto_add_array_row GOTTEN AB
+            $qty = $current_auto_add_array_row['free_qty'];
+            
+            //add_to_cart( $product_id, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data = array() ) {
+            //add product to cart 
+            
+      //error_log( print_r(  'update_parent_cart_for_autoAdds  006 $qty = ' .$qty, true ) );
+            
+            if ( ( is_array($current_auto_add_array_row['variations_parameter']) ) &&         //v1.0.5.6
+                 (   sizeof($current_auto_add_array_row['variations_parameter']) > 0 ) ) {      //v1.0.5.6
+      //error_log( print_r(  'update_parent_cart_for_autoAdds  007', true ) );
+  //wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT', 'vtmin'), array('back_link' => true));  
+               /*
+                   $current_free_product_row['variations_parameter'] = $vtprd_rule->var_out_product_variations_parameter = array(
+                     'parent_product_id'    => $product_id,
+                     'variation_product_id' => $variation_id,
+                     'variations_array'     => $variations
+                    );
+                    
+                 Sample add_to_cart param array for variation product:               
+                    $product_id = 738
+                    $quantity = 1
+                    $variation_id = 754
+                    $variations= 
+                      Array
+                      (
+                          [pa_colors2] => purple
+                          [pa_size2] => xxlg
+                      )    
+               */
+               $variation_id        =  $current_auto_add_array_row['free_product_id'];
+               $parent_product_id   =  $current_auto_add_array_row['variations_parameter']['parent_product_id'];
+               $variations_array    =  $current_auto_add_array_row['variations_parameter']['variations_array'];
+   
+                //COMMENT ADD TO CART             
+               $woocommerce->cart->add_to_cart($parent_product_id, $qty, $variation_id, $variations_array );
+  
+      //error_log( print_r(  'update_parent_cart_for_autoAdds  008', true ) );
+            }  else {
+      //error_log( print_r(  'update_parent_cart_for_autoAdds  009', true ) );
+  
+                //COMMENT ADD TO CART
+               $woocommerce->cart->add_to_cart($current_auto_add_array_row['free_product_id'], $qty);
+  
+  
+  
+            }                                                                       
+            
+             //$current_free_product_row['variations_parameter']
+      //error_log( print_r(  'update_parent_cart_for_autoAdds  0010', true ) );
+            $woocommerce_cart_updated = true;
+             
+            $current_auto_add_array_items_processed[] = $cart_product_id; //mark key as processed       
+          }   
+          
+     
+       
+       
       } //end foreach         
 
+ 
+        
+         
+      //v1.1.1.2 cleanup ==>>changed to a foreach
       //********************************
       //Process Auto Add of new Products - If any current free products were not processed above, then they are added here.
-      //********************************
-      //  for WOO, see http://docs.woothemes.com/document/automatically-add-product-to-cart-on-visit/
-      if (!$woocommerce_free_product_processed) {  //so free item wasn't already in the cart
+      foreach($current_auto_add_array as $key => $current_auto_add_array_row ) {  
 
-//error_log( print_r(  '$vtprd_rules_set', true ) );
-//error_log( var_export($vtprd_rules_set, true ) ); 
- 
-       /* -------------------------------------- 
-        add to cart logic from woocommerce-functions.php  function woocommerce_add_to_cart_action
-       -------------------------------------- */
-               
-          $qty = $current_auto_add_array['free_qty'];
-          //add_to_cart( $product_id, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data = array() ) {
-          //add product to cart 
+          //ONLY process those keys not yet processed!
+          if ( in_array($key, $current_auto_add_array_items_processed) ) {
+              continue;  //skip if already processed!!
+          }
+
+          $qty = $current_auto_add_array_row['free_qty'];
+
+    //error_log( print_r(  'update_parent_cart_for_autoAdds  106 $qty = ' .$qty, true ) );
           
-//error_log( print_r(  'update_parent_cart_for_autoAdds  006 $qty = ' .$qty, true ) );
-          
-          if ( ( is_array($current_auto_add_array['variations_parameter']) ) &&         //v1.0.5.6
-               (   sizeof($current_auto_add_array['variations_parameter']) > 0 ) ) {      //v1.0.5.6
-//error_log( print_r(  'update_parent_cart_for_autoAdds  007', true ) );
-//wp_die( __('<strong>Looks like</strong>', 'vtmin'), __('VT', 'vtmin'), array('back_link' => true));  
-             /*
-                 $current_free_product_row['variations_parameter'] = $vtprd_rule->var_out_product_variations_parameter = array(
-                   'parent_product_id'    => $product_id,
-                   'variation_product_id' => $variation_id,
-                   'variations_array'     => $variations
-                  );
-                  
-               Sample add_to_cart param array for variation product:               
-                  $product_id = 738
-                  $quantity = 1
-                  $variation_id = 754
-                  $variations= 
-                    Array
-                    (
-                        [pa_colors2] => purple
-                        [pa_size2] => xxlg
-                    )    
-             */
-             $variation_id        =  $current_auto_add_array['free_product_id'];
-             $parent_product_id   =  $current_auto_add_array['variations_parameter']['parent_product_id'];
-             $variations_array    =  $current_auto_add_array['variations_parameter']['variations_array'];
+          if ( ( is_array($current_auto_add_array_row['variations_parameter']) ) &&         //v1.0.5.6
+               (   sizeof($current_auto_add_array_row['variations_parameter']) > 0 ) ) {      //v1.0.5.6
  
-//COMMENT ADD TO CART             
+    //error_log( print_r(  'update_parent_cart_for_autoAdds  107', true ) );
+
+
+             $variation_id        =  $current_auto_add_array_row['free_product_id'];
+             $parent_product_id   =  $current_auto_add_array_row['variations_parameter']['parent_product_id'];
+             $variations_array    =  $current_auto_add_array_row['variations_parameter']['variations_array'];
+ 
+              //COMMENT ADD TO CART             
              $woocommerce->cart->add_to_cart($parent_product_id, $qty, $variation_id, $variations_array );
 
-//error_log( print_r(  'update_parent_cart_for_autoAdds  008', true ) );
+    //error_log( print_r(  'update_parent_cart_for_autoAdds  108', true ) );
+          
           }  else {
-//error_log( print_r(  'update_parent_cart_for_autoAdds  009', true ) );
+          
+    //error_log( print_r(  'update_parent_cart_for_autoAdds  109', true ) );
 
-//COMMENT ADD TO CART
-             $woocommerce->cart->add_to_cart($current_auto_add_array['free_product_id'], $qty);
-
-
+              //COMMENT ADD TO CART
+             $woocommerce->cart->add_to_cart($current_auto_add_array_row['free_product_id'], $qty);
 
           }                                                                       
           
            //$current_free_product_row['variations_parameter']
-//error_log( print_r(  'update_parent_cart_for_autoAdds  0010', true ) );
+    //error_log( print_r(  'update_parent_cart_for_autoAdds  110', true ) );
           $woocommerce_cart_updated = true;        
-        } 
-////error_log( print_r(  'update_parent_cart_for_autoAdds  0011', true ) );             
-//      } //end foreach  $current_auto_add_array   
-//error_log( print_r(  'update_parent_cart_for_autoAdds  0012', true ) );
+        } //end add new free item foreach   
+ 
+ 
+ 
+ 
+ 
+     //error_log( print_r(  'update_parent_cart_for_autoAdds  0011', true ) );             
+
       
       //after updates are completed, calculate the subtotal + cleanup
       if ($woocommerce_cart_updated) {
-//error_log( print_r(  'update_parent_cart_for_autoAdds  0013', true ) );  
+     //error_log( print_r(  'update_parent_cart_for_autoAdds  0013', true ) );  
       
         //v1.0.9.3 - mark call as internal only - 
         //	accessed in parent-cart-validation/ function vtprd_maybe_before_calculate_totals
@@ -4409,14 +4715,33 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
           
         $woocommerce->cart->calculate_totals(); 
         
-//error_log( print_r(  'update_parent_cart_for_autoAdds  0014', true ) );  
+     //error_log( print_r(  'update_parent_cart_for_autoAdds  0014', true ) );  
                 
       }   
 
-//error_log( print_r(  'update_parent_cart_for_autoAdds  0015', true ) );
+     //error_log( print_r(  'update_parent_cart_for_autoAdds  0015', true ) );
 
 
 
+     //v1.1.1.2 roll out unused free candidate entries from $current so they don't muck things up on next round
+     $unset_cnt = 0;
+     foreach ( $current_auto_add_array as $key => $current_auto_add_array_row ) { 
+       if ( ($current_auto_add_array_row['purchased_qty'] == 0)  &&
+            ($current_auto_add_array_row['free_qty'] == 0) ) {
+          unset($current_auto_add_array[$key]);
+          $unset_cnt++;     
+       } else {
+          //reset candidate_qty for next cycle
+          $current_auto_add_array_row['candidate_qty'] = 0;
+       }
+       
+     }   
+     if ($unset_cnt > 0) {  //re-knit the array
+        $current_auto_add_array = array_values($current_auto_add_array);
+     }
+     //end roll out
+       
+     
      //MOVE 'CURRENT' TO PREVIOUS, CLEAR OUT 'CURRENT'
      //refresh the 'previous' array with the 'current' array, for the next iteration...
      $_SESSION['previous_auto_add_array'] = serialize($current_auto_add_array);
@@ -4466,7 +4791,7 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
      //clear out the current variable for use in next iteration, as needed
      
      
-//error_log( print_r(  'update_parent_cart_for_autoAdds  0016', true ) );
+     //error_log( print_r(  'update_parent_cart_for_autoAdds  0016', true ) );
  //echo '$vtprd_cart= <pre>'.print_r($vtprd_cart, true).'</pre>' ; 
  //echo '$vtprd_rules_set= <pre>'.print_r($vtprd_rules_set, true).'</pre>' ;
  //echo '$woocommerce= <pre>'.print_r($woocommerce, true).'</pre>' ;  
@@ -4475,15 +4800,17 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
      $this->vtprd_maybe_remove_current_auto_add_array();
      $this->vtprd_turn_off_auto_add_in_progress();
 
-//error_log( print_r(  'AT END OF vtprd_post_process_cart_for_autoAdds  ', true ) );
-//error_log( print_r(  '$previous_auto_add_array NOW=', true ) );
-//error_log( var_export($current_auto_add_array, true ) );
-//error_log( print_r(  ' ', true ) );
-//error_log( print_r(  '$vtprd_cart at end of post_process', true ) );
-//error_log( var_export($vtprd_cart, true ) ); 
+     //error_log( print_r(  'AT END OF vtprd_post_process_cart_for_autoAdds  ', true ) );
+     //error_log( print_r(  '$previous_auto_add_array NOW=', true ) );
+ $previous_auto_add_array = $this->vtprd_get_previous_auto_add_array(); 
+ 
+     //error_log( var_export($previous_auto_add_array, true ) );
+     //error_log( print_r(  ' ', true ) );
+     //error_log( print_r(  '$vtprd_cart at end of post_process', true ) );
+     //error_log( var_export($vtprd_cart, true ) ); 
 //$woocommerce_cart_contents = $woocommerce->cart->get_cart();
-//error_log( print_r(  'WOO CART at end of post_process', true ) );
-//error_log( var_export($woocommerce_cart_contents, true ) );        
+     //error_log( print_r(  'WOO CART at end of post_process', true ) );
+     //error_log( var_export($woocommerce_cart_contents, true ) );        
      return;    
   }  //end vtprd_post_process_cart_for_autoAdds  
   
@@ -4493,13 +4820,42 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
    //v1.1.0.6 new function 
    //  Only 1 ITERATION of auto add free candidate COUNT is added during pre_processing
    //   all others are added HERE, as needed, based on the $br and $ar REPEATS
+   //v1.1.1.2 begin - reworked for multiple free 
+   //  $current_auto_add_array for this product created in pre_processing
    //**********************************       
    public function vtprd_add_free_item_candidate($i) {
     	global $vtprd_cart, $vtprd_rules_set, $vtprd_info;
       
+     //error_log( print_r(  'vtprd_add_free_item_candidate ', true ) ); 
+       
       $current_auto_add_array = $this->vtprd_get_current_auto_add_array();
-//error_log( print_r(  '$vtprd_rules_set at vtprd_add_free_item_candidate $i= ' .$i, true ) );
-//error_log( var_export($vtprd_rules_set[$i], true ) );                 
+ 
+      
+      //v1.1.1.2 ADDED to identify prod id
+      //set up Free product prod_id
+
+      //overwrite actionpop var-out and single if same as inpop and autoadd on ...
+      //this gets reset later in main processing...
+      if ($vtprd_rules_set[$i]->actionPop == 'sameAsInPop')  {                                                  
+         $vtprd_rules_set[$i]->actionPop                =   $vtprd_rules_set[$i]->inPop;
+         $vtprd_rules_set[$i]->var_out_checked          =   $vtprd_rules_set[$i]->var_in_checked;  
+         $vtprd_rules_set[$i]->actionPop_singleProdID   =   $vtprd_rules_set[$i]->inPop_singleProdID;    
+      }
+       
+      switch( $vtprd_rules_set[$i]->actionPop ) { 
+        case 'vargroup':     //only applies to 1st rule deal line
+             $free_product_id = $vtprd_rules_set[$i]->var_out_checked[0]; //there can be only one entry in the array  
+          break; 
+        case 'single':
+             $free_product_id = $vtprd_rules_set[$i]->actionPop_singleProdID;    
+          break;
+      }
+
+     //error_log( print_r(  'add_free_item_candidate AT TOP $free_product_id= ' .$free_product_id, true ) );  
+      
+      $current_auto_add_array_row = $current_auto_add_array[$free_product_id];
+     //error_log( print_r(  '$vtprd_rules_set at vtprd_add_free_item_candidate $i= ' .$i, true ) );
+     //error_log( var_export($vtprd_rules_set[$i], true ) );                 
       //actionPop_found_list
       //$last_iteration_key = ( sizeof ($vtprd_rules_set[$i]->actionPop_found_list) - 1);
       
@@ -4507,28 +4863,28 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
       $last_iteration_key =  end($actionPop_key_array);
       
       
- //error_log( print_r(  'vtprd_add_free_item_candidate $last_iteration_key= ' .$last_iteration_key , true ) );    
- //error_log( print_r(  'prod_qty before add = ' .$vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_qty'] , true ) );  
-      $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_qty'] += $current_auto_add_array['free_product_add_action_cnt'];
-//error_log( print_r(  'prod_qty after add = ' .$vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_qty'] , true ) );
-      $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_running_qty'] +=$current_auto_add_array['free_product_add_action_cnt'];
+      //error_log( print_r(  'vtprd_add_free_item_candidate $last_iteration_key= ' .$last_iteration_key , true ) );    
+      //error_log( print_r(  'prod_qty before add = ' .$vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_qty'] , true ) );  
+      $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_qty'] += $current_auto_add_array_row['free_product_add_action_cnt'];
+     //error_log( print_r(  'prod_qty after add = ' .$vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_qty'] , true ) );
+      $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_running_qty'] +=$current_auto_add_array_row['free_product_add_action_cnt'];
       $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_total_price'] += 
-          ($current_auto_add_array['free_product_add_action_cnt'] * $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_unit_price']);
+          ($current_auto_add_array_row['free_product_add_action_cnt'] * $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_unit_price']);
       
 
-      $vtprd_rules_set[$i]->actionPop_qty_total   += $current_auto_add_array['free_product_add_action_cnt'];
+      $vtprd_rules_set[$i]->actionPop_qty_total   += $current_auto_add_array_row['free_product_add_action_cnt'];
       $vtprd_rules_set[$i]->actionPop_total_price += 
-          ($current_auto_add_array['free_product_add_action_cnt'] * $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_unit_price']);
-      $vtprd_rules_set[$i]->actionPop_running_qty_total   += $current_auto_add_array['free_product_add_action_cnt'];
+          ($current_auto_add_array_row['free_product_add_action_cnt'] * $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_unit_price']);
+      $vtprd_rules_set[$i]->actionPop_running_qty_total   += $current_auto_add_array_row['free_product_add_action_cnt'];
       $vtprd_rules_set[$i]->actionPop_running_total_price += 
-          ($current_auto_add_array['free_product_add_action_cnt'] * $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_unit_price']);
+          ($current_auto_add_array_row['free_product_add_action_cnt'] * $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_unit_price']);
      
       //****************************************
       //increase qty on $vtprd_cart->cart_item
       $k = $vtprd_rules_set[$i]->actionPop_found_list[$last_iteration_key]['prod_id_cart_occurrence'];
-      $vtprd_cart->cart_items[$k]->quantity    +=  $current_auto_add_array['free_product_add_action_cnt'];
-      $vtprd_cart->cart_items[$k]->total_price += ($current_auto_add_array['free_product_add_action_cnt'] * $vtprd_cart->cart_items[$k]->unit_price);
-      $current_auto_add_array['current_qty']    =  $vtprd_cart->cart_items[$k]->quantity;
+      $vtprd_cart->cart_items[$k]->quantity    +=  $current_auto_add_array_row['free_product_add_action_cnt'];
+      $vtprd_cart->cart_items[$k]->total_price += ($current_auto_add_array_row['free_product_add_action_cnt'] * $vtprd_cart->cart_items[$k]->unit_price);
+      $current_auto_add_array_row['current_qty']    =  $vtprd_cart->cart_items[$k]->quantity;
      
      
       //actionPop_exploded_found_list
@@ -4537,17 +4893,24 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
       $next_actionPop_iteration['prod_discount_amt'] = 0;
       $next_actionPop_iteration['prod_discount_applied'] = '';  
           
-      for($cnt=0; $cnt < $current_auto_add_array['free_product_add_action_cnt']; $cnt++){
+      for($cnt=0; $cnt < $current_auto_add_array_row['free_product_add_action_cnt']; $cnt++){
         $vtprd_rules_set[$i]->actionPop_exploded_found_list[] = $next_actionPop_iteration;
-//error_log( print_r('vtprd_add_free_item_candidate added iteration ', true ) );        
+     //error_log( print_r('vtprd_add_free_item_candidate added iteration ', true ) );        
     //no longer used    $vtprd_rules_set[$i]->actionPop_exploded_found_list[$last_iteration_key]->product_free_auto_insert_candidate = 'yes';
       }
       
       if (sizeof($vtprd_rules_set[$i]->actionPop_exploded_found_list) == $vtprd_rules_set[$i]->actionPop_exploded_group_end) {
          $vtprd_rules_set[$i]->actionPop_exploded_group_end++;
-//error_log( print_r('actionPop_exploded_group_end reset here4 = ' .$vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );           
+     //error_log( print_r('actionPop_exploded_group_end reset here4 = ' .$vtprd_rules_set[$i]->actionPop_exploded_group_end, true ) );           
       }
-  
+      
+      //put ROW back into the array
+      $current_auto_add_array[$free_product_id] = $current_auto_add_array_row;
+ 
+        
+      //error_log( print_r(  '$current_auto_add_array at add_free_item_candidate time , key= ' .$free_product_id , true ) );
+      //error_log( var_export($current_auto_add_array, true ) ); 
+    
       $_SESSION['current_auto_add_array'] = serialize($current_auto_add_array);
 
       return; 
@@ -4555,16 +4918,25 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
      
         
    //**********************************
-   //v1.1.0.6 new function 
-   //**********************************
-   public function vtprd_maybe_roll_out_prev_auto_insert_from_woo_cart($previous_auto_add_array) { 
-//error_log( print_r(  'in vtprd_maybe_roll_out_prev_auto_insert_from_woo_cart', true ) );      
+   //v1.1.0.6 new function
+   //v1.1.1.2 begin - reworked for multiple free  
+   /*
+    now acceepts  $previous_auto_add_array,$all_or_single,$single_key
+    if 'all', process whole $previous_auto_add_array
+    if 'single' only process supplied $single_key
+   */
+   //**********************************                                 
+   public function vtprd_maybe_roll_out_prev_auto_insert_from_woo_cart($previous_auto_add_array, $all_or_single, $single_key=none) {      
       global $woocommerce;
       
+     //error_log( print_r(  'vtprd_maybe_roll_out_prev_auto_insert_from_woo_cart ', true ) ); 
+ 
+      /*
       if ($previous_auto_add_array['free_qty']  <= 0) {
         return;
       }
-      
+      */
+      $cart_updated = false; //v1.1.1.2
       $woocommerce_cart_contents = $woocommerce->cart->get_cart(); 
       foreach($woocommerce_cart_contents as $key => $cart_item) {
 
@@ -4572,11 +4944,25 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
             $cart_product_id    = $cart_item['variation_id'];
         } else { 
             $cart_product_id    = $cart_item['product_id']; 
-        }    
+        } 
+        
+        if ($all_or_single == 'single') { 
+            if ($single_key != $cart_product_id) {
+              continue;  //skip if not = to supplied single key
+            }
+        }      
              
-        if ($previous_auto_add_array['free_product_id'] == $cart_product_id) {  
+        //if ($previous_auto_add_array['free_product_id'] == $cart_product_id) { 
+        if (isset($previous_auto_add_array[$cart_product_id] )) { 
+
+         $previous_auto_add_array_row = $previous_auto_add_array[$cart_product_id];
  
-         $current_total_quantity =  ($cart_item['quantity'] - $previous_auto_add_array['free_qty']); 
+         //SKIP this product if no free qty
+         if ($previous_auto_add_array_row['free_qty']  <= 0) {
+            continue;
+         }
+                  
+         $current_total_quantity =  ($cart_item['quantity'] - $previous_auto_add_array_row['free_qty']); 
 
          if ($current_total_quantity <= 0) {
 
@@ -4588,17 +4974,23 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
 
          }
          
-        //v1.0.9.3 - mark call as internal only - 
-        //	accessed in parent-cart-validation/ function vtprd_maybe_before_calculate_totals
-        $_SESSION['internal_call_for_calculate_totals'] = true;   
-          
-        $woocommerce->cart->calculate_totals();
-        
-        break; //break out of for each
+         $cart_updated = true; //v1.1.1.2
+
+        //v1.1.1.2  need to keep running for multiples
+        //break; //break out of for each
 
        } 
         
       } //end foreach  
+      
+      //v1.1.1.2 new
+      if ($cart_updated) {
+              //v1.0.9.3 - mark call as internal only - 
+        //	accessed in parent-cart-validation/ function vtprd_maybe_before_calculate_totals
+        $_SESSION['internal_call_for_calculate_totals'] = true;   
+          
+        $woocommerce->cart->calculate_totals();
+      }  
       
       return;
    } 
@@ -4616,16 +5008,13 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
         
    //**********************************
    //v1.1.0.6 new function
+   //v1.1.1.2 begin - reworked for multiple free 
    //**********************************
    public function vtprd_maybe_remove_previous_auto_add_array() { 
      global $vtprd_info;
      //clear out the previous variable for use in next iteration, as needed
-     if (isset($_SESSION['previous_auto_add_array']))  { 
-       $contents = $_SESSION['previous_auto_add_array'];
-       unset( $_SESSION['previous_auto_add_array'], $contents );
-       $vtprd_info['previous_auto_add_array'] = ''; //$vtprd_info['previous_auto_add_array'] used when session variable disappears due to age
-       
-     }
+     $previous_auto_add_array = array();
+     $_SESSION['previous_auto_add_array'] = serialize($previous_auto_add_array);
    } 
         
    //**********************************
@@ -4633,21 +5022,27 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
    //**********************************
    public function vtprd_get_previous_auto_add_array() { 
       global $vtprd_info;
+      
+     //error_log( print_r(  'vtprd_get_previous_auto_add_array ', true ) ); 
+       
       if (isset($_SESSION['previous_auto_add_array']))  {
          $previous_auto_add_array = unserialize($_SESSION['previous_auto_add_array']);
       } else {
          //session var may have expired due to age.  If in vtprd_info, use that version!
+         //****************************************
+         // IF BOTH are gone, Free stuff DISAPPEARS and becomes a purchase.
+         //****************************************
          if ( is_array($vtprd_info['previous_auto_add_array']) ) {
             $previous_auto_add_array = $vtprd_info['previous_auto_add_array'];
          } else {
-            $previous_auto_add_array = $this->vtprd_init_previous_auto_add_array();
+            $previous_auto_add_array = array(); //v1.1.1.2
          }         
       }
       
       return $previous_auto_add_array; 
    }  
  
-           
+ /* v1.1.1.2  removed, no longer in use          
    //**********************************
    //v1.1.0.6 new function 
    //**********************************
@@ -4667,27 +5062,34 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
       
       return $previous_auto_add_array; 
    }     
-    
+ */   
                
    //**********************************
    //v1.1.0.6 new function 
    //**********************************
    public function vtprd_get_current_auto_add_array() { 
+      
+     //error_log( print_r(  'vtprd_get_current_auto_add_array ', true ) ); 
+    
       if (isset($_SESSION['current_auto_add_array']))  {
          $current_auto_add_array = unserialize($_SESSION['current_auto_add_array']);
       } else {
-         $current_auto_add_array = $this->vtprd_init_current_auto_add_array();
+         //v1.1.1.2 begin  -  handle multiples!
+         //$current_auto_add_array = $this->vtprd_init_auto_add_array_row();
+         $current_auto_add_array = array();
+         //v1.1.1.2 end
       }
       
       return $current_auto_add_array; 
    }    
            
    //**********************************
+   //v1.1.1.2 begin - reworked for multiple free 
    //v1.1.0.6 new function 
    //**********************************
-   public function vtprd_init_current_auto_add_array() { 
+   public function vtprd_init_auto_add_array_row() { 
 
-       $current_auto_add_array = array (       
+       $auto_add_array_row = array (       
           'free_product_id' => '',
           'free_product_add_action_cnt' => '', 
           'free_product_in_inPop' => '',
@@ -4700,20 +5102,20 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
           'variations_parameter' => ''                  
       );
       
-      return $current_auto_add_array; 
+      return $auto_add_array_row; 
    }     
     
    //**********************************
    //v1.1.0.6 new function 
+   //v1.1.1.2 begin - reworked for multiple free 
    //**********************************
    public function vtprd_maybe_remove_current_auto_add_array() { 
      //clear out the current variable for use in next iteration, as needed
-     if (isset($_SESSION['current_auto_add_array']))  { 
-       $contents = $_SESSION['current_auto_add_array'];
-       unset( $_SESSION['current_auto_add_array'], $contents );
-     }
+     $current_auto_add_array = array();
+     $_SESSION['current_auto_add_array'] = serialize($current_auto_add_array);
    }    
         
+/* //v1.1.1.2  no longer used
    //**********************************
    //test for auto-add pre-process
    //**********************************
@@ -4752,7 +5154,7 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
         } 
       return $in_inPop;
    }
-
+*/
   
         
    //**********************************
@@ -4762,6 +5164,8 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
    public function vtprd_sort_vtprd_cart_autoAdd_last() { 
       global $vtprd_cart, $vtprd_rules_set, $vtprd_rule, $vtprd_info, $vtprd_setup_options;
       
+     //error_log( print_r(  'vtprd_sort_vtprd_cart_autoAdd_last ', true ) ); 
+       
       //v1.1.0.9 begin handle empty cart
       if (!isset($vtprd_cart->cart_items)) {
         return;
@@ -4791,7 +5195,7 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
       return;
    }
 
-
+/* //v1.1.1.2  no longer used
    //test for auto-add pre-process
    public function vtprd_load_inPop_exploded_for_autoAdd($i, $k) {
       global $vtprd_rules_set, $vtprd_cart;
@@ -4836,13 +5240,14 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
       $vtprd_rules_set[$i]->inPop_exploded_group_occurrence = $e;
     } //end explode         
   } 
+ */
        
   //************
   //AUTO ADD to vtprd-cart, only used for free items... 
   //************
 	public function vtprd_auto_add_to_vtprd_cart($free_product_id, $free_product_to_be_added_qty, $i) {
       global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_cart_item, $vtprd_info, $vtprd_rules_set; 
-//error_log( print_r(  'TOP OF  auto_add_to_vtprd_cart' , true ) );  
+     //error_log( print_r(  'TOP OF  auto_add_to_vtprd_cart' , true ) );  
       $vtprd_cart_item                = new VTPRD_Cart_Item;
                   
       // $free_product_id will be the var id if it's a variation
@@ -4870,7 +5275,7 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
   
       if ( (sizeof ($vtprd_rules_set[$i]->var_out_product_variations_parameter) > 0) && 
            (get_post_field('post_parent', $free_product_id) ) ) {     //variations have a Parent!! 
-//error_log( print_r(  'Adding Variation' , true ) );  
+     //error_log( print_r(  'Adding Variation' , true ) );  
           // get variation names to string onto parent title
           foreach($vtprd_rules_set[$i]->var_out_product_variations_parameter['variations_array'] as $key => $value) {          
             $varLabels .= $value . '&nbsp;';           
@@ -4890,7 +5295,7 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
           $vtprd_cart_item->product_name = $vtprd_cart_item->parent_product_name . '&nbsp;' . $varLabels ;
 
       }  else {
-//error_log( print_r(  'Adding Regular Product' , true ) );        
+     //error_log( print_r(  'Adding Regular Product' , true ) );        
          //v1.0.5.6 begin
          //$post = get_post($free_product_id); 
          //$vtprd_cart_item->product_name = $post->post_name;
@@ -4922,6 +5327,12 @@ global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_it
   //    $vtprd_cart->cart_original_total_amt += $vtprd_cart_item->total_price;
       
       $vtprd_cart_item->product_auto_insert_state = 'candidate'; //v1.1.0.6
+
+      //v1.1.1.2 begin
+      //MARK the inserted item to be used ONLY for this rule
+      $vtprd_cart_item->product_auto_insert_rule_id = $vtprd_rules_set[$i]->post_id;
+      //v1.1.1.2 end
+
       
       //********************************
       //add cart_item to cart array 

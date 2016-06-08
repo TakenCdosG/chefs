@@ -3,7 +3,7 @@
 Plugin Name: VarkTech Pricing Deals PRO for WooCommerce
 Plugin URI: http://varktech.com
 Description: An e-commerce add-on for WooCommerce, supplying Pricing Deals functionality.
-Version: 1.1.1.1
+Version: 1.1.1.2
 Author: VarkTech
 Author URI: http://varktech.com
 */
@@ -22,9 +22,9 @@ class VTPRD_Pro_Controller{
 	public function __construct(){    
     global $wpdb;
     add_action('init', array( &$this, 'vtprd_pro_controller_init' ));    
-    define('VTPRD_PRO_VERSION',                           '1.1.1.1');       
-    define('VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION',     '1.1.1');  //required version of
-    define('VTPRD_PRO_LAST_UPDATE_DATE',                  '2015-09-28');
+    define('VTPRD_PRO_VERSION',                           '1.1.1.2');       
+    define('VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION',     '1.1.1.2');  //required version of
+    define('VTPRD_PRO_LAST_UPDATE_DATE',                  '2015-11-07');
 	  define('VTPRD_PRO_PLUGIN_NAME2',                      'Pricing Deals Pro for WooCommerce');
     define('VTPRD_PRO_FREE_PLUGIN_NAME',                  'Pricing Deals for WooCommerce');
     define('VTPRD_PRO_DIRNAME',                           ( dirname( __FILE__ ) ));

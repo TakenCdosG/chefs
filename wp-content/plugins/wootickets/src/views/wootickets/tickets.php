@@ -60,6 +60,8 @@ ob_start();
 					) );
 
 					$is_there_any_product_to_sell = true;
+
+					do_action( 'wootickets_tickets_after_quantity_input', $ticket, $product );
 				} else {
 					echo '<span class="tickets_nostock">' . esc_html__( 'Out of stock!', 'tribe-wootickets' ) . '</span>';
 				}

@@ -18,23 +18,54 @@ window.eml = window.eml || { l10n: {} };
      * wp.media.controller.Library
      *
      */
+    original.controllerLibrary = {
+
+        activate: media.controller.Library.prototype.activate
+    };
+
     _.extend( media.controller.Library.prototype, {
+
+        activate: function() {
+
+            original.controllerLibrary.activate.apply( this, arguments );
+
+            wp.Uploader.queue.on( 'reset', this.afterUpload, this );
+    	},
+
+        afterUpload: function() {
+
+            var library = this.get( 'library' ),
+                selection = this.get( 'selection' ),
+                orderby = library.props.get( 'orderby' );
+
+            if ( 'menuOrder' === orderby ) {
+                library.saveMenuOrder();
+            }
+
+            library.reset( library.models );
+
+            if ( selection.model.length ) {
+                selection.trigger( 'selection:unsingle', selection.model, selection );
+                selection.trigger( 'selection:single', selection.model, selection );
+            }
+        },
 
         uploading: function( attachment ) {
 
     		var content = this.frame.content,
-                resetFilterButton = content.get().toolbar.get( 'resetFilterButton' ),
-                selection = this.get('selection');
+                selection = this.get( 'selection' ),
+                library = this.get( 'library' );
 
-            if ( wp.Uploader.queue.length == 1 ) {
-                resetFilterButton.click();
-            }
 
     		if ( 'upload' === content.mode() ) {
     			this.frame.content.mode('browse');
     		}
 
-    		if ( this.get( 'autoSelect' ) ) {
+            if ( wp.Uploader.queue.length == 1 ) {
+                $('.attachment-filters:has(option[value!="all"]:selected)').val( 'all' ).change();
+            }
+
+            if ( this.get( 'autoSelect' ) ) {
 
                 if ( wp.Uploader.queue.length == 1 && selection.length ) {
                     selection.reset();
@@ -343,14 +374,26 @@ window.eml = window.eml || { l10n: {} };
 
         id: 'reset-all-filters',
 
+        initialize: function() {
+
+            media.view.Button.prototype.initialize.apply( this, arguments );
+            this.controller.on( 'select:activate select:deactivate', this.toogleResetFilters, this );
+        },
+
         click: function( event ) {
 
             if ( '#' === this.attributes.href ) {
 				event.preventDefault();
 			}
 
-            $('.attachment-filters:has(option[value!="all"]:selected)').val( 'all' ).change();
-		}
+            $('.attachment-filters:has(option[value!="all"]:selected)').each( function( index ) {
+                $(this).val( 'all' ).change();
+            });
+		},
+
+        toogleResetFilters: function() {
+            this.$el.toggleClass( 'hidden' );
+        }
     });
 
 
@@ -372,11 +415,6 @@ window.eml = window.eml || { l10n: {} };
             original.AttachmentsBrowser.initialize.apply( this, arguments );
 
             this.on( 'ready', this.fixLayout, this );
-
-            $( window ).on( 'resize', _.debounce( _.bind( this.fixLayout, this ), 15 ) );
-
-            // ACF compatibility
-            $( document ).on( 'click', '.acf-expand-details', _.debounce( _.bind( this.fixLayout, this ), 250 ) );
         },
 
         fixLayout: function() {
@@ -386,30 +424,6 @@ window.eml = window.eml || { l10n: {} };
                 $uploader = $browser.find('.uploader-inline'),
                 $toolbar = $browser.find('.media-toolbar'),
                 $messages = $('.eml-media-css .updated:visible, .eml-media-css .error:visible');
-
-
-            if ( eml.l10n.wp_version < '4.0' ) {
-
-                if ( 'absolute' == $attachments.css( 'position' ) &&
-                    $browser.height() > $toolbar.height() + 20 ) {
-
-                    $attachments.css( 'top', $toolbar.height() + 20 + 'px' );
-                    $uploader.css( 'top', $toolbar.height() + 20 + 'px' );
-                }
-                else if ( 'absolute' == $attachments.css( 'position' ) ) {
-                    $attachments.css( 'top', '50px' );
-                    $uploader.css( 'top', '50px' );
-                }
-                else if ( 'relative' == $attachments.css( 'position' ) ) {
-                    $attachments.css( 'top', '0' );
-                    $uploader.css( 'top', '0' );
-                }
-
-                // TODO: find a better place for it, something like fixLayoutOnce
-                $toolbar.find('.media-toolbar-secondary').prepend( $toolbar.find('.instructions') );
-
-                return;
-            }
 
 
             if ( ! this.controller.isModeActive( 'select' ) &&

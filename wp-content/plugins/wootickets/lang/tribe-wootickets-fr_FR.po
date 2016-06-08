@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the WooCommerce Tickets package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2015-06-09 14:02:55+0000\n"
+"PO-Revision-Date: 2015-10-04 20:35:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: WooCommerce Tickets\n"
 
 #. Plugin Name of the plugin/theme
 msgid "The Events Calendar: WooCommerce Tickets"
-msgstr ""
+msgstr "The Events Calendar : WooCommerce Tickets"
 
 #. Description of the plugin/theme
 msgid "The Events Calendar: WooCommerce Tickets allows you to sell tickets to events through WooCommerce"
-msgstr ""
+msgstr "The Events Calendar : WooCommerce Tickets vous permet de vendre des billets pour des événements via WooCommerce"
 
 #. Author of the plugin/theme
 msgid "Modern Tribe, Inc."
@@ -24,7 +24,7 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "http://m.tri.be/28"
-msgstr ""
+msgstr " http://m.tri.be/28 "
 
 #: src/Tribe/Email.php:13 src/views/wootickets/tickets.php:10
 msgid "Tickets"
@@ -32,7 +32,7 @@ msgstr "Billets"
 
 #: src/Tribe/Email.php:14
 msgid "Email the user will receive after a completed order with the tickets he purchased."
-msgstr ""
+msgstr "L'utilisateur recevra cet email après avoir passé la commande de ses billets."
 
 #: src/Tribe/Email.php:16
 msgid "Your tickets from {sitename}"
@@ -64,7 +64,7 @@ msgstr "(supprimé)"
 
 #: src/Tribe/Main.php:897
 msgid "Unknown"
-msgstr ""
+msgstr "Inconnus"
 
 #: src/Tribe/Main.php:969
 msgid "Event sales report"
@@ -116,4 +116,4 @@ msgstr "WooCommerce"
 
 #: wootickets.php:173 wootickets.php:175
 msgid "To begin using WooTickets, please install and activate the latest version of <a href=\"%s\" class=\"thickbox\" title=\"%s\">%s</a>."
-msgstr ""
+msgstr "Pour commancer a utilisé WooTickets, veuillez installer et activer la dernière version <a href=\"%s\" class=\"thickbox\" title=\"%s\">%s</a>."

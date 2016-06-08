@@ -2,7 +2,7 @@
 /*
 Plugin Name: The Events Calendar: WooCommerce Tickets
 Description: The Events Calendar: WooCommerce Tickets allows you to sell tickets to events through WooCommerce
-Version: 3.12
+Version: 3.12.1
 Author: Modern Tribe, Inc.
 Author URI: http://m.tri.be/28
 License: GPLv2 or later

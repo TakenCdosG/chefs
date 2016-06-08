@@ -1,11 +1,19 @@
 === UPS WooCommerce Shipping Method Plugin ===
+
 Contributors: WooForce
+
 Donate link: 
+
 Tags: UPS, UPS Shipping, UPS API,Shipping rates, shipping method, shipping extension,calculator,shipping calculator, tracking, postage, Shipping, WooCommerce
+
 Requires at least: 3.0.1
-Tested up to: 4.3
-Stable tag: 1.0.0
+
+Tested up to: 4.5
+
+Stable tag: 1.1.3
+
 License: GPLv2 or later
+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 UPS Shipping Method Plugin for WooCommerce. Displays Live Shipping Rates based on the Shipping Address and Cart Content.
@@ -13,25 +21,8 @@ UPS Shipping Method Plugin for WooCommerce. Displays Live Shipping Rates based o
 == Description ==
 
 = Introduction =
+
 UPS WooCommerce Shipping plugin helps WooCommerce based stores to streamline UPS shipping integration. This plugin helps you to get shipping rates from UPS APIs based on product weight, post code and other relevant details. Based on the postal codes and other parameters, all available shipping services along with the rates are listed for the customers to choose from.
-
-
-<blockquote>
-
-To know about the premium version, WooCommerce UPS Shipping Plugin with Print Label, please visit <a rel="nofollow" href="http://www.wooforce.com/product/woocommerce-ups-shipping-plugin-with-print-label/â€œ>www.woooforce.com/ups-shipping-plugin/</a>
-
-= Premium version Features =
-UPS Premium version streamlines your complete shipping process and saves time
-<ul>
-<li>Print shipping label with postage.</li>
-<li>Auto Shipment Tracking: It happens automatically while generating the label.</li>
-<li>Box packing.</li>
-<li>Enable/disable, edit the names of, and add handling costs to shipping services.</li>
-<li>Excellent Support for setting it up!</li>
-</ul>
-
-</blockquote>
-
 
 = Integrates WooCommerce to UPS =
 
@@ -41,32 +32,81 @@ Once this plugin is installed and configured with necessary information (please 
 
 While checking out, a customer is presented with the available shipping services and the rates based on his/her postal code, product weight and dimensions. Customer can choose the best method that matches his/her requirements and proceed to payment.
 
+= UPS Shipping Plugin Premium Version =
+
+[youtube https://www.youtube.com/watch?v=jC88cXaVtMg]
+
+<blockquote>
+
+= Premium version Features =
+
+UPS Premium version streamlines your complete shipping process and saves time
+
+<ul>
+
+<li>Print shipping label with postage.</li>
+
+<li>Auto Shipment Tracking: It happens automatically while generating the label.</li>
+
+<li>Option to enable Daily Rates, which gives same rates as UPS calculator.</li>
+
+<li>Box Packing and Weight Based Packing.</li>
+
+<li>Enable/disable, edit the names of services and add handling costs to shipping services.</li>
+
+<li>Timely compatibility updates and bug fixes.</li>
+
+<li>Premium support!</li>
+
+</ul>
+
+
+For complete list of features and details, please visit <a rel="nofollow" href="http://www.wooforce.com/product/woocommerce-ups-shipping-plugin-with-print-label/">WooCommerce UPS Shipping Plugin with Print Label</a>
+
+</blockquote>
 
 = About WooForce.com =
-[WooForce.com](http://www.wooforce.com/?utm_source=wordpress&utm_medium=referral&utm_content=ups) creates quality WordPress/WooCommerce plugins that are easy to use and customize. We are proud to have hundreds of customers actively using our plugins across the globe.
 
-Please [contact us](http://www.wooforce.com/contact/?utm_source=wordpress&utm_medium=referral&utm_content=ups) in case you have any questions
-
-
+[WooForce.com](http://www.wooforce.com/?utm_source=wordpress&utm_medium=referral&utm_content=ups) creates quality WordPress/WooCommerce plugins that are easy to use and customize. We are proud to have thousands of customers actively using our plugins across the globe.
 
 == Installation ==
 
-1. Upload the plugin folder to the â€˜/wp-content/plugins/â€™ directory.
-2. Activate the plugin through the â€˜Pluginsâ€™ menu in WordPress.
-3. Thats it â€“ you can now configure the plugin.
+1. Upload the plugin folder to the ‘/wp-content/plugins/’ directory.
+
+2. Activate the plugin through the ‘Plugins’ menu in WordPress.
+
+3. Thats it – you can now configure the plugin.
 
 == Frequently Asked Questions ==
 
 == Screenshots ==
 
 1. Plugin Configuration Screen
+
 2. Checkout Screen
 
 == Changelog ==
-= 1.0 =
- * Realtime Shipping Rates
 
+= 1.1.2 =
+
+ * Stability improvements.
+ 
+= 1.1.0 =
+
+* Choose desired service selection (Most requested feature).
+
+* Sure Post support added.
+
+* Clean and improved settings page.
+
+* Stability improvements.
+
+= 1.0 =
+
+ * Realtime Shipping Rates.
 
 == Upgrade Notice ==
-= 1.0 =
-Initial release
+
+= 1.1.2 =
+
+* Stability improvements.

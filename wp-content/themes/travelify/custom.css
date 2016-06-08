@@ -755,7 +755,7 @@ h2.line-red-separator{
 .woocommerce ul.products li.product .price {
     color: #1b1e1f;
     display: block;
-    line-height: 8px;
+    line-height: 14px;
     margin-bottom: 2px;
     font-size: 1em;
     font-weight: bold;
@@ -795,12 +795,65 @@ h2.line-red-separator{
     font-size: 12px;
 }
 
+.woocommerce .products ul, .woocommerce ul.products {
+    margin: 0 0 1em;
+    padding: 0;
+    list-style: none;
+    clear: both;
+    display: block;
+    position: relative;
+}
+
+.page-template-template-product-category-page .woocommerce .products #infscr-loading{
+    margin: 0 0 1em;
+    padding: 0;
+    list-style: none;
+    clear: both;
+    display: block;
+    position: relative;  
+}
+
+.page-template-template-product-category-page .woocommerce ul.products li.product .price{
+    
+}
+
+.page-template-template-product-category-page .woocommerce ul.products li.product .price del{
+    color: inherit;
+    opacity: .5;
+    display: block;
+    position: relative;
+    line-height: 15px;
+}
+
+.page-template-template-product-category-page .woocommerce ul.products li.product .button {
+    margin-top: 0px;
+    background-color: #fff;
+    color: #ef3d42;
+    padding: 5px 10px;
+    font-size: 13px;
+}
+
+.page-template-template-product-category-page .woocommerce ul.products li.product .price ins{
+    margin-bottom: 12px;
+    display: block;
+    position: relative;
+}
+
 .page-template-template-product-category-page .woocommerce ul.products li.product{
     float: left;
-    margin: 0 3% 20px 0;
+    margin: 0 8px 15px 8px;
     padding: 0;
     position: relative;
-    width: 236px;
+    width: 31%;
+}
+
+.page-template-template-product-category-page .woocommerce ul.products li.product .box-product .thumbnail-product{
+
+}
+
+.page-template-template-product-category-page .woocommerce ul.products li.product .box-product .details-product{
+    background: #e0e0e0;
+    padding: 10px;
 }
 
 .page-template-template-product-category-page .woocommerce ul.products li.product a img {

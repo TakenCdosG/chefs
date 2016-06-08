@@ -4,8 +4,8 @@ Contributors:  ModernTribe, roblagatta, faction23, jazbek, jbrinley, leahkoerper
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing
 Donate link: http://m.tri.be/29
 Requires at least: 3.9
-Tested up to: 4.3
-Stable tag: 3.12
+Tested up to: 4.3.1
+Stable tag: 3.12.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,34 +81,68 @@ Unfortunately we cannot provide support for any WooCommerce-specific issues. Ple
 
 == Contributors ==
 
-This plugin is produced by <a href="http://m.tri.be/1o">Modern Tribe Inc</a>.
+The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
-* <a href="http://profiles.wordpress.org/users/roblagatta">Rob La Gatta</a>
-* <a href="http://profiles.wordpress.org/users/peterchester">Peter Chester</a>
-* <a href="http://profiles.wordpress.org/users/reid.peifer">Reid Peifer</a>
-* <a href="http://profiles.wordpress.org/users/shane.pearlman">Shane Pearlman</a>
-* <a href="http://profiles.wordpress.org/users/neillmcshea">Neill McShea</a>
-* <a href="http://profiles.wordpress.org/users/brook-tribe”>Brook Harding</a>
-* <a href="http://profiles.wordpress.org/users/leahkoerper">Leah Koerper</a>
-* <a href="http://profiles.wordpress.org/users/barryhughes">Barry Hughes</a>
-* <a href="http://profiles.wordpress.org/users/borkweb">Matthew Batchelder</a>
-* <a href="http://profiles.wordpress.org/users/zbtirrell">Zach Tirrell</a>
+<a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
+<a href="https://profiles.wordpress.org/brianjessee">Brian Jessee</a>
+<a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
+<a href="https://profiles.wordpress.org/cliffpaulick">Clifford Paulick</a>
+<a href="https://profiles.wordpress.org/MZAWeb">Daniel Dvorkin</a>
+<a href="https://profiles.wordpress.org/geoffgraham">Geoff Graham</a>
+<a href="https://profiles.wordpress.org/ggwicz">George Gecewicz</a>
+<a href="https://profiles.wordpress.org/bordoni">Gustavo Bordoni</a>
+<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
+<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
+<a href="https://profiles.wordpress.org/leahkoerper">Leah Koerper</a>
+<a href="https://profiles.wordpress.org/lucatume">Luca Tumedei</a>
+<a href="https://profiles.wordpress.org/borkweb">Matthew Batchelder</a>
+<a href="https://profiles.wordpress.org/neillmcshea">Neill McShea</a>
+<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
+<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
+<a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
+<a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
+<a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
+<a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
+<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
+<a href="https://profiles.wordpress.org/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
-* <a href="http://profiles.wordpress.org/users/ckpicker”>Casey Picker</a>
-* <a href="http://profiles.wordpress.org/users/kellykathryn">Kelly Groves</a>
-* <a href="http://profiles.wordpress.org/users/MZAWeb">Daniel Dvorkin</a>
-* <a href="http://profiles.wordpress.org/users/caseypatrickdriscoll">Casey Driscoll</a>
+<a href="https://profiles.wordpress.org/caseypatrickdriscoll">Casey Driscoll</a>
+<a href="https://profiles.wordpress.org/ckpicker">Casey Picker</a>
+<a href="https://profiles.wordpress.org/dancameron">Dan Cameron</a>
+<a href="https://profiles.wordpress.org/jkudish">Joachim Kudish</a>
+<a href="https://profiles.wordpress.org/jgadbois">John Gadbois</a>
+<a href="https://profiles.wordpress.org/jonahcoyote">Jonah West</a>
+<a href="https://profiles.wordpress.org/jbrinley">Jonathan Brinley</a>
+<a href="httpss://profiles.wordpress.org/justinendler/">Justin Endler</a>
+<a href="https://profiles.wordpress.org/kellykathryn">Kelly Groves</a>
+<a href="https://profiles.wordpress.org/kelseydamas">Kelsey Damas</a>
+<a href="https://profiles.wordpress.org/kyleunzicker">Kyle Unzicker</a>
+<a href="https://profiles.wordpress.org/mdbitz">Matthew Denton</a>
+<a href="https://profiles.wordpress.org/mattwiebe">Matt Wiebe</a>
+<a href="https://profiles.wordpress.org/mat-lipe">Mat Lipe</a>
+<a href="https://profiles.wordpress.org/nickciske">Nick Ciske</a>
+<a href="https://profiles.wordpress.org/paulhughes01">Paul Hughes</a>
+<a href="https://profiles.wordpress.org/ryancurban">Ryan Urban</a>
+<a href="https://profiles.wordpress.org/faction23">Samuel Estok</a>
+<a href="https://profiles.wordpress.org/codearachnid">Timothy Wood</a>
 
 = Translations =
 
+* Catalan
+* Chinese (China)
+* Chinese (Taiwan)
+* Czech
+* Dutch
+* French
 * German
+* Spanish
 * Turkish
 
-Many thanks to all our translators!  Unfortunately, recent changes to this plugin have left us with mostly partial translations.  You can grab the latest translations or contribute at http://translations.theeventscalendar.com
+Many thanks to all our translators!  You can grab the latest translations or contribute at http://translations.theeventscalendar.com
 
 == Add-Ons ==
 
@@ -123,7 +157,7 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/2c" target="_blank">The Events Calendar PRO</a>
+* <a href="http://m.tri.be/2c" target="_blank">Events Calendar PRO</a>
 * <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
 * <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
 * <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
@@ -141,8 +175,11 @@ IMPORTANT NOTICE: 3.10 is a massive update from the 3.9 build, which contains a 
 
 == Changelog ==
 
-= [3.12] 2015-09-08 =
+= [3.12.1] 2015-11-04 =
 
+* Feature - Adding support for the new Events Community Tickets plugin
+
+= [3.12] 2015-09-08 =
 
 * Feature - Added additional attendee generation hooks: wootickets_attendee_insert_args and wootickets_get_ticket (Thanks to aaemnnosttv for this!)
 * Tweak - Build and provide an order ID link when generating the list of attendees (Props to aaemnnosttv!)

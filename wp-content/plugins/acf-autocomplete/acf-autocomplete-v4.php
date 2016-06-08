@@ -465,7 +465,7 @@ class acf_field_autocomplete extends acf_field {
                 $post["format"] = $json["format"];
                 $post["featured_image"] = "";
 
-                $featured_image_id = $json["featured_image"];
+                $featured_image_id = $json["featured_media"];
                 $str = file_get_contents($this->rest_route.'media/'.$featured_image_id);
                 $featured_image = json_decode($str, true); // decode the JSON into an associative array
                 if(isset($featured_image["guid"]["rendered"])){

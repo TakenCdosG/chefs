@@ -3,7 +3,7 @@ Contributors: varktech
 Donate link: http://www.varktech.com/woocommerce/pricing-deals-pro-for-woocommerce/
 Requires at least: 3.3
 Tested up to: 4.3
-Stable tag: 1.1.1.1
+Stable tag: 1.1.1.2
 *
 Copyright 2014 AardvarkPC Services NZ, all rights reserved.  See license.txt for more details.
 *
@@ -38,6 +38,11 @@ Then Download and install the Pro Version from www.varktech.com
 
 
 == Changelog ==
+
+= 1.1.1.2 - 2015-11-07 =
+* Fix - Coupon discount mini-cart intermittent display issue on 1st time 
+* Enhancement - Formerly, only a single "auto add for free" rule was allowed.
+		Now multiple "auto add for free" rules is fully supported. 
 
 = 1.1.1.1 - 2015-09-28 =
 * Fix - Autoadd Free item for product not yet in cart. 

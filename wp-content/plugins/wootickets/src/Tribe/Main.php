@@ -73,12 +73,12 @@ class Tribe__Events__Tickets__Woo__Main extends Tribe__Events__Tickets__Tickets 
 	/**
 	 * Current version of this plugin
 	 */
-	const VERSION = '3.12';
+	const VERSION = '3.12.1';
 
 	/**
 	 * Min required The Events Calendar version
 	 */
-	const REQUIRED_TEC_VERSION = '3.11';
+	const REQUIRED_TEC_VERSION = '3.12.4';
 
 	/**
 	 * Min required WooCommerce version
@@ -418,12 +418,21 @@ class Tribe__Events__Tickets__Woo__Main extends Tribe__Events__Tickets__Tickets 
 			return false;
 		}
 
+		/**
+		 * Allow for the prevention of updating ticket price on update.
+		 *
+		 * @var boolean
+		 * @var WP_Post
+		 */
+		$can_update_ticket_price = apply_filters( 'tribe_tickets_can_update_ticket_price', true, $ticket );
 
-		update_post_meta( $ticket->ID, '_regular_price', $ticket->price );
+		if ( $can_update_ticket_price ) {
+			update_post_meta( $ticket->ID, '_regular_price', $ticket->price );
 
-		// Do not update _price if the ticket is on sale: the user should edit this in the WC product editor
-		if ( ! wc_get_product( $ticket->ID )->is_on_sale() || 'create' === $save_type ) {
-			update_post_meta( $ticket->ID, '_price', $ticket->price );
+			// Do not update _price if the ticket is on sale: the user should edit this in the WC product editor
+			if ( ! wc_get_product( $ticket->ID )->is_on_sale() || 'create' === $save_type ) {
+				update_post_meta( $ticket->ID, '_price', $ticket->price );
+			}
 		}
 
 		if ( trim( $raw_data['ticket_woo_stock'] ) !== '' ) {
@@ -452,6 +461,12 @@ class Tribe__Events__Tickets__Woo__Main extends Tribe__Events__Tickets__Tickets 
 			update_post_meta( $ticket->ID, '_ticket_end_date', $ticket->end_date );
 		} else {
 			delete_post_meta( $ticket->ID, '_ticket_end_date' );
+		}
+
+		if ( isset( $ticket->purchase_limit ) ) {
+			update_post_meta( $ticket->ID, '_ticket_purchase_limit', absint( $ticket->purchase_limit ) );
+		} else {
+			delete_post_meta( $ticket->ID, '_ticket_purchase_limit' );
 		}
 
 		do_action( 'wootickets_after_' . $save_type . '_ticket', $ticket->ID, $event_id, $raw_data );
@@ -496,7 +511,7 @@ class Tribe__Events__Tickets__Woo__Main extends Tribe__Events__Tickets__Tickets 
 	 *
 	 * @return array
 	 */
-	protected function get_tickets( $event_id ) {
+	public function get_tickets( $event_id ) {
 		$ticket_ids = $this->get_tickets_ids( $event_id );
 
 		if ( ! $ticket_ids ) {
@@ -614,6 +629,19 @@ class Tribe__Events__Tickets__Woo__Main extends Tribe__Events__Tickets__Tickets 
 		$return->end_date       = get_post_meta( $ticket_id, '_ticket_end_date', true );
 		$return->qty_sold       = $qty ? $qty : 0;
 		$return->qty_pending    = $qty ? $this->count_incomplete_order_items( $ticket_id ) : 0;
+		$return->purchase_limit = get_post_meta( $ticket_id, '_ticket_purchase_limit', true );
+
+		if ( empty( $return->purchase_limit ) && 0 !== (int) $return->purchase_limit ) {
+
+			/**
+			 * Filter the default purchase limit for the ticket
+			 *
+			 * @var int
+			 *
+			 * @return int
+			 */
+			$return->purchase_limit = apply_filters( 'tribe_tickets_default_purchase_limit', 0 );
+		}
 
 		return apply_filters( 'wootickets_get_ticket', $return, $event_id, $ticket_id );
 	}
@@ -935,11 +963,14 @@ class Tribe__Events__Tickets__Woo__Main extends Tribe__Events__Tickets__Tickets 
 	public function do_metabox_advanced_options( $event_id, $ticket_id ) {
 		$url = $stock = $sku = '';
 
+		$purchase_limit = 0;
+
 		if ( ! empty( $ticket_id ) ) {
 			$ticket = $this->get_ticket( $event_id, $ticket_id );
 			if ( ! empty( $ticket ) ) {
 				$stock = $ticket->stock;
 				$sku   = get_post_meta( $ticket_id, '_sku', true );
+				$purchase_limit = $ticket->purchase_limit;
 			}
 		}
 
@@ -959,13 +990,23 @@ class Tribe__Events__Tickets__Woo__Main extends Tribe__Events__Tickets__Tickets 
 		}
 
 		$query = array(
-			'page' => 'wc-reports',
-			'tab' => 'orders',
-			'report' => 'sales_by_product',
-			'product_ids' => $ticket_ids,
+			'post_type' => 'tribe_events',
+			'page' => 'tickets-orders',
+			'event_id' => $event_id,
 		);
 
 		$report_url = add_query_arg( $query, admin_url( 'admin.php' ) );
+
+		/**
+		 * Filter the Event Ticket Orders (Sales) Report URL
+		 *
+		 * @var string Report URL
+		 * @var int Event ID
+		 * @var array Ticket IDs
+		 *
+		 * @return string
+		 */
+		$report_url = apply_filters( 'tribe_events_tickets_report_url', $report_url, $event_id, $ticket_ids );
 		return '<small> <a href="' . esc_url( $report_url ) . '">' . __( 'Event sales report', 'tribe-wootickets' ) . '</a> </small>';
 	}
 
