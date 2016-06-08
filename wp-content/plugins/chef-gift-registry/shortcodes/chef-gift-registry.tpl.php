@@ -49,14 +49,14 @@
 			<!-- /.col-md-6 -->
 			<div class="col-md-6">   
 			   <div class="form-group">
-			     <label for="event-type">Event Type</label>
-				<select name="event-type" id="event-type" class="event-type">
-				    <option value="baby_registry" <?php if($event_type == "baby_registry"):?> selected <?php endif; ?> >Baby Registry</option>
-				    <option value="graduate_registry"  <?php if($event_type == "graduate_registry"):?> selected <?php endif; ?> >Graduate Registry</option>
-				    <option value="wedding_registry"  <?php if($event_type == "wedding_registry"):?> selected <?php endif; ?> >Wedding Registry</option>
-				    <option value="birthday_registry" <?php if($event_type == "birthday_registry"):?> selected <?php endif; ?> >Birthday Registry</option>
-				    <option value="other_registry"  <?php if($event_type == "other_registry"):?> selected <?php endif; ?> >Other Registry</option>
-				</select>
+			   	 <?php if( $field_wishlist_type ): ?>
+			   		<label for="event-type">Event Type</label>
+					<select name="event-type" id="event-type"s class="event-type">
+					    <?php foreach( $field_wishlist_type['choices'] as $k => $v ): ?>
+					    	<option value="<?php echo $k; ?>" <?php if($event_type == $k):?> selected <?php endif; ?> ><?php echo $v; ?></option>
+					    <?php endforeach; ?>
+					</select>
+				<?php endif; ?>
 			   </div>
 				<!-- /input-group -->
 			</div>

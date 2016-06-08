@@ -16,6 +16,9 @@ function chef_gift_search_registry_shortcode($atts){
     wp_enqueue_style('chef-gift-registry');
     wp_enqueue_script('chef-gift-registry');
 
+    $field_wishlist_type_key = "field_575726e432f3c";
+    $field_wishlist_type = get_field_object($field_wishlist_type_key);
+
     $registrant_name = get_query_var( 'registrant-name', '' ); 
     $co_registrant_name = get_query_var( 'co-registrant-name', '' ); 
     $registrant_email = get_query_var( 'registrant-email', '' ); 
