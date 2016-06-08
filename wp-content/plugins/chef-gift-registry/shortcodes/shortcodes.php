@@ -64,7 +64,7 @@ function chef_gift_search_registry_shortcode($atts){
         );
     }
 
-    if(!empty($event_type)){
+    if(!empty($event_type) && $event_type != "_none"){
         $args["meta_query"][]= array(
             'key'       => 'wishlist_type',
             'value'     => $event_type,
