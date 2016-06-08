@@ -43,7 +43,7 @@
      </tbody>
   </table>
 <?php else: ?>
- <h3 class="no-results-found">No results found</h3>
+ <h4 class="no-results-found">No results found.</h4>
 <?php endif; ?>
 
 <?php wp_reset_query();	 // Restore global post data stomped by the_post(). ?>
