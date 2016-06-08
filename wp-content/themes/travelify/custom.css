@@ -2051,6 +2051,9 @@ ul#menu-header-bottom .default-menu {
         display: block;
         width: 100%;
     }
+    .single-custom_wishlists #footerarea{
+        margin-top: -50px;
+    }
     .page-id-8 #footerarea, .single .single-product, .page-template-template-product-category-page #footerarea{
         margin-top: 5px;
     }
