@@ -1,7 +1,0 @@
-<?php $x0 = $this->xml;
-$v6_0 = $x0->xpath("title[1]");
-$v6_1 = $x0->xpath("sku[1]");
-$v6_2 = $x0->xpath("brand[1]");
-$v6_3 = $x0->xpath("model[1]");
-$v6_4 = $x0->xpath("oncurrentwebsite[1]");
-echo $this->getValue($v6_0);?> - <?php echo $this->getValue($v6_1);echo $this->getValue($v6_2);?>-<?php echo $this->getValue($v6_3);?>-<?php echo $this->getValue($v6_4);
