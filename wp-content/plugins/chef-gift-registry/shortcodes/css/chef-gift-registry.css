@@ -49,3 +49,7 @@
     margin: 10px auto;
     cursor: pointer;
 }
+
+.ui-datepicker{
+    z-index: 99999!important;
+}
