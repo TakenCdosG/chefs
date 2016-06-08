@@ -42,6 +42,8 @@
 	    <?php endwhile; ?>
    </tbody>
 </table>
-<?php endif; ?>
+<?php else; ?>
+ <h3 class="no-results-found">No results found</h3>
+<?php endif;
 
 <?php wp_reset_query();	 // Restore global post data stomped by the_post(). ?>
