@@ -1,0 +1,50 @@
+.field-items.box-autocomplete{
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+    border: 1px solid #e5e5e5;
+    margin-top: 10px!important;
+}
+
+.field-items.box-autocomplete h4{
+    font-size: 1em;
+    margin: 0px;
+}
+
+.field-items .acf-button-delete{
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    margin-top: -11px;
+    width: 22px;
+    height: 22px;
+}
+
+.field-items h3.ui-item-list{
+    margin-top: 10px!important;
+    padding-left: 2.2em!important;
+    display: block;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    background: none;
+}
+
+.field-items .ui-item-list .ui-accordion-header-icon{
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: .5em;
+    top: 50%;
+    margin-top: -8px;
+}
+
+.field-items .ui-item-list .ui-item-list-content{
+    color: #0099e6;
+    text-decoration: none;
+    text-transform: none;
+}

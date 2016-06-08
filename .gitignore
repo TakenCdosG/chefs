@@ -11,12 +11,13 @@ wp-content/*
 !wp-content/mu-plugins/
 !wp-content/plugins/
 !wp-content/themes/
+!wp-content/uploads/
 
 # ignore all mu-plugins, plugins, and themes
 # unless explicitly whitelisted at the end of this file
 wp-content/mu-plugins/*
-wp-content/plugins/*
-wp-content/themes/*
+# wp-content/plugins/*
+# wp-content/themes/*
 
 # ignore all files starting with . or ~
 .*
@@ -74,7 +75,5 @@ Thumbs.db
 
 # track these mu-plugins, plugins, and themes
 # add your own entries here
-!wp-content/plugins/acf-autocomplete/*
-!wp-content/plugins/chef-gift-registry/*
-!wp-content/plugins/woocommerce-bloyal-integration/*
+!wp-content/plugins/*
 !wp-content/themes/*
