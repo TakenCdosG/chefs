@@ -39,6 +39,14 @@ function chef_gift_search_registry_shortcode($atts){
     $args["meta_query"] = array();
 
     if(!empty($registrant_name)){
+        $args["s"] => $registrant_name,
+    }
+
+    if(!empty($registry_no) && is_numeric($registry_no)){
+        $args["page_id"] = $registry_no;
+    }
+
+    if(!empty($registrant_name)){
         $args["meta_query"][]= array(
             'key'       => 'registrant_name',
             'value'     => $registrant_name,
@@ -85,13 +93,11 @@ function chef_gift_search_registry_shortcode($atts){
             'compare'   => '='
         );
     }
-        
-    
     
     // Return output
     include(CHEF_GIFT_REGISTRY_PLUGIN_DIR . '/chef-gift-registry.tpl.php');
 
-    if(count($args["meta_query"])>0){
+    if(count($args["meta_query"])>0 || isset($args["s"]) || isset($args["page_id"])){
         $args["meta_query"]['relation'] = "AND";
         // query
         $wishlists = new WP_Query( $args );
