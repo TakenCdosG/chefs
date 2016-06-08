@@ -42,7 +42,7 @@
 	    <?php endwhile; ?>
    </tbody>
 </table>
-<?php else; ?>
+<?php else: ?>
  <h3 class="no-results-found">No results found</h3>
 <?php endif;
 
