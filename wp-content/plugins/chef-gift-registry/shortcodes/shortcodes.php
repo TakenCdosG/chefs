@@ -15,6 +15,12 @@ function chef_gift_search_registry_shortcode($atts){
 
     wp_enqueue_style('chef-gift-registry');
     wp_enqueue_script('chef-gift-registry');
+    // Load the datepicker script (pre-registered in WordPress).
+    wp_enqueue_script( 'jquery-ui-datepicker' );
+
+    // You need styling for the datepicker. For simplicity I've linked to Google's hosted jQuery UI CSS.
+    wp_register_style( 'jquery-ui', 'http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );
+    wp_enqueue_style( 'jquery-ui' ); 
 
     $field_wishlist_type_key = "field_575726e432f3c";
     $field_wishlist_type = get_field_object($field_wishlist_type_key);
