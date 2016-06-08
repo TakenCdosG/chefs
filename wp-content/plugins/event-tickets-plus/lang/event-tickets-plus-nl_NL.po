@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Event Tickets Plus package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2016-03-15 19:39:16+0000\n"
+"PO-Revision-Date: 2016-04-29 17:43:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 #: src/views/eddtickets/tickets.php:83 src/views/shopptickets/tickets.php:69
 #: src/views/wootickets/tickets.php:109 src/views/wpectickets/tickets.php:74
 msgid "Don't list me on the public attendee list"
-msgstr ""
+msgstr "Laat mij niet zien op de publieke deelnemerslijst"
 
 #: src/Tribe/Meta/Fieldset.php:15
 msgid "Ticket Fieldsets"
@@ -69,31 +69,31 @@ msgstr ""
 
 #: src/Tribe/Meta/Fieldset.php:97
 msgid "Custom Ticket Fields"
-msgstr ""
+msgstr "Aangepaste ticketvelden"
 
 #: src/Tribe/Meta/Render.php:19
 msgid "View details"
-msgstr ""
+msgstr "Bekijk details"
 
 #: src/Tribe/Meta/Render.php:20
 msgid "Hide details"
-msgstr ""
+msgstr "Verberg details"
 
 #: src/Tribe/Meta/Render.php:89 src/admin-views/meta.php:30
 msgid "Attendee Information"
-msgstr ""
+msgstr "Deelnemerinformatie"
 
 #: src/Tribe/QR.php:76
 msgid "The ticket with ID %d has already been checked in."
-msgstr ""
+msgstr "Het ticket met het ID %d is al ingecheckt."
 
 #: src/Tribe/QR.php:117
 msgid "Scan this QR code at the event to check in."
-msgstr ""
+msgstr "Scan deze QR-code bij het evenement om in te checken."
 
 #: src/admin-views/attendees-list.php:7
 msgid "Hide attendees list on event page"
-msgstr ""
+msgstr "Verberg deelnemerslijst op de evenementpagina"
 
 #: src/admin-views/edd-metabox-advanced.php:33
 #: src/admin-views/shopp-metabox-advanced.php:33
@@ -104,35 +104,35 @@ msgstr ""
 
 #: src/admin-views/meta-fields/text.php:13
 msgid "Multi-line text field?"
-msgstr ""
+msgstr "Tekstveld met meerdere lijnen?"
 
 #: src/admin-views/meta.php:6
 msgid "Attendee Information:"
-msgstr ""
+msgstr "Deelnemersinformatie:"
 
 #: src/admin-views/meta.php:12
 msgid "Request information for each attendee during registration"
-msgstr ""
+msgstr "Vraag informatie op voor elke deelnemer tijdens de registratie"
 
 #: src/admin-views/meta.php:15
 msgid "The name and contact info of the person acquiring tickets is collected by default"
-msgstr ""
+msgstr "De naam en contactgegevens van degene die tickets aanvraagt wordt standaard verzameld"
 
 #: src/admin-views/meta.php:39
 msgid "Add New Field:"
-msgstr ""
+msgstr "Nieuw veld toevoegen:"
 
 #: src/admin-views/meta.php:57
 msgid "Active Fields:"
-msgstr ""
+msgstr "Actieve velden:"
 
 #: src/admin-views/meta.php:60
 msgid "No active fields."
-msgstr ""
+msgstr "Geen actieve velden."
 
 #: src/admin-views/meta.php:60
 msgid "Add new fields or"
-msgstr ""
+msgstr "Voeg nieuwe velden toe of"
 
 #: src/admin-views/meta.php:64
 msgid "Start with a saved fieldset..."
@@ -160,25 +160,25 @@ msgstr ""
 
 #: src/views/attendees-list.php:10
 msgid "Who's Attending"
-msgstr ""
+msgstr "Wie zijn aanwezig"
 
 #: src/views/attendees-list.php:11
 msgid "One person is attending %2$s"
 msgid_plural "%d people are attending %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Eén persoon heeft zich aangemeld voor %2$s"
+msgstr[1] "%d personen hebben zich aangemeld voor %s"
 
 #: src/views/meta.php:17
 msgid "Please fill in all required fields"
-msgstr ""
+msgstr "Vul alstublieft alle verplichte velden in"
 
 #: src/views/meta.php:22
 msgid "Attendee"
-msgstr ""
+msgstr "Deelnemer"
 
 #: src/views/wootickets/tickets.php:76
 msgid "%1$s available"
-msgstr ""
+msgstr "%1$s beschikbaar"
 
 #: event-tickets-plus.php:100
 msgid "Event Tickets"
@@ -186,7 +186,7 @@ msgstr "Event Tickets"
 
 #: src/Tribe/APM.php:76
 msgid "Ticket Stock"
-msgstr ""
+msgstr "Ticketvoorraad"
 
 #: src/Tribe/APM.php:92
 msgid "Sales"
@@ -194,23 +194,23 @@ msgstr "Verkoop"
 
 #: src/Tribe/APM.php:93
 msgid "Stock"
-msgstr ""
+msgstr "Voorraad"
 
 #: src/Tribe/APM/Sales_Filter.php:26
 msgid "Are"
-msgstr ""
+msgstr "Zijn"
 
 #: src/Tribe/APM/Sales_Filter.php:27
 msgid "Are Not"
-msgstr ""
+msgstr "Zijn niet"
 
 #: src/Tribe/APM/Sales_Filter.php:28
 msgid "Are at least"
-msgstr ""
+msgstr "Zijn ten minste"
 
 #: src/Tribe/APM/Sales_Filter.php:29
 msgid "Are at most"
-msgstr ""
+msgstr "Zijn op z'n meest"
 
 #: src/Tribe/APM/Stock_Filter.php:21
 msgid "Is"
@@ -222,19 +222,19 @@ msgstr "Is niet"
 
 #: src/Tribe/APM/Stock_Filter.php:23
 msgid "Is at least"
-msgstr ""
+msgstr "Is ten minste"
 
 #: src/Tribe/APM/Stock_Filter.php:24
 msgid "Is at most"
-msgstr ""
+msgstr "Is op z'n meest"
 
 #: src/Tribe/Attendees_List.php:252
 msgid "Load all attendees"
-msgstr ""
+msgstr "Laad alle deelnemers"
 
 #: src/Tribe/Commerce/WooCommerce/Email.php:18
 msgid "Your tickets from {site_title}"
-msgstr ""
+msgstr "Je tickets van {site_title}"
 
 #: src/Tribe/Commerce/WooCommerce/Global_Stock.php:160
 msgid "Sorry, there is insufficient stock to fulfill your order with respect to the tickets you selected in relation to this event: %s"
@@ -252,11 +252,11 @@ msgstr ""
 
 #: src/Tribe/Commerce/WooCommerce/Settings.php:21
 msgid "WooCommerce Support"
-msgstr ""
+msgstr "WooCommerce Support"
 
 #: src/Tribe/Meta.php:493
 msgid "This ticket has custom Attendee Information fields"
-msgstr ""
+msgstr "Dit ticket heeft aangepaste deelnemersinformatievelden"
 
 #: src/Tribe/Meta/Field/Abstract_Field.php:24 src/admin-views/meta.php:48
 msgid "Checkbox"
@@ -562,7 +562,7 @@ msgstr "Tickets"
 
 #: src/Tribe/Commerce/WooCommerce/Email.php:16
 msgid "Email the user will receive after a completed order with the tickets they purchased."
-msgstr ""
+msgstr "E-mail met de tickets die de gebruiker ontvangt nadat de bestelling is afgerond."
 
 #: src/Tribe/Commerce/WooCommerce/Email.php:101
 msgid "Subject"

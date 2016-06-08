@@ -131,3 +131,21 @@
       /*select#give_more_or_less_discount {margin-left:-100px;}   v1.0.9.0*/
       #show_price_suffix { width: 350px;}  /*v1.0.9.0*/
       #unit_price_cart_savings_message { width: 500px;}  /*v1.0.9.3*/
+      
+      /* //v1.1.5 begin */
+      .updates-button-title {
+        color: #21759B;
+        font-size: 1.3em;
+        margin-top: 40px;
+      }
+      #force_plugin_update_check {
+        text-decoration:none;
+        padding: 3px 5px;
+        font-size: 14px;
+        box-sizing: border-box;
+        border-bottom: 2px solid gray;
+        border-right: 2px solid gray;
+        border-top: 1px solid white;
+        border-left: 1px solid white;
+      }
+      /* //v1.1.5 end */      

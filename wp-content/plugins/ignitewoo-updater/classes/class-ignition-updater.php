@@ -80,8 +80,9 @@ class IgniteWoo_Updater {
 			require_once( 'class-ignition-updater-admin.php' );
 			$this->admin = new Ignition_Updater_Admin( $file );
 
+			// Don't do this yet... we don't sell themes at this time
 			// Look for enabled updates across all themes (active or otherwise). If they are available, queue them.
-			add_action( 'init', array( $this, 'maybe_queue_theme_updates' ), 1 );
+			// add_action( 'init', array( $this, 'maybe_queue_theme_updates' ), 1 );
 
 			// Get queued plugin updates - Run on init so themes are loaded as well as plugins.
 			add_action( 'init', array( $this, 'load_queued_updates' ), 2 );

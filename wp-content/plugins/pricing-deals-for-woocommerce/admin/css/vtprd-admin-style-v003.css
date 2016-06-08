@@ -228,7 +228,7 @@
             .blue-dropdown-minimum {}  /*width: 18%*/
             .get-and-buy-message {background-color:#D1ECF7 !important;width: 100%;margin-top: 10px;}
             .get-and-buy-message1 {
-                background: url("http://demo.varktech.com/wp-content/plugins/pricing-deals-for-wp-e-commerce/admin/images/groupingLine-reversed.gif") no-repeat scroll left transparent;
+                background: url("https://www.varktech.com/wp-content/plugins/pricing-deals-for-wp-e-commerce/admin/images/groupingLine-reversed.gif") no-repeat scroll left transparent; /*v1.1.5*/
                 background-color: #D1ECF7;
                 width:31%;
                 margin-right:20px;

@@ -6,12 +6,15 @@
  *    (code at    https://github.com/tommcfarlin/WordPress-Settings-Sandbox) 
  *  http://www.chipbennett.net/2011/02/17/incorporating-the-settings-api-in-wordpress-themes/?all=1 
  *  http://www.presscoders.com/2010/05/wordpress-settings-api-explained/  
+ *  
+ * v1.1.5 ADDED special button  
  */
 class VTPRD_Setup_Plugin_Options { 
 	
 	public function __construct(){ 
   
     add_action( 'admin_init',            array(&$this, 'vtprd_initialize_options' ) );
+    
     add_action( 'admin_menu',            array(&$this, 'vtprd_add_admin_menu_setup_items' ) );
     add_action( "admin_enqueue_scripts", array(&$this, 'vtprd_enqueue_setup_scripts') );
     
@@ -392,6 +395,17 @@ function vtprd_setup_options_cntl() {
           <input id="nuke-session-button"    name="vtprd_setup_options[session-nuke]" type="submit" class="nuke_buttons button-sixth"      value="<?php esc_attr_e('Nuke Session Variables', 'vtprd'); ?>" />
           <h4 class="system-buttons-h4"><?php esc_attr_e('Nuke Cart Contents', 'vtprd'); ?></h4>
           <input id="nuke-cart-button"    name="vtprd_setup_options[cart-nuke]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e('Nuke Cart Contents', 'vtprd'); ?>" />                    
+          
+          <?php //v1.1.5 New button, goes to admin_init actuated function below?>
+          <h4 class="system-buttons-h4 updates-button-title" id="updates-button-title"><?php esc_attr_e('Check for Plugin Updates', 'vtprd'); ?></h4>
+          <br>
+          <a class="nuke_buttons updates-button" id="force_plugin_update_check" href="/wp-admin/index.php?action=force_plugin_updates_check"> <?php esc_attr_e('Check for Plugin Updates', 'vtprd'); ?></a>
+          
+          <h4 class="system-buttons-h4"><?php esc_attr_e('Cleanup', 'vtprd'); ?></h4>
+          <input id="nuke-cart-button"    name="vtprd_setup_options[cleanup]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e('Cleanup', 'vtprd'); ?>" />                    
+                    
+          <?php //v1.1.5 end  ?> 
+        
         </p>      
 		</form>
     
@@ -1266,10 +1280,18 @@ function vtprd_initialize_options() {
 		array(								// The array of arguments to pass to the callback. In this case, just a description.
 			__( 'Show any built-in debug info for Rule processing.', 'vtprd' )
 		)
-	);                    
-  /*	
-  
- */
+	);
+    //v1.1.5                  
+    add_settings_field(	        //opt56
+		'allow_license_info_reset',						// ID used to identify the field throughout the theme
+		__( 'Allow Reset', 'vtprd' ),							// The label to the left of the option interface element
+		array(&$this, 'vtprd_allow_license_info_reset_callback'), // The name of the function responsible for rendering the option interface
+		'vtprd_setup_options_page',	// The page on which this option will be displayed
+		'internals_settings_section',			// The name of the section to which this field belongs
+		array(								// The array of arguments to pass to the callback. In this case, just a description.
+			__( 'Show any built-in debug info for Rule processing.', 'vtprd' )
+		)
+	); 
 	
 	// Finally, we register the fields with WordPress
 	register_setting(
@@ -1353,8 +1375,9 @@ function vtprd_set_default_options() {
           'show_unit_price_cart_discount_crossout' => 'yes',  //opt51
           'show_unit_price_cart_discount_computation' => 'no',  //opt52
           'unit_price_cart_savings_message' => __('You Saved ', 'vtprd') .'{cart_save_amount}',  //opt53  shown in cartpage, checkout and thankyou
-          'wholesale_products_display' =>'',  //opt54  'noAction', 'respective' = show retail to retail, wholesale to wholesale   'wholesaleAll = show retail to retail, wholesale sees all   'normal'
-          'wholesale_products_price_display' =>''  //opt55  //v1.1.1
+          'wholesale_products_display' => '',  //opt54  'noAction', 'respective' = show retail to retail, wholesale to wholesale   'wholesaleAll = show retail to retail, wholesale sees all   'normal'
+          'wholesale_products_price_display' => '',  //opt55  //v1.1.1
+          'allow_license_info_reset' => 'no'  //opt56  //v1.1.5
      );
      return $options;
 }
@@ -2136,6 +2159,16 @@ function vtprd_debugging_mode_callback () {    //opt8
 	echo $html;
 }
 
+//v1.1.5
+function vtprd_allow_license_info_reset_callback () {    //opt56
+	$options = get_option( 'vtprd_setup_options' );	
+	$html = '<select id="allow_license_info_reset" name="vtprd_setup_options[allow_license_info_reset]">';
+	$html .= '<option value="yes"' . selected( $options['allow_license_info_reset'], 'yes', false) . '>'   . __('Yes', 'vtprd') .  '&nbsp;</option>';
+	$html .= '<option value="no"'  . selected( $options['allow_license_info_reset'], 'no', false) . '>'    . __('No', 'vtprd') . '</option>';
+	$html .= '</select>';
+	echo $html;
+}
+
 function vtprd_custom_checkout_css_callback() {    //opt9
   $options = get_option( 'vtprd_setup_options' );
   $html = '<textarea type="text" id="custom_checkout_css"  rows="200" cols="40" name="vtprd_setup_options[custom_checkout_css]">' . $options['custom_checkout_css'] . '</textarea>';
@@ -2774,6 +2807,7 @@ function vtprd_destroy_session() {
   }    
 
 
+
 function vtprd_validate_setup_input( $input ) {
 
   //did this come from on of the secondary buttons?
@@ -2785,6 +2819,7 @@ function vtprd_validate_setup_input( $input ) {
   $nuke_log     = ( ! empty($input['log-nuke']) ? true : false );  
   $nuke_session = ( ! empty($input['session-nuke']) ? true : false );
   $nuke_cart    = ( ! empty($input['cart-nuke']) ? true : false );
+  $cleanup      = ( ! empty($input['cleanup']) ? true : false ); //v1.1.5 
  
   
   switch( true ) { 
@@ -2823,6 +2858,13 @@ function vtprd_validate_setup_input( $input ) {
         $this->vtprd_destroy_session();
         $output = get_option( 'vtprd_setup_options' );  
       break; 
+    
+     //v1.1.5 begin  
+    case $cleanup === true :    
+        delete_option( 'vtprd_license_options' );  
+      break;  
+     //v1.1.5 end   
+      
     case $nuke_cart === true :    
         if(defined('WPSC_VERSION') && (VTPRD_PARENT_PLUGIN_NAME == 'WP E-Commerce') ) {
         	 global $wpsc_cart;	

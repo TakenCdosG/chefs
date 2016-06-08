@@ -2,7 +2,7 @@
 /*
    Plugin Name: Authorize.net Payment Gateway For WooCommerce
    Description: Extends WooCommerce to Process Payments with Authorize.net gateway. Akamai update compatible.
-   Version: 3.6
+   Version: 3.7
    Plugin URI: http://www.indatos.com?source=woocomautho
    Author: Ishan Verma 
    Author URI: https://twitter.com/justishan
@@ -247,6 +247,8 @@ function woocommerce_tech_autho_init() {
 
                }
 
+            }else{
+               $order->add_order_note('MD5 hash did not matched for this transaction. Please check documentation to set MD5 String. <a href="http://www.indatos.com/developer-documentation/md5-hash-security-feature-authorize-net/?ref=auth-sim">MD5 String Doc.</a>. Or <a href="http://www.indatos.com/wordpress-support/">contact plugin support</a> for help.');
             }
             $redirect_url = $order->get_checkout_order_received_url();
             $this->web_redirect( $redirect_url); exit;

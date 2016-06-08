@@ -1080,7 +1080,7 @@ class WF_Shipping_UPS extends WC_Shipping_Method {
 				$request .= '		<Height>' . $dimensions[0] . '</Height>' . "\n";
 				$request .= '	</Dimensions>' . "\n";
 			}
-			if((isset($params['service_code'])&&$params['service_code']==92)||($this->service_code==92))// Surepost Less Than 1LBS
+			if((isset($params['service_code'])&&$params['service_code']==92))// Surepost Less Than 1LBS
 			{
 				if($this->weight_unit=='LBS'){ // make sure weight in pounds
 					$weight_ozs=$weight*16;
@@ -1158,10 +1158,6 @@ class WF_Shipping_UPS extends WC_Shipping_Method {
 			$this->cod=get_post_meta($order->id,'_wf_ups_cod',true);
 			$this->cod_total=$order->get_total();
 		}
-	}
-	
-	public function wf_set_service_code($service_code){
-		$this->service_code=$service_code;
 	}
 
 }

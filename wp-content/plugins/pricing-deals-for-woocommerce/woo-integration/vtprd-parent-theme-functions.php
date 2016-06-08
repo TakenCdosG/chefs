@@ -615,7 +615,7 @@ if ($userRole_name = "Administrator") {
           
         case ( $products > ' ' ): 
 //error_log( print_r(  'printing based on $products', true ) );                                                                                            
-            $sizeof_msgs_array = sizeof($products_array);
+            $sizeof_products_array = sizeof($products_array); //v1.1.5 
             $sizeof_products_msgs_array = sizeof($products_msgs_array);
             for($p=0; $p < $sizeof_products_array; $p++) {
                 $prod = $products_array[$p];

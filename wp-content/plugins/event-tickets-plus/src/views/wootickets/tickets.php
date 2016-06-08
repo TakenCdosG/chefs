@@ -2,12 +2,10 @@
 /**
  * Renders the WooCommerce tickets table/form
  *
- * @version 4.1
+ * @version 4.2
  *
- */
-
-/**
  * @var bool $global_stock_enabled
+ * @var bool $must_login
  */
 global $woocommerce;
 
@@ -61,7 +59,7 @@ ob_start();
 						'input_name'  => 'quantity_' . $ticket->ID,
 						'input_value' => 0,
 						'min_value'   => 0,
-						'max_value'   => $max_quantity,
+						'max_value'   => $must_login ? 0 : $max_quantity, // Currently WC does not support a 'disable' attribute
 					) );
 
 					$is_there_any_product_to_sell = true;
@@ -111,7 +109,7 @@ ob_start();
 						'</td>' .
 					'</tr>';
 
-				include dirname( __FILE__ ) . '/../meta.php';
+				include Tribe__Tickets_Plus__Main::instance()->get_template_hierarchy( 'meta.php' );
 			}
 		}
 
@@ -119,9 +117,12 @@ ob_start();
 			?>
 			<tr>
 				<td colspan="4" class="woocommerce add-to-cart">
-
-					<button type="submit" name="wootickets_process" value="1"
-					        class="button alt"><?php esc_html_e( 'Add to cart', 'event-tickets-plus' );?></button>
+					<?php if ( $must_login ): ?>
+						<?php include Tribe__Tickets_Plus__Main::instance()->get_template_hierarchy( 'login-to-purchase' ); ?>
+					<?php else: ?>
+						<button type="submit" name="wootickets_process" value="1"
+							class="button alt"><?php esc_html_e( 'Add to cart', 'event-tickets-plus' );?></button>
+					<?php endif; ?>
 				</td>
 			</tr>
 			<?php
@@ -133,4 +134,17 @@ ob_start();
 $content = ob_get_clean();
 if ( $is_there_any_product ) {
 	echo $content;
+} else {
+	$unavailability_message = $this->get_tickets_unavailable_message( $tickets );
+
+	// if there isn't an unavailability message, bail
+	if ( ! $unavailability_message ) {
+		return;
+	}
+
+	?>
+	<div class="tickets-unavailable">
+		<?php echo esc_html( $unavailability_message ); ?>
+	</div>
+	<?php
 }

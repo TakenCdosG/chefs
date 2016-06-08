@@ -1,6 +1,6 @@
 <?php
 /*
- 
+
 */
 
 
@@ -11,11 +11,14 @@ class VTPRD_Parent_Definitions {
     define('VTPRD_PARENT_PLUGIN_NAME',                      'WooCommerce');
     define('VTPRD_EARLIEST_ALLOWED_PARENT_VERSION',         '2.0.14');  //all due to support for hook 'woocommerce_email_order_items_table' - requires the 2nd order_info variable...
     define('VTPRD_TESTED_UP_TO_PARENT_VERSION',             '2.1.9');
-    define('VTPRD_DOCUMENTATION_PATH',                      'http://www.varktech.com/documentation/pricing-deals/introrule/');                                                                                                     //***
-    define('VTPRD_INSTALLATION_INSTRUCTIONS_BY_PARENT',     'http://www.varktech.com/woocommerce/pricing-deals-for-woocommerce/?active_tab=instructions');
-    define('VTPRD_PRO_INSTALLATION_INSTRUCTIONS_BY_PARENT', 'http://www.varktech.com/woocommerce/woocommerce-dynamic-pricing-discounts-pro/?active_tab=instructions');
-    define('VTPRD_PURCHASE_PRO_VERSION_BY_PARENT',          'http://www.varktech.com/woocommerce/woocommerce-dynamic-pricing-discounts-pro/');
-    define('VTPRD_DOWNLOAD_FREE_VERSION_BY_PARENT',         'http://wordpress.org/extend/plugins/pricing-deals-for-woocommerce/');
+    //v1.1.5 begin ==>> replaced 'http//' with 'https//'
+    define('VTPRD_DOCUMENTATION_PATH',                      'https://www.varktech.com/documentation/pricing-deals/introrule/');                                                                                                     //***
+    define('VTPRD_INSTALLATION_INSTRUCTIONS_BY_PARENT',     'https://www.varktech.com/woocommerce/pricing-deals-for-woocommerce/?active_tab=instructions');
+    define('VTPRD_PRO_INSTALLATION_INSTRUCTIONS_BY_PARENT', 'https://www.varktech.com/woocommerce/woocommerce-dynamic-pricing-discounts-pro/?active_tab=instructions');
+    define('VTPRD_PURCHASE_PRO_VERSION_BY_PARENT',          'https://www.varktech.com/woocommerce/woocommerce-dynamic-pricing-discounts-pro/');
+    define('VTPRD_DOWNLOAD_FREE_VERSION_BY_PARENT',         'wordpress.org/extend/plugins/pricing-deals-for-woocommerce/');
+    define('VTPRD_SUPPORT_URL',                             'https://www.varktech.com/support/'); //v1.1.5 NEW
+    //v1.1.5 end
     
     //html default selector locations in checkout where error message will display before.
     define('VTPRD_CHECKOUT_PRODUCTS_SELECTOR_BY_PARENT',    '.shop_table');        // PRODUCTS TABLE on BOTH cart page and checkout page
@@ -161,7 +164,7 @@ class VTPRD_Parent_Definitions {
         'purch_hist_product_qty_total'  => '',          
         'get_purchaser_info' => '',          
         'purch_hist_done' => '',
-        'purchaser_ip_address'  => $this->vtprd_get_ip_address(), //v1.0.7.4    >>> must be here!!
+        'purchaser_ip_address'  => vtprd_get_ip_address(), //v1.0.7.4    >>> must be here!!, //v1.1.5 changed below
         'default_short_msg' => $default_short_msg,
         'default_full_msg'  => $default_full_msg,
         'user_is_tax_exempt'  => '',  //v1.0.9.0
@@ -173,7 +176,7 @@ class VTPRD_Parent_Definitions {
       ); //end vtprd_info      
       
     if ($vtprd_info['purchaser_ip_address'] <= ' ' ) {
-      $vtprd_info['purchaser_ip_address'] = $this->vtprd_get_ip_address(); 
+      $vtprd_info['purchaser_ip_address'] = vtprd_get_ip_address();  //v1.1.5 changed below
     } 
  
     //load up 'user_is_tax_exempt'   //v1.0.9.0 
@@ -182,20 +185,58 @@ class VTPRD_Parent_Definitions {
                                                                                             
 	}
 
-  //from http://stackoverflow.com/questions/15699101/get-client-ip-address-using-php
-  public  function  vtprd_get_ip_address() {
-    foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
-        if (array_key_exists($key, $_SERVER) === true){
-            foreach (explode(',', $_SERVER[$key]) as $ip){
-                $ip = trim($ip); // just to be safe
-
-                if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
-                    return $ip;
-                }
-            }
-        }
-    }
-  }
 	 
 } //end class
 $vtprd_parent_definitions = new VTPRD_Parent_Definitions;
+
+  //v1.1.5 BEGIN 
+  //NEEDS TO BE HERE
+
+  function  vtprd_get_ip_address() {
+    
+    /* //IF YOU MUST OVERRIDE THE IP ADDRESS ON A PERMANENT BASIS
+        //USE SOMETHING LIKE https://www.site24x7.com/find-ip-address-of-web-site.html to find your website IP address (**NOT** your CLIENT ip address)
+        //copy code begin
+        add_filter('vtprd_override_with_supplied_ip_address', 'override_with_supplied_ip_address', 10 );        
+        function override_with_supplied_ip_address() {  return 'YOUR IP ADDRESS HERE'; }
+        //copy code end                
+    */
+    if (apply_filters('vtprd_override_with_supplied_ip_address',FALSE) ) {
+      return apply_filters('vtprd_override_with_supplied_ip_address');
+    }
+    
+    
+    /*  // IP address license check can fail if you have copied your whole site with options table from one IP address to another
+        // ==>>>>> only ever do this with a SINGLE RULE SCREEN ACCESS, 
+        // then remove from your theme functions.php file ==>>>>> heavy server resource cost if executed constantly!!!!!!!
+        //copy code begin
+        add_filter('vtprd_force_new_ip_address', 'force_new_ip_address', 10 );        
+        function force_new_ip_address() {  return 'yes'; } 
+        //copy code end
+    */
+    if (apply_filters('vtprd_force_new_ip_address',FALSE) ) {
+      $skip_this = true;
+    } else {
+      $vtprd_ip_address = get_option( 'vtprd_ip_address' );
+      if ($vtprd_ip_address) {
+        return $vtprd_ip_address;
+      }    
+    }
+
+    
+    //THIS ONLY OCCURS WHEN THE PLUGIN IS FIRST INSTALLED!
+    // from http://stackoverflow.com/questions/4305604/get-ip-from-dns-without-using-gethostbyname
+    $host = gethostname();
+    $query = `nslookup -timeout=$timeout -retry=1 $host`;
+    if(preg_match('/\nAddress: (.*)\n/', $query, $matches)) {
+      $vtprd_ip_address =  trim($matches[1]);
+    } else {
+      $vtprd_ip_address = gethostbyname($host);
+    }
+    
+    update_option( 'vtprd_ip_address', $vtprd_ip_address );
+    
+    return $vtprd_ip_address;
+
+  }
+  //v1.1.5 END

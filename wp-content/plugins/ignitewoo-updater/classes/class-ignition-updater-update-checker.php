@@ -164,6 +164,11 @@ class Ignition_Updater_Update_Checker {
 
 		// Eliminate empty objects taht don't need updates. Not sure how one might get in there but it does.
 		$no_updates = isset( $transient->no_update ) ? $transient->no_update : array();
+		
+		// Failsafe in case the $transient->no_update is set but is not an array
+		if ( empty( $no_updates ) )
+			$no_updates = array();
+			
 		$transient->no_update = array();
 		foreach( $no_updates as $k => $v ) { 
 			if ( !empty( $k ) && !empty( $v ) )

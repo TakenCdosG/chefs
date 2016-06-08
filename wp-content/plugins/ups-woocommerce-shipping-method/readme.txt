@@ -1,6 +1,6 @@
 === UPS WooCommerce Shipping Method Plugin ===
 
-Contributors: WooForce
+Contributors: WooForce, niwf, elvinwf, mickeywf
 
 Donate link: 
 
@@ -10,7 +10,7 @@ Requires at least: 3.0.1
 
 Tested up to: 4.5
 
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 
 License: GPLv2 or later
 
@@ -86,6 +86,10 @@ For complete list of features and details, please visit <a rel="nofollow" href="
 2. Checkout Screen
 
 == Changelog ==
+
+= 1.1.4 =
+
+* Fixed some warning undefined index.
 
 = 1.1.2 =
 

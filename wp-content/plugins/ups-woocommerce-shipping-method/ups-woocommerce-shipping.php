@@ -8,7 +8,7 @@
 
 	Description: Obtain Real time shipping rates via the UPS Shipping API.
 
-	Version: 1.1.3
+	Version: 1.1.4
 
 	Author: WooForce
 

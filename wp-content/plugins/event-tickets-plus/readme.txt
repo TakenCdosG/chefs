@@ -3,8 +3,8 @@
 Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, shane.pearlman, thatdudebutch,  zbtirrell
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, Shopp, EDD, WPEC, WP-eCommerce, WPEC Tickets, Shopp Tickets, Easy Digital Downloads, EDDTickets
 Requires at least: 3.9
-Tested up to: 4.4.2
-Stable tag: 4.1.2
+Tested up to: 4.5.2
+Stable tag: 4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -114,9 +114,7 @@ The plugin is produced by <a href="http://m.tri.be/3i">Modern Tribe Inc</a>.
 
 = Translations =
 
-* Dutch
-
-We don’t have many translations for this plugin yet, but you can help us! You can contribute at http://translations.theeventscalendar.com
+Modern Tribe’s premium plugins are translated by volunteers at <a href=“http://m.tri.be/194h”>translations.theeventscalendar.com</a>. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
 
 == Add-Ons ==
 
@@ -143,6 +141,24 @@ Our Premium Plugins:
 * <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [4.2] 2016-06-08 =
+
+* Feature - Authenticated attendees now can edit meta fields created by the event admin
+* Feature - Global stock support added to the Easy Digital Downloads integration (Thank you dimitrilongo for the report!)
+* Tweak - Added event tickets unique ID generation to have human-readable event ticket identification hashes across events (Thanks to Matt Broffman for submitting this idea on UserVoice!)
+* Tweak - Language files in the `wp-content/languages/plugins` path will be loaded before attempting to load internal language files (Thank you to user @aafhhl for bringing this to our attention!)
+* Tweak - Added messaging about ticket availability to the EDD, Shopp, WooCommerce, and WPEC ticket forms (Props to @masteradhoc on GitHub for this change!)
+* Tweak - Record the user ID associated with the creation of new attendee records
+* Tweak - Updated plugin description on admin plugin page
+* Tweak - Move plugin CSS to PostCSS
+* Fix - Prevent Fatals when GD Library is not active on the server (Thanks to @jamesgol for fixing the bug)
+
+= [4.1.3] 2016-05-19 =
+
+* Fix - Automatically restock ticket inventory when an attendee is deleted (WooCommerce implementation)
+* Fix - Improve counting of deleted attendee records
+* Fix - Make the meta.php template overrideable
 
 = [4.1.2] 2016-04-11 =
 

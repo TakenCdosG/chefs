@@ -282,7 +282,14 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
     
      
     if ( (defined('VTPRD_PRO_DIRNAME')) && ($vtprd_setup_options['use_lifetime_max_limits'] == 'yes') )  {
-      vtprd_get_purchaser_info_from_screen();   
+      //v1.1.5 begin
+      global $vtprd_license_options;
+      if ( ($vtprd_license_options['status'] == 'valid') && 
+           ($vtprd_license_options['state']  == 'active') && //if license is deactivated, pro is not loaded!!
+           ($vtprd_license_options['pro_plugin_version_status'] == 'valid')  )  {
+        vtprd_get_purchaser_info_from_screen(); 
+      }
+      //v1.1.5 end
     }
     $vtprd_cart->purchaser_ip_address = $vtprd_info['purchaser_ip_address']; 
     
@@ -589,7 +596,16 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
       
       //vtprd_do_compatability_pricing is a function below, and returns true if active
       $do_get_price = apply_filters('vtprd_do_compatability_pricing',false);
-      
+          
+      //v1.1.5 begin
+      //FIX Fatal error: Call to a member function get_tax_class() ...
+      if  ( (!$product) ||
+            (!is_object($product)) ) {
+         $product = get_product( $product_id );
+      }      
+      //v1.1.5 end
+          
+        
       /*  sample execution for CLIENT
       
       // *** add to bottom of Theme Functions file
@@ -687,8 +703,8 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
         if ( ( get_option( 'woocommerce_calc_taxes' ) == 'yes' ) &&
              ( get_option( 'woocommerce_prices_include_tax' ) == 'yes' ) ) {           
            $_tax  = new WC_Tax();                
-           $product = get_product( $product_id ); //restored v1.1.1.2, occassional issues due to incomplete WOO data conversion on update
-  
+          //$product = get_product( $product_id ); already there v1.1.1
+
            $tax_rates  = $_tax->get_rates( $product->get_tax_class() );
   			 	 $taxes      = $_tax->calc_tax( $price , $tax_rates, false );
   				 //back out taxes!!!
@@ -845,6 +861,35 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
                 
          
          $vtprd_cart->cart_items[0]->product_list_price_html_woo   =   woocommerce_price($list_price);
+      } else {
+      //************************************
+      //v1.1.1.3 begin
+      //************************************
+      //STILL needs doing for NON-DISCOUNT
+      
+         $list_price                    =   $vtprd_cart->cart_items[0]->db_unit_price_list;
+         
+         //v1.0.8.8 begin
+         //if taxation should be applied to list price, do so here
+         if ( ( get_option('woocommerce_calc_taxes')  == 'yes' ) &&
+              ( get_option('woocommerce_prices_include_tax') == 'no') &&
+              ( get_option('woocommerce_tax_display_cart')   == 'incl') ) {
+             
+            $list_price                 =   vtprd_get_price_including_tax($product_id, $list_price); 
+         }
+         //v1.0.8.8 end
+         
+        //v1.1.1 begin ADDED to include opposite side 
+         if ( ( get_option('woocommerce_calc_taxes')  == 'yes' ) &&
+              ( get_option('woocommerce_prices_include_tax') == 'yes') &&
+              ( get_option('woocommerce_tax_display_cart')   == 'excl') ) {
+             
+            $list_price                 =   vtprd_get_price_excluding_tax($product_id, $list_price); 
+         }  
+         $vtprd_cart->cart_items[0]->product_list_price_catalog_correctly_taxed   =   $list_price;  
+         
+         //v1.1.1.3 end 
+         //************************************
       }
       //v1.0.9.0 end
       
@@ -3256,6 +3301,9 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
             break;
         }
 
+       //v1.1.1.3 Begin
+       //CHange to use DateTime functions
+/*
        $today = date("Y-m-d");
        
        for($t=0; $t < sizeof($vtprd_rules_set[$i]->periodicByDateRange); $t++) {
@@ -3263,9 +3311,26 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
                ($today <= $vtprd_rules_set[$i]->periodicByDateRange[$t]['rangeEndDate']) ) {
              return true;  
           }
-       } 
+       }
+ */
+       
+       $today = date("Y-m-d");
+       $today = new DateTime($today);
+
+
+       for($t=0; $t < sizeof($vtprd_rules_set[$i]->periodicByDateRange); $t++) {
+          $rangeBeginDate = new DateTime($vtprd_rules_set[$i]->periodicByDateRange[$t]['rangeBeginDate']);
+          $rangeEndDate   = new DateTime($vtprd_rules_set[$i]->periodicByDateRange[$t]['rangeEndDate']);
+
+          if ( ($today >= $rangeBeginDate) &&
+               ($today <= $rangeEndDate) ) {
+             return true;  
+          }
+       }       
+       
+       //v1.1.1.3 End 
         
-       return false; //marks test as valid
+       return false; //marks test as invalid
    }   
 
 
@@ -3563,6 +3628,21 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
         return;
       }
 
+      //**************************
+      //v1.1.1.3  begin
+      //THIS FUNCTION is executed multiple times
+      //  purchase_log is stored the 1st time through, then we're done with this!!
+      
+      //if there's a discount history, let's find it...
+      $vtprd_purchase_log = $wpdb->get_row( "SELECT * FROM `" . VTPRD_PURCHASE_LOG . "` WHERE `cart_parent_purchase_log_id`='" . $cart_parent_purchase_log_id . "' LIMIT 1", ARRAY_A );      	
+      	    
+      //if purchase log already there, the inserts below have already taken place!!  Exit, stage left
+      if ($vtprd_purchase_log) { 
+        return;
+      }                                                                                                                          
+      //v1.1.1.3  end
+      //**************************
+
       //Create PURCHASE LOG row - 1 per cart
       $purchaser_ip_address = $vtprd_info['purchaser_ip_address']; 
       $next_id = '';             //v1.0.8.0 //supply null value for use with autoincrement table key
@@ -3827,7 +3907,7 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
       $woocommerce = WC();
     }
     //v1.0.7.8 end  
-            
+   
   }
   
   //****************************************
@@ -4581,6 +4661,180 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
   return $price;
   }
   
+ 
+
+  //v1.1.5 FUNCTION NOW IN PARENT-DEFINITIONS!       
+  /* ************************************************
+  **   Admin - v1.1.5 new function
+  *************************************************** */ 
+  //from http://stackoverflow.com/questions/15699101/get-client-ip-address-using-php
+ // function  vtprd_get_ip_address() {
+    /*
+    foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
+        if (array_key_exists($key, $_SERVER) === true){
+            foreach (explode(',', $_SERVER[$key]) as $ip){
+                $ip = trim($ip); // just to be safe
+
+                if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
+                    return $ip;
+                }
+            }
+        }
+    }
+    */
+  /*
+    //(the ABOVE gets the CLIENT IP, **not** the SERVER IP)
+  //from https://www.chriswiegman.com/2014/05/getting-correct-ip-address-php/
+		//Just get the headers if we can or else use the SERVER global
+		if ( function_exists( 'apache_request_headers' ) ) {
+
+			$headers = apache_request_headers();
+
+		} else {
+
+			$headers = $_SERVER;
+
+		}
+
+		//Get the forwarded IP if it exists
+		if ( array_key_exists( 'X-Forwarded-For', $headers ) && filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
+
+			$the_ip = $headers['X-Forwarded-For'];
+
+		} elseif ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) && filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 )
+		) {
+
+			$the_ip = $headers['HTTP_X_FORWARDED_FOR'];
+
+		} else {
+			
+			$the_ip = filter_var( $_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 );
+
+		}
+
+		return $the_ip;    
+    
+  }
+  */
+   /* ************************************************
+  **   Admin - v1.1.5 new actions and functions
+  *   +++++++++++++++++++++++++++++++++++++++++++++
+  *     
+      *******************************
+      Woocommerce PRICE UPDATE hooks, to trigger new price update TS:::
+      
+      at Store access time, using ** vtprd_maybe_store_admin_price_change() ** ,
+      check TS against recent accss.  If updated, clear all sessions to redo pricing.
+      ******************************* 
+      *       
+  *************************************************** */  
+  add_action('woocommerce_product_quick_edit_save',    'vtprd_update_session_ts_on_price_change') ;
+  add_action('woocommerce_product_bulk_edit_save',     'vtprd_update_session_ts_on_price_change') ;
+  add_action('woocommerce_process_product_meta',       'vtprd_update_session_ts_on_price_change') ;
+  add_action('woocommerce_create_product_variation',   'vtprd_update_session_ts_on_price_change') ;
+  add_action('woocommerce_update_product_variation',   'vtprd_update_session_ts_on_price_change') ;
+  add_action('woocommerce_api_process_product_meta_',  'vtprd_update_session_ts_on_price_change') ;
+  add_action('woocommerce_api_save_product_variation', 'vtprd_update_session_ts_on_price_change') ;
+
+  function  vtprd_update_session_ts_on_price_change() { 
+
+    update_option( 'vtprd_last_admin_update_ts', time() );
+  }
+
+
+  add_action('save_post',   'vtprd_update_session_ts_on_save' );  
+ 
+  function  vtprd_update_session_ts_on_save() { 
+  
+    global $post, $vtprd_info;
+    if( !isset( $post ) ) {    
+      return;
+    }
+    if ($post->post_type == $vtprd_info['parent_plugin_cpt']) {
+      update_option( 'vtprd_last_admin_update_ts', time() );
+    }
+    
+    return;
+
+  }
+
+  
+  
+  add_action('wp_head', 'vtprd_maybe_store_admin_price_change');  
+
+  function  vtprd_maybe_store_admin_price_change() { 
+    
+  /*
+    allow front end to recognize back end price changes ON SCREEN REFRESH
+    if Site Admin has made a backend change, all Pricing Deals save prices are deleted
+    (Only vulnerability is if an auto add free item is in process, the auto add system may loose track)
+    
+    (backend pricing changes option is update here: vtprd_update_ts_on_price_change() )
+  */
+  
+    //if is_admin, this frontend test is invalid.  exit stage left.
+    if ( (function_exists( 'get_current_screen' ) ) ||    // get_current_screen ONLY exists in ADMIN!!!  
+        ( is_admin() ) ) { 
+       return;              
+    }
+    
+    if(!isset($_SESSION)){
+      session_start();
+      header("Cache-Control: no-cache");
+      header("Pragma: no-cache");
+    }
+    
+    //first time through
+    if (!isset($_SESSION['last_frontend_ts'])) {
+      $_SESSION['last_frontend_ts'] = time();
+      return;    
+    }
+    
+    if (get_option( 'vtprd_last_admin_update_ts' ) !== false) {
+      $carry_on = true;
+    } else {
+      return;
+    }
+    
+    $vtprd_last_admin_update_ts = get_option( 'vtprd_last_admin_update_ts' );
+
+    if ($vtprd_last_admin_update_ts > $_SESSION['last_frontend_ts']) {
+      //grab AUTO-ADD info
+      if (isset($_SESSION['current_auto_add_array']))  {
+         $current_auto_add_array = unserialize($_SESSION['current_auto_add_array']);
+      } else {
+        $current_auto_add_array = false;
+      }
+      if (isset($_SESSION['previous_auto_add_array']))  {
+         $previous_auto_add_array = unserialize($_SESSION['previous_auto_add_array']);
+      } else {
+        $previous_auto_add_array = false;
+      }
+            
+      //this forces Pricing Deals to get all new prices and redo all discounts for the CLIENT, to pick up the new SITE ADMIN pricing changes
+      session_destroy();
+      
+      //new frontend timestamp
+      $_SESSION['last_frontend_ts'] = time();
+      
+      //restore auto-add tracking
+      if ($current_auto_add_array) {
+        $_SESSION['current_auto_add_array'] = serialize($current_auto_add_array);
+      }      
+      if ($previous_auto_add_array) {
+        $_SESSION['previous_auto_add_array'] = serialize($previous_auto_add_array); 
+      }
+      
+    }
+    
+    return;
+  
+  }
+  
+//v1.1.5 END
+
+
+
  //******************************
  //v1.1.1 New Function 
  //  Sales Flash for Catalog Rule Price Discount

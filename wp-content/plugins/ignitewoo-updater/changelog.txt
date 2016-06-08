@@ -1,5 +1,13 @@
 *** IgniteWoo Updater Plugin ***
 
+Version 2.1.3 - May 11, 2016
+
+	Disable futuristic support for themes updates since we don't currently sell themes, it does not need to be active. 
+
+Version 2.1.2 - May 8, 2016
+
+	Tweaked code to eliminate warnings
+
 Version 2.1.1 - May 6, 2016
 
 	Suppress PHP warning message due to empty variable

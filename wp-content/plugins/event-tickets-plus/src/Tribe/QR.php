@@ -152,6 +152,10 @@ class Tribe__Tickets_Plus__QR {
 	 * @return string
 	 */
 	private function _get_image( $link ) {
+		if ( ! function_exists( 'ImageCreate' ) ) {
+			// The phpqrcode library requires GD but doesn't actually check if it is available
+			return null;
+		}
 		if ( ! class_exists( 'QRencode' ) ) {
 			include_once( EVENT_TICKETS_PLUS_DIR . '/vendor/phpqrcode/qrlib.php' );
 		}
