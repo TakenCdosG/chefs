@@ -3388,7 +3388,7 @@ h2.tribe-events-page-title{
     display: none;
 }
 
-.wishlist_button {
+#wishlist_button {
     margin-left: 0px !important;
 }
 
