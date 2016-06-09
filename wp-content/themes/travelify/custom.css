@@ -3387,3 +3387,11 @@ h2.tribe-events-page-title{
 .hide{
     display: none;
 }
+
+.wishlist_button {
+    margin-left: 0px !important;
+}
+
+.woocommerce div.product form.cart, .woocommerce div.product p.cart {
+    margin-bottom: 1em;
+}
