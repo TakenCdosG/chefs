@@ -144,7 +144,7 @@ if ( ! class_exists( 'ChefGiftRegistry' ) ) {
  * @param int $comment_id Comment ID.
  */
 function save_additional_wishlists_info( $post_id = "" , $user_id = "" ) {
-    if(!empty($user_id) && !empty($post_id)){
+    if( !empty($user_id) && !empty($post_id) ){
         $user_info = get_userdata($user_id);
         $first_name = $user_info->first_name;
         $last_name = $user_info->last_name;
