@@ -502,6 +502,7 @@ class ignite_woocommerce_wishlist {
 
 				<input id="wishlist_title_field" type="text" name="wishlist_title" value="" size="45">
 
+
 				<div class="wishlist_type_label">
 					<?php _e( 'Wishlist Type:', 'ignitewoo-wishlists-pro' ) ?></br>
 				</div>
@@ -633,7 +634,6 @@ class ignite_woocommerce_wishlist {
 					die;
 				}
 
-
 				$products[] = array( 'id' => $prod, 'vid' => $variation, 'purchased' => '', 'qty' => $qty ); // just the product ID and purchased flag
 
 				update_post_meta( $post_id, 'wishlist_products', $products );
@@ -643,6 +643,8 @@ class ignite_woocommerce_wishlist {
 				echo '<p class="wishlist_p">';  _e( "Your new wishlist was created.\n\n", 'ignitewoo-wishlists-pro' );  echo '</p>';
 
 				echo '<p class="wishlist_p">';  _e( "The URL is :", 'ignitewoo-wishlists-pro' );  echo get_permalink( $post_id );  echo '</p>';
+				
+				do_action( 'set_additional_wishlists_info', $post_id, $user);
 
 				die;
 
@@ -668,8 +670,8 @@ class ignite_woocommerce_wishlist {
 						$pq = $p['qty'];
 					else
 						$pg = 1;
-//var_dump( $variation, $prod, $p['id'], $p['vid'] );
-//echo '<p>';
+						//var_dump( $variation, $prod, $p['id'], $p['vid'] );
+						//echo '<p>';
 					if ( !empty( $variation ) && $p['id'] == $prod && $p['vid'] == $variation ) {
 
 						$qty = $pq + $qty;
@@ -699,8 +701,8 @@ class ignite_woocommerce_wishlist {
 				}
 				
 				
-//var_dump( $products );
-//die;
+				//var_dump( $products );
+				3//die;
 				update_post_meta( $existing_wishlist_id, 'wishlist_products', $products );
 
 				break;
