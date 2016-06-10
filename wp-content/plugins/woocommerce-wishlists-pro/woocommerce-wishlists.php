@@ -640,11 +640,11 @@ class ignite_woocommerce_wishlist {
 
 				update_post_meta( $post_id, 'wishlist_type', $wishlist_type );
 
+				save_additional_wishlists_info( $post_id, $user );
+
 				echo '<p class="wishlist_p">';  _e( "Your new wishlist was created.\n\n", 'ignitewoo-wishlists-pro' );  echo '</p>';
 
 				echo '<p class="wishlist_p">';  _e( "The URL is :", 'ignitewoo-wishlists-pro' );  echo get_permalink( $post_id );  echo '</p>';
-				
-				do_action( 'set_additional_wishlists_info', $post_id, $user);
 
 				die;
 
