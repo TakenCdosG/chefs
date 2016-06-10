@@ -136,8 +136,6 @@ if ( ! class_exists( 'ChefGiftRegistry' ) ) {
     $ChefGiftRegistry = new ChefGiftRegistry();
 }
 
-
-
 /**
  * Warn about comment not found
  *

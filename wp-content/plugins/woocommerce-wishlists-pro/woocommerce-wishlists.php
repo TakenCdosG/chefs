@@ -699,10 +699,9 @@ class ignite_woocommerce_wishlist {
 
 						$products[] = array( 'id' => $prod, 'vid' => $variation, 'purchased' => array(), 'purchased_by' => array(), 'qty' => $qty );
 				}
-				
-				
+
 				//var_dump( $products );
-				3//die;
+			  //die;
 				update_post_meta( $existing_wishlist_id, 'wishlist_products', $products );
 
 				break;
