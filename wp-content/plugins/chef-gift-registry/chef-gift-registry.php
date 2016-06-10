@@ -142,8 +142,6 @@ if ( ! class_exists( 'ChefGiftRegistry' ) ) {
  * @param int $comment_id Comment ID.
  */
 function save_additional_wishlists_info( $post_id = "" , $user_id = "" ) {
-    echo "post_id: ".$post_id."<br/>";
-    echo "user_id: ".$user_id."<br/>";
     if( !empty($user_id) && !empty($post_id) ){
         $user_info = get_userdata($user_id);
         $first_name = $user_info->first_name;
@@ -151,9 +149,9 @@ function save_additional_wishlists_info( $post_id = "" , $user_id = "" ) {
         $email = $user_info->user_email;
         // Set Registrant Name
         $registrant_name = implode(" ", array($first_name, $last_name));
-        update_field('registrant_name', $registrant_name);
+        update_field('registrant_name', $registrant_name, $post_id);
         // Set Registrant Email
-        update_field('registrant_email', $email);
+        update_field('registrant_email', $email, $post_id);
     }
 }
 add_action( 'set_additional_wishlists_info', 'save_additional_wishlists_info', 10, 2 );
