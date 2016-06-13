@@ -212,7 +212,7 @@ function woo_bloyal_do_data_sync()
                   $product->set_stock(intval($woocommerce_inventory[$sku] + $change));
                   //$product->check_stock_status();
                   $log .= "Increased local stock for product $sku by " . $change . "<br/>";
-                } else if (0 < $change) {
+                } else if (0 > $change) {
                   // Negative change for purchases that come from bloyal
                   // update value
                   //update_post_meta($product->id, '_stock_status', 'instock');
