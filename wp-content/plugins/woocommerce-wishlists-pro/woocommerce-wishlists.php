@@ -517,7 +517,7 @@ class ignite_woocommerce_wishlist {
 				</div>
 
 				<div class="col-md-12">   
-				   <div class="form-group">
+				   <div class="form-group form-group-event-type">
 				     <label for="event-date">Event Date</label>
 				     <input type="text" class="form-control" name="event-date" id="event-date" placeholder=""  value="">
 				   </div>
