@@ -2080,8 +2080,6 @@ article {
     border-radius: 34px;
 }
 
-
-
 .hgroup-right .searchform input.field-submit,
 .mobile-menu .searchform input.field-submit{
     background-color: transparent!important;
@@ -2106,3 +2104,24 @@ article {
     right: -4px;
     top: 6px;
 }
+
+#wishlist_title_field {
+    margin-bottom: 10px!important;
+    margin-left: 0px!important;
+    width: 50%!important;
+}
+
+.form-group .wishlist_field_label{
+    clear: both;
+    margin-left: 0px!important;
+}
+
+.wishlist_new_wrap .form-group .event-type{
+    margin-left: 0px!important;
+}
+
+.form-group-event-type{
+    margin-top: 10px!important;
+}
+
+
