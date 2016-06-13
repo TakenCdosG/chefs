@@ -221,6 +221,9 @@ function woo_bloyal_do_data_sync()
                   //$product->check_stock_status();
                   $log .= "Decreased local stock for product $sku by " . (-$change) . "<br/>";
                 }
+                if($sku == 79781727800){
+                  $log .= "<b>".$sku." - New_quantity: ".$new_quantity. ". Old_quantity: " . $old_quantity. ". Change: " . $change. "<b/><br/>";
+                }
               }
             }else{
               $log .= "No change detected for product $sku. WooCommerce Stock: " . intval($woocommerce_inventory[$sku]) . " | bLoyal Stock: ". $new_quantity. "<br/>";
