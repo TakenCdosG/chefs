@@ -2112,3 +2112,8 @@ article {
     margin-left: 0px!important;
     width: 50%!important;
 }
+
+.form-group .wishlist_new_wrap label {
+    clear: both;
+    margin-bottom: 0px!important;
+}
