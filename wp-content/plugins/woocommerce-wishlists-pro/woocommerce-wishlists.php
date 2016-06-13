@@ -502,7 +502,7 @@ class ignite_woocommerce_wishlist {
 				    $field_wishlist_type = get_field_object($field_wishlist_type_key);
 				?>
 				<div class="col-md-12">   
-				   <div class="form-group">
+				   <div class="form-group form-group-event-type"">
 				   	 <?php if( $field_wishlist_type ): ?>
 				   		<label for="event-type">Event Type</label>
 						<select name="event-type" id="event-type"s class="event-type">
@@ -517,7 +517,7 @@ class ignite_woocommerce_wishlist {
 				</div>
 
 				<div class="col-md-12">   
-				   <div class="form-group form-group-event-type">
+				   <div class="form-group>
 				     <label for="event-date">Event Date</label>
 				     <input type="text" class="form-control" name="event-date" id="event-date" placeholder=""  value="">
 				   </div>
