@@ -373,7 +373,7 @@ $columns = apply_filters('pmxi_manage_imports_columns', $columns);
 	}
 	?>
 
-	<p style='font-size: 1.3em; font-weight: bold;'><a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=manage" target="_blank" class="upgrade_link"><?php _e('Find out more about the professional edition of WP All Import.', 'wp_all_import_plugin'); ?></a></p>	
+	<p style='font-size: 1.3em; font-weight: bold;'><a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=manage" target="_blank" class="upgrade_link"><?php _e('Find out more about the Pro edition of WP All Import.', 'wp_all_import_plugin'); ?></a></p>	
 	
 	<a href="http://soflyy.com/" target="_blank" class="wpallimport-created-by"><?php _e('Created by', 'wp_all_import_plugin'); ?> <span></span></a>
 

@@ -148,8 +148,8 @@
 							<div class="wpallimport-collapsed-content" style="padding: 0;">
 								<div class="wpallimport-collapsed-content-inner">									
 									<div class="wpallimport-free-edition-notice" style="text-align:center; margin-top:0; margin-bottom: 40px;">
-										<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=custom-fields" target="_blank" class="upgrade_link"><?php _e('Upgrade to the professional edition of WP All Import to enable the Function Editor.', 'wp_all_import_plugin');?></a>
-										<p><?php _e('If you already own it, remove the free edition and install the professional edition.', 'wp_all_import_plugin'); ?></p>
+										<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=custom-fields" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to enable the Function Editor.', 'wp_all_import_plugin');?></a>
+										<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
 									</div>
 									
 									<textarea id="wp_all_import_code" name="wp_all_import_code"><?php echo "<?php\n\n?>";?></textarea>						
@@ -205,6 +205,15 @@
 				<div class="wpallimport-submit-buttons">
 					
 					<div style="text-align:center; width:100%;">
+
+						<div class="wpallimport-free-edition-notice wpallimport-dynamic-notice" style="text-align:center; margin-top:0; margin-bottom: 40px;">
+							<input type="hidden" value="<?php _e('Upgrade to the Pro edition of WP All Import to import custom fields.', 'wp_all_import_plugin');?>" class="wpallimport-dynamic-notice-cf-text"/>
+							<input type="hidden" value="<?php _e('Upgrade to the Pro edition of WP All Import to import images.', 'wp_all_import_plugin');?>" class="wpallimport-dynamic-notice-images-text"/>
+							<input type="hidden" value="<?php _e('Upgrade to the Pro edition of WP All Import to import images and custom fields.', 'wp_all_import_plugin');?>" class="wpallimport-dynamic-notice-cf-image-text"/>
+							<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=custom-fields" target="_blank" class="upgrade_link"></a>
+							<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
+						</div>
+
 						<?php wp_nonce_field('template', '_wpnonce_template'); ?>
 
 						<input type="hidden" name="is_submitted" value="1" />									

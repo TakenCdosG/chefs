@@ -600,6 +600,16 @@
 	margin-top: 0;
 	margin-bottom: 15px;
 }
+.wpallimport-plugin .wpallimport-trigger-options{
+	cursor: pointer;
+	margin: 5px 0;
+}
+.wpallimport-plugin .wpallimport-dynamic-notice{
+	display: none;
+}
+.wpallimport-plugin .wpallimport-import-orders-notice{
+	display: none;
+}
 /*--------------------------------------------------------------------------
 *
 *	Helpers
@@ -1394,6 +1404,8 @@
 	color: #555;
 	margin-top: 0;
 }
+.wpallimport-plugin #custom_type_selector .dd-option .dashicon-shop_coupon:before,
+.wpallimport-plugin #custom_type_selector .dd-selected .dashicon-shop_coupon:before,
 .wpallimport-plugin #custom_type_selector .dd-option .dashicon-shop_order:before,
 .wpallimport-plugin #custom_type_selector .dd-selected .dashicon-shop_order:before{
 	font-family: "WooCommerce";

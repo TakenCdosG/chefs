@@ -973,7 +973,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 							}
 						}	
 						else{
-							$logger and call_user_func($logger, sprintf(__('Duplicate post wasn\'n found for post `%s`...', 'wp_all_import_plugin'), $articleData['post_title']));
+							$logger and call_user_func($logger, sprintf(__('Duplicate post wasn\'t found for post `%s`...', 'wp_all_import_plugin'), $articleData['post_title']));
 						}
 					}
 				}				
@@ -1128,10 +1128,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 							if ( ! $this->options['is_update_registered'] ) $articleData['user_registered'] = $post_to_update->user_registered;
 							if ( ! $this->options['is_update_display_name'] ) $articleData['display_name'] = $post_to_update->display_name;
 							if ( ! $this->options['is_update_url'] ) $articleData['user_url'] = $post_to_update->user_url;
-						}
-
-						$logger and call_user_func($logger, sprintf(__('Applying filter `pmxi_article_data` for `%s`', 'wp_all_import_plugin'), $articleData['post_title']));	
-						$articleData = apply_filters('pmxi_article_data', $articleData, $this, $post_to_update);
+						}						
 																
 					}
 
@@ -1160,6 +1157,9 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 					$postRecord->clear();
 					
 				}									
+
+				$logger and call_user_func($logger, sprintf(__('Applying filter `pmxi_article_data` for `%s`', 'wp_all_import_plugin'), $articleData['post_title']));							
+				$articleData = apply_filters('pmxi_article_data', $articleData, $this, $post_to_update);
 				
 				// no new records are created. it will only update posts it finds matching duplicates for
 				if (  ! $this->options['create_new_records'] and empty($articleData['ID']) ){ 
@@ -2118,10 +2118,11 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 						$logger and call_user_func($logger, sprintf(__('<b>UPDATED</b> `%s` `%s` (ID: %s)', 'wp_all_import_plugin'), $articleData['post_title'], $custom_type_details->labels->singular_name, $pid));
 					}
 
+					$is_update = ! empty($articleData['ID']);
+
 					// fire important hooks after custom fields are added
 					if ( ! $this->options['is_fast_mode'] and $this->options['custom_type'] != 'import_users'){
-						$post_object = get_post( $pid );
-						$is_update = ! empty($articleData['ID']);
+						$post_object = get_post( $pid );						
 						do_action( "save_post_" . $articleData['post_type'], $pid, $post_object, $is_update );
 						do_action( 'save_post', $pid, $post_object, $is_update );
 						do_action( 'wp_insert_post', $pid, $post_object, $is_update );
@@ -2157,7 +2158,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 					
 					// [/addons import]										
 					$logger and call_user_func($logger, __('<b>ACTION</b>: pmxi_saved_post', 'wp_all_import_plugin'));
-					do_action( 'pmxi_saved_post', $pid, $rootNodes[$i]); // hook that was triggered immediately after post saved
+					do_action( 'pmxi_saved_post', $pid, $rootNodes[$i], $is_update); // hook that was triggered immediately after post saved
 					
 					if (empty($articleData['ID'])) $created++; else $updated++;						
 

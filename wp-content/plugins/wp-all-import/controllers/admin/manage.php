@@ -385,6 +385,8 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 
 				$local_paths = ( ! empty($local_paths) ) ? $local_paths : array($filePath);								
 
+				// wp_all_import_get_reader_engine( $local_paths, array('root_element' => $item->root_element), $item->id );	
+
 				foreach ($local_paths as $key => $path) {
 
 					if (!empty($action_type) and $action_type == 'continue'){

@@ -161,15 +161,6 @@ function wooc_extra_register_fields() {
 <?php
 }
 
-function wc_register_form_email_repeat() {
-    ?>
-    <p class="form-row form-row-wide">
-        <label for="reg_email2"><?php _e( 'Confirm Email', 'woocommerce' ); ?> <span class="required">*</span></label>
-        <input type="text" class="input-text" name="reg_email2" id="reg_email2" value="<?php if ( ! empty( $_POST['reg_email2'] ) ) echo esc_attr( $_POST['reg_email2'] ); ?>" />
-    </p>
-<?php
-}
-
 function wc_register_form_password_repeat() {
     ?>
     <p class="form-row form-row-wide">
@@ -189,9 +180,6 @@ function registration_errors_validation($reg_errors, $sanitized_user_login, $use
     extract( $_POST );
     if ( strcmp( $password, $password2 ) !== 0 ) {
         return new WP_Error( 'registration-error', __( 'Passwords do not match.', 'woocommerce' ) );
-    }
-    if ( strcmp( $email, $reg_email2 ) !== 0 ) {
-        return new WP_Error( 'registration-error', __( 'Emails do not match.', 'woocommerce' ) );
     }
     return $reg_errors;
 }

@@ -112,8 +112,8 @@ $l10n = array(
 							<div class="wpallimport-note" style="margin: 20px auto 0; font-size: 13px;">
 								<?php _e('<strong>Hint:</strong> After you create this import, you can schedule it to run automatically, on a pre-defined schedule, with cron jobs. If anything in your file has changed, WP All Import can update your site with the changed data automatically.', 'wp_all_import_plugin'); ?>
 								<div class="wpallimport-free-edition-notice" style="display:none;">									
-									<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=download-from-url" target="_blank" class="upgrade_link"><?php _e('Upgrade to the professional edition of WP All Import to use this feature.', 'wp_all_import_plugin');?></a>
-									<p><?php _e('If you already own it, remove the free edition and install the professional edition.', 'wp_all_import_plugin'); ?></p>
+									<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=download-from-url" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to use this feature.', 'wp_all_import_plugin');?></a>
+									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
 								</div>
 							</div>							
 							<input type="hidden" name="downloaded" value="<?php echo $post['downloaded']; ?>"/>
@@ -137,8 +137,8 @@ $l10n = array(
 								<div class="wpallimport-note" style="margin: 0 auto; font-size: 13px;">
 									<?php printf(__('Upload files to <strong>%s</strong> and they will appear in this list', 'wp_all_import_plugin'), $upload_dir['basedir'] . '/wpallimport/files') ?>
 									<div class="wpallimport-free-edition-notice">									
-										<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=use-existing-file" target="_blank" class="upgrade_link"><?php _e('Upgrade to the professional edition of WP All Import to use this feature.', 'wp_all_import_plugin');?></a>
-										<p><?php _e('If you already own it, remove the free edition and install the professional edition.', 'wp_all_import_plugin'); ?></p>
+										<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=use-existing-file" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to use this feature.', 'wp_all_import_plugin');?></a>
+										<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
 									</div>
 								</div>
 							</div>
@@ -170,7 +170,7 @@ $l10n = array(
 									
 									$custom_types = get_post_types(array('_builtin' => true), 'objects') + get_post_types(array('_builtin' => false, 'show_ui' => true), 'objects'); 
 									foreach ($custom_types as $key => $ct) {
-										if (in_array($key, array('attachment', 'revision', 'nav_menu_item', 'shop_coupon'))) unset($custom_types[$key]);
+										if (in_array($key, array('attachment', 'revision', 'nav_menu_item', 'shop_webhook', 'import_users'))) unset($custom_types[$key]);
 									}
 									$custom_types = apply_filters( 'pmxi_custom_types', $custom_types );
 
@@ -193,33 +193,39 @@ $l10n = array(
 										</div>
 									</div>
 									<select name="custom_type_selector" id="custom_type_selector" class="wpallimport-post-types">								
-										<?php if ( ! empty($custom_types)): ?>							
+										<?php if ( ! empty($custom_types)): $unknown_cpt = array(); ?>							
 											<?php foreach ($custom_types as $key => $ct) :?>	
 												<?php 
 													$image_src = 'dashicon-cpt';
 
 													$cpt = $key;
-													$cpt_label = $ct->labels->name;
-
-													if (class_exists('WooCommerce'))
-													{
-														if ($key == 'product')
-														{
-															$cpt = 'shop_order';
-															$cpt_label = $custom_types['shop_order']->labels->name;
-														}
-														elseif($key == 'shop_order')
-														{
-															$cpt = 'product';
-															$cpt_label = $custom_types['product']->labels->name;
-														}
-													}
+													$cpt_label = $ct->labels->name;													
 												
-													if (  in_array($cpt, array('post', 'page', 'product', 'import_users', 'shop_order') ) )
+													if (  in_array($cpt, array('post', 'page', 'product', 'shop_order', 'shop_coupon') ) )
+													{
 														$image_src = 'dashicon-' . $cpt;										
+													}
+													else
+													{
+														$unknown_cpt[$key] = $ct;
+														continue;
+													}														
 												?>
-											<option value="<?php echo $cpt; ?>" data-imagesrc="dashicon <?php echo $image_src; ?>"><?php echo $cpt_label; ?></option>
+											<option value="<?php echo $cpt; ?>" data-imagesrc="dashicon <?php echo $image_src; ?>" <?php if ( $cpt == $post['custom_type'] ):?>selected="selected"<?php endif; ?>><?php echo $cpt_label; ?></option>
 											<?php endforeach; ?>
+											<?php if (class_exists('PMUI_Plugin')): ?>
+											<option value="import_users" data-imagesrc="dashicon dashicon-import_users" <?php if ( 'import_users' == $post['custom_type'] ):?>selected="selected"<?php endif; ?>><?php _e('Users', 'wp_all_import_plugin'); ?></option>
+											<?php endif; ?>
+											<?php if ( ! empty($unknown_cpt)):  ?>
+												<?php foreach ($unknown_cpt as $key => $ct):?>
+													<?php
+													$image_src = 'dashicon-cpt';
+													$cpt_label = $ct->labels->name;												
+													?>
+													<option value="<?php echo $key;?>" data-imagesrc="dashicon <?php echo $image_src; ?>" <?php if ($key == $post['custom_type']) echo 'selected="selected"'; ?>><?php echo $cpt_label; ?></option>
+												<?php endforeach ?>
+											<?php endif;?>
+
 										<?php endif; ?>
 										<?php if ( ! empty($hidden_post_types)): ?>							
 											<?php foreach ($hidden_post_types as $key => $cpt) :?>	
@@ -269,7 +275,12 @@ $l10n = array(
 							</div>		
 						</div>		
 						<a class="button button-primary button-hero wpallimport-large-button wpallimport-notify-read-more" href="http://www.wpallimport.com/documentation/troubleshooting/problems-with-import-files/#invalid" target="_blank"><?php _e('Read More', 'wp_all_import_plugin');?></a>		
-					</div>				
+					</div>	
+
+					<div class="wpallimport-free-edition-notice wpallimport-import-orders-notice" style="text-align:center; margin-top:20px; margin-bottom: 40px; display: none;">
+						<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=custom-fields" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WooCommerce add-on to import WooCommerce Orders.', 'wp_all_import_plugin');?></a>
+						<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
+					</div>			
 
 					<p class="wpallimport-submit-buttons">
 						<input type="hidden" name="custom_type" value="<?php echo $post['custom_type'];?>">

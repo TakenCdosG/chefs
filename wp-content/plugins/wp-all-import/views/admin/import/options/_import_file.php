@@ -104,8 +104,8 @@ $l10n = array(
 								<span class="wpallimport-url-icon"></span>
 								<input type="text" class="regular-text" name="url" value="<?php echo ('url' == $import->type) ? esc_attr($import->path) : 'Enter a web address to download the file from...'; ?>"/> 								
 								<div class="wpallimport-free-edition-notice">									
-									<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=download-from-url" target="_blank" class="upgrade_link"><?php _e('Upgrade to the professional edition of WP All Import to use this feature.', 'wp_all_import_plugin');?></a>
-									<p><?php _e('If you already own it, remove the free edition and install the professional edition.', 'wp_all_import_plugin'); ?></p>
+									<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=download-from-url" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to use this feature.', 'wp_all_import_plugin');?></a>
+									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
 								</div>
 							</div>
 							<input type="hidden" name="downloaded"/>
@@ -130,8 +130,8 @@ $l10n = array(
 									<?php printf(__('Upload files to <strong>%s</strong> and they will appear in this list', 'wp_all_import_plugin'), $upload_dir['basedir'] . '/wpallimport/files'); ?>									
 								</div>
 								<div class="wpallimport-free-edition-notice">									
-									<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=use-existing-file" target="_blank" class="upgrade_link"><?php _e('Upgrade to the professional edition of WP All Import to use this feature.', 'wp_all_import_plugin');?></a>
-									<p><?php _e('If you already own it, remove the free edition and install the professional edition.', 'wp_all_import_plugin'); ?></p>
+									<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=use-existing-file" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to use this feature.', 'wp_all_import_plugin');?></a>
+									<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
 								</div>
 							</div>
 						</div>						

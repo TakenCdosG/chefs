@@ -151,6 +151,11 @@ $.fn.wplupload  = function($options) {
 						}
 						else
 						{
+							if (r.post_type && r.warning !== false)
+							{
+								var $note = $('.wpallimport-upload-type-container[rel=upload_type]').find('.wpallimport-note');
+								$note.html("<div class='wpallimport-free-edition-notice'>" + r.warning + "</div>").show();						
+							}
 							$('.wpallimport-choose-file').find('.wpallimport-upload-resource-step-two').slideDown();
 							$('.wpallimport-choose-file').find('.wpallimport-submit-buttons').show();		
 						}						

@@ -8,8 +8,8 @@
 				<?php if ($section_is_show_warning and ( $post_type != "product" or ! class_exists('PMWI_Plugin'))):?>
 					
 					<div class="wpallimport-free-edition-notice" style="text-align:center; margin-top:-15px; margin-bottom: 40px;">
-						<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=images" target="_blank" class="upgrade_link"><?php _e('Upgrade to the professional edition of WP All Import to import images.', 'pmxi_plugin');?></a>
-						<p><?php _e('If you already own it, remove the free edition and install the professional edition.', 'wp_all_import_plugin'); ?></p>
+						<a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=images" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to import images.', 'pmxi_plugin');?></a>
+						<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
 					</div>
 					
 				<?php endif; ?>
