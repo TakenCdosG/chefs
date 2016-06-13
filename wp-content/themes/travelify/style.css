@@ -2080,8 +2080,6 @@ article {
     border-radius: 34px;
 }
 
-
-
 .hgroup-right .searchform input.field-submit,
 .mobile-menu .searchform input.field-submit{
     background-color: transparent!important;
@@ -2113,7 +2111,11 @@ article {
     width: 50%!important;
 }
 
-.form-group .wishlist_new_wrap label {
+.form-group .wishlist_field_label{
     clear: both;
     margin-bottom: 0px!important;
+}
+
+.wishlist_new_wrap .form-group .event-type{
+    margin-bottom: 10px!important;
 }
