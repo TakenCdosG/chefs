@@ -105,6 +105,7 @@ function woo_bloyal_do_data_sync()
   * Step 1 : InventoryTransactionsChanges - Updating bLoyal inventory with current Woocommerce state...
   * POST api/v4/{accessKey}/InventoryTransactions/Changes
   */
+  $sent_push_noticication_email = TRUE;
   $pending_to_push_inventory_changes = _get_pending_to_push_inventory_changes();
   $count_pending_to_push_inventory_changes = count($pending_to_push_inventory_changes);
   $log .= "<b>Notice:</b> Amount of Product Inventory Changes that will be pushed to bLoyal since the last sync: $count_pending_to_push_inventory_changes <br/>";
@@ -122,15 +123,27 @@ function woo_bloyal_do_data_sync()
             $params = array($EntityChange);
             $pushedChange = curl_post($params, $url);
             $response = json_decode($pushedChange);
+
             if($response->status == "success"){
-              $log .= $note;
+              $log .= $note."<br/>";
               delete_option( $option_name );
             }else{
               $log .= "<b>Error: </b> Push change could not be completed for the sku: $sku.<br/>";
+              /*
               die(var_dump(array(
                   'params' => $params,
                   'response' => $response,
               )));
+              */
+            }
+
+            // Send log mail
+            if ($sent_push_noticication_email) {
+              $msg = "<pre>" . json_encode($params) . "</pre><br/><br/>";
+              $msg .= "<pre>" . json_encode($response) . "</pre><br/>";
+              $headers = array('Content-Type: text/html; charset=UTF-8');
+              // , 'melanie@thinkcreativegroup.com'
+              wp_mail(array('adrian.morelos@akendos.com'), 'WooCommerce - Push inventory changes Debug', $msg, $headers);
             }
 
           }else{
