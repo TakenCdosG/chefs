@@ -3401,3 +3401,8 @@ table.shop_attributes tr:last-child{
     display: none;
 }
 /* END OF HIDE ON CURRENT WEBSITE ROW */
+
+a.button.product_type_simple.ajax_add_to_cart{
+    margin-left: 5px;
+    padding: 7px;
+}
