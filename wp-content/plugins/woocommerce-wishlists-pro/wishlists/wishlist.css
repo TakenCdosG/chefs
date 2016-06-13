@@ -1,7 +1,7 @@
 
 .wishlist_list_item .product.woocommerce {
 	border: none !important;
-	padding: 0px !important;
+    padding: 3px !important;
 }
 
 .wishlist_list_item .product-variation a.button {
@@ -27,7 +27,7 @@
 }
 
 .wishlist_list_item .product_qty .qty {
-	height: 15px;
+	height: 25px;
 	vertical-align: middle;
 	width: 50px;
 }
