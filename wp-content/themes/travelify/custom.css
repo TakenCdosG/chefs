@@ -3395,3 +3395,9 @@ h2.tribe-events-page-title{
 .woocommerce div.product form.cart, .woocommerce div.product p.cart {
     margin-bottom: 1em;
 }
+
+/* HIDE CON CURRENT WEBSITE ROW  */
+table.shop_attributes tr:last-child{
+    display: none;
+}
+/* END OF HIDE ON CURRENT WEBSITE ROW */
