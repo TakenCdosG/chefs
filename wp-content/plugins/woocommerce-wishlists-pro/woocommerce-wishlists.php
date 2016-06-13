@@ -516,17 +516,21 @@ class ignite_woocommerce_wishlist {
 					<!-- /input-group -->
 				</div>
 
-				<label class="wishlist_field_label"><?php _e( 'Wishlist Title', 'ignitewoo-wishlists-pro' ) ?></label>
-
 				<div class="col-md-12">   
 				   <div class="form-group">
 				     <label for="event-date">Event Date</label>
-				     <input type="text" class="form-control" name="event-date" id="event-date" placeholder=""  value="<?php echo $event_date ; ?>">
+				     <input type="text" class="form-control" name="event-date" id="event-date" placeholder=""  value="">
 				   </div>
 					<!-- /input-group -->
 				</div>
 
-				<input id="wishlist_title_field" type="text" name="wishlist_title" value="" size="45"> 
+				<div class="col-md-12">   
+				   <div class="form-group">
+						<label class="wishlist_field_label"><?php _e( 'Wishlist Title', 'ignitewoo-wishlists-pro' ) ?></label>
+						<input id="wishlist_title_field" type="text" name="wishlist_title" value="" size="45"> 
+				   </div>
+					<!-- /input-group -->
+				</div>
 
 				<div class="col-md-12">   
 				   <div class="form-group">
