@@ -497,11 +497,52 @@ class ignite_woocommerce_wishlist {
 
 
 				<div class="wishlist_new_wrap" style="display:none">
+				<?php
+				    $field_wishlist_type_key = "field_575726e432f3c";
+				    $field_wishlist_type = get_field_object($field_wishlist_type_key);
+				?>
+				<div class="col-md-12">   
+				   <div class="form-group">
+				   	 <?php if( $field_wishlist_type ): ?>
+				   		<label for="event-type">Event Type</label>
+						<select name="event-type" id="event-type"s class="event-type">
+							<option value="_none">- Select a value -</option>
+						    <?php foreach( $field_wishlist_type['choices'] as $k => $v ): ?>
+						    	<option value="<?php echo $k; ?>" <?php if($event_type == $k):?> selected <?php endif; ?> ><?php echo $v; ?></option>
+						    <?php endforeach; ?>
+						</select>
+					<?php endif; ?>
+				   </div>
+					<!-- /input-group -->
+				</div>
 
 				<label class="wishlist_field_label"><?php _e( 'Wishlist Title', 'ignitewoo-wishlists-pro' ) ?></label>
 
-				<input id="wishlist_title_field" type="text" name="wishlist_title" value="" size="45">
+				<div class="col-md-12">   
+				   <div class="form-group">
+				     <label for="event-date">Event Date</label>
+				     <input type="text" class="form-control" name="event-date" id="event-date" placeholder=""  value="<?php echo $event_date ; ?>">
+				   </div>
+					<!-- /input-group -->
+				</div>
 
+				<input id="wishlist_title_field" type="text" name="wishlist_title" value="" size="45"> 
+
+				<div class="col-md-12">   
+				   <div class="form-group">
+				     <label for="co-registrant-name">Co-Registrant Name</label>
+				     <input type="text" class="form-control" name="co-registrant-name" id="co-registrant-name" placeholder="" value="">
+				   </div>
+					<!-- /input-group -->
+				</div>
+
+				<div class="col-md-12">   
+				   <div class="form-group">
+				     <label for="co-registrant-email">Co-Registrant Email</label>
+				     <input type="email" class="form-control" name="co-registrant-email" id="co-registrant-email" placeholder="" value="">
+				   </div>
+					<!-- /input-group -->
+				</div>
 
 				<div class="wishlist_type_label">
 					<?php _e( 'Wishlist Type:', 'ignitewoo-wishlists-pro' ) ?></br>
