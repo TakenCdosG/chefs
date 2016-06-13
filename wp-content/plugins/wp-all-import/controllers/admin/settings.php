@@ -560,6 +560,8 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 
 		$notice = false;
 
+		$warning = false;
+
 		// Check if file has been uploaded
 		if (!$chunks || $chunk == $chunks - 1) {
 			// Strip the temp .part suffix off 
@@ -592,9 +594,41 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 				{
 					$post_type = $upload_result['post_type'];
 
+					if ( ! empty($upload_result['template']) )
+					{																	
+
+						$template = json_decode($upload_result['template'], true);
+
+						if ( ! empty($template[0]['options']))
+						{
+							$is_show_cf_notice = ( ! empty($template[0]['options']['custom_name'])) ? true : false;
+
+							$is_show_images_notice = false;
+
+							if ( $post_type != 'product' && (
+								$template[0]['options']['download_featured_image'] != '' || 
+								$template[0]['options']['gallery_featured_image'] != '' || 
+								$template[0]['options']['featured_image'] != ''))
+							{
+								$is_show_images_notice = true;
+							}
+
+							if ( $is_show_cf_notice && $is_show_images_notice ){
+								$warning = __('<a class="upgrade_link" target="_blank" href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&amp;utm_medium=in-plugin&amp;utm_campaign=custom-fields">Upgrade to the Pro edition of WP All Import to import images and custom fields.</a> <p>If you already own it, remove the free edition and install the Pro edition.</p>', 'wp_all_import_plugin');
+							}
+							else if ( $is_show_cf_notice ){
+								$warning = __('<a class="upgrade_link" target="_blank" href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&amp;utm_medium=in-plugin&amp;utm_campaign=custom-fields">Upgrade to the Pro edition of WP All Import to import custom fields.</a> <p>If you already own it, remove the free edition and install the Pro edition.</p>', 'wp_all_import_plugin');
+							}
+							else if ( $is_show_images_notice ) {		
+								$warning = __('<a class="upgrade_link" target="_blank" href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&amp;utm_medium=in-plugin&amp;utm_campaign=custom-fields">Upgrade to the Pro edition of WP All Import to import images.</a> <p>If you already own it, remove the free edition and install the Pro edition.</p>', 'wp_all_import_plugin');
+							}
+						}						
+					}					
+
 					switch ( $post_type ) {
 
 						case 'product':
+						case 'shop_order':
 							
 							if ( ! class_exists('WooCommerce') ) {
 								$notice = __('<p class="wpallimport-bundle-notice">The import bundle you are using requires WooCommerce.</p><a class="upgrade_link" href="https://wordpress.org/plugins/woocommerce/" target="_blank">Get WooCommerce</a>.', 'wp_all_import_plugin');							
@@ -636,6 +670,13 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 				}
 				else
 				{
+					// $root_element = wp_all_import_get_reader_engine( array($upload_result['filePath']), array('root_element' => $upload_result['root_element']) );	
+
+					// if ( ! empty($root_element) and empty($upload_result['root_element']))
+					// {
+					// 	$upload_result['root_element'] = $root_element;
+					// }
+					
 					// validate XML
 					$file = new PMXI_Chunk($upload_result['filePath'], array('element' => $upload_result['root_element']));										    					    					   												
 
@@ -711,7 +752,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 		}			
 
 		// Return JSON-RPC response
-		exit(json_encode(array("jsonrpc" => "2.0", "error" => null, "result" => null, "id" => "id", "name" => $filePath, "post_type" => $post_type, "notice" => $notice)));
+		exit(json_encode(array("jsonrpc" => "2.0", "error" => null, "result" => null, "id" => "id", "name" => $filePath, "post_type" => $post_type, "notice" => $notice, "warning" => $warning)));
 
 	}		
 

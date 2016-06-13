@@ -12,7 +12,7 @@
 
 			<p style="font-size: 1.3em;"><?php _e('We do not provide technical support in the WordPress.org community forums. But we are usually more than happy to help out free version users via e-mail - just e-mail us at the address above or submit a ticket through the support form.', 'wp_all_import_plugin'); ?></p>
 
-			<p style="font-size: 1.3em;"><a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=support" target="_blank"><?php _e('For premium support, please upgrade to the professional edition of WP All Import.', 'wp_all_import_plugin'); ?></a></p>
+			<p style="font-size: 1.3em;"><a href="http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=in-plugin&utm_campaign=support" target="_blank"><?php _e('For premium support, please upgrade to the Pro edition of WP All Import.', 'wp_all_import_plugin'); ?></a></p>
 
 		</td>
 		<td class="right">&nbsp;</td>

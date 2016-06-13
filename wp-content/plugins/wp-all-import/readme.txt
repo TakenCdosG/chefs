@@ -1,8 +1,8 @@
 === Import any XML or CSV File to WordPress ===
 Contributors: soflyy, wpallimport 
 Requires at least: 4.1
-Tested up to: 4.5.1
-Stable tag: 3.3.6
+Tested up to: 4.5.2
+Stable tag: 3.3.7
 Tags: wordpress csv import, wordpress xml import, xml, csv, datafeed, import, migrate, import csv to wordpress, import xml to wordpress, advanced xml import, advanced csv import, bulk csv import, bulk xml import, bulk data import, xml to custom post type, csv to custom post type, woocommerce csv import, woocommerce xml import, csv import, import csv, xml import, import xml, csv importer
 
 WP All Import is an extremely powerful importer that makes it easy to import any XML or CSV file to WordPress.
@@ -43,7 +43,7 @@ For technical support from the developers, please consider purchasing WP All Imp
 
 * Guaranteed technical support via e-mail.
 
-[Upgrade to the professional edition of WP All Import.](http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=dot-org&utm_campaign=upgrade)
+[Upgrade to the Pro edition of WP All Import.](http://www.wpallimport.com/upgrade-to-pro/?utm_source=free-plugin&utm_medium=dot-org&utm_campaign=upgrade)
 
 Need to [import XML and CSV to WooCommerce?](http://wordpress.org/plugins/woocommerce-xml-csv-product-import/) Check out our WooCommerce add-on.
 
@@ -73,7 +73,7 @@ Learn more about our add-ons at [http://www.wpallimport.com/add-ons](http://www.
 A [developer API](http://www.wpallimport.com/documentation/developers/action-reference/?utm_source=free-plugin&utm_medium=dot-org&utm_campaign=documentation) (action hooks) is also available.
 
 == Premium Support ==
-Upgrade to the professional edition of WP All Import for premium support.
+Upgrade to the Pro edition of WP All Import for premium support.
 
 E-mail: support@wpallimport.com
 
@@ -105,29 +105,33 @@ Does it work with special character encoding like Hebrew, Arabic, Chinese, etc?
 
 == Changelog ==
 
+= 3.3.7 =
+* added new option 'Use StreamReader instead of XMLReader to parse import file' to fix issue with libxml 2.9.3
+* execute 'pmxi_article_data' filter for all posts ( new & existing )
+
 = 3.3.6 =
-- added de_CH translation
-- added support for .svg images
-- added possibility for import excerpts for pages
-- added new filter 'wp_all_import_specified_records'
-- added new filter 'wp_all_import_is_post_to_delete'
-- disable XMLReader stream filter for HHVM
-- improve search for existing images in media gallery
+* added de_CH translation
+* added support for .svg images
+* added possibility for import excerpts for pages
+* added new filter 'wp_all_import_specified_records'
+* added new filter 'wp_all_import_is_post_to_delete'
+* disable XMLReader stream filter for HHVM
+* improve search for existing images in media gallery
 
 = 3.3.5 =
-- fixed 'Use images currently in Media Library' option
+* fixed 'Use images currently in Media Library' option
 
 = 3.3.4 =
-- fixed error messages on step 1 in case when server throws fatal error e.q. time limit exception
-- fixed option "Delete posts that are no longer present in your file", now it works with empty CSV files which has only one header row
-- fixed custom php functions in images preview
-- fixed detecting root nodes with colons in names
-- added es_ES translation
-- added de_DE translation
-- added iterative ajax delete process ( deleting associated posts )
-- added feature to download template/bundle from import settings
-- added new option for importing images "Use images currently in Media Library"
-- added new action 'pmxi_missing_post'
+* fixed error messages on step 1 in case when server throws fatal error e.q. time limit exception
+* fixed option "Delete posts that are no longer present in your file", now it works with empty CSV files which has only one header row
+* fixed custom php functions in images preview
+* fixed detecting root nodes with colons in names
+* added es_ES translation
+* added de_DE translation
+* added iterative ajax delete process ( deleting associated posts )
+* added feature to download template/bundle from import settings
+* added new option for importing images "Use images currently in Media Library"
+* added new action 'pmxi_missing_post'
 
 = 3.3.3 =
 * fixed duplicate matching by custom field
