@@ -141,7 +141,7 @@ if ( ! class_exists( 'ChefGiftRegistry' ) ) {
  *
  * @param int $comment_id Comment ID.
  */
-function save_additional_wishlists_info( $post_id = "" , $user_id = "" ) {
+function save_additional_wishlists_info( $post_id = "" , $user_id = "", $event_type = "", $event_date = "", $co_registrant_name = "", $co_registrant_email = ""  ) {
     if( !empty($user_id) && !empty($post_id) ){
         $user_info = get_userdata($user_id);
         $first_name = $user_info->first_name;
@@ -152,6 +152,22 @@ function save_additional_wishlists_info( $post_id = "" , $user_id = "" ) {
         update_field('registrant_name', $registrant_name, $post_id);
         // Set Registrant Email
         update_field('registrant_email', $email, $post_id);
+        if(!empty($event_type)){
+            // Set Event Type
+            update_field('wishlist_type', $event_type, $post_id);
+        }
+        if(!empty($event_date)){
+            // Set Event Date
+            update_field('event_date', $event_date, $post_id);
+        }
+        if(!empty($co_registrant_name)){
+            // Set  Co-Registrant Name
+            update_field('co-registrant_name', $co_registrant_name, $post_id);
+        }
+        if(!empty($co_registrant_email)){
+            // Set  Co-Registrant Email
+            update_field('co-registrant_email', $co_registrant_email, $post_id);
+        }
     }
 }
 add_action( 'set_additional_wishlists_info', 'save_additional_wishlists_info', 10, 2 );
