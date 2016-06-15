@@ -18,7 +18,6 @@ add_action('wp_ajax_chef_gift_registry_action', 'chef_gift_registry_action_callb
 */
 
 function chef_gift_registry_action_callback(){
-    die(var_dump($_POST));
     if ( !isset( $_POST['nonce'] ) )
         die('no');
     if ( !wp_verify_nonce( $_POST['nonce'], 'wishlist_nonce' ) ) 
