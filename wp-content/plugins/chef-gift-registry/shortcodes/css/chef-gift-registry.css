@@ -81,3 +81,17 @@
 .wishlist_h3_title{
   color: #ef3d42;
 }
+
+.note {
+    border-left: 5px solid #eee;
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    -ms-border-radius: 0 4px 4px 0;
+    -o-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+    margin: 0 0 0px 0;
+    padding: 15px 30px 15px 15px;
+    border-left: 5px solid #eee;
+    background-color: #eef7ea;
+    border-color: #3cc051;    
+}
