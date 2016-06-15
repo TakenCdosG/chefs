@@ -1,4 +1,7 @@
 <div class="chef-gift-registry" id="chef-gift-registry-wrapper">
+	<div class="options-link">
+		<button type="submit" class="btn default new-gift-registry">New Gift Registry</button>
+	</div>
 	<form class="form" method="post">
 		<div class="row">
 			<div class="col-md-6">
