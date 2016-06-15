@@ -36,7 +36,8 @@ jQuery(document).ready(function($) {
         form.validate({
             rules: validate_rules,
             messages: validate_messages,
-        })
+        });
+        console.log("> Validando.");
         return form.valid();
 	}
 
@@ -126,7 +127,6 @@ jQuery(document).ready(function($) {
     	if(is_user_logged_in == "TRUE"){
 			showAddFormWishList();
     		requestFormAddWishList();
-    		handleFormValitations();
 		}else{
 			
 		}
