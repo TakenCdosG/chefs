@@ -52,7 +52,7 @@
 				<div class="col-md-12">   
 				   <div class="form-group" style="margin-bottom: 2px;">
 				     <label for="co-registrant-email">Co-Registrant Email</label>
-				     <input type="email" class="form-control" name="co-registrant-email" id="co-registrant-email" placeholder="" value="">
+				     <input type="email" style="margin-bottom: 2px;" class="form-control" name="co-registrant-email" id="co-registrant-email" placeholder="" value="">
 				   </div>
 					<!-- /input-group -->
 				</div>
