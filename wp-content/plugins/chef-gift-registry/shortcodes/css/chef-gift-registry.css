@@ -61,3 +61,14 @@
 .ui-datepicker{
     z-index: 99999!important;
 }
+
+#wishlist_new_li {
+    background-color: #f7f7f7;
+    padding: 5px;
+    margin: 0px;
+}
+
+#wishslist_entry_form ul {
+    margin-top: 0px;
+    padding: 0px;
+}
