@@ -17,7 +17,8 @@
     padding: 3px 10px;
 }
 
-.chef-gift-registry form .form-actions .btn{
+.chef-gift-registry form .form-actions .btn,
+.chef-gift-registry .btn{
     border-width: 0;
     padding: 7px 14px;
     font-size: 14px;
