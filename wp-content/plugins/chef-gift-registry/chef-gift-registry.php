@@ -100,8 +100,8 @@ if ( ! class_exists( 'ChefGiftRegistry' ) ) {
             $css_dir = plugin_dir_url( __FILE__ ) . 'shortcodes/css/';
 
             // JS
-            wp_register_script( 'chef-gift-registry', $js_dir . 'chef-gift-registry.js', array ( 'jquery'), '1.0', true );
             wp_register_script( 'chef-gift-registry-jquery-validate', $js_dir . 'jquery.validate.min.js', array ( 'jquery'), '1.0', true );
+            wp_register_script( 'chef-gift-registry', $js_dir . 'chef-gift-registry.js', array ( 'jquery'), '1.0', true );
 
             // CSS
             wp_enqueue_style( 'chef-gift-registry', $css_dir . 'chef-gift-registry.css' );
