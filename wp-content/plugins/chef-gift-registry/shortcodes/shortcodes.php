@@ -133,14 +133,14 @@ function chef_gift_search_registry_shortcode($atts){
     }
     $user_id = get_current_user_id(); 
 
-    $current_url = home_url("/my-account?redirectURL=AddRegistry");
+    $redirect_url = home_url("/my-account?redirectURL=AddRegistry");
  
     $data = array(
         'is_user_logged_in' => $is_user_logged_in,
         'wishlist_nonce' => wp_create_nonce( 'wishlist_nonce' ),
         'admin_url' => admin_url( 'admin-ajax.php' ),
         'user_id' => $user_id,
-        'current_url' => $current_url,
+        'redirect_url' => $redirect_url,
     );
     wp_localize_script( 'chef-gift-registry', 'chef_gift_registry', $data );
 

@@ -130,7 +130,7 @@ jQuery(document).ready(function($) {
 			showAddFormWishList();
     		requestFormAddWishList();
 		}else{
-			redirectURL
+			window.location = chef_gift_registry.redirect_url;
 		}
     }); 
 });
