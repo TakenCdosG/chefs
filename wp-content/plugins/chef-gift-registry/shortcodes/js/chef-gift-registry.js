@@ -1,4 +1,45 @@
 jQuery(document).ready(function($) {
+
+	function handleFormValitations(){
+
+		var form = $("#wishslist_entry_form");
+
+        var validate_rules = {
+            'event-type': {
+                required: true,
+            },
+           'wishlist_title': {
+				lettersonly: true,
+            },   
+           'co-registrant-name': {
+				lettersonly: true,
+            },    
+           'co-registrant-email': {
+				email: true,
+            },    
+        };	
+
+		var validate_messages = {
+           'wishlist_title': {
+				lettersonly: 'No special characters are allowed',
+            },
+           'co-registrant-name': {
+				lettersonly: 'No special characters are allowed',
+            },    
+	    };
+
+        $.validator.addMethod("lettersonly",
+            function(value, element) {
+              return this.optional(element) || /^([a-z ÃƒÆ’Ã‚Â±ÃƒÆ’Ã‚Â¡ÃƒÆ’Ã‚Â£ÃƒÆ’Ã‚Â¢ÃƒÆ’Ã‚Â¤ÃƒÆ’ ÃƒÆ’Ã‚Â©ÃƒÆ’Ã‚ÂªÃƒÆ’Ã‚Â«ÃƒÆ’Ã‚Â¨ÃƒÆ’Ã‚Â­ÃƒÆ’Ã‚Â®ÃƒÆ’Ã‚Â¯ÃƒÆ’Ã‚Â¬ÃƒÆ’Ã‚Â³ÃƒÆ’Ã‚ÂµÃƒÆ’Ã‚Â´ÃƒÆ’Ã‚Â¶ÃƒÆ’Ã‚Â²ÃƒÆ’Ã‚ÂºÃƒÆ’Ã‚Â»ÃƒÆ’Ã‚Â¼ÃƒÆ’Ã‚Â¹ÃƒÆ’Ã‚Â§]{2,60})$/i.test(value);
+        });	
+
+        form.validate({
+            rules: validate_rules,
+            messages: validate_messages,
+        })
+        return form.valid();
+	}
+
 	function requestFormAddWishList(){
 		var nonce = chef_gift_registry.wishlist_nonce;
 		jQuery.ajax({
@@ -26,22 +67,22 @@ jQuery(document).ready(function($) {
 			changepicturecallback: function() {
 
 				$( 'button#wishlist_add_button' ).on( 'click', function() {
-
-					var args = jQuery('form#wishslist_entry_form').serialize();
-					jQuery.ajax({
-						type	: "POST",
-						cache	: false,
-						url		: chef_gift_registry.admin_url,
-						data	: args,
-						success: function(data) {
-							$( '.pp_overlay' ).trigger( 'click' );
-							setTimeout( function() { 
-								$( 'div#wishlist_box_wrapper' ).html( data );
-								$( '#wishlist_add_hidden_link' ).trigger( 'click' );
-							}, 1000 );
-						}
-					});
-
+					if(handleFormValitations()){
+						var args = jQuery('form#wishslist_entry_form').serialize();
+						jQuery.ajax({
+							type	: "POST",
+							cache	: false,
+							url		: chef_gift_registry.admin_url,
+							data	: args,
+							success: function(data) {
+								$( '.pp_overlay' ).trigger( 'click' );
+								setTimeout( function() { 
+									$( 'div#wishlist_box_wrapper' ).html( data );
+									$( '#wishlist_add_hidden_link' ).trigger( 'click' );
+								}, 1000 );
+							}
+						});
+					}
 					return false;
 				});
 
@@ -85,6 +126,7 @@ jQuery(document).ready(function($) {
     	if(is_user_logged_in == "TRUE"){
 			showAddFormWishList();
     		requestFormAddWishList();
+    		handleFormValitations();
 		}else{
 			
 		}

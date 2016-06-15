@@ -54,7 +54,7 @@ function chef_gift_registry_add_action_callback(){
     else $wishlist_type = 'public';
 
     $wishlist_title = $_POST['wishlist_title'];
-    
+
     $args = array( 
         'post_type' => 'custom_wishlists',
         'post_title' => strip_tags( $wishlist_title ),
@@ -111,11 +111,13 @@ function chef_gift_registry_action_callback(){
 }
 
 function chef_gift_search_registry_shortcode($atts){
-
+    
+    wp_enqueue_script( 'chef-gift-registry-jquery-validate' );
     wp_enqueue_style('chef-gift-registry');
     wp_enqueue_script('chef-gift-registry');
     // Load the datepicker script (pre-registered in WordPress).
     wp_enqueue_script( 'jquery-ui-datepicker' );
+
 
     // You need styling for the datepicker. For simplicity I've linked to Google's hosted jQuery UI CSS.
     wp_register_style( 'jquery-ui', 'http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );

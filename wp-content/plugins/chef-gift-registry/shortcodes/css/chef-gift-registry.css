@@ -98,5 +98,5 @@
 
 .btn.default:hover,
 .btn.default:active{
-    background-color: #cecece;
+   background-color: #cecece!important;
 }
