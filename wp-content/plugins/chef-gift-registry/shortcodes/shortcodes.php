@@ -23,7 +23,7 @@ function chef_gift_search_registry_shortcode($atts){
     wp_enqueue_style( 'jquery-ui' ); 
 
     $dataToBePassed = array(
-        'is_user_logged_in' => is_user_logged_in(),
+        'is_user_logged_in' => (bool)is_user_logged_in(),
     );
     wp_localize_script( 'chef-gift-registry', 'chef_gift_registry', $dataToBePassed );
 
