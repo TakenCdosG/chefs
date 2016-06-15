@@ -133,7 +133,7 @@ function chef_gift_search_registry_shortcode($atts){
     }
     $user_id = get_current_user_id(); 
 
-    $current_url = home_url(add_query_arg(array(),$wp->request));
+    $current_url = home_url("/my-account?redirectURL=AddRegistry");
  
     $data = array(
         'is_user_logged_in' => $is_user_logged_in,
