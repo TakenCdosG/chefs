@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
                 required: true,
             },
            'wishlist_title': {
+           		required: true,
 				lettersonly: true,
             },   
            'co-registrant-name': {

@@ -15,7 +15,7 @@
 				   	 <?php if( $field_wishlist_type ): ?>
 				   		<label for="event-type">Event Type</label>
 						<select name="event-type" id="event-type"s class="event-type">
-							<option value="_none">- Select a value -</option>
+							<option value="">- Select a value -</option>
 						    <?php foreach( $field_wishlist_type['choices'] as $k => $v ): ?>
 						    	<option value="<?php echo $k; ?>" <?php if($event_type == $k):?> selected <?php endif; ?> ><?php echo $v; ?></option>
 						    <?php endforeach; ?>
