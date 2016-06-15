@@ -105,8 +105,10 @@
 #wishlist_new_li label.error{
     color: #d84a38;
     font-size: 12px;
-    margin: 0px;
+    margin: 5px 0px 0px 0px;
     padding: 0px;
 }
 
+#wishlist_title_field {
+    margin-bottom: 2px!important;
 }

@@ -42,7 +42,7 @@
 				</div>
 
 				<div class="col-md-12">   
-				   <div class="form-group">
+				   <div class="form-group" style="margin-top: 10px;">
 				     <label for="co-registrant-name">Co-Registrant Name</label>
 				     <input type="text" class="form-control" name="co-registrant-name" id="co-registrant-name" placeholder="" value="">
 				   </div>
@@ -50,7 +50,7 @@
 				</div>
 
 				<div class="col-md-12">   
-				   <div class="form-group">
+				   <div class="form-group" style="margin-bottom: 2px;">
 				     <label for="co-registrant-email">Co-Registrant Email</label>
 				     <input type="email" class="form-control" name="co-registrant-email" id="co-registrant-email" placeholder="" value="">
 				   </div>
@@ -58,7 +58,7 @@
 				</div>
 
 				<div class="col-md-12">   
-				   <div class="form-group">
+				   <div class="form-group" style="margin-top: 14px;">
 						<div class="wishlist_type_label">
 							<?php _e( 'Registry Type:', 'ignitewoo-wishlists-pro' ) ?></br>
 						</div>
