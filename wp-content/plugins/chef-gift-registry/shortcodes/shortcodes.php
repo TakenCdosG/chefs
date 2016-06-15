@@ -37,6 +37,8 @@ function chef_gift_registry_add_action_callback(){
         die;
     }
 
+    $user = absint( $_POST['u'] );
+
     // We have 3 predefined types: public, private, and shared.
     // Parse to find which string is in the slug so we can define the list.
     // Do this just in case an admin modifies the taxonomies. 
@@ -51,33 +53,36 @@ function chef_gift_registry_add_action_callback(){
 
     else $wishlist_type = 'public';
 
+    $wishlist_title = $_POST['wishlist_title'];
+    
     $args = array( 
         'post_type' => 'custom_wishlists',
-        'post_title' => strip_tags( $_POST['wishlist_title'] ),
+        'post_title' => strip_tags( $wishlist_title ),
         'post_content' => '',
         'post_status' => 'publish', // save as draft just to be certain no public viewing can happening
         'post_author' => $user
     );
 
+
+
     $post_id = wp_insert_post( $args );
     if ( $post_id ){
         wp_set_post_terms( $post_id, array( $taxonomy_id ), 'c_wishlists_cat' );
+        update_post_meta( $post_id, 'wishlist_type', $wishlist_type );
+        $event_type = isset($_POST['event-type'])?$_POST['event-type']:"";
+        $event_date = isset($_POST['event-date'])?$_POST['event-date']:"";
+        $co_registrant_name = isset($_POST['co-registrant-name'])?$_POST['co-registrant-name']:"";
+        $co_registrant_email = isset($_POST['co-registrant-email'])?$_POST['co-registrant-email']:"";
+
+        save_additional_wishlists_info( $post_id, $user, $event_type, $event_date, $co_registrant_name, $co_registrant_email );
+
+        include(CHEF_GIFT_REGISTRY_PLUGIN_DIR . '/wishlist-add-action-success-result.tpl.php');
+        die;
     }
     else { 
         _e( 'There was an error adding the wishlist. Please try again shortly.', 'ignitewoo-wishlists-pro' );
         die;
     }
-
-    update_post_meta( $post_id, 'wishlist_type', $wishlist_type );
-    $event_type = isset($_POST['event-type'])?$_POST['event-type']:"";
-    $event_date = isset($_POST['event-date'])?$_POST['event-date']:"";
-    $co_registrant_name = isset($_POST['co-registrant-name'])?$_POST['co-registrant-name']:"";
-    $co_registrant_email = isset($_POST['co-registrant-email'])?$_POST['co-registrant-email']:"";
-
-    save_additional_wishlists_info( $post_id, $user, $event_type, $event_date, $co_registrant_name, $co_registrant_email );
-
-    include(CHEF_GIFT_REGISTRY_PLUGIN_DIR . '/wishlist-add-action-success-result.tpl.php');
-    die;
 }
 
 function chef_gift_registry_action_callback(){
