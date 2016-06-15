@@ -96,6 +96,10 @@
     border-color: #3cc051;    
 }
 
+.note a{
+    color: #ef3d42;
+}
+
 .btn.default:hover,
 .btn.default:active{
    background-color: #cecece!important;
