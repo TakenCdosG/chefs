@@ -51,6 +51,11 @@ function chef_gift_search_registry_shortcode($atts){
     // You need styling for the datepicker. For simplicity I've linked to Google's hosted jQuery UI CSS.
     wp_register_style( 'jquery-ui', 'http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css' );
     wp_enqueue_style( 'jquery-ui' ); 
+
+    // prettyPhoto Assets
+    wp_enqueue_script( 'prettyPhoto', WC()->plugin_url() . '/assets/js/prettyPhoto/jquery.prettyPhoto.js', array( 'jquery' ), WC()->version, true );
+    wp_enqueue_style( 'woocommerce_prettyPhoto_css', WC()->plugin_url() . '/assets/css/prettyPhoto.css' );
+
     $is_user_logged_in = "FALSE";
     if(is_user_logged_in()){
        $is_user_logged_in = "TRUE";     
