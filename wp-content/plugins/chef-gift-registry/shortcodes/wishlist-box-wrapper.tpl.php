@@ -5,8 +5,8 @@
 	<ul>
 		<?php wp_nonce_field( 'add_to_wishlist' ); ?>
 		<li id="wishlist_new_li">
-			<h3 class="wishlist_h3_title"> <?php _e( 'Add Product to New Wishlist', 'ignitewoo-wishlists-pro' ) ?></h3>
-			<div class="wishlist_new_wrap" style="display:block">
+			<h3 class="wishlist_h3_title"> <?php _e( 'Add New Registry', 'ignitewoo-wishlists-pro' ) ?></h3>
+			<div class="wishlist_new_wrap" style="display:blocNew Registryk">
 				<?php
 				    $field_wishlist_type_key = "field_575726e432f3c";
 				    $field_wishlist_type = get_field_object($field_wishlist_type_key);
