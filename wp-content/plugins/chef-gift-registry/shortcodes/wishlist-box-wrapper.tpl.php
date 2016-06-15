@@ -44,15 +44,15 @@
 				<div class="col-md-12">   
 				   <div class="form-group" style="margin-top: 10px;">
 				     <label for="co-registrant-name">Co-Registrant Name</label>
-				     <input type="text" class="form-control" name="co-registrant-name" id="co-registrant-name" placeholder="" value="">
+				     <input type="text" class="form-control" style="margin: 0 0 0px" name="co-registrant-name" id="co-registrant-name" placeholder="" value="">
 				   </div>
 					<!-- /input-group -->
 				</div>
 
 				<div class="col-md-12">   
-				   <div class="form-group" style="margin-bottom: 2px;">
+				   <div class="form-group" style="margin-bottom: 2px; margin-top: 10px;">
 				     <label for="co-registrant-email">Co-Registrant Email</label>
-				     <input type="email" style="margin-bottom: 2px;" class="form-control" name="co-registrant-email" id="co-registrant-email" placeholder="" value="">
+				     <input type="email" style="margin-bottom: 2px; " class="form-control" name="co-registrant-email" id="co-registrant-email" placeholder="" value="">
 				   </div>
 					<!-- /input-group -->
 				</div>
