@@ -34,6 +34,13 @@
     cursor: pointer;
 }
 
+.chef-gift-registry .options-link{
+    float: right;
+    position: absolute;
+    right: 0px;
+    top: 15px;
+}
+
 .wishlists-result .btn{
     border-width: 0;
     padding: 5px 12px;
