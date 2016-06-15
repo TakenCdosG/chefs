@@ -58,7 +58,7 @@
 				</div>
 
 				<div class="col-md-12">   
-				   <div class="form-group" style="margin-top: 14px;">
+				   <div class="form-group" style="margin-top: 14px;"> 
 						<div class="wishlist_type_label">
 							<?php _e( 'Registry Type:', 'ignitewoo-wishlists-pro' ) ?></br>
 						</div>
