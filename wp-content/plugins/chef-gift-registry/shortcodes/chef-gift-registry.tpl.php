@@ -1,6 +1,8 @@
 <div class="chef-gift-registry" id="chef-gift-registry-wrapper">
 	<div class="options-link">
 		<button type="submit" class="btn default new-gift-registry">New Gift Registry</button>
+		<a id="wishlist_add_hidden_link" href="#wishlist_box_wrapper" data-rel="prettyPhoto" style="display:none"></a>
+		<div id="wishlist_box_wrapper" style="display:none"></div>
 	</div>
 	<form class="form" method="post">
 		<div class="row">

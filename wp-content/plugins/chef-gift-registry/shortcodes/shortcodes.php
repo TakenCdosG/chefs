@@ -10,6 +10,33 @@
  */
 
 define('CHEF_GIFT_REGISTRY_PLUGIN_DIR', dirname(__FILE__));
+//Ajax for updating / creating / deleting / managing wishlists
+add_action('wp_ajax_chef_gift_registry_action', array( &$this, 'chef_gift_registry_action_callback'), 1 );
+add_action('wp_ajax_nopriv_chef_gift_registry_action', array( &$this, 'chef_gift_registry_action_callback'), 1 );
+
+function chef_gift_registry_action_callback(){
+    if ( !isset( $_POST['nonce'] ) )
+        die('no');
+    if ( !wp_verify_nonce( $_POST['nonce'], 'wishlist_nonce' ) ) 
+        die('fail');
+
+    $wishlist_types = get_terms( 'c_wishlists_cat', '&hide_empty=0&order_by=id&order=asc' );
+    remove_all_filters( 'pre_get_posts'  );
+    remove_all_filters( 'the_posts' );
+    remove_all_filters( 'wp' );
+    $args = array( 
+        'post_type' => 'custom_wishlists',
+        'post_status' => 'publish',
+        'order_by' => 'ID',
+        'order' => 'ASC',
+        'showposts' => 9999,
+        'author' => absint( $_POST['user'] ),
+    );
+    $user_wishlists = new WP_Query( $args ); 
+    if(is_user_logged_in()){
+        include(CHEF_GIFT_REGISTRY_PLUGIN_DIR . '/wishlist-box-wrapper.tpl.php');
+    }       
+}
 
 function chef_gift_search_registry_shortcode($atts){
 
@@ -25,8 +52,12 @@ function chef_gift_search_registry_shortcode($atts){
     if(is_user_logged_in()){
        $is_user_logged_in = "TRUE";     
     }
+    $user_id = get_current_user_id(); 
     $data = array(
         'is_user_logged_in' => $is_user_logged_in,
+        'wishlist_nonce' => wp_create_nonce( 'wishlist_nonce' ),
+        'admin_url' => admin_url( 'admin-ajax.php' ),
+        'user_id' => $user_id,
     );
     wp_localize_script( 'chef-gift-registry', 'chef_gift_registry', $data );
 
@@ -111,6 +142,7 @@ function chef_gift_search_registry_shortcode($atts){
         $wishlists = new WP_Query( $args );
         include(CHEF_GIFT_REGISTRY_PLUGIN_DIR . '/chef-gift-registry-wishlists.tpl.php');
     }
+
 }
 
 add_shortcode('chef_gift_search_registry', 'chef_gift_search_registry_shortcode');
