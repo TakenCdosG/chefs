@@ -1,4 +1,3 @@
-<h2 id="wishlist_title_bar" class="entry-title"><?php _e( 'Wishlists', 'ignitewoo-wishlists-pro' ) ?></h2>
 <form id="wishslist_entry_form" action="<?php admin_url( 'admin-ajax.php' ) ?>" method="post" >
 	<input type="hidden" name="action" value="chef_gift_registry_add_action">
 	<input type="hidden" class="user" name="u" value="<?php echo absint( $_POST['user'] )?>">
