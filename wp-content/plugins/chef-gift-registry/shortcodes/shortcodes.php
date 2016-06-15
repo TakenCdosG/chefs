@@ -12,10 +12,11 @@
 define('CHEF_GIFT_REGISTRY_PLUGIN_DIR', dirname(__FILE__));
 //Ajax for updating / creating / deleting / managing wishlists
 add_action('wp_ajax_chef_gift_registry_action', 'chef_gift_registry_action_callback', 1 );
-/*
-    add_action('wp_ajax_chef_gift_registry_action', array( &$this, 'chef_gift_registry_action_callback'), 1 );
-    add_action('wp_ajax_nopriv_chef_gift_registry_action', array( &$this, 'chef_gift_registry_action_callback'), 1 );
-*/
+add_action('wp_ajax_chef_gift_registry_add_action', 'chef_gift_registry_add_action_callback', 1 );
+
+function chef_gift_registry_add_action_callback(){
+    die(var_dump($_POST));
+}
 
 function chef_gift_registry_action_callback(){
     if ( !isset( $_POST['nonce'] ) )

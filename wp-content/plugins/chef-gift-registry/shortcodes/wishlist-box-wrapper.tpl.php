@@ -1,12 +1,12 @@
 <h2 id="wishlist_title_bar" class="entry-title"><?php _e( 'Wishlists', 'ignitewoo-wishlists-pro' ) ?></h2>
 <form id="wishslist_entry_form" action="<?php admin_url( 'admin-ajax.php' ) ?>" method="post" >
-	<input type="hidden" name="action" value="wishlist_add_action">
+	<input type="hidden" name="action" value="chef_gift_registry_add_action">
 	<input type="hidden" class="user" name="u" value="<?php echo absint( $_POST['user'] )?>">
 	<ul>
 		<?php wp_nonce_field( 'add_to_wishlist' ); ?>
 		<li id="wishlist_new_li">
 			<h3 class="wishlist_h3_title"> <?php _e( 'Add New Registry', 'ignitewoo-wishlists-pro' ) ?></h3>
-			<div class="wishlist_new_wrap" style="display:blocNew Registryk">
+			<div class="wishlist_new_wrap" style="display:block">
 				<?php
 				    $field_wishlist_type_key = "field_575726e432f3c";
 				    $field_wishlist_type = get_field_object($field_wishlist_type_key);

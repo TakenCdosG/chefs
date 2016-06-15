@@ -28,7 +28,6 @@ jQuery(document).ready(function($) {
 				$( 'button#wishlist_add_button' ).on( 'click', function() {
 
 					var args = jQuery('form#wishslist_entry_form').serialize();
-
 					jQuery.ajax({
 						type	: "POST",
 						cache	: false,
