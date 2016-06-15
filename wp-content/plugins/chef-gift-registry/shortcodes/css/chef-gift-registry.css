@@ -100,3 +100,13 @@
 .btn.default:active{
    background-color: #cecece!important;
 }
+
+
+#wishlist_new_li label.error{
+    color: #d84a38;
+    font-size: 12px;
+    margin: 0px;
+    padding: 0px;
+}
+
+}

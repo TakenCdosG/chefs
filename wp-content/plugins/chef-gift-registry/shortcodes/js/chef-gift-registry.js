@@ -2,12 +2,12 @@ jQuery(document).ready(function($) {
 
 	function handleFormValitations(){
 
-		var form = $("#wishslist_entry_form");
+		var form = $(".pp_woocommerce form#wishslist_entry_form");
 
         var validate_rules = {
-            'event-type': {
+           'event-type': {
                 required: true,
-            },
+           },
            'wishlist_title': {
            		required: true,
 				lettersonly: true,
@@ -38,6 +38,7 @@ jQuery(document).ready(function($) {
             rules: validate_rules,
             messages: validate_messages,
         });
+
         console.log("> Validando.");
         return form.valid();
 	}
