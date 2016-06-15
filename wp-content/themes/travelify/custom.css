@@ -621,6 +621,7 @@ h2.line span{
 .widget, article {
     background: transparent!important;
     box-shadow: none;
+    position: relative;
 }
 
 #footerarea .widget h6{
