@@ -77,7 +77,7 @@ function chef_gift_registry_add_action_callback(){
     save_additional_wishlists_info( $post_id, $user, $event_type, $event_date, $co_registrant_name, $co_registrant_email );
 
     include(CHEF_GIFT_REGISTRY_PLUGIN_DIR . '/wishlist-add-action-success-result.tpl.php');
-
+    die;
 }
 
 function chef_gift_registry_action_callback(){
@@ -101,6 +101,7 @@ function chef_gift_registry_action_callback(){
     $user_wishlists = new WP_Query( $args ); 
     if(is_user_logged_in()){
         include(CHEF_GIFT_REGISTRY_PLUGIN_DIR . '/wishlist-box-wrapper.tpl.php');
+        die;
     }       
 }
 
