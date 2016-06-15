@@ -111,7 +111,7 @@ function chef_gift_registry_action_callback(){
 }
 
 function chef_gift_search_registry_shortcode($atts){
-    
+    global $wp;
     wp_enqueue_script( 'chef-gift-registry-jquery-validate' );
     wp_enqueue_style('chef-gift-registry');
     wp_enqueue_script('chef-gift-registry');
@@ -132,11 +132,15 @@ function chef_gift_search_registry_shortcode($atts){
        $is_user_logged_in = "TRUE";     
     }
     $user_id = get_current_user_id(); 
+
+    $current_url = home_url(add_query_arg(array(),$wp->request));
+ 
     $data = array(
         'is_user_logged_in' => $is_user_logged_in,
         'wishlist_nonce' => wp_create_nonce( 'wishlist_nonce' ),
         'admin_url' => admin_url( 'admin-ajax.php' ),
         'user_id' => $user_id,
+        'current_url' => $current_url,
     );
     wp_localize_script( 'chef-gift-registry', 'chef_gift_registry', $data );
 

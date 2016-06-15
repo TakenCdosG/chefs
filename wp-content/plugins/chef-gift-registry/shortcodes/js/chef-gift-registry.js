@@ -130,7 +130,7 @@ jQuery(document).ready(function($) {
 			showAddFormWishList();
     		requestFormAddWishList();
 		}else{
-			
+			redirectURL
 		}
     }); 
 });
