@@ -95,3 +95,8 @@
     background-color: #eef7ea;
     border-color: #3cc051;    
 }
+
+.btn.default:hover,
+.btn.default:active{
+    background-color: #cecece;
+}
