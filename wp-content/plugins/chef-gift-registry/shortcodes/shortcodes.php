@@ -24,7 +24,7 @@ function redirect_add_registry( $redirect_to, $request, $user ) {
             return $redirect_to;
         } else {
             $redirect_url = get_query_var( 'redirect-url', '');
-            die(var_dump($redirect_ur));
+            // die(var_dump($redirect_ur));
             if($redirect_url == "AddRegistry"){
                 $redirect_to = home_url("/registry-page?redirect-action=AddRegistry");
                 return $redirect_to;
