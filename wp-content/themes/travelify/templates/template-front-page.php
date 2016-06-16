@@ -76,7 +76,7 @@ $num_logos = 10;
 $logos_image = array();
 for ($i = 1; $i <= $num_logos; $i++) {
     $image_key = "front_logo_" . $i;
-    $link_key = "front_link_logo_" . $cleari;
+    $link_key = "front_link_logo_" . $i;
     $image = get_field($image_key);
     $link = get_field($link_key);
     if (!empty($image)) {
