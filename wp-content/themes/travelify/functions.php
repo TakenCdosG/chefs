@@ -54,7 +54,7 @@ function custom_price( $price, $product ) {
 
 function add_woocommerce_cart_nav_item($items, $args) {
 	global $woocommerce;
-	
+	echo "<pre>".var_dump($args->menu)."</pre><br/>";
 	if ($args->menu == 77) {
         $items .= '<li class="menu-item-cart-item">'
         			. '<a class="cart-items" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart">CART('. $woocommerce->cart->cart_contents_count . ') </a> | '
