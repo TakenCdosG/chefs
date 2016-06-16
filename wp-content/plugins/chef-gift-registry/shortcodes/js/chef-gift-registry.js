@@ -133,4 +133,9 @@ jQuery(document).ready(function($) {
 			window.location = chef_gift_registry.redirect_url;
 		}
     }); 
+
+    if(chef_gift_registry.redirect_action == "AddRegistry"){
+    	$( '.new-gift-registry' ).trigger( 'click' );
+    }
+    
 });
