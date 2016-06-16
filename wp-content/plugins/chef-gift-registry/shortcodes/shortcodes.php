@@ -13,6 +13,28 @@ define('CHEF_GIFT_REGISTRY_PLUGIN_DIR', dirname(__FILE__));
 //Ajax for updating / creating / deleting / managing wishlists
 add_action('wp_ajax_chef_gift_registry_action', 'chef_gift_registry_action_callback', 1 );
 add_action('wp_ajax_chef_gift_registry_add_action', 'chef_gift_registry_add_action_callback', 1 );
+add_filter( 'login_redirect', 'redirect_add_registry', 10, 3 );
+
+function redirect_add_registry( $redirect_to, $request, $user ) {
+    //is there a user to check?
+    if ( isset( $user->roles ) && is_array( $user->roles ) ) {
+        //check for admins
+        if ( in_array( 'administrator', $user->roles ) ) {
+            // redirect them to the default place
+            return $redirect_to;
+        } else {
+            $redirect_url = get_query_var( 'redirect-url', '');
+            if($redirect_url == "AddRegistry"){
+                $redirect_to = home_url("/registry-page?redirect-action=AddRegistry");
+                return $redirect_to;
+            }else{
+                return $redirect_to;
+            }
+        }
+    } else {
+        return $redirect_to;
+    }
+}
 
 function chef_gift_registry_add_action_callback(){
     if ( !wp_verify_nonce( $_POST['_wpnonce'], 'add_to_wishlist' ) || !absint( $_POST['u'] ) ) { 
@@ -63,8 +85,6 @@ function chef_gift_registry_add_action_callback(){
         'post_author' => $user
     );
 
-
-
     $post_id = wp_insert_post( $args );
     if ( $post_id ){
         wp_set_post_terms( $post_id, array( $taxonomy_id ), 'c_wishlists_cat' );
@@ -112,6 +132,8 @@ function chef_gift_registry_action_callback(){
 
 function chef_gift_search_registry_shortcode($atts){
     global $wp;
+    $redirect_action = get_query_var( 'redirect-action', '');
+
     wp_enqueue_script( 'chef-gift-registry-jquery-validate' );
     wp_enqueue_style('chef-gift-registry');
     wp_enqueue_script('chef-gift-registry');
@@ -133,14 +155,15 @@ function chef_gift_search_registry_shortcode($atts){
     }
     $user_id = get_current_user_id(); 
 
-    $redirect_url = home_url("/my-account?redirectURL=AddRegistry");
- 
+    $redirect_url = home_url("/my-account?redirect-url=AddRegistry");
+    
     $data = array(
         'is_user_logged_in' => $is_user_logged_in,
         'wishlist_nonce' => wp_create_nonce( 'wishlist_nonce' ),
         'admin_url' => admin_url( 'admin-ajax.php' ),
         'user_id' => $user_id,
         'redirect_url' => $redirect_url,
+        'redirect_action' => $redirect_action,
     );
     wp_localize_script( 'chef-gift-registry', 'chef_gift_registry', $data );
 
