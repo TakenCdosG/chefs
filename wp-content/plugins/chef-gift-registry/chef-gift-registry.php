@@ -61,6 +61,8 @@ if ( ! class_exists( 'ChefGiftRegistry' ) ) {
             $vars[] = 'event-type';
             $vars[] = 'registry-no';
             $vars[] = 'event-date';
+            $vars[] = 'redirect-url';
+            $vars[] = 'redirect-action';
             return $vars;
         }
 
