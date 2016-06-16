@@ -54,12 +54,13 @@ function custom_price( $price, $product ) {
 
 function add_woocommerce_cart_nav_item($items, $args) {
 	global $woocommerce;
-	echo "<pre>".var_dump($args->menu)."</pre><br/>";
-	if ($args->menu == 77) {
-        $items .= '<li class="menu-item-cart-item">'
-        			. '<a class="cart-items" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart">CART('. $woocommerce->cart->cart_contents_count . ') </a> | '
-        			. '<a class="checkout-cart" href="' . $woocommerce->cart->get_checkout_url() . '" title="' . __( 'Checkout' ) . '">' . __( 'Checkout' ) . '</a>'
-        		. '</li>';
+    if(is_string($args->menu ) || is_numeric($args->menu)){
+        if ($args->menu == 77) {
+            $items .= '<li class="menu-item-cart-item">'
+                        . '<a class="cart-items" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart">CART('. $woocommerce->cart->cart_contents_count . ') </a> | '
+                        . '<a class="checkout-cart" href="' . $woocommerce->cart->get_checkout_url() . '" title="' . __( 'Checkout' ) . '">' . __( 'Checkout' ) . '</a>'
+                    . '</li>';
+        }     
     }
     return $items;
 }
