@@ -60,7 +60,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p class="lost_password">
 				<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>"><?php _e( 'Lost your password?', 'woocommerce' ); ?></a>
 			</p>
-
+			<?php $redirect_url = get_query_var( 'redirect-url', ''); ?>
+			<?php if($redirect_url == "AddRegistry"):?>
+				<input type="hidden" name="redirect" value="<?php echo home_url("/registry-page?redirect-action=AddRegistry");?>">
+			<?php endif; ?>
 			<?php do_action( 'woocommerce_login_form_end' ); ?>
 
 		</form>
