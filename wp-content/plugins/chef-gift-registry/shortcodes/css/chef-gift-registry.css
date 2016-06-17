@@ -29,16 +29,15 @@
     -moz-box-shadow: none;
     box-shadow: none;
     text-shadow: none;
-    color: #333333;
-    background-color: #E5E5E5;
+    color: #FFFFFF;
+    background-color: #ef3d42;
     cursor: pointer;
 }
 
 .chef-gift-registry .options-link{
-    float: right;
-    position: absolute;
-    right: 0px;
-    top: 15px;
+    position: relative;
+    margin-top: -15px;
+    margin-bottom: 20px;
 }
 
 .wishlists-result .btn{
