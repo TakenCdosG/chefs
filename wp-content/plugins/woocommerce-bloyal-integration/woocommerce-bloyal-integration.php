@@ -119,11 +119,11 @@ function woo_bloyal_do_data_sync()
 
             unset($EntityChange->Note);
             unset($EntityChange->option_name);
-            unset($EntityChange->Entity->ProductUid);
-            unset($EntityChange->Entity->Uid);
-            unset($EntityChange->Entity->OrderUid);
-
+            
+            $EntityChange->Entity->ProductUid = NULL;
             $EntityChange->EntityUid = NULL;
+            $EntityChange->Entity->Uid = NULL;
+            $EntityChange->Entity->OrderUid = NULL;
 
             $params = array($EntityChange);
             $pushedChange = curl_post($params, $url);
