@@ -194,7 +194,8 @@ $vtprd_parent_definitions = new VTPRD_Parent_Definitions;
 
   function  vtprd_get_ip_address() {
     
-    /* //IF YOU MUST OVERRIDE THE IP ADDRESS ON A PERMANENT BASIS
+    /* 
+        //IF YOU MUST OVERRIDE THE IP ADDRESS ON A PERMANENT BASIS
         //USE SOMETHING LIKE https://www.site24x7.com/find-ip-address-of-web-site.html to find your website IP address (**NOT** your CLIENT ip address)
         //copy code begin
         add_filter('vtprd_override_with_supplied_ip_address', 'override_with_supplied_ip_address', 10 );        

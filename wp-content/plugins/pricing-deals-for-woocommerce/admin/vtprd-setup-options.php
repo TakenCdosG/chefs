@@ -396,13 +396,13 @@ function vtprd_setup_options_cntl() {
           <h4 class="system-buttons-h4"><?php esc_attr_e('Nuke Cart Contents', 'vtprd'); ?></h4>
           <input id="nuke-cart-button"    name="vtprd_setup_options[cart-nuke]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e('Nuke Cart Contents', 'vtprd'); ?>" />                    
           
-          <?php //v1.1.5 New button, goes to admin_init actuated function below?>
-          <h4 class="system-buttons-h4 updates-button-title" id="updates-button-title"><?php esc_attr_e('Check for Plugin Updates', 'vtprd'); ?></h4>
-          <br>
-          <a class="nuke_buttons updates-button" id="force_plugin_update_check" href="/wp-admin/index.php?action=force_plugin_updates_check"> <?php esc_attr_e('Check for Plugin Updates', 'vtprd'); ?></a>
+          <?php //v1.1.5 New button, goes to admin_init actuated function below
+                //v1.1.6 changed to a standard screen  button  ?>
+          <h4 class="system-buttons-h4"><?php esc_attr_e('Check for Plugin Updates', 'vtprd'); ?></h4>
+          <input id="force_plugin_updates_check"    name="vtprd_setup_options[force_plugin_updates_check]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e('Check for Plugin Updates', 'vtprd'); ?>" />                    
           
-          <h4 class="system-buttons-h4"><?php esc_attr_e('Cleanup', 'vtprd'); ?></h4>
-          <input id="nuke-cart-button"    name="vtprd_setup_options[cleanup]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e('Cleanup', 'vtprd'); ?>" />                    
+          <h4 class="system-buttons-h4"><?php esc_attr_e("Please Don't click here unless instructed!", 'vtprd') //v1.1.6.1 workding changed; ?></h4>
+          <input id="nuke-cart-button"    name="vtprd_setup_options[cleanup]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e("Nuke Important Stuff", 'vtprd'); ?>" />                    
                     
           <?php //v1.1.5 end  ?> 
         
@@ -2819,9 +2819,10 @@ function vtprd_validate_setup_input( $input ) {
   $nuke_log     = ( ! empty($input['log-nuke']) ? true : false );  
   $nuke_session = ( ! empty($input['session-nuke']) ? true : false );
   $nuke_cart    = ( ! empty($input['cart-nuke']) ? true : false );
+  $update_check = ( ! empty($input['force_plugin_updates_check']) ? true : false ); //v1.1.6
   $cleanup      = ( ! empty($input['cleanup']) ? true : false ); //v1.1.5 
  
-  
+  $output = get_option( 'vtprd_setup_options' ); //v1.1.6
   switch( true ) { 
     case $reset        === true :    //reset options
         $output = $this->vtprd_set_default_options();  //load up the defaults
@@ -2831,37 +2832,51 @@ function vtprd_validate_setup_input( $input ) {
     case $repair       === true :    //repair rules
         $vtprd_nuke = new vtprd_Rule_delete;            
         $vtprd_nuke->vtprd_repair_all_rules();
-        $output = get_option( 'vtprd_setup_options' ); 
+        //$output = get_option( 'vtprd_setup_options' );   //v1.1.6
       break;
     case $nuke_rules   === true :
         $vtprd_nuke = new vtprd_Rule_delete;            
         $vtprd_nuke->vtprd_nuke_all_rules();
-        $output = get_option( 'vtprd_setup_options' );  
+        //$output = get_option( 'vtprd_setup_options' );    //v1.1.6
       break;
     case $nuke_cats    === true :    
         $vtprd_nuke = new vtprd_Rule_delete;            
         $vtprd_nuke->vtprd_nuke_all_rule_cats();
-        $output = get_option( 'vtprd_setup_options' );  
+        //$output = get_option( 'vtprd_setup_options' );   //v1.1.6
       break;
     case $nuke_hist    === true :    
         $vtprd_nuke = new vtprd_Rule_delete;            
         $vtprd_nuke->vtprd_nuke_lifetime_purchase_history();
-        $output = get_option( 'vtprd_setup_options' );  
+       // $output = get_option( 'vtprd_setup_options' );   //v1.1.6
       break;
     case $nuke_log    === true :    
         $vtprd_nuke = new vtprd_Rule_delete;            
         $vtprd_nuke->vtprd_nuke_audit_trail_logs();
-        $output = get_option( 'vtprd_setup_options' );  
+        //$output = get_option( 'vtprd_setup_options' );   //v1.1.6
       break;      
     case $nuke_session === true :    
         //clear any session variables
         $this->vtprd_destroy_session();
-        $output = get_option( 'vtprd_setup_options' );  
+        //$output = get_option( 'vtprd_setup_options' );   //v1.1.6
       break; 
-    
+     
+     //v1.1.6 begin  
+    case $update_check === true :    
+        //vtprd_force_plugin_updates_check(); //runs some code, then redirects to another admin screen.  Nothing more to do here, so exit!
+        set_site_transient( 'update_plugins', null );    
+    	  wp_safe_redirect( network_admin_url( 'update-core.php' ) ); exit;
+      break;  
+     //v1.1.6 end 
+        
      //v1.1.5 begin  
     case $cleanup === true :    
-        delete_option( 'vtprd_license_options' );  
+        update_option('vtprd_license_count', 0 ); //v1.1.6.1
+        delete_option('vtprd_rego_clock'); //v1.1.6.1       
+        delete_option( 'vtprd_license_options' );
+        global $vtprd_license_options;
+        $vtprd_license_options = null;
+        //$output = get_option( 'vtprd_setup_options' );  //v1.1.6
+  //error_log( print_r(  'deleted $vtprd_license_options', true ) );  
       break;  
      //v1.1.5 end   
       
@@ -2870,10 +2885,10 @@ function vtprd_validate_setup_input( $input ) {
         	 global $wpsc_cart;	
            $wpsc_cart->empty_cart( false );
         }
-        $output = get_option( 'vtprd_setup_options' );  
+        //$output = get_option( 'vtprd_setup_options' );   //v1.1.6
       break;
     default:   //standard update button hit...                 
-        $output = get_option( 'vtprd_setup_options' ); //v1.0.7.2  changed from array initialize
+        //$output = get_option( 'vtprd_setup_options' ); //v1.0.7.2  changed from array initialize   //v1.1.6
       	foreach( $input as $key => $value ) {
       		if( isset( $input[$key] ) ) {
       			$output[$key] = strip_tags( stripslashes( $input[ $key ] ) );	
@@ -2890,8 +2905,12 @@ function vtprd_validate_setup_input( $input ) {
   if ($vtprd_setup_options['discount_taken_where'] != $output['discount_taken_where'] ) {
       if ($vtprd_setup_options['discount_taken_where'] == 'discountCoupon') { 
         //always check if the manually created coupon codes are there - if not create them.
+  //error_log( print_r(  'vtprd_woo_maybe_create_coupon_types SETUP OPTIONS', true ) );         
         vtprd_woo_maybe_create_coupon_types();
-      } 
+      } else {
+   //error_log( print_r(  'vtprd_woo_maybe_DELETE_coupon_types SETUP OPTIONS', true ) );     
+        vtprd_woo_maybe_delete_coupon_types(); //v1.1.6 ADDED to remove coupon if using UNIT PRICE - otherwise it can be applied to DOUBLE the discount taken!!!
+      }
           
       //clear any session variables which could affect things after this update...
       // $this->vtprd_destroy_session(); v1.0.9.3  now done with all updates

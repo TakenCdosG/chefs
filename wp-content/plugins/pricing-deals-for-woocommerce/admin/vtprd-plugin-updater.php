@@ -1,6 +1,13 @@
 <?php
 /*
 //v1.1.5 NEW FILE
+
+ *  ALL LICENSING FUNCTIONS ARE PRO-ONLY
+ *  AND DO NOT RUN WEHN ONLY THE FREE VERSION
+ *  HOSTED AT WORDPRESS.ORG IS INSTALLED
+ *  
+ *  Installation and activation of tHE PURCHASABLE PRO VERSION ACTIVATES ALL LICENSING CODE   
+
 */
 
 
@@ -73,6 +80,7 @@ class VTPRD_Plugin_Updater {
 	 * @return void
 	 */
 	public function init() {
+   //error_log( print_r(  'VTPRD_Plugin_Updater BEGIN init ' , true ) );   
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ) );
 		add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 10, 3 );
 
@@ -95,11 +103,11 @@ class VTPRD_Plugin_Updater {
 	 */
 	function check_update( $_transient_data ) {
 
- //error_log( print_r(  'Begin check_update, $data= '  , true ) ); 
- //error_log( var_export($_transient_data, true ) );
+   //error_log( print_r(  'Begin check_update, $data= '  , true ) ); 
+   //error_log( var_export($_transient_data, true ) );
      
     global $pagenow;
-
+ //error_log( print_r(  'Begin check_update, $pagenow= ' .$pagenow, true ) ); 
 		if( ! is_object( $_transient_data ) ) {
 			$_transient_data = new stdClass;
 		}
@@ -107,6 +115,13 @@ class VTPRD_Plugin_Updater {
 		if( 'plugins.php' == $pagenow && is_multisite() ) {     
 			return $_transient_data;
 		}
+
+
+    //v1.1.6  BEGIN
+    
+    
+    //v1.1.6 END
+
 
 
 		//v1.1.5 begin verify - saves an additional call if already invalid...
@@ -178,9 +193,9 @@ class VTPRD_Plugin_Updater {
 	 */
 	public function show_update_notification( $file, $plugin ) {
 
- //error_log( print_r(  'Begin show_update_notification, $file= '  , true ) ); 
- //error_log( var_export($file, true ) );
- //error_log( var_export($plugin, true ) );
+   //error_log( print_r(  'Begin show_update_notification, $file= '  , true ) ); 
+   //error_log( var_export($file, true ) );
+   //error_log( var_export($plugin, true ) );
  
 		if( ! current_user_can( 'update_plugins' ) ) {
 			return;
@@ -296,9 +311,9 @@ class VTPRD_Plugin_Updater {
 	 */
 	function plugins_api_filter( $_data, $_action = '', $_args = null ) {
 
- //error_log( print_r(  'Begin plugins_api_filter,  $_action= ' . $_action , true ) ); 
- //error_log( var_export($_data, true ) );
- //error_log( var_export($_args, true ) );
+   //error_log( print_r(  'Begin plugins_api_filter,  $_action= ' . $_action , true ) ); 
+   //error_log( var_export($_data, true ) );
+   //error_log( var_export($_args, true ) );
 
 		if ( $_action != 'plugin_information' ) {
 
@@ -340,6 +355,7 @@ class VTPRD_Plugin_Updater {
 	 * @return object $array
 	 */
 	function http_request_args( $args, $url ) {
+   //error_log( print_r(  'VTPRD_Plugin_Updater BEGIN http_request_args ' , true ) );    
 		// If it is an https request and we are performing a package download, disable ssl verification
 		if ( strpos( $url, 'https://' ) !== false && strpos( $url, 'edd_action=package_download' ) ) {
 			$args['sslverify'] = false;
@@ -361,8 +377,8 @@ class VTPRD_Plugin_Updater {
 	 */
 	private function api_request( $_action, $_data ) {
 
- //error_log( print_r(  'BEGIN api_request, $_action= ' .$_action . ' $_data=' , true ) );  
- //error_log( var_export($_data, true ) );
+   //error_log( print_r(  'BEGIN api_request, $_action= ' .$_action . ' $_data=' , true ) );  
+   //error_log( var_export($_data, true ) );
  
 		global $wp_version;
 
@@ -389,6 +405,7 @@ class VTPRD_Plugin_Updater {
       $vtprd_license_options = get_option( 'vtprd_license_options' ); 
     } 
     */ 
+    global $vtprd_license_options; //v1.1.6
     $vtprd_license_options = get_option( 'vtprd_license_options' );  
     //$vtprd_license_options == get_option( 'vtprd_license_options' ); 
     
@@ -401,11 +418,12 @@ class VTPRD_Plugin_Updater {
 			return false; 
     }
 
+
 /*  
     //TEST for duplicative api call testing - only do this ONCE per 10 second interval:
     $today= time(); 
     if (($today - $vtprd_license_options['last_successful_rego_ts']) < 10)  { 
-     error_log( print_r(  'api_request time interval exit, Exit 0002a' , true ) );
+     //error_log( print_r(  'api_request time interval exit, Exit 0002a' , true ) );
 			return false; 
     }
 */
@@ -420,7 +438,7 @@ class VTPRD_Plugin_Updater {
     
     $plugin_version = self::plugin_get_version();
     
- error_log( print_r(  'Plugin Version number= ' .$plugin_version, true ) );      
+ //error_log( print_r(  'Plugin Version number= ' .$plugin_version, true ) );      
     
     //TIME DELAY FOR CALL since LAST CALL
     switch ( $vtprd_license_options['last_check_date_in_seconds'] ) { 
@@ -436,7 +454,7 @@ class VTPRD_Plugin_Updater {
             update_option('vtprd_license_options', $vtprd_license_options);          
           } else {
             //if done within the last 10 miuntes, DON'T do it AGAIN!!
- error_log( print_r(  'REPEAT SKIP ' , true ) );              
+ //error_log( print_r(  'REPEAT SKIP ' , true ) );              
             return 'false';
           }
         break; 
@@ -465,7 +483,6 @@ which does NOT do check_license ...
       'prod_or_test' => $prod_or_test,
       'test_url'     => $test_url,
       'email'        => urlencode($email),
-      // TEST TEST TEST'ip_address'   => '222.152.242.16'
       'ip_address'   => vtprd_get_ip_address()     
 		);
 
@@ -501,9 +518,36 @@ vark_get_latest_version_remote
  
       
 		);
+        
+  //v1.1.6 begin 
+	//	$request = wp_remote_post( VTPRD_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 
-		$request = wp_remote_post( VTPRD_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
-    
+      $request = wp_remote_post( VTPRD_STORE_URL, array(
+    			'method' => 'POST',
+    			'timeout' => 45,
+    			'redirection' => 5,
+    			'httpversion' => '1.0',
+    			'headers' => array( 'user-agent' => 'Aardvark/Updater/vtprd/Free/V' . VTPRD_VERSION . '/Pro/V' . VTPRD_PRO_VERSION .';'. $vtprd_license_options['url'] ),
+    			'body' => $api_params,
+    			'sslverify' => false
+    			) );
+      /*
+      from woothemes-updater/classes/class-woothemes-update-checker.php	
+      	$request = wp_remote_post( ( $api == 'info' ) ? $this->api_url : $this->update_check_url, array(
+      			'method' => 'POST',
+      			'timeout' => 45,
+      			'redirection' => 5,
+      			'httpversion' => '1.0',
+      			'headers' => array( 'user-agent' => 'WooThemesUpdater/' . $this->version ),
+      			'body' => $args,
+      			'sslverify' => false
+      			) );
+
+        */
+  //v1.1.6 end 
+
+
+   
  //error_log( print_r(  'api_request after wp_remote_post, $request= ' .$_action , true ) );  
  //error_log( var_export($request, true ) );
  //error_log( var_export($api_params, true ) );
@@ -521,37 +565,61 @@ vark_get_latest_version_remote
       */
       return 'false';   
     }
-
+    //v1.1.6 begin
+    //used to control license checks during Admin and Cart 
+    $today = time();
+    update_option('vtprd_last_license_check_ts', $today);
+    //v1.1.6 end
  
     //global $vtprd_license_options; //just in case
     $vtprd_license_options = get_option( 'vtprd_license_options' ); //just in case
     
     //date time stamp
     If ($request->status == 'valid') {
-      $vtprd_license_options['last_successful_rego_ts'] = time(); 
+      $vtprd_license_options['last_successful_rego_ts'] = $today; //v1.1.6 
       $vtprd_license_options['last_successful_rego_date_time'] = date("Y-m-d H:i:s");
       
       //Can't update vtprd_license_options here, things explode!! Store for update in main plugin php file
       update_option('vtprd_license_checked', $vtprd_license_options);
       
     } else {
-      $vtprd_license_options['last_failed_rego___ts'] = time(); 
+      $vtprd_license_options['last_failed_rego___ts'] = $today; //v1.1.6 
       $vtprd_license_options['last_failed_rego___date_time'] = date("Y-m-d H:i:s");     
     } 
     
 
     //v1.1.5 begin     
     if ($request->status == 'invalid') {
+      // v1.1.6 pulled out of here, put in mainline - now picked up when 'vtprd_license_suspended' is processed
+      /*
       if ($request->state == 'suspended-by-vendor') {
-        vtprd_deactivate_pro_plugin(); 
+        vtprd_deactivate_pro_plugin();
         vtprd_increment_license_count();       
-      } 
+      }
+      */ 
       
       $vtprd_license_options['status']  = $request->status;
       $vtprd_license_options['state']   = $request->state;
       $vtprd_license_options['strikes'] = $request->strikes;
-      $vtprd_license_options['diagnostic_msg'] = $request->diagnostic_msg;
+      
+      //******************************
+      //v1.1.6 begin  refactored
+      if (isset($request->diagnostic_msg)) {
+        $vtprd_license_options['diagnostic_msg'] =  $request->diagnostic_msg;
+      } else {
+        if (isset($request->verify_response)) {
+          $vtprd_license_options['diagnostic_msg'] =  $request->verify_response;
+        }       
+      }
+      //$vtprd_license_options['diagnostic_msg'] = $request->diagnostic_msg;
 
+      $vtprd_license_options['msg'] = $request->msg; 
+      $vtprd_license_options['expires'] = $request->expires;  
+      $vtprd_license_options['last_response_from_host'] = $request;  
+      $vtprd_license_options['last_failed_rego_ts'] = time();   
+      $vtprd_license_options['last_failed_rego_date_time'] = date("Y-m-d H:i:s");    
+      //v1.1.6 end
+      //******************************
   
        //Can't update vtprd_license_options here, things explode!! Store for update in main plugin php file
       update_option('vtprd_license_suspended', $vtprd_license_options);
@@ -589,12 +657,12 @@ vark_get_latest_version_remote
 			$request = false;
 		}
 /*
-  error_log( print_r(  'after wp_remote_retrieve_body prod_or_test 003= ' .$vtprd_license_options['prod_or_test'] , true ) ); 
+  //error_log( print_r(  'after wp_remote_retrieve_body prod_or_test 003= ' .$vtprd_license_options['prod_or_test'] , true ) ); 
 
 
 $vtprd_license_options2 = get_option( 'vtprd_license_options' ); //just in case
- error_log( print_r(  'api_request, Exit 0005, $vtprd_license_options2 = ' , true ) );
- error_log( var_export($vtprd_license_options2, true ) ); 
+ //error_log( print_r(  'api_request, Exit 0005, $vtprd_license_options2 = ' , true ) );
+ //error_log( var_export($vtprd_license_options2, true ) ); 
  
  global $vtprd_license_options; //just in case
  $vtprd_license_options = $vtprd_license_options2;
@@ -646,4 +714,6 @@ $vtprd_license_options2 = get_option( 'vtprd_license_options' ); //just in case
 		exit;
 	}
 
-}
+
+
+} //end class

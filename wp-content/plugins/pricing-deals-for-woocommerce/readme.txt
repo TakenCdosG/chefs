@@ -4,7 +4,7 @@ Donate link: https://www.varktech.com/woocommerce/woocommerce-dynamic-pricing-di
 Tags: dynamic pricing,  WooCommerce, ecommerce, e commerce, e-commerce, commerce, store, sales, promotion, advertising, sell, shop, shopping, cart, checkout, configurable, variable, widgets, reports, marketing, deals, price, discount, group pricing, wholesale, membership, role, promotion, bogo, catalog only
 Requires at least: 3.3
 Tested up to: 4.5.2
-Stable tag: 1.1.5
+Stable tag: 1.1.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -194,10 +194,31 @@ Direct support requests can be made here on the support tab, or at the [Support]
 
 == Changelog ==
 
-= 1.1.1.5 - 2016-06-05 =
+= 1.1.6.2 - 2016-06-19 =
+* Fix - Auto update was accidentally forcing re-registration
+
+
+= 1.1.6.1 - 2016-06-19 =
+* Fix - URL fixes in anchors
+* Fix - Registration fixes (pro only):
+	 - fix to rego clock (pro activation)
+	 - fix cron scheduling
+	 - Localhost and IP warnings suspended
+	 - Phone Home frequency reduced (pro activation check)
+	 - document that Licensing and PHone Home functions are PRO-only, and run
+		only if the PRO version is installed and active
+
+= 1.1.6 - 2016-06-15 =
+* Fix - Added warning for invalid Client website IP address
+* Fix - delete 'Deals' coupon when not needed for plugin setting
+* Fix - removed bloginfo from admin pages
+* Fix - minor registration issues
+* Enhancement - Now allow ANY staging.wpengine site as part of a test site registration
+
+= 1.1.5 - 2016-06-05 =
 * Fix - Added code to handle the rare "Fatal error: Call to a member function get_tax_class() ..."
 * Enhancement - At store page refresh, catch any price changes and refigure discount
-* Enhancement - Now with FREE PRO demo available, PRO licensing included.
+* Enhancement - Now with FREE full PRO demo available, 3-Day PRO licensing included.
 
 = 1.1.1.3 - 2016-01-22 =
 * Fix - Date range end date issue resolved
@@ -545,7 +566,12 @@ Direct support requests can be made here on the support tab, or at the [Support]
 
 == Upgrade Notice ==
 
-= 1.1.1.5 - 2016-06-05 =
+= 1.1.6 - 2016-06-15 =
+* Fix - Added warning for invalid Client website IP address
+* Fix - minor registration issues
+* Enhancement - Now allow ANY staging.wpengine site as part of a test site registration
+
+= 1.1.5 - 2016-06-05 =
 * Fix - Added code to handle the rare "Fatal error: Call to a member function get_tax_class() ..."
 * Enhancement - At store page refresh, catch any price changes and refigure discount
 * Enhancement - Now with FREE PRO demo available, PRO licensing included.

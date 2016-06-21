@@ -3753,7 +3753,8 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
    //APPLY TEST Globally in wp-admin ...  supply woo with ersatz pricing deals discount type
    function vtprd_woo_maybe_create_coupon_types() {
       global $wpdb, $vtprd_info;    
-      
+ //error_log( print_r(  'BEGIN vtprd_woo_maybe_create_coupon_types', true ) ); 
+    
       $deal_discount_title = $vtprd_info['coupon_code_discount_deal_title'];
 
       $coupon_id 	= $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title ='" . $deal_discount_title. "'  AND post_type = 'shop_coupon' AND post_status = 'publish'  LIMIT 1" );     	
@@ -3816,7 +3817,41 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
       
      return;
    } 
+  
+   //********************************
+   //v1.1.6 new function
+   //********************************
+   function vtprd_woo_maybe_delete_coupon_types() {
+      global $wpdb, $vtprd_info;    
+ //error_log( print_r(  'BEGIN  vtprd_woo_maybe_delete_coupon_types', true ) );
+      
+      $deal_discount_title = $vtprd_info['coupon_code_discount_deal_title'];
 
+      $coupon_id 	= $wpdb->get_var( "SELECT ID FROM $wpdb->posts WHERE post_title ='" . $deal_discount_title. "'  AND post_type = 'shop_coupon' AND post_status = 'publish'  LIMIT 1" );     	
+      if (!$coupon_id) {
+      
+        return;
+      }
+      //$coupon_code = 'UNIQUECODE'; // Code
+      
+      $amount = '0'; // Amount
+      $discount_type = 'fixed_cart'; // Type: fixed_cart, percent, fixed_product, percent_product
+
+      // Add meta
+      delete_post_meta( $coupon_id, 'discount_type', $discount_type );
+      delete_post_meta( $coupon_id, 'coupon_amount', $amount );
+      delete_post_meta( $coupon_id, 'individual_use', 'no' );
+      delete_post_meta( $coupon_id, 'product_ids', '' );
+      delete_post_meta( $coupon_id, 'exclude_product_ids', '' );
+      delete_post_meta( $coupon_id, 'usage_limit', '' );
+      delete_post_meta( $coupon_id, 'expiry_date', '' );
+      delete_post_meta( $coupon_id, 'apply_before_tax', 'yes' );
+      delete_post_meta( $coupon_id, 'free_shipping', 'no' );
+      
+      wp_delete_post($coupon_id); 
+
+     return;
+   }
   
   function vtprd_woo_ensure_coupons_are_allowed() {     
 
@@ -4583,7 +4618,10 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
         return;         
     }
     */
-    
+      //error_log( print_r(  ' PARENT FUNCTIONS $vtprd_setup_options= ', true ) ); 
+      //error_log( var_export($vtprd_setup_options, true ) ); 
+      
+      
         if ( ($vtprd_setup_options['discount_taken_where'] == 'discountCoupon') ||
              ($vtprd_setup_options['discount_taken_where'] <= ' ') ) { //v1.0.9.3  doesn't apply if 'discountUnitPrice'
         //v1.0.7.4 begin  
@@ -4591,7 +4629,8 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
           //INSIST that coupons be enabled in woo, in order for this plugin to work!!
           //****************************************
           //always check if the manually created coupon codes are there - if not create them.
-          vtprd_woo_maybe_create_coupon_types();        
+          vtprd_woo_maybe_create_coupon_types();   
+  //error_log( print_r(  'vtprd_woo_maybe_create_coupon_types PARENT FUNCTIONS', true ) );                
           $coupons_enabled = get_option( 'woocommerce_enable_coupons' ) == 'no' ? false : true;
           if (!$coupons_enabled) {  
             $message  =  '<strong>' . __('In order for the "Pricing Deals" plugin to function successfully when the "Coupon Discount" setting is selected, the Woo Coupons Setting must be on, and it is currently off.' , 'vtprd') . '</strong>' ;
@@ -4599,7 +4638,10 @@ if  ($vtprd_cart_item->db_unit_price_special <= 0 ) {
             $admin_notices = '<div id="message" class="error fade" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
             add_action( 'admin_notices', create_function( '', "echo '$admin_notices';" ) );            
           } 
-        }   
+        }  else {
+    //error_log( print_r(  'vtprd_woo_maybe_DELETE_coupon_types PARENT FUNCTIONS', true ) );       
+          vtprd_woo_maybe_delete_coupon_types(); //v1.1.6 added
+        } 
     
   }
   //v1.0.9.3 end

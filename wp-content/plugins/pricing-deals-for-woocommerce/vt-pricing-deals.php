@@ -3,7 +3,7 @@
 Plugin Name: VarkTech Pricing Deals for WooCommerce
 Plugin URI: http://varktech.com
 Description: An e-commerce add-on for WooCommerce, supplying Pricing Deals functionality.
-Version: 1.1.5
+Version: 1.1.6.2
 Author: Vark
 Author URI: http://varktech.com
 */
@@ -39,8 +39,6 @@ ASK YOUR HOST TO TURN OFF magic_quotes_gpc !!!!!
    
  error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR); //v1.0.7.7
   
-  
-  
      
 class VTPRD_Controller{
 	
@@ -52,9 +50,9 @@ class VTPRD_Controller{
       header("Pragma: no-cache");
     } 
 
-		define('VTPRD_VERSION',                               '1.1.5');
+		define('VTPRD_VERSION',                               '1.1.6.2');
     define('VTPRD_MINIMUM_PRO_VERSION',                   '1.1.1.2'); /* for IMPLEMENTATION, of v1.1.5, leave this at 1.1.1.2!!*/
-    define('VTPRD_LAST_UPDATE_DATE',                      '2016-06-05');
+    define('VTPRD_LAST_UPDATE_DATE',                      '2016-06-20');
     define('VTPRD_DIRNAME',                               ( dirname( __FILE__ ) ));
     define('VTPRD_URL',                                   plugins_url( '', __FILE__ ) );
     define('VTPRD_EARLIEST_ALLOWED_WP_VERSION',           '3.3');   //To pick up wp_get_object_terms fix, which is required for vtprd-parent-functions.php
@@ -68,6 +66,8 @@ class VTPRD_Controller{
 
     define('VTPRD_ADMIN_CSS_FILE_VERSION',                'v003'); //V1.1.0.8 ==> use to FORCE pickup of new CSS
     define('VTPRD_ADMIN_JS_FILE_VERSION',                 'v003'); //V1.1.0.8   ==> use to FORCE pickup of new JS
+    
+    define('VTPRD_WP_MINIMUM_VERSION_FOR_COMPARISON',     '4.5');    //v1.1.6
    
     require_once ( VTPRD_DIRNAME . '/woo-integration/vtprd-parent-definitions.php');
             
@@ -153,9 +153,12 @@ class VTPRD_Controller{
     require_once  ( VTPRD_DIRNAME . '/woo-integration/vtprd-parent-cart-validation.php');
 //  require_once  ( VTPRD_DIRNAME . '/woo-integration/vtprd-parent-definitions.php');    //v1.0.8.4  moved above
     require_once  ( VTPRD_DIRNAME . '/core/vtprd-cart-classes.php');
-    
+        
+    require_once  ( VTPRD_DIRNAME . '/core/vtprd-cron-class.php' ); //v1.1.6 
+            
     //***************
     //v1.1.5 begin
+    // Licensing and Phone Home ONLY occurs when the purchased PRO version is installed
     //***************
     require_once ( VTPRD_DIRNAME . '/admin/vtprd-license-options.php');   
     global $vtprd_license_options; 
@@ -179,8 +182,23 @@ class VTPRD_Controller{
       Otherwise, load FREE
     //*********************************************************
     */
-    $avanti = false; //v1.1.5
     
+    //v1.1.6 begin                     
+/*
+NOW DO IN A CRON JOB
+    //moved here
+    if (is_admin) {
+      $test_done_elsewhere = true;
+    } else {
+error_log( print_r(  'vtprd_maybe_recheck_license_activation CART ', true ) ); 
+      vtprd_maybe_recheck_license_activation(); //v1.1.6  added 1/12hr license recheck to SHOP function too.
+    }
+*/
+    //v1.1.6 end
+    
+    
+    $avanti = false; //v1.1.5
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if (defined('VTPRD_PRO_VERSION')) {
 
         switch( true ) { 
@@ -215,8 +233,20 @@ class VTPRD_Controller{
                     $avanti = true; //v1.1.5  
                     if ( $vtprd_setup_options['debugging_mode_on'] == 'yes' ){   
                        error_log( print_r(  'During Execution, VTPRD_PRO_DIRNAME defined ', true ) );
-                    }                     
-                 }
+                    }    
+                                    
+                    //so CRON JOB ONLY RUN if PRO is active         
+                    //v1.1.6.1 begin                                      
+                    if ($vtprd_license_options['prod_or_test'] == 'demo') {
+                      add_action( 'vtprd_thrice_daily_scheduled_events', 'vtprd_recheck_license_activation' ); 
+                    } else {
+                      //for a non-demo, only do twice per day
+                      remove_action( 'vtprd_thrice_daily_scheduled_events', 'vtprd_recheck_license_activation' ); 
+                      add_action( 'vtprd_twice_daily_scheduled_events', 'vtprd_recheck_license_activation' ); 
+                    }
+                    //v1.1.6.1 end
+                    
+                }
              break;
          } 
          
@@ -285,7 +315,8 @@ class VTPRD_Controller{
         //if ((defined('VTPRD_PRO_DIRNAME')) )  {     //v1.1.5 
         if ($avanti) {                                //v1.1.5 
           require_once ( VTPRD_PRO_DIRNAME . '/admin/vtprd-rules-update.php'); 
-          require_once ( VTPRD_PRO_DIRNAME . '/woo-integration/vtprd-lifetime-functions.php' );    
+          require_once ( VTPRD_PRO_DIRNAME . '/woo-integration/vtprd-lifetime-functions.php' ); 
+
         } else {
           require_once ( VTPRD_DIRNAME .     '/admin/vtprd-rules-update.php');
         }
@@ -324,6 +355,11 @@ class VTPRD_Controller{
  
       //v1.0.7.4 end 
       
+    //*******************************************************************************
+    //v1.1.6 BEGIN
+    //v1.1.6  Commented the else, and CHANGED for below - apply-rules CAN be executed in ADMIN, if pricing is called.  need the resources, so put back into MAINLINE!
+    //**************
+    /* 
     } else {
 
         add_action( "wp_enqueue_scripts", array(&$this, 'vtprd_enqueue_frontend_scripts'), 1 );    //priority 1 to run 1st, so front-end-css can be overridden by another file with a dependancy
@@ -344,7 +380,34 @@ class VTPRD_Controller{
           }           
         }
         //v1.1.5  End
+    
     }
+    */
+
+  } 
+
+    add_action( "wp_enqueue_scripts", array(&$this, 'vtprd_enqueue_frontend_scripts'), 1 );    //priority 1 to run 1st, so front-end-css can be overridden by another file with a dependancy
+    
+    //v1.1.5  BEGIN
+     // the 'plugin_version_valid' switches are set in ADMIN, but only used in the Front End
+    //if (defined('VTPRD_PRO_DIRNAME'))  {      //v1.1.5  
+    if ($avanti) {                              //v1.1.5                 
+      require_once  ( VTPRD_PRO_DIRNAME . '/core/vtprd-apply-rules.php' );
+      require_once  ( VTPRD_PRO_DIRNAME . '/woo-integration/vtprd-lifetime-functions.php' );
+      if ( $vtprd_setup_options['debugging_mode_on'] == 'yes' ){   
+        error_log( print_r(  'Free Plugin begin, Loaded PRO plugin apply-rules', true ) );
+      }                   
+    } else {       
+      require_once  ( VTPRD_DIRNAME .     '/core/vtprd-apply-rules.php' );
+      if ( $vtprd_setup_options['debugging_mode_on'] == 'yes' ){   
+        error_log( print_r(  'Free Plugin begin, Loaded PFREE plugin apply-rules', true ) );
+      }           
+    }
+    //v1.1.5  End
+    //*******************************************************************************
+    //v1.1.6 END
+    //*******************************************************************************
+
 
 
       /*
@@ -765,8 +828,10 @@ class VTPRD_Controller{
     $this->vtprd_create_discount_log_tables();
 
     $this->vtprd_maybe_add_wholesale_role(); //v1.0.9.0
-
     
+    //on activation - prevent cron job from checking registration 
+    update_option('vtprd_no_check_on_activation', 'yes'); //v1.1.6.2
+
     //v1.0.9.3 begin 
  
     //other edits moved to function vtprd_check_for_deactivation_action run at admin-init time
@@ -780,6 +845,7 @@ class VTPRD_Controller{
     session_destroy(); 
     
     //v1.0.5 begin
+    //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if (defined('VTPRD_PRO_VERSION')) { //v1.1.5
        return;      
     }
@@ -789,7 +855,7 @@ class VTPRD_Controller{
 
     //v1.1.5 begin
     if ($pro_plugin_is_installed) { 
-        $message  =  '&nbsp;&nbsp;<h4>' .VTPRD_PLUGIN_NAME. __(' has been updated. ' , 'vtprd') .'</h4>';
+        $message  =  '&nbsp;&nbsp;<strong>' .VTPRD_PLUGIN_NAME. __(' has been updated. ' , 'vtprd') .'</strong>';
         $message .=  '&nbsp;&nbsp;&bull;&nbsp;&nbsp;<strong>' .VTPRD_PRO_PLUGIN_NAME. __(' * may * have been deactivated.' . '</strong>' , 'vtprd'); 
         $message .=  '<br>&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('Please Re-Activate, if desired.' , 'vtprd');
         $admin_notices = '<div class="error fade notice is-dismissible" 
@@ -813,6 +879,18 @@ class VTPRD_Controller{
      return; 
           
   }
+  
+  /* ************************************************
+  **  v1.1.6.1 new function
+  *************************************************** */  
+	public function vtprd_deactivation_hook() {
+      wp_clear_scheduled_hook( 'vtprd_thrice_daily_scheduled_events' );
+      wp_clear_scheduled_hook( 'vtprd_twice_daily_scheduled_events' );
+     
+     return; 
+  }
+
+
 
    //v1.0.7.1 begin 
    //**************************** 
@@ -832,12 +910,12 @@ class VTPRD_Controller{
       
       $message .=  '<br><br>&nbsp;&nbsp; 1. &nbsp;&nbsp;<strong><em>' . __('IF your PRO plugin is currently registered, '  , 'vtprd').'</em>';
       $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('You should see an update prompt on your '  , 'vtprd');
-      $message .=     '<a class="ab-item" href="/wp-admin/plugins.php?plugin_status=all&paged=1&s">' . __('Plugins Page', 'vtprd') . '</a>';
+      $message .=     '<a class="ab-item" href="'.$vtprd_license_options['home_url'].'/wp-admin/plugins.php?plugin_status=all&paged=1&s">' . __('Plugins Page', 'vtprd') . '</a>';
       $message .=     __(' for a PRO Plugin automated update'  , 'vtprd') .'</strong>';
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('If no Pro Plugin update nag is visible, you can request Wordpress to check for an update: '  , 'vtprd');
-      $message .=  '<a href="/wp-admin/index.php?action=force_plugin_updates_check">' . __('Check for Plugin Updates', 'vtprd'). '</a>';
+      $message .=  '<a href="'.$vtprd_license_options['home_url'].'/wp-admin/index.php?action=force_plugin_updates_check">' . __('Check for Plugin Updates', 'vtprd'). '</a>';
       $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('Then return to your '  , 'vtprd');
-      $message .=     '<a class="ab-item" href="/wp-admin/plugins.php?plugin_status=all&paged=1&s">' . __('Plugins Page', 'vtprd') . '</a>';
+      $message .=     '<a class="ab-item" href="'.$vtprd_license_options['home_url'].'/wp-admin/plugins.php?plugin_status=all&paged=1&s">' . __('Plugins Page', 'vtprd') . '</a>';
       $message .=     __(' to apply the PRO Plugin automated update'  , 'vtprd') .'</strong>';
       $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('and then <em>activate your PRO Plugin</em>. '  , 'vtprd');
       
@@ -866,8 +944,9 @@ class VTPRD_Controller{
    public function vtprd_admin_notice_version_mismatch_free() {
   
  //error_log( print_r(  'Function begin - vtprd_admin_notice_version_mismatch_free', true ) );
-
+      global $vtprd_license_options;
       $message  =  '<strong>' . __('Please update the FREE plugin: ' , 'vtprd') . ' &nbsp;&nbsp;'  .VTPRD_PLUGIN_NAME . '</strong>' ;
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
       if (defined('VTPRD_PRO_VERSION')) {
         $message .=  '<br>&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('Required FREE version  = ' , 'vtprd') .VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION. ' &nbsp;&nbsp;<strong>' . 
               __(' Current Free Version = ' , 'vtprd') .VTPRD_VERSION .'</strong>';
@@ -878,10 +957,10 @@ class VTPRD_Controller{
       $message .=  '<br><br><strong>' . 'The PRO Plugin:' . ' &nbsp;&nbsp;</strong><em>'  .VTPRD_PRO_PLUGIN_NAME . '</em>&nbsp;&nbsp;<strong>' . ' has been ** Deactivated ** until this is resolved.' .'</strong>' ;              
                    
       $message .=  '<br><br>&nbsp;&nbsp; 1. &nbsp;&nbsp;<strong>' . __('You should see an update prompt on your '  , 'vtprd');
-      $message .=     '<a class="ab-item" href="/wp-admin/plugins.php?plugin_status=all&paged=1&s">' . __('Plugins Page', 'vtprd') . '</a>';
+      $message .=     '<a class="ab-item" href="'.$vtprd_license_options['home_url'].'/wp-admin/plugins.php?plugin_status=all&paged=1&s">' . __('Plugins Page', 'vtprd') . '</a>';
       $message .=     __(' for a FREE Plugin automated update'  , 'vtprd') .'</strong>';
       $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('If no FREE Plugin update nag is visible, you can request Wordpress to check for an update: '  , 'vtprd');
-      $message .=  '<a href="/wp-admin/index.php?action=force_plugin_updates_check">' . __('Check for Plugin Updates', 'vtprd'). '</a>';
+      $message .=  '<a href="'.$vtprd_license_options['home_url'].'/wp-admin/index.php?action=force_plugin_updates_check">' . __('Check for Plugin Updates', 'vtprd'). '</a>';
       
 
       $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('Be sure to  <em> re-Activate the PRO Plugin </em>, once the FREE plugin update has been completed. ', 'vtprd');
@@ -953,7 +1032,7 @@ class VTPRD_Controller{
 					$system_memory = wc_let_to_num( @ini_get( 'memory_limit' ) );
 					$memory        = max( $memory, $system_memory );
 				}
-        
+         //VTPRD_PRO_VERSION only exists if PRO version is installed and active 
        if ( ( $memory < 67108864 ) && (defined('VTPRD_PRO_VERSION')) ) {     //test for 64mb   
         $message  =  '<h4>' . __('- ' , 'vtprd') .VTPRD_PLUGIN_NAME. __(' - You need a minimum of &nbsp;&nbsp; -- 64mb of system memory -- &nbsp;&nbsp; for your site to run Woocommerce + Pricing Deals successfully. ' , 'vtprd') . '</h4>' ;
         $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Your system memory is currently &nbsp;' .  size_format( $memory ) ;
@@ -970,6 +1049,58 @@ class VTPRD_Controller{
         $admin_notices = '<div id="message" class="error fade notice is-dismissible" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
         echo $admin_notices;
       }
+
+      //v1.1.6 begin
+      
+       global $vtprd_license_options;  //v1.1.6 moved here    
+            
+      //**********************
+      //* php > 5.3.1  REQUIRED
+      //**********************         
+        //VTPRD_PRO_VERSION only exists if PRO version is installed and active
+      if (defined('VTPRD_PRO_VERSION'))  { 
+         $php_version = phpversion();
+         if ( version_compare( $php_version, '5.3.1', '<' ) ) {	            	 
+            $message  =  '<h4>' . __('- ' , 'vtprd') .VTPRD_PRO_PLUGIN_NAME. __(' - PHP version must be &nbsp;==>&nbsp; 5.3.1 &nbsp;<==&nbsp; or greater, to run this PRO plugin successfully. ' , 'vtprd') . '</h4>' ;
+            $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Your PHP version is currently &nbsp;' .  $php_version ;            
+            $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '- Contact your host to upgrade!!!.  ' ;                 
+            $admin_notices = '<div id="message" class="error fade notice is-dismissible" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
+            echo $admin_notices;
+         }
+
+/*
+        if (!$vtprd_license_options['older_wordpress_warning_done']) {
+           global $wp_version;
+           //if ( version_compare( $wp_version, '4.5', '<' ) ) { 
+           // if ( version_compare( $wp_version, VTPRD_WP_MINIMUM_VERSION_FOR_COMPARISON, '<' ) ) {     
+           if ( version_compare( $wp_version, VTPRD_WP_MINIMUM_VERSION_FOR_COMPARISON, '<' ) ) {	            	 
+              $message  =  '<h4> ' .VTPRD_PRO_PLUGIN_NAME . '</h4>';
+              $message .=  '<h4> - WORDPRESS VERSION WARNING - </h4>' ;
+              $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'The recommended Wordpress Version to run this PRO plugin successfully = <strong>Version &nbsp;' .VTPRD_WP_MINIMUM_VERSION_FOR_COMPARISON . '</strong>';  
+              $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Your WordPress Version is <strong> currently &nbsp;' .  $wp_version .'</strong>';            
+              $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '- If Possible, Please ' ; 
+              $message .=  '&nbsp;<strong> <a href="'.$vtprd_license_options['home_url'].'/wp-admin/update-core.php">Upgrade Wordpress Version</a> </strong>&nbsp;' ;
+              $admin_notices = '<div class="error fade notice is-dismissible" 
+              style="
+                    line-height: 19px;
+                    padding: 0px 15px 11px 15px;
+                    font-size: 14px;
+                    text-align: left;
+                    margin: 25px 20px 15px 2px;
+                    background-color: #fff;
+                    border-left: 4px solid #ffba00;
+                    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+                    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); " > <p>' . $message . ' </p></div>';       
+              echo $admin_notices; 
+           }
+          $vtprd_license_options['older_wordpress_warning_done'] = true;
+          update_option('vtprd_license_options', $vtprd_license_options);            
+        }
+*/ 
+      }
+            
+      //v1.1.6 end
+      
       
       //********************************
       //* WOOCOMMERCE 2.4+ now REQUIRED
@@ -977,33 +1108,117 @@ class VTPRD_Controller{
       $current_version =  WOOCOMMERCE_VERSION;
       if( (version_compare(strval('2.4.0'), strval($current_version), '>') == 1) ) {   //'==1' = 2nd value is lower
         $message  =  '<h4>' . __('- Current version of - ' , 'vtprd') .VTPRD_PLUGIN_NAME. __(' - needs &nbsp;&nbsp; -- WooCommerce Version 2.4+ -- &nbsp;&nbsp; to run successfully. ' , 'vtprd') . '</h4>' ;
-        $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Please upgrade to WooCommerce Version 2.4+  ' ;  
-        $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . ' - OR - ' ;
-        $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Please contact me for an earlier version of Pricing Deals, if you are still on 2.3+' ; 
-        $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '  https://www.varktech.com/support/ ' ;       
+        $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Please upgrade to WooCommerce Version 2.4+  ' ;    
+        $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . ' - OR - ' ;
+        $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Please contact Varktech for an earlier version of Pricing Deals, if you are still on 2.3+' ; 
+        $message .=  '<br>&nbsp;<strong> <a href="https://www.varktech.com/support/">Varktech Support</a> </strong>&nbsp;' ;   
         $admin_notices = '<div id="message" class="error fade notice is-dismissible" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
         echo $admin_notices;
       }  
-      
+
+/* v1.1.6.1     LOCALHOST TEST TEMPORARILY SUSPENDED 
+********************************************************  
+      //localhost test
+      if (!$vtprd_license_options['localhost_warning_done']) { 
+        $this_is_localhost = $this->vtprd_maybe_ip_is_localhost(); //v1.1.6.1
+        if ($this_is_localhost) { //v1.1.6.1
+
+              //VTPRD_PRO_VERSION only exists if PRO version is installed and active
+            if (defined('VTPRD_PRO_VERSION')) {
+              $message .=  '<br><br><strong>' . 'The PRO Plugin:' . ' &nbsp;&nbsp;</strong><em>'  .VTPRD_PRO_PLUGIN_NAME . '</em>&nbsp;&nbsp;<strong>' . '  may not be fully functional in a Localhost environment' .'</strong>' ;               
+              $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('For testing, best to use a hosted test environment.', 'vtprd')  ;
+              $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('A valid test environment must be a subdomain of the production environment,', 'vtprd')  ;
+              $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __("and contain 'demo.' or 'beta.' or 'test.' or 'stage.' or 'staging.' in the name [eg test.prodwebsitename.com].", 'vtprd')  ;
+              $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('If you really want to use Localhost, you must register using "prod" or "3-day".', 'vtprd')  ;
+              $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('**be sure** to deactivate the Localhost license before registering it on a host server."', 'vtprd')  ;
+              $message .=  '</strong>';      
+            } else {         
+              $message  =  '<h3>' . VTPRD_PLUGIN_NAME. __(' -  may not be fully functional in a Localhost environment' , 'vtprd') . '</h3>' ; 
+              $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Suggest creating a server development environment for ongoing development and testing.' ; 
+            }
+            $admin_notices = '<div class="error fade notice is-dismissible" 
+            style="
+                  line-height: 19px;
+                  padding: 0px 15px 11px 15px;
+                  font-size: 14px;
+                  text-align: left;
+                  margin: 25px 20px 15px 2px;
+                  background-color: #fff;
+                  border-left: 4px solid #ffba00;
+                  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+                  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); " > <p>' . $message . ' </p></div>';       
+            echo $admin_notices; 
+
+          
+        } 
+        //only ever show this once!    
+        $vtprd_license_options['localhost_warning_done'] = true;
+        update_option('vtprd_license_options', $vtprd_license_options);               
+      }  
+*/
+
+
+                   
+  /*
       //********************************
-      //* Localhost Discouraged!
-      //********************************      
-      if ( (stristr( network_site_url( '/' ), 'localhost' ) !== false ) ||
-			     (stristr( network_site_url( '/' ), ':8888'     ) !== false ) ) {   // This is common with MAMP on OS X
-        global $vtprd_license_options;
-        if (!$vtprd_license_options['localhost_warning_done']) {
-          if (defined('VTPRD_PRO_VERSION')) {
-            $message .=  '<br><br><strong>' . 'The PRO Plugin:' . ' &nbsp;&nbsp;</strong><em>'  .VTPRD_PRO_PLUGIN_NAME . '</em>&nbsp;&nbsp;<strong>' . ' Will not function in a Localhost environment' .'</strong>' ;              
-                         
-            $message .=  '<br><br>&nbsp;&nbsp; &nbsp;&nbsp;<strong>' . __('The PRO Plugin requires registration to function, and <em>registration from Localhost is not allowed</em>. '  , 'vtprd');
-            $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Suggest creating a server development environment or ongoing development and testing.' ;
-            $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('If you wnat to create a hosted test environment, for Pro Registration purposes, it must be a subdomain of the production environment,', 'vtprd')  ;
-            $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __("and contain 'demo.' or 'beta.' or 'test.' or 'stage.' or 'staging.' in the name [eg test.prodwebsitename.com].", 'vtprd')  ; 
-            $message .=  '</strong>';      
-          } else {         
-            $message  =  '<h3>' . VTPRD_PLUGIN_NAME. __(' - Will not function correctly in a Localhost environment' , 'vtprd') . '</h3>' ; 
-            $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . 'Suggest creating a server development environment for ongoing development and testing.' ; 
-          }
+      //* IF WPML is installed - ERROR!!!
+      //********************************
+      // function check from https://wpml.org/documentation/support/creating-multilingual-wordpress-themes/language-dependent-ids/
+      if ( function_exists('icl_object_id') ) { //WPML IS INSTALLED AND ACTIVE
+        $message  =   __('- Pricing Deals - is not fully compatible with the &nbsp;  <strong>WPML</strong>  &nbsp; translation plugin. &nbsp; Pricing Deals is fully compatible with the &nbsp; <a href="https://wordpress.org/plugins/qtranslate-x/">QTranslate</a>  &nbsp; plugin ' , 'vtprd')  ;
+
+        $admin_notices = '<div id="message" class="error fade notice is-dismissible" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
+        echo $admin_notices;
+      }      
+  */          
+           
+      //********************************
+      //* IF User Role Editor is installed - ERROR!!!
+      //********************************
+      /*v1.1.6  REMOVED!
+      if (!$vtprd_license_options['user_role_editor_warning_done']) { //v1.1.6
+        if (class_exists('URE_Assign_Role')) {
+          $message  =   __('- ' , 'vtprd') .VTPRD_PLUGIN_NAME. __(' - is ** not compatible ** with the &nbsp;  <strong>User Role Editor</strong>  &nbsp; plugin. &nbsp; Pricing Deals is compatible with the &nbsp; <a href="https://wordpress.org/plugins/members/">Members</a>  &nbsp; plugin.' , 'vtprd')  ;
+          
+          $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '- Recently, a change in the User Role Editor plugin has "poisoned" the roles created with that plugin ' ;
+          $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '- All of the Roles created with the User Role Editor must be ** replaced **' ;
+          $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '- And the new Roles must be updated in any Users and Pricing Deals Rules where the "poisoned" roles had been employed.' ;
+                  
+          $admin_notices = '<div class="error fade notice is-dismissible" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
+          echo $admin_notices;
+          
+          $vtprd_license_options['user_role_editor_warning_done'] = true; //v1.1.6
+          update_option('vtprd_license_options', $vtprd_license_options); //v1.1.6            
+        }
+       } 
+       */
+       
+/*  v1.1.6.1      IP TEST TEMPORARILY SUSPENDED
+********************************************************
+      //v1.1.6 begin  reworked
+      global $vtprd_info;
+      $localhost_found = get_option('vtprd_localhost_found');
+      $ip_address_override = apply_filters('vtprd_override_with_supplied_ip_address',FALSE); //v1.1.6.1
+      //VALIDATE IP ADDRESS for PRO PLUGIN REGISTRATION
+        //VTPRD_PRO_VERSION only exists if PRO version is installed and active
+      if ( (defined('VTPRD_PRO_VERSION')) &&
+           (!$ip_address_override) && //don't show if ip address overridden!   //v1.1.6.1
+           (!$localhost_found) &&
+           (!$this->vtprd_maybe_ip_valid()) ) {
+          $message .=  '<strong>' . 'The PRO Plugin:' . ' &nbsp;&nbsp;</strong><em>'  .VTPRD_PRO_PLUGIN_NAME . '</em>&nbsp;&nbsp;<strong>'  ;              
+          $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . ' cannot get a valid website IP address'  ;
+          $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . ' for your website &nbsp;&nbsp;' .$vtprd_license_options['url'] .'</strong>'  ;
+
+          $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>' . __('- This issue DOES NOT prevent registration -', 'vtprd') ;
+          $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('- This issue DOES NOT affect the Pro plugin function - ' , 'vtprd')  ;
+          $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>' . __(' * But This issue will cause problems down the road *', 'vtprd')  .'</em></strong>' ;
+          
+          $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('Please contact &nbsp;&nbsp; 
+                <strong><a target="_blank" href="https://www.varktech.com/support/">Varktech Support</a></strong>
+                &nbsp;&nbsp; for assistance with your IP Address.', 'vtprd')  ;
+          $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('Please be sure to include this message.', 'vtprd')  ;
+          
+                          
           $admin_notices = '<div class="error fade notice is-dismissible" 
           style="
                 line-height: 19px;
@@ -1015,53 +1230,110 @@ class VTPRD_Controller{
                 border-left: 4px solid #ffba00;
                 -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
                 box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); " > <p>' . $message . ' </p></div>';       
-          echo $admin_notices; 
-          
-          $vtprd_license_options['localhost_warning_done'] = true;
-          update_option('vtprd_license_options', $vtprd_license_options);           
-        }       
-      }  
-                   
-  /*
-      //********************************
-      //* IF WPML is installed - ERROR!!!
-      //********************************
-      if ( function_exists('icl_object_id') ) {
-        $message  =   __('- Pricing Deals - is not fully compatible with the &nbsp;  <strong>WPML</strong>  &nbsp; translation plugin. &nbsp; Pricing Deals is fully compatible with the &nbsp; <a href="https://wordpress.org/plugins/qtranslate-x/">QTranslate</a>  &nbsp; plugin ' , 'vtprd')  ;
-
-        $admin_notices = '<div id="message" class="error fade notice is-dismissible" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
-        echo $admin_notices;
-      }      
-  */          
-           
-      //********************************
-      //* IF User Role Editor is installed - ERROR!!!
-      //********************************
-      if (class_exists('URE_Assign_Role')) {
-        $message  =   __('- ' , 'vtprd') .VTPRD_PLUGIN_NAME. __(' - is ** not compatible ** with the &nbsp;  <strong>User Role Editor</strong>  &nbsp; plugin. &nbsp; Pricing Deals is compatible with the &nbsp; <a href="https://wordpress.org/plugins/members/">Members</a>  &nbsp; plugin.' , 'vtprd')  ;
-        
-        $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '- Recently, a change in the User Role Editor plugin has "poisoned" the roles created with that plugin ' ;
-        $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '- All of the Roles created with the User Role Editor must be ** replaced **' ;
-        $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '- And the new Roles must be updated in any Users and Pricing Deals Rules where the "poisoned" roles had been employed.' ;
-                
-        $admin_notices = '<div class="error fade notice is-dismissible" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
-        echo $admin_notices;
+          echo $admin_notices;            
       } 
-      
-      //verfiy pro license if not done recently
-      //$this->vtprd_maybe_recheck_license_activation();
+      //v1.1.6 end 
+*/      
       
       //display any system-level licensing issues
       $this->vtprd_maybe_pro_license_error();  
            
       return;    
   }  
+  
+        
+  /* ************************************************
+  **   Admin - v1.1.6 new function
+  *************************************************** */ 
+	public function vtprd_maybe_ip_valid() {
+  
+
+      global $vtprd_info;
+      
+      if (!filter_var($vtprd_info['purchaser_ip_address'], FILTER_VALIDATE_IP)) {
+     
+        return FALSE;
+      }
+      $ip_exploded = explode('.',$vtprd_info['purchaser_ip_address']);
+     
+      if ( ($ip_exploded[0] == 127) ||  //no 127.x.x.x
+          (!is_numeric($ip_exploded[0]) ) ) {  //must be numeric!!
+        
+        return FALSE;
+      }
+     
+    return true;  
+ 
+  }
+        
+  /* ************************************************
+  **   Admin - v1.1.6.1 new function
+  *************************************************** */ 
+	public function vtprd_maybe_ip_is_localhost() {
+  
+
+      //********************************
+      //* Localhost Discouraged!
+      /*
+      list of localhost string searches:
+      localhost
+      127.0. leading nodes
+      192.168 leading nodes
+      172.16. TO 172.31
+      10.
+      local
+      ip address NOT NUMERIC
+
+      */
+      //********************************   
+      
+      if ( (stristr( network_site_url( '/' ), 'localhost' ) !== false ) ||
+  		     (stristr( network_site_url( '/' ), ':8888'     ) !== false ) ) {   // This is common with MAMP on OS X   
+          return true;
+      }   
+ 
+      global $vtprd_info;
+      
+      if (strpos($vtprd_info['purchaser_ip_address'], 'local') !== false ) {
+          return true;      
+      }  
+      
+      $ip_address_parts =  explode('.',$vtprd_info['purchaser_ip_address']); 
+      
+      if ( ($ip_address_parts[0] = '127') &&
+           ($ip_address_parts[1] = '0') ) {
+          return true;            
+      }
+       
+      if ( ($ip_address_parts[0] = '192') &&
+           ($ip_address_parts[1] = '168') ) {
+          return true;            
+      }   
+       
+      if ( ($ip_address_parts[0] = '172') &&
+           ($ip_address_parts[1] >= '16') &&
+           ($ip_address_parts[1] <= '31')  ) {
+          return true;            
+      } 
+      
+      
+      if ($ip_address_parts[0] = '10') {
+          return true;            
+      } 
+      
+      //valid IP address  must have 3 periods!
+      if ( (substr_count($vtprd_info['purchaser_ip_address'], '.')) != 3) {
+          return true;        
+      }    
+            
+    return false;  
+ 
+  }
+
 
    //*************************
    //v1.1.5 new function
-   //*************************
-   
-   
+   //*************************   
    /*
    If plugin activated
     unregistered - Yellow box rego msg on all pages - mention that PRO will not work until registered - handles 1st time through
@@ -1080,15 +1352,15 @@ class VTPRD_Controller{
     global $vtprd_license_options;
     
     //if deactivated, warn that PRO will NOT function!!
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if ( (defined('VTPRD_PRO_VERSION')) &&
          ($vtprd_license_options['status'] == 'valid') &&
          ($vtprd_license_options['state']  == 'deactivated') ) {
-      $url = bloginfo('url'); 
       $message = '<span style="color:black !important;">
                    &nbsp;&nbsp;&nbsp;<strong> ' . VTPRD_ITEM_NAME .   ' </strong> &nbsp;&nbsp; License is not registerd</span>';
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '** the PRO Plugin will not function until Registered** ' ; 
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '* Please go the the ' ;  
-      $message .=  '&nbsp; <a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">License Page</a> &nbsp;' ; 
+      $message .=  '&nbsp; <a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">License Page</a> &nbsp;' ; 
       $message .=  ' and REGISTER the PRO License. </strong>' ;  
       $admin_notices = '<div class="error fade notice is-dismissible" 
         style="
@@ -1120,7 +1392,7 @@ class VTPRD_Controller{
     }
     
     $pro_plugin_installed = false;
-    
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if (defined('VTPRD_PRO_VERSION')) { 
       
       //PRO IS INSTALLED and ACTIVE, show these msgs on ALL PAGES       
@@ -1153,6 +1425,7 @@ class VTPRD_Controller{
     } 
     
     //show other msgs for Plugins Page and vtprd pages 
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if ( (defined('VTPRD_PRO_VERSION')) 
           &&
          ($vtprd_license_options['state'] == 'pending') ) {
@@ -1160,12 +1433,11 @@ class VTPRD_Controller{
 
 
       //OTHER MESSAGES, showing on vtprd Pages and PLUGINS.PHP
-      $url = bloginfo('url'); 
       $message = '<span style="color:black !important;">
                    &nbsp;&nbsp;&nbsp;<strong> ' . VTPRD_ITEM_NAME .   ' </strong> has NOT been successfully REGISTERED, and **will not function until registered**. </span><br><br>';
       $message .= '&nbsp;&nbsp;&nbsp; Licensing Error Message: <em>' . $vtprd_license_options['msg'] . '</em>';
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '* Please go the the ' ;  
-      $message .=  '&nbsp; <a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">License Page</a> &nbsp;' ; 
+      $message .=  '&nbsp; <a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">License Page</a> &nbsp;' ; 
       $message .=  ' for more information. </strong>' ;  
       $admin_notices = '<div class="error fade notice is-dismissible" 
         style="
@@ -1183,6 +1455,7 @@ class VTPRD_Controller{
     }        
       
     //show other msgs for Plugins Page and vtprd pages 
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if ( (defined('VTPRD_PRO_VERSION')) 
           &&
        ( (strpos($pageURL,'plugins.php') !== false ) || 
@@ -1191,12 +1464,11 @@ class VTPRD_Controller{
 
 
       //OTHER MESSAGES, showing on vtprd Pages and PLUGINS.PHP
-      $url = bloginfo('url'); 
       $message = '<span style="color:black !important;">
                    &nbsp;&nbsp;&nbsp;<strong> ' . VTPRD_ITEM_NAME .   ' </strong> has NOT been successfully REGISTERED, and **will not function until registered**. </span><br><br>';
       $message .= '&nbsp;&nbsp;&nbsp; Licensing Error Message: <em>' . $vtprd_license_options['msg'] . '</em>';
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '* Please go the the ' ;  
-      $message .=  '&nbsp; <a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">License Page</a> &nbsp;' ; 
+      $message .=  '&nbsp; <a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">License Page</a> &nbsp;' ; 
       $message .=  ' for more information. </strong>' ;  
       $admin_notices = '<div class="error fade notice is-dismissible" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
       echo $admin_notices; 
@@ -1243,12 +1515,12 @@ class VTPRD_Controller{
     if ($vtprd_license_options['state'] == 'suspended-by-vendor') {        
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>' . '* ' .VTPRD_PRO_PLUGIN_NAME. ' HAS BEEN DEACTIVATED.' ;
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '* Please go the the ' ;  
-      $message .=  '&nbsp; <a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">License Page</a> &nbsp;' ; 
+      $message .=  '&nbsp; <a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">License Page</a> &nbsp;' ; 
       $message .=  ' for more information. </strong>' ;  
         
     } else {
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '* Please ' ;  
-      $message .=  '&nbsp; <a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">Register Pro License</a></strong> ' ;     
+      $message .=  '&nbsp; <a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">Register Pro License</a></strong> ' ;     
     }
     
        
@@ -1266,18 +1538,18 @@ class VTPRD_Controller{
     global $vtprd_license_options;
     if ( ($vtprd_license_options['pro_plugin_version_status'] == 'valid') ||
          ($vtprd_license_options['pro_plugin_version_status'] == null)) { //null = default
-      $url = bloginfo('url'); 
+      $carry_on = true;
     } else { 
       return;
     }
     
     
     $message  = '<h2>' .VTPRD_PRO_PLUGIN_NAME . '</h2>';
-        
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active    
     if (VTPRD_PRO_VERSION == VTPRD_PRO_LAST_PRELICENSE_VERSION) {
       $message .=   '<strong>' . __(' - We have introduced Plugin Registration,' , 'vtprd')  ; 
       $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('Please take a moment to ', 'vtprd')  ;
-        $message .=  '<a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">register</a>' ; 
+        $message .=  '<a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">register</a>' ; 
         $message .=   __(' your plugin.', 'vtprd')  ;
       $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('You may use your original purchase <em>SessionID</em> as your registration key.', 'vtprd')  ;
       
@@ -1285,14 +1557,11 @@ class VTPRD_Controller{
     } else {
      // $message .= '<span style="background-color: RGB(255, 255, 180) !important;"> ';
       $message .=   '<strong>' . __(' - Requires valid ,' , 'vtprd')  ;
-      $message .=  '<a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">Registration</a>' ; 
+      $message .=  '<a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">Registration</a>' ; 
       $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>' . __(' and will not function until registered -', 'vtprd')  . '</em><br><br>' ; //. '</span>' ;        
     }
-
-             
-    $url = bloginfo('url');                  
-    $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">Register Pro License</a></strong> ' ; 
-
+                             
+    $message .=  '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">Register Pro License</a></strong> ' ; 
         
 /*
     $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('- Registration can be done using both a License Key ', 'vtprd') ;
@@ -1321,7 +1590,6 @@ class VTPRD_Controller{
   //   Admin - v1.1.5 new function
 	public function vtprd_pro_suspended_msg() { 
     global $vtprd_license_options;
-    $url = bloginfo('url'); 
     $message = '<span style="color:black !important;">
                  &nbsp;&nbsp;&nbsp;<strong> ' . VTPRD_PRO_PLUGIN_NAME .   ' </strong>
                  <span style="background-color: RGB(255, 255, 180) !important;">LICENSE HAS BEEN SUSPENDED. </span>
@@ -1329,7 +1597,7 @@ class VTPRD_Controller{
     $message .= '&nbsp;&nbsp;&nbsp; Licensing Error Message: <em>' . $vtprd_license_options['msg'] . '</em>';           
     $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>' . '* ' .VTPRD_PRO_PLUGIN_NAME. ' HAS BEEN DEACTIVATED.' ;
     $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . '* Please go to your ' ;  
-    $message .=  '&nbsp; <a href="'.$url.'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">Register Pro License</a> &nbsp;' ; 
+    $message .=  '&nbsp; <a href="'.$vtprd_license_options['home_url'].'/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page">Register Pro License</a> &nbsp;' ; 
     $message .=  ' page for more information. </strong>' ;  
               
     $message .=  "<span style='color:grey !important;'><br><br><em>&nbsp;&nbsp;&nbsp; (This message displays when the Pro version is installed, regardless of whether it's active)</em></span>" ;
@@ -1338,6 +1606,7 @@ class VTPRD_Controller{
     echo $admin_notices;
     
     //double check PRO deactivate
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if (defined('VTPRD_PRO_VERSION')) {  
       vtprd_deactivate_pro_plugin();
     }
@@ -1372,20 +1641,27 @@ allow unlimited .test. or .demo. or .stage. subdomain sites, as long as last 2 n
         
   /* ************************************************
   **   Admin - v1.1.5 new function
+  *    v1.1.6 refactored  
   *************************************************** */ 
 	public function vtprd_admin_init_overhead() {
-     global $vtprd_license_options;
+     global $vtprd_license_options, $vtprd_setup_options;
      if (!$vtprd_license_options) {
         $vtprd_license_options = get_option( 'vtprd_license_options' ); 
-     }
-    $this->vtprd_maybe_rego_clock_action();
-    $this->vtprd_maybe_pro_deactivate_action();
-    $this->vtprd_license_count_check();
-    vtprd_maybe_force_plugin_updates_check();
-    vtprd_maybe_delete_pro_plugin_action();    
-    $this->vtprd_maybe_recheck_license_activation();
+     }     
+    
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
+    if (defined('VTPRD_PRO_VERSION')) { //v1.1.6.1
+      $this->vtprd_maybe_rego_clock_action(); //pro only
+      $this->vtprd_maybe_pro_deactivate_action(); //pro only
+      $this->vtprd_license_count_check(); //pro only
+     // vtprd_maybe_force_plugin_updates_check();  //v1.1.6 removed!!  button now resides on settings page and license page, both have separate handlers
+      vtprd_maybe_delete_pro_plugin_action(); //pro only
+      
+      vtprd_maybe_admin_recheck_license_activation(); //v1.1.6  fallback to cron job //pro only
+    }
+    
     $this->vtprd_maybe_version_mismatch_action();
-    $this->vtprd_maybe_localhost();      
+
   }
   
    
@@ -1393,23 +1669,35 @@ allow unlimited .test. or .demo. or .stage. subdomain sites, as long as last 2 n
         
   /* ************************************************
   **   Admin - v1.1.5 new function
+  *   //only runs if PRO version is installed and active  
+  *   ***********************  
+  *   v1.1.6.1 REFACTORED  
+  *   ***********************    
   *************************************************** */ 
 	public function vtprd_maybe_rego_clock_action() {
   
     //Client has one week to register successfully!
     
-    global $vtprd_license_options;     
-     
+    global $vtprd_license_options;
+    
+    //only EVER do this once, with VERY FIRST registration!!!!!!!!!!!!!
+    if ( (isset($vtprd_license_options['rego_done'])) &&
+         ($vtprd_license_options['rego_done'] == 'yes') ) {
+      return;
+    }     
+
     //if all good, get rid of rego_clock and exit
     if ( ($vtprd_license_options['status'] == 'valid') &&
          ($vtprd_license_options['pro_plugin_version_status'] == 'valid') ) { //deactivated status ok
       if (get_option('vtprd_rego_clock')) {
         delete_option('vtprd_rego_clock');      
       }
+      $vtprd_license_options['rego_done'] = 'yes';
+      update_option('vtprd_license_options', $vtprd_license_options); 
       return;
     }
-      
-            
+    
+           
     //if alrady toast, exit stage left
     if ( ($vtprd_license_options['pro_deactivate'] == 'yes') ||
          ($vtprd_license_options['state'] == 'suspended-by-vendor') ||
@@ -1418,6 +1706,7 @@ allow unlimited .test. or .demo. or .stage. subdomain sites, as long as last 2 n
           ($vtprd_license_options['pro_plugin_version_status'] != 'valid'))  )  { //if 'pro_plugin_version_status' = null, this is unregistered, carry on...
       return;
     }
+
 
     //if License or Plugins Page in progress, exit - user may be activating or otherwise fixing things
     $pageURL = $_SERVER["REQUEST_URI"];
@@ -1460,6 +1749,7 @@ error_log( print_r(  '$pagenow =  ' .$pagenow , true ) );
         
   /* ************************************************
   **   Admin - v1.1.5 new function
+  * //only runs if PRO version is installed and active    
   *************************************************** */ 
 	public function vtprd_maybe_pro_deactivate_action() {
     global $vtprd_license_options;             
@@ -1509,9 +1799,21 @@ error_log( print_r(  '$pagenow =  ' .$pagenow , true ) );
 
   /* ************************************************
   **   v1.1.5 new function, run at plugin init
+  * ONLY RUN IF PRO VERSION IS installed
+  * However, the PRO version may have been deactivated
+  * when this runs, so no test is applied directly     
   *************************************************** */ 
 	public function vtprd_init_update_license() {
     global $vtprd_license_options;
+    
+    //v1.1.6 Begin
+    //don't run if license_options.php has NEVER RUN!
+    if( get_option( 'vtprd_license_options' ) !== FALSE ) {
+      $carry_on = true;  
+    } else {
+      return;
+    }
+    //v1.1.6 end
     
  //error_log( print_r(  'BEGIN vtprd_init_update_license, global $vtprd_license_options=' , true ) );   
 
@@ -1529,10 +1831,18 @@ error_log( print_r(  '$pagenow =  ' .$pagenow , true ) );
       $vtprd_license_options['strikes'] = $vtprd_license_options2['strikes'];
       $vtprd_license_options['diagnostic_msg'] = $vtprd_license_options2['diagnostic_msg'];
       $vtprd_license_options['last_failed_rego_ts']        = $vtprd_license_options2['last_failed_rego_ts']; 
-      $vtprd_license_options['last_failed_rego_date_time'] = $vtprd_license_options2['last_failed_rego_date_time'];  
+      $vtprd_license_options['last_failed_rego_date_time'] = $vtprd_license_options2['last_failed_rego_date_time']; 
+      $vtprd_license_options['last_response_from_host'] = $vtprd_license_options2['last_response_from_host']; //v1.1.6
+      $vtprd_license_options['msg'] = $vtprd_license_options2['msg']; //v1.1.6
+      //v1.1.6 begin
+      //moved here from PHONE HOME, as the cron job timing can't check is_installed!
+      if ($license_data->state == 'suspended-by-vendor') {   
+        vtprd_deactivate_pro_plugin();
+      }
+      //v1.1.6 end
       //update status change
       update_option('vtprd_license_options', $vtprd_license_options);
- 
+ //error_log( print_r(  'UPDATED FROM  vtprd_license_suspended', true ) );  
       //cleanup
       delete_option('vtprd_license_suspended'); 
       return;   //if suspneded, no further processing.        
@@ -1612,89 +1922,21 @@ error_log( print_r(  '$pagenow =  ' .$pagenow , true ) );
         update_option('vtprd_license_options', $vtprd_license_options);
                          
       }
+
+      //v1.1.6.1 begin
+      //conversion to storing home_url, used in anchors ...
+      if ( (!isset($vtprd_license_options['home_url'])) ||
+           ($vtprd_license_options['home_url'] == null) ) {
+         $vtprd_license_options['home_url'] = home_url();
+         update_option('vtprd_license_options', $vtprd_license_options);   
+      }
+      //v1.1.6.1 end
       
-     }  
+    }  
         
     return;   
   }
-  
-  /* ************************************************
-  **   Admin - v1.1.5 new function, run at admin init
-  *************************************************** */ 
-	public function vtprd_maybe_recheck_license_activation() {
-  
-  //error_log( print_r(  'Begin vtprd_maybe_recheck_license_activation' , true ) );
-   
-       //if PRO not active, exit
-       if ((!defined('VTPRD_PRO_VERSION')) )  {        
-          return;
-       }
-     
-       global $vtprd_license_options;
-       if (!$vtprd_license_options) {
-          $vtprd_license_options = get_option( 'vtprd_license_options' ); 
-       }
-            
-      if ($vtprd_license_options['status'] != 'valid')  {    
-       return; 
-      }
 
-        
-      //license_options does its own check
-      $pageURL = $_SERVER["REQUEST_URI"];
-    /*  if ( (strpos($pageURL,'plugins.php')                !== false ) ||
-           (strpos($pageURL,'vtprd_license_options_page') !== false ) ) {  */
-      if (strpos($pageURL,'vtprd_license_options_page') !== false ) {  
-        return;
-      }
-
-      
-      $today= time(); 
-      if (($today - $vtprd_license_options['last_successful_rego_ts']) > 86400)  { //check every 24 hours
-        $carry_on = true;
-      } else {        
-        return;        
-      }   
-
-
-      //PHONE HOME and UPDATE 
-
-     $vtprd_license_options_screen = new VTPRD_License_Options_screen;
-
-     $skip_admin_check = 'yes';    
-     $new_license_options = $vtprd_license_options_screen->vtprd_license_phone_home($vtprd_license_options, 'check_license', $skip_admin_check); 
-
-     
-/*
-
-THIS IS NOW DONE AT ADMIN INIT TIME (above) WHEN ACCESSING THE FOLLOWING:
-
-          get_option('vtprd_license_suspended');
-          get_option('vtprd_license_checked');
-     
-     global $vtprd_license_options; //TEST
-     $vtprd_license_options = $new_license_options;
-     
-error_log( print_r(  'after Global, after update but before RETURN, $vtprd_license_options= ' , true ) );
-error_log( var_export($vtprd_license_options, true ) );
-    
-     update_option( 'vtprd_license_options',$vtprd_license_options );
-*/     
-
-     //suspend_pro action happens in phone_home as needed
-     /*
-     if ($vtprd_license_options['status'] != 'valid') {
-        vtprd_maybe_license_state_message();
-        if ($vtprd_license_options['state'] == 'suspended-by-vendor') {
-          vtprd_deactivate_pro_plugin();
-        //  vtprd_maybe_license_state_message();
-        }
-     }
-     */
- 
-   return;
-  } 
-  
   /* ************************************************
   **   Admin - v1.1.5 new function, run at admin init  
   *************************************************** */ 
@@ -1717,6 +1959,7 @@ error_log( var_export($vtprd_license_options, true ) );
     }
     
     //version_status is IN ERROR, so deactivate PRO plugin
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if (defined('VTPRD_PRO_VERSION')) {
       vtprd_deactivate_pro_plugin();
     }
@@ -1731,69 +1974,11 @@ error_log( var_export($vtprd_license_options, true ) );
          
     return;    
   }  
+
   
   /* ************************************************
-  **   Admin - v1.1.5 new function, run at admin init  
-  *************************************************** */ 
-	public function vtprd_maybe_localhost() {
-    
-    if ( (stristr( network_site_url( '/' ), 'localhost' ) !== false ) ||
-		     (stristr( network_site_url( '/' ), ':8888'     ) !== false ) ) {   // This is common with MAMP on OS X
-      $carry_on = true;
-    } else {     
-      return;
-    }
-    
-    $pageURL = $_SERVER["REQUEST_URI"];
-
-    //show ONLY on license page
-    if (strpos($pageURL,'vtprd_license_options_page') !== false ) { 
-      add_action( 'admin_notices',array(&$this, 'vtprd_localhost_warning') );       
-    } 
-         
-    return;    
-  }  
-  
-  //********************************
-  //   Admin - v1.1.5 new function
-  //********************************
-	public function vtprd_localhost_warning() { 
-    //plugin version mismatch takes precedence over registration message.
-    global $vtprd_license_options;
-
-    if ($vtprd_license_options['localhost_warning_done']) {
-      return;    
-    }
-
-      $message =   '<strong>' . __(' The PRO plugin may not be fully functional in a Localhost environment.' , 'vtprd')  ; 
-      $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('For testing, best to use a hosted test environment.', 'vtprd')  ;
-      $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('A valid test environment must be a subdomain of the production environment,', 'vtprd')  ;
-      $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __("and contain 'demo.' or 'beta.' or 'test.' or 'stage.' or 'staging.' in the name [eg test.prodwebsitename.com].", 'vtprd')  ;
-      $message .=  '<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('If you really want to use Localhost, you must register using "prod" or "3-day".', 'vtprd')  ;
-      $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . __('**be sure** to deactivate the Localhost license before registering it on a host server."', 'vtprd')  ;
-
-   //yellow line box override      
-    $admin_notices = '<div class="error fade notice is-dismissible" 
-      style="
-            line-height: 19px;
-            padding: 0px 15px 11px 15px;
-            font-size: 14px;
-            text-align: left;
-            margin: 25px 20px 15px 2px;
-            background-color: #fff;
-            border-left: 4px solid #ffba00;
-            -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-            box-shadow: 0 1px 1px 0 rgba(0,0,0,.1); " > <p>' . $message . ' </p></div>';
-    echo $admin_notices; 
-    
-    $vtprd_license_options['localhost_warning_done'] = true;
-    update_option('vtprd_license_options', $vtprd_license_options); 
-    
-    return;
-  } 
-  
-  /* ************************************************
-  **   Admin - v1.1.5 new function, run at admin init  
+  **   Admin - v1.1.5 new function, run at admin init 
+  * //only runs if PRO version is installed and active     
   *************************************************** */ 
 	public function vtprd_license_count_check() {
 
@@ -1811,7 +1996,7 @@ error_log( var_export($vtprd_license_options, true ) );
     if ($vtprd_license_options['state'] == 'suspended-by-vendor') {
       return;    
     }
-
+      //VTPRD_PRO_VERSION only exists if PRO version is installed and active
     if (!defined('VTPRD_PRO_VERSION')) {
       return;
     }
@@ -2031,6 +2216,7 @@ $vtprd_controller = new VTPRD_Controller;
 //has to be out here, accessing the plugin instance
 if (is_admin()){
   register_activation_hook(__FILE__, array($vtprd_controller, 'vtprd_activation_hook'));
+  register_deactivation_hook(__FILE__, array($vtprd_controller, 'vtprd_deactivation_hook')); //v1.1.6.1
 //mwn0405
 //  register_uninstall_hook (__FILE__, array($vtprd_controller, 'vtprd_uninstall_hook'));
 }
