@@ -1915,11 +1915,12 @@ ul#menu-header-bottom .default-menu {
 }
 
 .single-product .ui-accordion .ui-accordion-icons {
-    padding-left: 2.2em;
+    padding-left: 1.3em;
 }
 
 .single-product .ui-state-default .ui-icon {
     background-image: url("images/ui-icons_888888_256x240.png");
+    background-position: -32px -16px;
 }
 .single-product .ui-icon {
     display: block;
@@ -1936,10 +1937,19 @@ ul#menu-header-bottom .default-menu {
 }
 .single-product .ui-accordion .ui-accordion-header .ui-accordion-header-icon {
     position: absolute;
-    left: .5em;
+    left: 0em;
     top: 50%;
     margin-top: -8px;
 }
+
+.single-product .ui-widget-content {
+    border: 1px solid #aaaaaa;
+    color: #222222;
+    padding: 1em 2.2em;
+    border-top: 0;
+    overflow: auto;
+}
+
 
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
