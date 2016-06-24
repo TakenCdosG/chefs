@@ -1943,13 +1943,23 @@ ul#menu-header-bottom .default-menu {
 }
 
 .single-product .ui-widget-content {
-    border: 1px solid #aaaaaa;
     color: #222222;
-    padding: 1em 2.2em;
+    padding: 10px 10px;
     border-top: 0;
     overflow: auto;
 }
 
+.single-product .ui-widget-content h2{
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 8px;
+}    
+
+.single-product .ui-widget-content p{
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 300;
+}    
 
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
