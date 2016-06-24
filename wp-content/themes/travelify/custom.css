@@ -1887,16 +1887,31 @@ ul#menu-header-bottom .default-menu {
 
 .single-product .entry-summary{
     clear: both;
-    width: 100%;
+    width: 100%!important;
     display: block;
     position: relative;
 }
 
 .single-product .ui-accordion{
     clear: both;
-    width: 100%;
+    width: 100%!important;
     display: block;
     position: relative;
+}
+
+.single-product .ui-accordion .ui-accordion-header {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    margin: 2px 0 0 0;
+    padding: .5em .5em .5em .7em;
+    min-height: 0;
+    font-size: 100%;
+    border-bottom: 1px solid #ccc;
+}
+
+.single-product .ui-accordion .ui-accordion-icons {
+    padding-left: 2.2em;
 }
 
 /**************************************************
