@@ -1961,6 +1961,10 @@ ul#menu-header-bottom .default-menu {
     font-weight: 300;
 }    
 
+.single-product div.product div.summary {
+    margin-bottom: 0em;
+}
+
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
