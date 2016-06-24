@@ -1870,6 +1870,12 @@ ul#menu-header-bottom .default-menu {
 .img-boxbg{
     background-position: center;
 }
+
+.woocommerce div.product .product_title {
+    font-family: Helvetica, sans-serif;
+    font-weight: 300;
+}
+
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
