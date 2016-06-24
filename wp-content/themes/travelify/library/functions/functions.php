@@ -322,7 +322,8 @@ function travelify_scripts_styles_method() {
     wp_enqueue_script('theme_global_dropdown', get_template_directory_uri() . '/library/js/dropdown.js', array('jquery'));
 
     wp_enqueue_style('google_font_ubuntu');
-
+    
+    wp_enqueue_script('jquery-ui-accordion');
 
     /**
      * Browser specific queuing i.e
