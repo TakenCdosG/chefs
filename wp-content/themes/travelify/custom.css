@@ -1906,12 +1906,39 @@ ul#menu-header-bottom .default-menu {
     margin: 2px 0 0 0;
     padding: .5em .5em .5em .7em;
     min-height: 0;
-    font-size: 100%;
+    text-transform: uppercase;
     border-bottom: 1px solid #ccc;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: Helvetica, sans-serif!important;
+    line-height: 15px;
 }
 
 .single-product .ui-accordion .ui-accordion-icons {
     padding-left: 2.2em;
+}
+
+.single-product .ui-state-default .ui-icon {
+    background-image: url("images/ui-icons_888888_256x240.png");
+}
+.single-product .ui-icon {
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+}
+.single-product .ui-icon-triangle-1-e {
+    background-position: -32px -16px;
+}
+.single-product .ui-icon {
+    width: 16px;
+    height: 16px;
+}
+.single-product .ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+    position: absolute;
+    left: .5em;
+    top: 50%;
+    margin-top: -8px;
 }
 
 /**************************************************
