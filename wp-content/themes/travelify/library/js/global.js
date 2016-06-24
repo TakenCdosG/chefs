@@ -160,7 +160,7 @@ jQuery(function ($) {
      */
 
     $(document).ready(function () {
-
+        accordion();
         initialize();
         $('ul.products').infinitescroll({
             loading: {
@@ -226,6 +226,11 @@ jQuery(function ($) {
         */
 
     });
+    function accordion(){
+        $( "#accordion" ).accordion({
+          collapsible: true
+        });     
+    }
     function initialize() {
         var myLatlngMapCenter = new google.maps.LatLng(41.257697, -73.013472);
         var myLatlngMarkerCenter = new google.maps.LatLng(41.259275, -73.024664);

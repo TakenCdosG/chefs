@@ -1876,6 +1876,9 @@ ul#menu-header-bottom .default-menu {
     font-weight: 300;
 }
 
+.single-product .summary .price{
+    margin-top: 10px;
+}
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/

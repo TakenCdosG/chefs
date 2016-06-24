@@ -85,6 +85,7 @@ if (!function_exists('dpm')) {
 
 }
 
+
 if (!function_exists('travelify_setup')):
 
     add_filter('widget_text', 'do_shortcode');
