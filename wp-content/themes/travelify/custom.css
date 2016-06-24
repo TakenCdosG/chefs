@@ -1879,6 +1879,26 @@ ul#menu-header-bottom .default-menu {
 .single-product .summary .price{
     margin-top: 10px;
 }
+
+.single-product.woocommerce-page div.product div.images {
+    float: left;
+    width: 100%;
+}
+
+.single-product .entry-summary{
+    clear: both;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.single-product .ui-accordion{
+    clear: both;
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
