@@ -323,7 +323,7 @@ function travelify_scripts_styles_method() {
 
     wp_enqueue_style('google_font_ubuntu');
     
-    wp_enqueue_script('jquery-ui-accordion');
+    wp_enqueue_style('jquery-ui-accordion');
 
     /**
      * Browser specific queuing i.e
