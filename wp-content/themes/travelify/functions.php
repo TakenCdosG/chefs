@@ -48,6 +48,7 @@ function custom_price( $price, $product ) {
 	}
     //dpm($new_price);
     //dpm($product);
+    $new_price = "Adrian";
 	return $new_price;
 
 }
