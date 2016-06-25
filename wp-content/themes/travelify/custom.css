@@ -2020,6 +2020,32 @@ ul#menu-header-bottom .default-menu {
     padding: .618em 1em;
 }
 
+.woocommerce-cart .entry-content {
+    padding: 1.5% 1.9%;
+    display: block;
+    overflow: hidden;
+}
+
+.woocommerce-cart .woocommerce table.shop_table th {
+    font-weight: 700;
+    padding: 2px 12px;
+}
+
+.woocommerce table.shop_table td {
+    border-top: 1px solid rgba(0,0,0,.1);
+    padding: 4px 12px;
+    vertical-align: middle;
+}
+
+.woocommerce-cart .woocommerce .cart-collaterals{
+    margin-top: 30px;
+}
+
+.woocommerce-cart .woocommerce .cart-collaterals h2{
+    font-size: 28px;
+    line-height: 30px;
+}
+
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
