@@ -2053,6 +2053,48 @@ ul#menu-header-bottom .default-menu {
     width: 100%;
 }
 
+.tribe-events-notices {
+    background: #d9edf7;
+    border-radius: 0px;
+    border: 1px solid #bce8f1;
+    color: #3a87ad;
+    margin: 10px 0 18px;
+    padding: 8px 35px 8px 14px;
+    text-shadow: 0 1px 0 #fff;
+}
+
+.tribe-events-schedule {
+    margin: 1em 0 1.5em;
+    display: block;
+    clear: both;
+    width: 100%;
+}
+
+.tribe-events-schedule h2 {
+    font-style: normal;
+    font-weight: 700;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 22px;
+    line-height: 34px;
+}
+
+.single-tribe_events .tribe-events-schedule .tribe-events-divider {
+    /* display: inline-block; */
+    zoom: 1;
+    font-weight: 400;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 22px;
+    line-height: 34px;
+    /* line-height: 34px; */
+}
+
+.single-tribe_events .tribe-events-schedule .tribe-events-cost {
+    vertical-align: middle;
+    font-size: 22px;
+    line-height: 34px;
+}
 
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
