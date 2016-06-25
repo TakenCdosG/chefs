@@ -152,24 +152,24 @@ function save_additional_wishlists_info( $post_id = "" , $user_id = "", $event_t
         $email = $user_info->user_email;
         // Set Registrant Name
         $registrant_name = implode(" ", array($first_name, $last_name));
-        update_field('registrant_name', $registrant_name, $post_id);
+        update_field('field_57573db70d652', $registrant_name, $post_id);
         // Set Registrant Email
-        update_field('registrant_email', $email, $post_id);
+        update_field('field_57573db70d652', $email, $post_id);
         if(!empty($event_type)){
             // Set Event Type
-            update_field('wishlist_type', $event_type, $post_id);
+            update_field('field_575726e432f3c', $event_type, $post_id);
         }
         if(!empty($event_date)){
             // Set Event Date
-            update_field('event_date', $event_date, $post_id);
+            update_field('field_57573e110d656', $event_date, $post_id);
         }
         if(!empty($co_registrant_name)){
             // Set  Co-Registrant Name
-            update_field('co-registrant_name', $co_registrant_name, $post_id);
+            update_field('field_57573dc70d653', $co_registrant_name, $post_id);
         }
         if(!empty($co_registrant_email)){
             // Set  Co-Registrant Email
-            update_field('co-registrant_email', $co_registrant_email, $post_id);
+            update_field('field_57573df40d655', $co_registrant_email, $post_id);
         }
     }
 }
