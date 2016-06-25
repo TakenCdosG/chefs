@@ -14,29 +14,27 @@
      </thead>
      <tbody>
   		<?php while ( $wishlists->have_posts() ) : $wishlists->the_post(); ?>
-  			<?php $post = get_post(); ?>
+  			  <?php $post = get_post(); ?>
   		    <tr>
          		  <th scope="row">
          		  		<?php echo $post->ID; ?>
          		  </th>
          		  <td>
-         		  	 <?php echo get_field('registrant_name', $post->ID); ?>
+         		  	 <?php the_field('registrant_name', $post->ID); ?>
          		  </td>
          		  <td>
-         		   <?php echo get_field('co-registrant_name', $post->ID); ?>
+         		   <?php the_field('co-registrant_name', $post->ID); ?>
+         		  </td>
+         		  <td>
+           		   <a href="<?php the_permalink(); ?>">
+    					     <?php the_title(); ?>
+    				     </a>
+         		  </td>
+         		  <td>
+         		   <?php the_field('event_date', $post->ID); ?>
          		  </td>
          		   <td>
-         		   <a href="<?php the_permalink(); ?>">
-  					<?php the_title(); ?>
-  				</a>
-         		  </td>
-         		   <td>
-         		   <?php echo get_field('event_date', $post->ID); ?>
-         		  </td>
-         		   <td>
-  	       		   <a href="<?php the_permalink(); ?>" class="btn">
-  						Buy
-  					</a>
+  	       		   <a href="<?php the_permalink(); ?>" class="btn"> Buy</a>
          		  </td>
          		</tr>
   	    <?php endwhile; ?>
