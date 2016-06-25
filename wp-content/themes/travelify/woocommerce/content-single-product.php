@@ -47,6 +47,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			 */
 			do_action( 'woocommerce_before_single_product_summary' );
 		?>
+		<div class="woocommerce_social_media_share_buttons">
+			<?php echo do_shortcode( '[woocommerce_social_media_share_buttons]' ); ?>
+		</div>
 	</div>
 	<div class="col-md-6">
 		<div class="summary entry-summary">

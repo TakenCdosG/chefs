@@ -1965,6 +1965,14 @@ ul#menu-header-bottom .default-menu {
     margin-bottom: 1em;
 }
 
+.single-product .woocommerce div.product div.images img {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+    border: 1px solid #f0f0f0;
+}
+
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/

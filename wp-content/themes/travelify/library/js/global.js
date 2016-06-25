@@ -228,7 +228,8 @@ jQuery(function ($) {
     });
     function accordion(){
         $( "#accordion" ).accordion({
-          collapsible: true
+             active: false,
+             collapsible: true     
         });     
     }
     function initialize() {
