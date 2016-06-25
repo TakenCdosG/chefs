@@ -22,6 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product, $woocommerce_loop;
 
+$posts_per_page = 4;
+
 if ( empty( $product ) || ! $product->exists() ) {
 	return;
 }
