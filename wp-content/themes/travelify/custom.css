@@ -1415,10 +1415,15 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
     border-bottom: 1px solid #ccc;
 }
 
-.single-product.woocommerce .related-products li.product:last- .product-summary
-
 .single-product.woocommerce .related-products li.product:last-child{
     border: 0px;
+}
+
+.single-product.woocommerce .related-products li.product .product-summary {
+    background-color: transparent;
+    padding: 7px 10px 25px 10px;
+    height: auto;
+    text-align: center;
 }
 
 .single-product.woocommerce .related-products li.product a img {
