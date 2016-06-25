@@ -2007,6 +2007,11 @@ ul#menu-header-bottom .default-menu {
     padding: 0px 0;
 }
 
+.woocommerce .cart .button, 
+.woocommerce .cart input.button {
+    text-transform: capitalize;
+}
+
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
