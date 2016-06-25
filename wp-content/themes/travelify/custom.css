@@ -2047,6 +2047,13 @@ ul#menu-header-bottom .default-menu {
     line-height: 30px;
 }
 
+.select2-search input{
+    line-height: 16px;
+    padding: 4px 20px 4px 5px!important;    
+    width: 100%;
+}
+
+
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
