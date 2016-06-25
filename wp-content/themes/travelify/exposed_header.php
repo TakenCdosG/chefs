@@ -132,20 +132,22 @@ if (!empty($elements)) {
         background: #151013;
     }
 
-    .exposed-header #main-nav ul.root li.menu-item-847 a {
-        color: #ef3d42;
-        font-weight: bold;
-    }
+    /*
+        .exposed-header #main-nav ul.root li.menu-item-847 a {
+            color: #ef3d42;
+            font-weight: bold;
+        }
 
-    .exposed-header #main-nav ul.root li.menu-item-847 a:hover {
-        color: #fff;
-        font-weight: normal;
-    }
+        .exposed-header #main-nav ul.root li.menu-item-847 a:hover {
+            color: #fff;
+            font-weight: normal;
+        }
 
-    .exposed-header #main-nav ul.root li.current-menu-item.menu-item-847 a {
-        color: #fff;
-        font-weight: normal;
-    }
+        .exposed-header #main-nav ul.root li.current-menu-item.menu-item-847 a {
+            color: #fff;
+            font-weight: normal;
+        }
+    */
 
     @media only screen and (min-width: 320px) and (max-width: 549px){
 
