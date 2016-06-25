@@ -2002,6 +2002,11 @@ ul#menu-header-bottom .default-menu {
     border-style: solid;
 }
 
+.single-product table.shop_attributes td p {
+    margin: 0;
+    padding: 0px 0;
+}
+
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
