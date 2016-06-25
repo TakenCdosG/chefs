@@ -2096,6 +2096,9 @@ ul#menu-header-bottom .default-menu {
     line-height: 34px;
 }
 
+.single-custom_wishlists .default-wp-page{
+    display: none;
+}
 /**************************************************
 *           RESPONSIVE DESIGN 320PX
 **************************************************/
