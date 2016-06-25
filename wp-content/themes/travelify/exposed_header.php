@@ -689,13 +689,13 @@ if (!empty($elements)) {
         }
 
         .exposed-header #main-nav ul.root{
-            border: 1px solid #231f20;
+            border: 0px solid #231f20;
             cursor: pointer;
             background: #231f20;
             color: #fff;
             text-shadow: 0 1px 1px rgba(0,0,0,0.4);
-            -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+            -webkit-box-shadow: none;
+            box-shadow: none;
             height: 26px;
             margin: 0px;
             padding: 0px;
@@ -1192,13 +1192,13 @@ if (!empty($elements)) {
         }
 
         .exposed-header #main-nav ul.root{
-            border: 1px solid #231f20;
+            border: 0px solid #231f20;
             cursor: pointer;
             background: #231f20;
             color: #fff;
             text-shadow: 0 1px 1px rgba(0,0,0,0.4);
-            -webkit-box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+            -webkit-box-shadow: none;
+            box-shadow: none;
             height: 26px;
             margin: 0px;
             padding: 0px;
