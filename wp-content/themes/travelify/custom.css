@@ -1402,12 +1402,12 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
     font-size: 19px;
     line-height: 19px;
     text-align: center;
-    margin-bottom: 0px;
+    margin-bottom: 15px;
 }
 
 .single-product.woocommerce .related-products{
     border: 1px solid #ccc;
-    padding: 20px 20px;
+    padding: 15px 20px;
 }
 
 .single-product.woocommerce .related-products li.product{
@@ -1415,11 +1415,10 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
     border-bottom: 1px solid #ccc;
 }
 
-.single-product.woocommerce .related-products li.product .product-summary {
-    background-color: transparent;
-    padding: 7px 10px 25px 10px;
-    height: auto;
-    text-align: center;
+.single-product.woocommerce .related-products li.product:last- .product-summary
+
+.single-product.woocommerce .related-products li.product:last-child{
+    border: 0px;
 }
 
 .single-product.woocommerce .related-products li.product a img {
@@ -1429,6 +1428,7 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
     box-shadow: none;
     height: 150px;
     text-align: center;
+    margin-top: 15px;
 }
 
 .entry-title, .entry-title a {
