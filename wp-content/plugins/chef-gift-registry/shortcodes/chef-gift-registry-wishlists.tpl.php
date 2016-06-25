@@ -20,10 +20,10 @@
          		  		<?php echo $post->ID; ?>
          		  </th>
          		  <td>
-         		  	 <?php the_field('registrant_name', get_the_id()); ?>
+         		  	 <?php the_field('field_57573db70d652', get_the_id()); ?>
          		  </td>
          		  <td>
-         		   <?php the_field('co-registrant_name', get_the_id()); ?>
+         		   <?php the_field('field_57573dc70d653', get_the_id()); ?>
          		  </td>
          		  <td>
            		   <a href="<?php the_permalink(); ?>">
@@ -31,7 +31,7 @@
     				     </a>
          		  </td>
          		  <td>
-         		   <?php the_field('event_date', get_the_id()); ?>
+         		   <?php the_field('field_57573e110d656', get_the_id()); ?>
          		  </td>
          		   <td>
   	       		   <a href="<?php the_permalink(); ?>" class="btn"> Buy</a>
