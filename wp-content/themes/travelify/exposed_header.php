@@ -1628,7 +1628,7 @@ if (!empty($elements)) {
     }
 
 </style>
-
+<?php dpm(get_field('registrant_name', '1119')) ;?>
 <div class="exposed-header">
     <div class="container clearfix">
         <div class="hgroup-wrap clearfix">
