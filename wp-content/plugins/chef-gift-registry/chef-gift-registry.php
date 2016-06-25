@@ -154,7 +154,7 @@ function save_additional_wishlists_info( $post_id = "" , $user_id = "", $event_t
         $registrant_name = implode(" ", array($first_name, $last_name));
         update_field('field_57573db70d652', $registrant_name, $post_id);
         // Set Registrant Email
-        update_field('field_57573db70d652', $email, $post_id);
+        update_field('field_57573de00d654', $email, $post_id);
         if(!empty($event_type)){
             // Set Event Type
             update_field('field_575726e432f3c', $event_type, $post_id);
