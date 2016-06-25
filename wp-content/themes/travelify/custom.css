@@ -1965,7 +1965,7 @@ ul#menu-header-bottom .default-menu {
     margin-bottom: 1em;
 }
 
-.single-product .woocommerce div.product div.images img {
+.single-product div.product div.images img {
     display: block;
     width: 100%;
     height: auto;
