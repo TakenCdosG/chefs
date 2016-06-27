@@ -76,7 +76,8 @@ jQuery(document).ready(function($) {
 					    onSelect: function(dateText, datePicker) {
 					       $(this).attr('value', dateText);
 					       $(this).val(dateText);
-					       console.log("Seteando Valor:"+ datePicker);
+					       $("#wishslist_entry_form #event-date-inside-modal").val(dateText);
+					       console.log("Seteando Valor:"+ dateText);
 					    }
 				    }
 				);
