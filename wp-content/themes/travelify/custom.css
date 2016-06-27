@@ -3643,5 +3643,5 @@ a.button.product_type_simple.ajax_add_to_cart{
 }
 
 div.pp_woocommerce .pp_content_container {
-    border-radius: 0px;
+   border-radius: 0px!important;
 }
