@@ -70,7 +70,15 @@ jQuery(document).ready(function($) {
 			modal: true,
 			changepicturecallback: function() {
 				console.log("> Open Modal.");
-				$("#wishslist_entry_form #event-date-inside-modal").datepicker({ dateFormat: 'dd/mm/yy' }); 
+				$("#wishslist_entry_form #event-date-inside-modal").datepicker(
+					{ 
+						dateFormat: 'dd/mm/yy' 
+				    },
+				    onSelect: function(dateText, datePicker) {
+				       $(this).attr('value', dateText);
+				    }
+				);
+				
 				$( 'button#wishlist_add_button' ).on( 'click', function() {
 					if(handleFormValitations()){
 						var args = jQuery('form#wishslist_entry_form').serialize();
