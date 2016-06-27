@@ -208,23 +208,6 @@ jQuery(function ($) {
             animationLoop: true,
             move: 1
         });
-
-        /*
-        $('.images .thumbnails').flexslider({
-            selector: "a.zoom",
-            animation: "slide",
-            animationLoop: false,
-            itemWidth: 194,
-            itemMargin: 5,
-            controlNav: false,
-            directionNav: true,
-            prevText: "",
-            nextText: "",
-            animationLoop: true,
-            move: 1
-        });
-        */
-
     });
     function accordion(){
         $( "#accordion" ).accordion({

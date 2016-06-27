@@ -313,6 +313,8 @@ function travelify_scripts_styles_method() {
 
     wp_enqueue_script('theme_jquery_infinitescroll_functions', get_template_directory_uri() . '/library/js/jquery.infinitescroll.js', array('jquery'));
 
+    wp_enqueue_script('theme_jquery_validate', get_template_directory_uri() . '/library/js/jquery.validate.min.js', array('jquery'));
+
     wp_enqueue_script('theme_functions', get_template_directory_uri() . '/library/js/functions.min.js', array('jquery'));
 
     wp_enqueue_script( 'slicknav', get_template_directory_uri() .'/library/js/jquery.slicknav.min.js', '', '1.0.3', true );
