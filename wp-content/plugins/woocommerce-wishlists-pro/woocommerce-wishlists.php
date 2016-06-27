@@ -12,7 +12,6 @@ Author URI: http://ignitewoo.com
 ATTENTION TRANSLATORS:  This plugin uses the "woocommerce" text domain, so do your translations there. 
 */
 
-
 class ignite_woocommerce_wishlist { 
 
 	var $wishlist_items_in_cart = false;
@@ -251,6 +250,7 @@ class ignite_woocommerce_wishlist {
 					opacity: 0.8,
 					deeplinking: false,
 					default_height: '200px',	
+					modal: true,
 					changepicturecallback: function() {
 
 						$( 'button#wishlist_add_button' ).on( 'click', function() {
@@ -267,6 +267,7 @@ class ignite_woocommerce_wishlist {
 									setTimeout( function() { 
 										$( 'div#wishlist_box_wrapper' ).html( data );
 										$( '#wishlist_add_hidden_link' ).trigger( 'click' );
+										$("#wishslist_entry_form #event-date").datepicker({ dateFormat: 'dd/mm/yy' }); 
 									}, 1000 );
 								}
 							});
@@ -497,6 +498,7 @@ class ignite_woocommerce_wishlist {
 
 
 			<div class="wishlist_new_wrap" style="display:none">
+			  <div class="row">
 				<?php
 				    $field_wishlist_type_key = "field_575726e432f3c";
 				    $field_wishlist_type = get_field_object($field_wishlist_type_key);
@@ -568,7 +570,7 @@ class ignite_woocommerce_wishlist {
 					</div>
 					<!-- /input-group -->
 				</div>
-
+			  </div>
 			</div>
 			
 				<button id="wishlist_add_button" class="button" type="button"><?php _e( 'Submit', 'ignitewoo-wishlists-pro' )?></button>
