@@ -263,6 +263,7 @@ class ignite_woocommerce_wishlist {
 								url		: "<?php echo admin_url( 'admin-ajax.php' ) ?>",
 								data	: args,
 								success: function(data) {
+									console.log("> Open Modal.");
 									$( '.pp_overlay' ).trigger( 'click' );
 									setTimeout( function() { 
 										$( 'div#wishlist_box_wrapper' ).html( data );
