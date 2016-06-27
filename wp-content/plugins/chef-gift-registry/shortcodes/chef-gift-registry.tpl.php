@@ -81,7 +81,7 @@
 			<div class="col-md-6">   
 			   <div class="form-group">
 			     <label for="event-date">Event Date</label>
-			     <input type="text" class="form-control" name="event-date" id="event-date" placeholder=""  value="<?php echo $event_date ; ?>">
+			     <input type="text" class="form-control" name="event-date" id="event-date-inside-modal" placeholder=""  value="<?php echo $event_date ; ?>">
 			   </div>
 				<!-- /input-group -->
 			</div>
