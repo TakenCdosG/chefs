@@ -3641,3 +3641,7 @@ a.button.product_type_simple.ajax_add_to_cart{
     line-height: 1.4;
     margin: 0 0 5px;   
 }
+
+div.pp_woocommerce .pp_content_container {
+    border-radius: 0px;
+}
