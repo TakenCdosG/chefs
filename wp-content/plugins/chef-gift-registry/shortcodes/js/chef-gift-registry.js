@@ -51,8 +51,10 @@ jQuery(document).ready(function($) {
 			url		: chef_gift_registry.admin_url,
 			data	: { nonce: nonce, user: chef_gift_registry.user_id, action: 'chef_gift_registry_action'  },
 			success: function( data ) {
+				console.log("> Open Modal.");
 				$( '#wishlist_box_wrapper' ).html( data );		
 				$( '#wishlist_add_hidden_link' ).trigger( 'click' );
+				$("#wishslist_entry_form #event-date").datepicker({ dateFormat: 'dd/mm/yy' }); 
 			}
 		});
 		return false;
@@ -67,6 +69,7 @@ jQuery(document).ready(function($) {
 			opacity: 0.8,
 			deeplinking: false,
 			default_height: '200px',	
+			modal: true,
 			changepicturecallback: function() {
 
 				$( 'button#wishlist_add_button' ).on( 'click', function() {
