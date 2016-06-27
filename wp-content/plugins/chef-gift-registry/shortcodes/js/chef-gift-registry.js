@@ -75,6 +75,8 @@ jQuery(document).ready(function($) {
 						dateFormat: 'dd/mm/yy',
 					    onSelect: function(dateText, datePicker) {
 					       $(this).attr('value', dateText);
+					       $(this).val(dateText);
+					       console.log("Seteando Valor:"+ datePicker);
 					    }
 				    }
 				);
