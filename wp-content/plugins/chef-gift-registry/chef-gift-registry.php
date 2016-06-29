@@ -174,3 +174,18 @@ function save_additional_wishlists_info( $post_id = "" , $user_id = "", $event_t
     }
 }
 add_action( 'set_additional_wishlists_info', 'save_additional_wishlists_info', 10, 2 );
+
+
+function already_in_cart($product_id = ""){
+    if(empty($product_id)){
+        return false;
+    }
+    foreach( WC()->cart->get_cart() as $cart_item_key => $values ) {
+        $_product = $values['data'];
+        if( $product_id == $_product->id ) {
+            return true;
+        }
+    }
+    return false;
+}
+
