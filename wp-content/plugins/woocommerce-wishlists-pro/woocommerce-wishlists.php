@@ -1078,7 +1078,7 @@ class ignite_woocommerce_wishlist {
 			<tr>
 				<td colspan="6">
 
-					<strong>
+					<span class="msg-cart-registry">
 					<?php 
 						_e( 'You have', 'ignitewoo-wishlists-pro' );
 
@@ -1111,7 +1111,7 @@ class ignite_woocommerce_wishlist {
 						_e ( "Otherwise the related wishlists will be updated to indicate the purchase when you checkout.", 'ignitewoo-wishlists-pro' );
 
 					?>
-					</strong>
+					</span>
 
 				</td>
 			</tr>
