@@ -327,7 +327,7 @@ if ( isset( $_POST['update_wishlist'] ) && isset( $_POST['_wpnonce'] ) && isset(
 							//$name .= ' ' . get_user_meta( $wishlist_owner, 'billing_last_name', true );
 						?>
 						<td class="purchase">
-							<a class="wishlist_buy_item" onclick="return maybe_buy_item(<?php echo $_product->id .',\''.$_product->variation_id.'\','.$wishlist_id.','.$u->ID.',\''.$u->user_login ?>')" href="#" title=" <?php _e( 'Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro' ) ?> "><?php _e( 'Buy some for', 'ignitewoo-wishlists-pro' )?> <?php echo $name ?></a>
+							<a class="wishlist_buy_item" onclick="return maybe_buy_item(<?php echo $_product->id .',\''.$_product->variation_id.'\','.$wishlist_id.','.$u->ID.',\''.$u->user_login ?>')" href="#" title=" <?php _e( 'Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro' ) ?> "><?php _e( 'Buy this item for', 'ignitewoo-wishlists-pro' )?> <?php echo $name ?></a>
 						</td>	
 					<?php } ?>
 				
