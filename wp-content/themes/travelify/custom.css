@@ -1515,10 +1515,10 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
 }
 
 .woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover {
-    border-color: #515151;
     color: #fff;
-    background-color: #ef3d42;
     border-width: 1px;
+    background: #ca2e33;
+    border-color: #ca2e33;
 }
 
 .select2-container .select2-choice {
@@ -3652,3 +3652,13 @@ div.pp_woocommerce .pp_content_container {
    margin: 0 0 10px 0px;   
 }
 
+.woocommerce-cart .wc-proceed-to-checkout a.checkout-button{
+    display: block;
+    text-align: center;
+    margin-bottom: 1em;
+    font-size: 1.1em;
+    padding: 0.5em 1em;
+    width: auto;
+    max-width: 200px;
+    font-weight: 500;
+}
