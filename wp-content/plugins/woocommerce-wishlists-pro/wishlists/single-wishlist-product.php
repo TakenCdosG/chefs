@@ -67,15 +67,13 @@ if ( isset( $_POST['update_wishlist'] ) && isset( $_POST['_wpnonce'] ) && isset(
 	} else { 
 
 		if ( count( $wishlist_items ) > 0 ) {
-		
-			if ( $wishlist_owner == $uid )
+			if ( $wishlist_owner == $uid ){
 				echo '<form action="" method="post">';
-
+			}
 			echo '<p style="display:none;"><input type="hidden" name="update_wishlist" value="1"></p>';
-
-			if ( $wishlist_owner == $uid )
+			if ( $wishlist_owner == $uid ){
 				wp_nonce_field( 'update_wishlist' );
-			
+			}
 			echo '<table id="wishlist_table">';
 			echo '<thead>
 				<tr>
