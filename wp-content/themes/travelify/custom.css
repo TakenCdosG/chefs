@@ -3673,6 +3673,10 @@ div.pp_woocommerce .pp_content_container {
     padding: 0px!important;
 }
 
+.custom_wishlists .entry-meta-bar {
+    margin-bottom: 18px;
+}
+
 span.msg-cart-registry{
     font-size: 12px;
     line-height: 20px;
