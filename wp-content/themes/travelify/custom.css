@@ -3671,3 +3671,12 @@ div.pp_woocommerce .pp_content_container {
 .custom_wishlists .entry-content {
     padding: 0px!important;
 }
+
+span.msg-cart-registry{
+    font-size: 12px;
+    line-height: 20px;
+    display: block;
+    position: relative;
+    margin: 10px 0px;
+}
+
