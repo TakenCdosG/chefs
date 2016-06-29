@@ -3647,8 +3647,8 @@ div.pp_woocommerce .pp_content_container {
    border-radius: 0px!important;
 }
 
-ul.your_wishlists,
-ol.your_wishlists{
+#content ul.your_wishlists,
+#content ol.your_wishlists{
    margin: 0 0 10px 0px;   
 }
 
