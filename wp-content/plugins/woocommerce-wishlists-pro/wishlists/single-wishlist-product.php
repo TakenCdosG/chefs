@@ -320,7 +320,7 @@ if ( isset( $_POST['update_wishlist'] ) && isset( $_POST['_wpnonce'] ) && isset(
 						<?php } ?>
 
 					<?php } else { ?>
-						<?php if(already_in_cart($_product->id)): ?>
+						<?php if(!already_in_cart($_product->id)): ?>
 							<?php
 								$u = get_userdata( $wishlist_owner );
 								$name = get_user_meta( $wishlist_owner, 'billing_first_name', true );
