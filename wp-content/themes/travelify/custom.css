@@ -3646,3 +3646,9 @@ a.button.product_type_simple.ajax_add_to_cart{
 div.pp_woocommerce .pp_content_container {
    border-radius: 0px!important;
 }
+
+ul.your_wishlists,
+ol.your_wishlists{
+   margin: 0 0 10px 0px;   
+}
+
