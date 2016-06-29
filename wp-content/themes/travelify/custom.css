@@ -2011,7 +2011,7 @@ ul#menu-header-bottom .default-menu {
 .woocommerce .cart input.button {
     text-transform: capitalize;
     color: #fff;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled] {
