@@ -2031,6 +2031,7 @@ ul#menu-header-bottom .default-menu {
 .woocommerce-cart .woocommerce table.shop_table th {
     font-weight: 700;
     padding: 2px 12px;
+    color: #1d1d1d;
 }
 
 .woocommerce table.shop_table td {
