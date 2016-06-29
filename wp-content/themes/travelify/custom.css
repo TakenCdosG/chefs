@@ -3664,5 +3664,5 @@ div.pp_woocommerce .pp_content_container {
 }
 
 .custom_wishlists .entry-content {
-    padding: 0px;
+    padding: 0px!important;
 }
