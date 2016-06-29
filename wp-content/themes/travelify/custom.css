@@ -3662,3 +3662,7 @@ div.pp_woocommerce .pp_content_container {
     max-width: 200px;
     font-weight: 500;
 }
+
+.custom_wishlists .entry-content {
+    padding: 0px;
+}
