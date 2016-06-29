@@ -70,9 +70,10 @@ if ( isset( $_POST['update_wishlist'] ) && isset( $_POST['_wpnonce'] ) && isset(
 			if ( $wishlist_owner == $uid ){
 				echo '<form action="" method="post">';
 			}
-			echo '<p style=""><input type="hidden" name="update_wishlist" value="1"></p>';
+			echo '<p style="display:none;"><input type="hidden" name="update_wishlist" value="1"></p>';
 			if ( $wishlist_owner == $uid ){
-				wp_nonce_field( 'update_wishlist' );
+				$nonce = wp_nonce_field( $action = -1, $name = "update_wishlist", $referer = true , $echo = false );
+				echo '<p style="display:none;">'.$nonce.'</p>';
 			}
 			echo '<table id="wishlist_table">';
 			echo '<thead>
