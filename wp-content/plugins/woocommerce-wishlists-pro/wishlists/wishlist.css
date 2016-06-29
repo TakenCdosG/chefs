@@ -36,7 +36,8 @@
 .update_wishlist_button {
 	float: right;
 	font-size: 1em !important;
-	font-weight: bold !important;
+	font-weight: 500 !important;
+	text-transform: capitalize;
 }
 
 .gift-icon-white-red {
