@@ -38,23 +38,21 @@ window.eml = window.eml || { l10n: {} };
                 selection = this.get( 'selection' ),
                 orderby = library.props.get( 'orderby' );
 
+
             if ( 'menuOrder' === orderby ) {
                 library.saveMenuOrder();
             }
 
             library.reset( library.models );
 
-            if ( selection.model.length ) {
-                selection.trigger( 'selection:unsingle', selection.model, selection );
-                selection.trigger( 'selection:single', selection.model, selection );
-            }
+            selection.trigger( 'selection:unsingle', selection.model, selection );
+            selection.trigger( 'selection:single', selection.model, selection );
         },
 
         uploading: function( attachment ) {
 
     		var content = this.frame.content,
-                selection = this.get( 'selection' ),
-                library = this.get( 'library' );
+                selection = this.get( 'selection' );
 
 
     		if ( 'upload' === content.mode() ) {
@@ -101,7 +99,18 @@ window.eml = window.eml || { l10n: {} };
         render: function() {
 
             var compat = this.model.get('compat'),
-                $compat_el = this.$el;
+                $compat_el = this.$el,
+                tcount = this.model.get('tcount');
+
+
+            _.each( tcount, function( count, term_id ) {
+
+                var $option = $( '.eml-taxonomy-filters option[value="'+term_id+'"]' ),
+                    text = $option.text();
+
+                text = text.replace( /\(.*?\)/, '('+count+')' );
+                $option.text( text );
+            });
 
             if ( ! compat || ! compat.item ) {
                 return;
@@ -150,6 +159,7 @@ window.eml = window.eml || { l10n: {} };
                 selection = this.controller.state().get( 'selection' ),
                 resetFilterButton = this.controller.content.get().toolbar.get( 'resetFilterButton' ),
 
+
                 all = $('.attachment-filters').length,
                 unchanged = $('.attachment-filters').map(function(){
                     return this.value
@@ -166,6 +176,12 @@ window.eml = window.eml || { l10n: {} };
             if ( filter && selection && selection.length && wp.Uploader.queue.length !== 1 ) {
                 selection.reset();
             }
+
+
+            if ( filter && media.view.settings.mediaTrash ) {
+                this.controller.toolbar.get().$('.media-selection').toggleClass( 'trash', 'trash' === filter.props.status );
+            }
+
 
             if ( _.isUndefined( resetFilterButton ) ) {
                 return;
@@ -229,7 +245,7 @@ window.eml = window.eml || { l10n: {} };
         createFilters: function() {
 
             var uncategorizedProps,
-                taxonomies = _.keys( eml.l10n.taxonomies );
+                taxonomies = _.intersection( _.keys( eml.l10n.taxonomies ), eml.l10n.filter_taxonomies );
 
 
             original.AttachmentFilters.All.createFilters.apply( this, arguments );
@@ -273,7 +289,7 @@ window.eml = window.eml || { l10n: {} };
         createFilters: function() {
 
             var uncategorizedProps,
-                taxonomies = _.keys( eml.l10n.taxonomies );
+                taxonomies = _.intersection( _.keys( eml.l10n.taxonomies ), eml.l10n.filter_taxonomies );
 
 
             original.AttachmentFilters.Uploaded.createFilters.apply( this, arguments );
@@ -329,7 +345,7 @@ window.eml = window.eml || { l10n: {} };
             });
 
             filters.all = {
-                text: eml.l10n.filter_by + self.options.singularName,
+                text: eml.l10n.filter_by + ' ' + self.options.singularName,
                 props: {
                     uncategorized : null,
                     orderby       : eml.l10n.media_orderby,
@@ -341,7 +357,7 @@ window.eml = window.eml || { l10n: {} };
             filters['all']['props'][self.options.taxonomy] = null;
 
             filters.in = {
-                text: '&#8212; ' + eml.l10n.in + self.options.pluralName + ' &#8212;',
+                text: '&#8212; ' + eml.l10n.in + ' ' + self.options.pluralName + ' &#8212;',
                 props: {
                     uncategorized : null,
                     orderby       : eml.l10n.media_orderby,
@@ -353,7 +369,7 @@ window.eml = window.eml || { l10n: {} };
             filters['in']['props'][self.options.taxonomy] = 'in';
 
             filters.not_in = {
-                text: '&#8212; ' + eml.l10n.not_in + self.options.singularName + ' &#8212;',
+                text: '&#8212; ' + eml.l10n.not_in + ' ' + self.options.singularName + ' &#8212;',
                 props: {
                     uncategorized : null,
                     orderby       : eml.l10n.media_orderby,
@@ -423,7 +439,7 @@ window.eml = window.eml || { l10n: {} };
                 $attachments = $browser.find('.attachments'),
                 $uploader = $browser.find('.uploader-inline'),
                 $toolbar = $browser.find('.media-toolbar'),
-                $messages = $('.eml-media-css .updated:visible, .eml-media-css .error:visible');
+                $messages = $('.eml-media-css .updated:visible, .eml-media-css .error:visible, .eml-media-css .notice:visible');
 
 
             if ( ! this.controller.isModeActive( 'select' ) &&
@@ -520,7 +536,7 @@ window.eml = window.eml || { l10n: {} };
 
                 $.each( eml.l10n.taxonomies, function( taxonomy, values ) {
 
-                    if ( values.term_list ) {
+                    if ( -1 !== _.indexOf( eml.l10n.filter_taxonomies, taxonomy ) && values.term_list ) {
 
                         self.toolbar.set( taxonomy+'FilterLabel', new media.view.Label({
                             value: eml.l10n.filter_by + values.singular_name,

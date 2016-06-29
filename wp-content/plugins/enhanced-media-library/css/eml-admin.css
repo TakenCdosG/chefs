@@ -382,7 +382,7 @@ body.rtl .wpuxss-eml-button-container-right {
 
 /* == ui-dialog Styles == */
 
-.ui-dialog {
+.eml-dialog-modal {
     z-index: 300000 !important;
 }
 
