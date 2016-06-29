@@ -338,7 +338,7 @@ input.s:focus {
 }
 input[type="reset"],input[type="button"],input[type="submit"] {
     display: inline-block;
-    border-radius: 2px;
+    border-radius: 0px;
     font-size: 14px;
     white-space: nowrap;
     text-align: center;

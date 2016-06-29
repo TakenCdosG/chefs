@@ -3623,6 +3623,11 @@ h2.tribe-events-page-title{
     margin-left: 0px !important;
 }
 
+.update_wishlist_button {
+    text-transform: capitalize;
+    font-weight: 500!important;
+}
+
 .woocommerce div.product form.cart, .woocommerce div.product p.cart {
     margin-bottom: 1em;
 }
