@@ -71,7 +71,7 @@
 								?>	
 							<?php $i++ ?>
 
-							<label class="wishlist_field_label wishlist_type_btn"><input type="radio" class="wishlist_radio_btn" name="wishlist_num" value="<?php echo $w->term_id ?>" <?php if ( 3== $i ) echo 'checked="checked"';?> > <?php echo $w->name ?> (<em><?php echo $w->description ?></em>)</label>
+							<label class="wishlist_field_label wishlist_type_btn"><input type="radio" class="wishlist_radio_btn" name="wishlist_num" value="<?php echo $w->term_id ?>" <?php if ( 3== $i ) echo 'checked="checked"';?> > <?php echo $w->name ?> (<em><?php echo str_replace("wishlist", "registry", $w->description); ?></em>)</label>
 
 						<?php } ?>
 					</div>
