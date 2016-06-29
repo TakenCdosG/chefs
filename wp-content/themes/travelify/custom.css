@@ -1555,8 +1555,8 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
     text-decoration: none;
     background-image: none;
     color: #fff;
-    background: #231f20;
-    border-color: #231f20;
+    background: #ca2e33;
+    border-color: #ca2e33;
 }
 
 .woocommerce form .form-row.woocommerce-validated .select2-container, .woocommerce form .form-row.woocommerce-validated input.input-text, .woocommerce form .form-row.woocommerce-validated select{
