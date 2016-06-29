@@ -1106,7 +1106,7 @@ td,tbody th {
     padding: 4px 2%;
 }
 tr:hover td,tr:hover th {
-    background: #fff;
+    background: #f5f5f5;
 }
 thead th,tfoot th,thead tr:hover th,tfoot tr:hover th {
     background: #d8d8d8;
