@@ -1511,6 +1511,7 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
     color: #FFFFFF;
     background-color: #ef3d42;
     font-weight: 500;
+    text-transform: capitalize;
 }
 
 .woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover {
