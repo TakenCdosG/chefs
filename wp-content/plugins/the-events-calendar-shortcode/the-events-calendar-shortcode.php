@@ -1,11 +1,11 @@
 <?php
 /***
  Plugin Name: The Events Calendar Shortcode
- Plugin URI: http://dandelionwebdesign.com/downloads/shortcode-modern-tribe/
+ Plugin URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
  Description: An addon to add shortcode functionality for <a href="http://wordpress.org/plugins/the-events-calendar/">The Events Calendar Plugin (Free Version) by Modern Tribe</a>.
- Version: 1.0.11
- Author: Dandelion Web Design Inc.
- Author URI: http://dandelionwebdesign.com
+ Version: 1.2
+ Author: Event Calendar Newsletter (Brian Hogg)
+ Author URI: https://eventcalendarnewsletter.com/the-events-calendar-shortcode/
  Contributors: Brainchild Media Group, Reddit user miahelf, tallavic, hejeva2
  Contributor URL: http://brainchildmediagroup.com, http://www.reddit.com/user/miahelf
  License: GPL2 or later
@@ -140,12 +140,11 @@ class Events_Calendar_Shortcode
 		}
 		if ($atts['month']) {
 			$month_array = explode("-", $atts['month']);
-
+			
 			$month_yearstr = $month_array[0];
 			$month_monthstr = $month_array[1];
-
-			$month_startdate = date($month_yearstr . "-" . $month_monthstr . "-1");
-			$month_enddate = date($month_yearstr . "-" . $month_monthstr . "-t");
+			$month_startdate = date( "Y-m-d", strtotime( $month_yearstr . "-" . $month_monthstr . "-01" ) );
+			$month_enddate = date( "Y-m-01", strtotime( "+1 month", strtotime( $month_startdate ) ) );
 
 			$atts['meta_date'] = array(
 				array(

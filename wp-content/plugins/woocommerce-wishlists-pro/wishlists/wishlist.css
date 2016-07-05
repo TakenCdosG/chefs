@@ -1,7 +1,7 @@
 
 .wishlist_list_item .product.woocommerce {
 	border: none !important;
-    padding: 3px !important;
+	padding: 0px !important;
 }
 
 .wishlist_list_item .product-variation a.button {
@@ -27,7 +27,7 @@
 }
 
 .wishlist_list_item .product_qty .qty {
-	height: 25px;
+	height: 15px;
 	vertical-align: middle;
 	width: 50px;
 }
@@ -36,8 +36,7 @@
 .update_wishlist_button {
 	float: right;
 	font-size: 1em !important;
-	font-weight: 500 !important;
-	text-transform: capitalize;
+	font-weight: bold !important;
 }
 
 .gift-icon-white-red {

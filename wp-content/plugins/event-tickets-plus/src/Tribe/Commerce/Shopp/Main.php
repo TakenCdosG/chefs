@@ -1301,6 +1301,7 @@ class Tribe__Tickets_Plus__Commerce__Shopp__Main extends Tribe__Tickets_Plus__Ti
 				'holder_name'   => $order->firstname . ' ' . $order->lastname,
 				'order_id'      => $order->id,
 				'ticket_id'     => $ticket_unique_id,
+				'qr_ticket_id'  => $post->ID,
 				'security_code' => get_post_meta( $post->ID, $this->security_code, true ),
 			);
 		}

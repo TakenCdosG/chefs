@@ -1388,6 +1388,7 @@ class Tribe__Tickets_Plus__Commerce__EDD__Main extends Tribe__Tickets_Plus__Tick
 				'holder_name'   => $user_info['first_name'] . ' ' . $user_info['last_name'],
 				'order_id'      => $payment_id,
 				'ticket_id'     => $ticket_unique_id,
+				'qr_ticket_id'  => $ticket_id,
 				'security_code' => get_post_meta( $ticket_id, self::$security_code, true ),
 			);
 		}

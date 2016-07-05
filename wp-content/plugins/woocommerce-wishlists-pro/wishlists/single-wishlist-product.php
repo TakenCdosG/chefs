@@ -67,15 +67,17 @@ if ( isset( $_POST['update_wishlist'] ) && isset( $_POST['_wpnonce'] ) && isset(
 	} else { 
 
 		if ( count( $wishlist_items ) > 0 ) {
-			if ( $wishlist_owner == $uid ){
+		
+			if ( $wishlist_owner == $uid )
 				echo '<form action="" method="post">';
-			}
-			echo '<p style="display:none;"><input type="hidden" name="update_wishlist" value="1"></p>';
-			if ( $wishlist_owner == $uid ){
-				$nonce = wp_nonce_field( $action = -1, $name = "update_wishlist", $referer = true , $echo = false );
-				echo '<p style="display:none;">'.$nonce.'</p>';
-			}
+
+			echo '<input type="hidden" name="update_wishlist" value="1">';
+
+			if ( $wishlist_owner == $uid )
+				wp_nonce_field( 'update_wishlist' );
+			
 			echo '<table id="wishlist_table">';
+
 			echo '<thead>
 				<tr>
 					<th></th>
@@ -319,20 +321,7 @@ if ( isset( $_POST['update_wishlist'] ) && isset( $_POST['_wpnonce'] ) && isset(
 						<?php } ?>
 
 					<?php } else { ?>
-						<?php if(!already_in_cart($_product->id)): ?>
-							<?php
-								$u = get_userdata( $wishlist_owner );
-								$name = get_user_meta( $wishlist_owner, 'billing_first_name', true );
-								//$name .= ' ' . get_user_meta( $wishlist_owner, 'billing_last_name', true );
-							?>
-							<td class="purchase">
-								<a class="wishlist_buy_item" onclick="return maybe_buy_item(<?php echo $_product->id .',\''.$_product->variation_id.'\','.$wishlist_id.','.$u->ID.',\''.$u->user_login ?>')" href="#" title=" <?php _e( 'Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro' ) ?> "><?php _e( 'Buy this item for', 'ignitewoo-wishlists-pro' )?> <?php echo $name ?></a>
-							</td>	
-						<?php else: ?>
-							<td class="purchase">
-								<a class="go_to_cart" href="/cart" title=" <?php _e( 'Already in cart - Add Again?', 'ignitewoo-wishlists-pro' ) ?> "><?php _e( 'Already in cart - Add Again?', 'ignitewoo-wishlists-pro' )?></a>
-							</td>	
-						<?php endif; ?>
+						<td></td>
 					<?php } ?>
 				
 				</tr>

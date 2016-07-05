@@ -36,6 +36,9 @@ class Tribe__Tickets_Plus__Tickets_View {
 		add_action( 'event_tickets_orders_attendee_contents', array( $myself, 'output_attendee_meta' ) );
 		add_filter( 'tribe_tickets_template_paths', array( $myself, 'add_template_path' ) );
 		add_action( 'tribe_tickets_orders_rsvp_item', array( $myself, 'add_meta_to_rsvp' ), 10, 2 );
+		add_action( 'tribe_tickets_orders_before_submit', array( $myself, 'output_ticket_order_form' ) );
+		add_action( 'event_tickets_user_details_rsvp', array( $myself, 'output_attendee_list_checkbox' ), 10, 2 );
+		add_action( 'event_tickets_user_details_tickets', array( $myself, 'output_attendee_list_checkbox' ), 10, 2 );
 
 		return $myself;
 	}
@@ -61,16 +64,28 @@ class Tribe__Tickets_Plus__Tickets_View {
 		$user_id   = get_current_user_id();
 		$attendees = Tribe__Tickets__Tickets::get_event_attendees( $event_id );
 
+		// this block only runs for Tickets
 		if ( isset( $_POST['attendee'] ) && ! empty( $_POST['event_id'] ) ) {
 			$event_id = absint( $_POST['event_id'] );
-			$optout = empty( $_POST['order']['optout'] ) ? false : true;
+
+			$attendees_by_order = $this->get_event_attendees_by_order( $event_id, $user_id );
 
 			foreach ( $_POST['attendee'] as $order_id => $order_data ) {
-				$attendees      = $this->get_event_attendees_by_order( $event_id, $user_id );
-				$first_attendee = reset( $attendees );
-				$provider       = call_user_func( array( $first_attendee['provider'], 'get_instance' ) );
+				if ( ! isset( $attendees_by_order[ $order_id ] ) ) {
+					continue;
+				}
 
-				foreach ( (array) $attendees[ $order_id ] as $attendee ) {
+				$first_attendee = reset( $attendees_by_order[ $order_id ] );
+
+				if ( ! isset( $first_attendee['provider'] ) ) {
+					continue;
+				}
+
+				$optout = empty( $_POST['optout'][ $order_id ] ) ? false : true;
+
+				$provider = call_user_func( array( $first_attendee['provider'], 'get_instance' ) );
+
+				foreach ( $attendees_by_order[ $order_id ] as $attendee ) {
 					$attendee_owner = $this->get_attendee_owner( $attendee['attendee_id'] );
 
 					if ( $user_id !== $attendee_owner ) {
@@ -216,5 +231,35 @@ class Tribe__Tickets_Plus__Tickets_View {
 		}
 
 		return $orders;
+	}
+
+	/**
+	 * Outputs tickets form
+	 *
+	 */
+	public function output_ticket_order_form() {
+		tribe_tickets_get_template_part( 'tickets-plus/orders-tickets' );
+	}
+
+	/**
+	 * Outputs the attendee list checkbox
+	 *
+	 */
+	public function output_attendee_list_checkbox( $attendee_group, $post_id ) {
+		$first_attendee = reset( $attendee_group );
+
+		$args = array(
+			'attendee_group' => $attendee_group,
+			'post_id' => $post_id,
+			'first_attendee' => $first_attendee,
+		);
+
+		if ( doing_action( 'event_tickets_user_details_rsvp' ) ) {
+			$template_part = 'tickets-plus/attendee-list-checkbox-rsvp';
+		} else {
+			$template_part = 'tickets-plus/attendee-list-checkbox-tickets';
+		}
+
+		tribe_tickets_get_template_part( $template_part, null, $args );
 	}
 }

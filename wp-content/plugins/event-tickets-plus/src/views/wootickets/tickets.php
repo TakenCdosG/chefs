@@ -99,15 +99,12 @@ ob_start();
 
 				echo '</tr>';
 
-				echo
-					'<tr class="tribe-tickets-attendees-list-optout">' .
-						'<td colspan="4">' .
-							'<input type="checkbox" name="optout_'  . $ticket->ID . '" id="tribe-tickets-attendees-list-optout-woo">' .
-							'<label for="tribe-tickets-attendees-list-optout-woo">' .
-								esc_html__( 'Don\'t list me on the public attendee list', 'event-tickets' ) .
-							'</label>' .
-						'</td>' .
-					'</tr>';
+				if ( class_exists( 'Tribe__Tickets_Plus__Attendees_List' ) && ! Tribe__Tickets_Plus__Attendees_List::is_hidden_on( get_the_ID() ) ) {
+					echo '<tr class="tribe-tickets-attendees-list-optout">' . '<td colspan="4">' .
+						 '<input type="checkbox" name="optout_' . $ticket->ID . '" id="tribe-tickets-attendees-list-optout-woo">' .
+						 '<label for="tribe-tickets-attendees-list-optout-woo">' . esc_html__( 'Don\'t list me on the public attendee list', 'event-tickets' ) . '</label>' . '</td>' .
+						 '</tr>';
+				}
 
 				include Tribe__Tickets_Plus__Main::instance()->get_template_hierarchy( 'meta.php' );
 			}

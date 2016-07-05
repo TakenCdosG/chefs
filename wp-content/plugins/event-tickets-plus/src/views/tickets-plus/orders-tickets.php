@@ -51,16 +51,16 @@ $order = array_values( $orders );
 							);
 						?>
 					</p>
-					<div class="tribe-tickets attendees-list-optout">
-						<input
-							<?php echo $view->get_restriction_attr( $post_id, esc_attr( $first_attendee['product_id'] ) ); ?>
-							type="checkbox"
-							name="order[optout]"
-							id="tribe-tickets-attendees-list-optout-<?php echo esc_attr( $first_attendee['order_id'] ); ?>"
-							<?php checked( true, esc_attr( $first_attendee['optout'] ) ); ?>
-						>
-						<label for="tribe-tickets-attendees-list-optout-<?php echo esc_attr( $first_attendee['order_id'] ); ?>"><?php esc_html_e( 'Don\'t list me on the public attendee list', 'event-tickets' ); ?></label>
-					</div>
+					<?php if ( ! Tribe__Tickets_Plus__Attendees_List::is_hidden_on( get_the_ID() ) ) {
+						/**
+						 * Inject content into the Tickets User Details block on the orders page
+						 *
+						 * @param array $attendee_group Attendee array
+						 * @param WP_Post $post_id Post object that the tickets are tied to
+						 */
+						do_action( 'event_tickets_user_details_tickets', $attendees, $post_id );
+					}
+					?>
 				</div>
 				<ul class="tribe-tickets-list tribe-list">
 					<?php foreach ( $attendees as $i => $attendee ) : ?>
