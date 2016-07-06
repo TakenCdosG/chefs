@@ -332,9 +332,17 @@ $info = array(
                 <div class="clearfix-block"></div>
                 <ul class="products">
                     <?php
+                    $iterator = 1;
                     if ($products->have_posts()) {
                         while ($products->have_posts()) : $products->the_post();
+                            if($iterator == 1){
+                                echo "<div class='row'>";
+                            }
                             wc_get_template_part('content', 'product');
+                            if($iterator == 4){
+                                echo "</div>";
+                                $iterator = 1;
+                            }
                         endwhile;
                     } else {
                         echo __('No products found');
