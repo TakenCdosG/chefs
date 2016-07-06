@@ -339,6 +339,7 @@ $info = array(
                                 echo "<div class='row'>";
                             }
                             wc_get_template_part('content', 'product');
+                            $iterator = $iterator + 1;
                             if($iterator == 4){
                                 echo "</div>";
                                 $iterator = 1;
