@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<!-- List Title -->
 	<?php do_action( 'tribe_events_before_the_title' ); ?>
 	<h2 class="tribe-events-page-title"><?php echo tribe_get_events_title() ?></h2>
+    <h2 class="tribe-events-list-event-title">We're helping everyday chefs get the tools they need to succeed—in more ways than one! Sign up for one of our cooking classes and treat yourself to a lot of great food and good fun!</h2>
 	<?php do_action( 'tribe_events_after_the_title' ); ?>
 
 	<!-- Notices -->
