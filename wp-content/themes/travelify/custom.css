@@ -3688,4 +3688,6 @@ span.msg-cart-registry{
     color: #ef3d42;
     font-weight: bold;
 }
-
+.tribe-events-list .tribe-events-event-image{
+    width: 30% !important;
+}
