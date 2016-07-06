@@ -761,7 +761,7 @@ if (!empty($elements)) {
             position: absolute;
             background-color: #fff;
             border-bottom: 4px solid #231f20;
-            top: 40px;
+            top: 27px;
             left: 0px;
             width: 190px;
         }
@@ -1264,7 +1264,7 @@ if (!empty($elements)) {
             position: absolute;
             background-color: #fff;
             border-bottom: 4px solid #231f20;
-            top: 40px;
+            top: 27px;
             left: 0px;
             width: 190px;
         }
