@@ -721,7 +721,7 @@ if (!empty($elements)) {
             height: auto;
             text-decoration: none;
             font: 12px Helvetica, sans-serif;
-            line-height: 24px;
+            line-height: 26px;
             word-wrap: break-word;
             transition: none;
         }
@@ -1224,7 +1224,7 @@ if (!empty($elements)) {
             height: auto;
             text-decoration: none;
             font: 12px Helvetica, sans-serif;
-            line-height: 24px;
+            line-height: 26px;
             word-wrap: break-word;
             transition: none;
         }
