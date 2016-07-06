@@ -58,8 +58,11 @@ function add_woocommerce_cart_nav_item($items, $args) {
         if ($args->menu == 77) {
             $items .= '<li class="menu-item-cart-item">'
                         . '<a class="cart-items" href="'.$woocommerce->cart->get_cart_url().'" title="View your shopping cart">CART('. $woocommerce->cart->cart_contents_count . ') </a> | '
-                        . '<a class="checkout-cart" href="' . $woocommerce->cart->get_checkout_url() . '" title="' . __( 'Checkout' ) . '">' . __( 'Checkout' ) . '</a>'
-                    . '</li>';
+                        . '<a class="checkout-cart" href="' . $woocommerce->cart->get_checkout_url() . '" title="' . __( 'Checkout' ) . '">' . __( 'Checkout' ) . '</a>';
+            if(is_user_logged_in()){
+                $items .= ' | <a href="'.wp_logout_url().'">Logout</a>';
+            }
+            $items .= '</li>';
         }     
     }
     return $items;
