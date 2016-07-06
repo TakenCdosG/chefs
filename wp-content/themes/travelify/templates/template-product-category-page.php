@@ -89,7 +89,7 @@ $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$pro
 
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 9,
+    'posts_per_page' => 18,
     'paged' => $paged,
     'meta_query' => array(
         array(
