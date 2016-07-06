@@ -353,6 +353,7 @@ if (!empty($elements)) {
             position: relative;
             font-weight: normal;
             cursor: pointer;
+            vertical-align: top;
         }
 
         .exposed-header .menu-header-top .header_upper .menu li a img {
@@ -595,6 +596,7 @@ if (!empty($elements)) {
             position: relative;
             font-weight: normal;
             cursor: pointer;
+            vertical-align: top;
         }
 
         .exposed-header .menu-header-top .header_upper .menu li a img {
@@ -1112,6 +1114,7 @@ if (!empty($elements)) {
             position: relative;
             font-weight: normal;
             cursor: pointer;
+            vertical-align: top;
         }
     }
 
@@ -1612,6 +1615,7 @@ if (!empty($elements)) {
             position: relative;
             font-weight: normal;
             cursor: pointer;
+            vertical-align: top;
         }
     }
 
