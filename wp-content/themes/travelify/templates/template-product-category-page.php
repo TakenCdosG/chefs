@@ -89,7 +89,7 @@ $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$pro
 
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 9,
+    'posts_per_page' => 18,
     'paged' => $paged,
     'meta_query' => array(
         array(
@@ -332,9 +332,18 @@ $info = array(
                 <div class="clearfix-block"></div>
                 <ul class="products">
                     <?php
+                    $iterator = 1;
                     if ($products->have_posts()) {
                         while ($products->have_posts()) : $products->the_post();
+                            if($iterator == 1){
+                                echo "<div class='row'>";
+                            }
                             wc_get_template_part('content', 'product');
+                            $iterator = $iterator + 1;
+                            if($iterator == 4){
+                                echo "</div>";
+                                $iterator = 1;
+                            }
                         endwhile;
                     } else {
                         echo __('No products found');

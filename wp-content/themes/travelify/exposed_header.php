@@ -721,7 +721,7 @@ if (!empty($elements)) {
             height: auto;
             text-decoration: none;
             font: 12px Helvetica, sans-serif;
-            line-height: 24px;
+            line-height: 26px;
             word-wrap: break-word;
             transition: none;
         }
@@ -761,7 +761,7 @@ if (!empty($elements)) {
             position: absolute;
             background-color: #fff;
             border-bottom: 4px solid #231f20;
-            top: 40px;
+            top: 27px;
             left: 0px;
             width: 190px;
         }
@@ -1224,7 +1224,7 @@ if (!empty($elements)) {
             height: auto;
             text-decoration: none;
             font: 12px Helvetica, sans-serif;
-            line-height: 24px;
+            line-height: 26px;
             word-wrap: break-word;
             transition: none;
         }
@@ -1264,7 +1264,7 @@ if (!empty($elements)) {
             position: absolute;
             background-color: #fff;
             border-bottom: 4px solid #231f20;
-            top: 40px;
+            top: 27px;
             left: 0px;
             width: 190px;
         }

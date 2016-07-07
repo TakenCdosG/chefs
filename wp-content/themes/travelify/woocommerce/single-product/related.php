@@ -47,23 +47,18 @@ $woocommerce_loop['name']    = 'related';
 $woocommerce_loop['columns'] = apply_filters( 'woocommerce_related_products_columns', $columns );
 
 if ( $products->have_posts() ) : ?>
+	<div class="related-products">
+		<div class="related products">
+			<h2><?php _e( 'Related Products', 'woocommerce' ); ?></h2>
+			<?php woocommerce_product_loop_start(); ?>
+				<?php while ( $products->have_posts() ) : $products->the_post(); ?>
 
-	<div class="related products">
+					<?php wc_get_template_part( 'content', 'product' ); ?>
 
-		<h2><?php _e( 'Related Products', 'woocommerce' ); ?></h2>
-
-		<?php woocommerce_product_loop_start(); ?>
-
-			<?php while ( $products->have_posts() ) : $products->the_post(); ?>
-
-				<?php wc_get_template_part( 'content', 'product' ); ?>
-
-			<?php endwhile; // end of the loop. ?>
-
-		<?php woocommerce_product_loop_end(); ?>
-
+				<?php endwhile; // end of the loop. ?>
+			<?php woocommerce_product_loop_end(); ?>
+		</div>
 	</div>
-
 <?php endif;
 
 wp_reset_postdata();

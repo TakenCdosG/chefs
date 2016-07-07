@@ -12,7 +12,6 @@ Author URI: http://ignitewoo.com
 ATTENTION TRANSLATORS:  This plugin uses the "woocommerce" text domain, so do your translations there. 
 */
 
-
 class ignite_woocommerce_wishlist { 
 
 	var $wishlist_items_in_cart = false;
@@ -243,6 +242,48 @@ class ignite_woocommerce_wishlist {
 
 				<?php echo 'nonce = "' . wp_create_nonce  ( 'wishlist_nonce' ) . '";' ?>
 
+				function handleFormValitations(){
+
+					var form = $("form#wishslist_entry_form");
+			        var validate_rules = {
+			           'event-type': {
+			                required: true,
+			           },
+			           'wishlist_title': {
+			           		required: true,
+							lettersonly: true,
+			            },   
+			           'co-registrant-name': {
+							lettersonly: true,
+			            },    
+			           'co-registrant-email': {
+							email: true,
+			            },    
+			        };	
+
+					var validate_messages = {
+			           'wishlist_title': {
+							lettersonly: 'No special characters are allowed',
+			            },
+			           'co-registrant-name': {
+							lettersonly: 'No special characters are allowed',
+			            },    
+				    };
+
+			        $.validator.addMethod("lettersonly",
+			            function(value, element) {
+			              return this.optional(element) || /^([a-z ÃƒÆ’Ã‚Â±ÃƒÆ’Ã‚Â¡ÃƒÆ’Ã‚Â£ÃƒÆ’Ã‚Â¢ÃƒÆ’Ã‚Â¤ÃƒÆ’ ÃƒÆ’Ã‚Â©ÃƒÆ’Ã‚ÂªÃƒÆ’Ã‚Â«ÃƒÆ’Ã‚Â¨ÃƒÆ’Ã‚Â­ÃƒÆ’Ã‚Â®ÃƒÆ’Ã‚Â¯ÃƒÆ’Ã‚Â¬ÃƒÆ’Ã‚Â³ÃƒÆ’Ã‚ÂµÃƒÆ’Ã‚Â´ÃƒÆ’Ã‚Â¶ÃƒÆ’Ã‚Â²ÃƒÆ’Ã‚ÂºÃƒÆ’Ã‚Â»ÃƒÆ’Ã‚Â¼ÃƒÆ’Ã‚Â¹ÃƒÆ’Ã‚Â§]{2,60})$/i.test(value);
+			        });	
+
+			        form.validate({
+			            rules: validate_rules,
+			            messages: validate_messages,
+			        });
+
+			        console.log("> Validando.");
+			        return form.valid();
+				}
+
 				$("#wishlist_add_hidden_link").prettyPhoto({
 					hook: 'data-rel',
 					social_tools: false,
@@ -250,27 +291,27 @@ class ignite_woocommerce_wishlist {
 					horizontal_padding: 20,
 					opacity: 0.8,
 					deeplinking: false,
-					default_height: '200px',	
+					default_height: '200px',
+					modal: true,	
 					changepicturecallback: function() {
 
 						$( 'button#wishlist_add_button' ).on( 'click', function() {
-
-							var args = jQuery('form#wishslist_entry_form').serialize();
-							
-							jQuery.ajax({
-								type	: "POST",
-								cache	: false,
-								url		: "<?php echo admin_url( 'admin-ajax.php' ) ?>",
-								data	: args,
-								success: function(data) {
-									$( '.pp_overlay' ).trigger( 'click' );
-									setTimeout( function() { 
-										$( 'div#wishlist_box_wrapper' ).html( data );
-										$( '#wishlist_add_hidden_link' ).trigger( 'click' );
-									}, 1000 );
-								}
-							});
-
+							if(handleFormValitations()){
+								var args = jQuery('form#wishslist_entry_form').serialize();
+								jQuery.ajax({
+									type	: "POST",
+									cache	: false,
+									url		: "<?php echo admin_url( 'admin-ajax.php' ) ?>",
+									data	: args,
+									success: function(data) {
+										$( '.pp_overlay' ).trigger( 'click' );
+										setTimeout( function() { 
+											$( 'div#wishlist_box_wrapper' ).html( data );
+											$( '#wishlist_add_hidden_link' ).trigger( 'click' );
+										}, 1000 );
+									}
+								});
+							}
 							return false;
 						});
 
@@ -495,30 +536,80 @@ class ignite_woocommerce_wishlist {
 
 				</h3>
 
-
 				<div class="wishlist_new_wrap" style="display:none">
+				  <div class="row">
+					<?php
+					    $field_wishlist_type_key = "field_575726e432f3c";
+					    $field_wishlist_type = get_field_object($field_wishlist_type_key);
+					?>
+					<div class="col-md-12">   
+					   <div class="form-group form-group-event-type"">
+					   	 <?php if( $field_wishlist_type ): ?>
+					   		<label for="event-type">Event Type</label>
+							<select name="event-type" id="event-type"s class="event-type">
+								<option value="_none">- Select a value -</option>
+							    <?php foreach( $field_wishlist_type['choices'] as $k => $v ): ?>
+							    	<option value="<?php echo $k; ?>" <?php if($event_type == $k):?> selected <?php endif; ?> ><?php echo $v; ?></option>
+							    <?php endforeach; ?>
+							</select>
+						<?php endif; ?>
+					   </div>
+						<!-- /input-group -->
+					</div>
 
-				<label class="wishlist_field_label"><?php _e( 'Wishlist Title', 'ignitewoo-wishlists-pro' ) ?></label>
+					<div class="col-md-12">   
+					   <div class="form-group">
+					     <label for="event-date">Event Date</label>
+					     <input type="text" class="form-control" name="event-date" id="event-date" placeholder=""  value="">
+					   </div>
+						<!-- /input-group -->
+					</div>
 
-				<input id="wishlist_title_field" type="text" name="wishlist_title" value="" size="45">
+					<div class="col-md-12">   
+					   <div class="form-group">
+							<label class="wishlist_field_label"><?php _e( 'Wishlist Title', 'ignitewoo-wishlists-pro' ) ?></label>
+							<input id="wishlist_title_field" type="text" name="wishlist_title" value="" size="45"> 
+					   </div>
+						<!-- /input-group -->
+					</div>
 
-				<div class="wishlist_type_label">
-					<?php _e( 'Wishlist Type:', 'ignitewoo-wishlists-pro' ) ?></br>
-				</div>
+					<div class="col-md-12">   
+					   <div class="form-group">
+					     <label for="co-registrant-name">Co-Registrant Name</label>
+					     <input type="text" class="form-control" name="co-registrant-name" id="co-registrant-name" placeholder="" value="">
+					   </div>
+						<!-- /input-group -->
+					</div>
 
-				<?php $i = 0; ?>
+					<div class="col-md-12">   
+					   <div class="form-group">
+					     <label for="co-registrant-email">Co-Registrant Email</label>
+					     <input type="email" class="form-control" name="co-registrant-email" id="co-registrant-email" placeholder="" value="">
+					   </div>
+						<!-- /input-group -->
+					</div>
 
-				<?php foreach ( $wishlist_types as $w ) { ?>
-						<?php 
-						if ( !is_user_logged_in() && 'private' == strtolower( $w->name ) ) 
-							continue;
-						?>	
-					<?php $i++ ?>
+					<div class="col-md-12">   
+					   <div class="form-group">
+							<div class="wishlist_type_label">
+								<?php _e( 'Registry Type:', 'ignitewoo-wishlists-pro' ) ?></br>
+							</div>
+							<?php $i = 0; ?>
 
-					<label class="wishlist_field_label wishlist_type_btn"><input type="radio" class="wishlist_radio_btn" name="wishlist_num" value="<?php echo $w->term_id ?>" <?php if ( 1== $i ) echo 'checked="checked"';?> > <?php echo $w->name ?> (<em><?php echo $w->description ?></em>)</label>
+							<?php foreach ( $wishlist_types as $w ) { ?>
+									<?php 
+									if ( !is_user_logged_in() && 'private' == strtolower( $w->name ) ) 
+										continue;
+									?>	
+								<?php $i++ ?>
 
-				<?php } ?>
+								<label class="wishlist_field_label wishlist_type_btn"><input type="radio" class="wishlist_radio_btn" name="wishlist_num" value="<?php echo $w->term_id ?>" <?php if ( 3== $i ) echo 'checked="checked"';?> > <?php echo $w->name ?> (<em><?php echo $w->description ?></em>)</label>
 
+							<?php } ?>
+						</div>
+						<!-- /input-group -->
+					</div>
+				  </div>
 				</div>
 			
 				<button id="wishlist_add_button" class="button" type="button"><?php _e( 'Submit', 'ignitewoo-wishlists-pro' )?></button>
@@ -639,6 +730,13 @@ class ignite_woocommerce_wishlist {
 				update_post_meta( $post_id, 'wishlist_products', $products );
 
 				update_post_meta( $post_id, 'wishlist_type', $wishlist_type );
+
+				$event_type = isset($_POST['event-type'])?$_POST['event-type']:"";
+				$event_date = isset($_POST['event-date'])?$_POST['event-date']:"";
+				$co_registrant_name = isset($_POST['co-registrant-name'])?$_POST['co-registrant-name']:"";
+				$co_registrant_email = isset($_POST['co-registrant-email'])?$_POST['co-registrant-email']:"";
+
+				save_additional_wishlists_info( $post_id, $user, $event_type, $event_date, $co_registrant_name, $co_registrant_email );
 
 				echo '<p class="wishlist_p">';  _e( "Your new wishlist was created.\n\n", 'ignitewoo-wishlists-pro' );  echo '</p>';
 

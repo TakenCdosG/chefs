@@ -737,7 +737,7 @@ a.more-link:hover {
     border-bottom: 4px solid #439f55;
     top: 40px;
     left: 0px;
-    width: 190px;
+    width: 214px;
 }
 #main-nav ul li ul li {
     float: none;
@@ -754,7 +754,7 @@ a.more-link:hover {
 #main-nav ul li.current_page_item ul li a {
     float: none;
     line-height: 21px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: normal;
     height: 100%;
     padding: 6px 10px;
