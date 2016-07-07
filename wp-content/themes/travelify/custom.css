@@ -3684,7 +3684,7 @@ span.msg-cart-registry{
     position: relative;
     margin: 10px 0px;
 }
-.exposed-header #main-nav ul.root li.menu-item-1197 a{
+.exposed-header #main-nav ul.root li.menu-item-1197 a, #main-nav ul.root li.menu-item-1197 a{
     color: #ef3d42;
     font-weight: bold;
 }
