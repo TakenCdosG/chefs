@@ -639,7 +639,12 @@ function woo_clean_duplicated_products(){
   // Show Duplicated:
   dpm($duplicated_product_list);
   dpm($to_remove);
-  
+
+  // Deleting
+  foreach ($to_remove as $key => $id) {
+    # code...
+    wp_delete_post( $id, $force_delete = true );
+  }
 }
 
 
