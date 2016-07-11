@@ -756,6 +756,7 @@ h2.line-red-separator{
     margin-bottom: 5px;
     position: relative;
     display: block;
+    min-height: 32px;
 }
 
 .woocommerce ul.products li.product .price {
