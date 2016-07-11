@@ -872,8 +872,11 @@ h2.line-red-separator{
 }
 
 .page-template-template-product-category-page .woocommerce ul.products li.product a img {
-    height: 250px;
+    /*height: 250px;*/
     margin: 0 0;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .page-template-template-product-category-page .woocommerce ul.products li.last{
