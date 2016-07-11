@@ -873,7 +873,7 @@ h2.line-red-separator{
 }
 
 .page-template-template-product-category-page .woocommerce ul.products li.product a img {
-    max-height: 200px;
+    max-height: 95%;
     margin: 0 auto !important;
     width: auto;
     position: relative;
