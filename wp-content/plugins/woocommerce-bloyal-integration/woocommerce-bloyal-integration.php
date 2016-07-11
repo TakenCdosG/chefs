@@ -625,16 +625,21 @@ function woo_clean_duplicated_products(){
     } 
   endwhile; wp_reset_query();
 
+  $to_remove = array();
+
   foreach ($duplicated_product_list as $sku => $item) {
      if(count($item) > 1){
-
+        $most_updated = array_pop($item);
+        $to_remove = array_merge($to_remove, $item);
      }else{
         unset($duplicated_product_list[$sku]);
      }
   }
-  
+
   // Show Duplicated:
   dpm($duplicated_product_list);
+  dpm($to_remove);
+  
 }
 
 
@@ -644,3 +649,4 @@ function woo_clean_duplicated_products(){
 if (isset($_GET['clean_duplicated_products'])) {
   add_action('init', 'woo_clean_duplicated_products');
 }
+
