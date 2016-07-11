@@ -635,7 +635,7 @@ function woo_clean_duplicated_products(){
         unset($duplicated_product_list[$sku]);
      }
   }
-
+  dpm($full_product_list);
   // Show Duplicated:
   dpm($duplicated_product_list);
   dpm($to_remove);
@@ -643,7 +643,7 @@ function woo_clean_duplicated_products(){
   // Deleting
   foreach ($to_remove as $key => $id) {
     # code...
-    wp_delete_post( $id, $force_delete = true );
+    // wp_delete_post( $id, $force_delete = true );
   }
 }
 
