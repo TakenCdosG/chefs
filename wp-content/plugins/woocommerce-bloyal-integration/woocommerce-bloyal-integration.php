@@ -615,6 +615,7 @@ function woo_clean_duplicated_products(){
         if(isset($duplicated_product_list[$sku])){
             $tmp = $duplicated_product_list[$sku];
             $tmp[] = $theid;
+            sort($tmp);
             $duplicated_product_list[$sku] = $tmp;
         }else{
           $duplicated_product_list[$sku] = array($theid);
