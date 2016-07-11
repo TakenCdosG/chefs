@@ -588,3 +588,49 @@ function _woocommerce_get_product_by_sku($sku)
   return null;
 }
 
+/*
+*  Clean Duplicated products.
+*/
+function woo_clean_duplicated_products(){
+  $unique_sku = array();
+  $duplicated_product_list = array();
+  $full_product_list = array();
+  $loop = new WP_Query( array( 'post_type' => array('product', 'product_variation'), 'posts_per_page' => -1 ) );
+  while ( $loop->have_posts() ) : $loop->the_post();
+    $theid = get_the_ID();
+    $product = new WC_Product($theid);  
+    if( get_post_type() == 'product_variation' ){
+      // its a simple product
+
+    } else {
+      $sku = get_post_meta($theid, '_sku', true );
+      $thetitle = get_the_title();
+    }
+    // add product to array but don't add the parent of product variations
+    if (!empty($sku)){
+      if(!in_array($sku, $unique_sku)){
+        $unique_sku[] = $sku;
+      }else{
+        // Producto duplicado
+        if(isset($duplicated_product_list[$sku])){
+            $tmp = $duplicated_product_list[$sku];
+            $tmp[] = $theid;
+            $duplicated_product_list[$sku] = $tmp;
+        }else{
+          $duplicated_product_list[$sku] = array($theid);
+        }
+      }
+      $full_product_list[] = array($thetitle, $sku, $theid);
+    } 
+  endwhile; wp_reset_query();
+  // Show Duplicated:
+  dpm($duplicated_product_list);
+}
+
+
+/*
+ * Run sync via GET parameters
+ */
+if (isset($_GET['clean_duplicated_products'])) {
+  add_action('init', 'woo_clean_duplicated_products');
+}
