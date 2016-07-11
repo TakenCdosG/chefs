@@ -624,6 +624,15 @@ function woo_clean_duplicated_products(){
       $full_product_list[] = array($thetitle, $sku, $theid);
     } 
   endwhile; wp_reset_query();
+
+  foreach ($duplicated_product_list as $sku => $item) {
+     if(count($item) > 1){
+
+     }else{
+        unset($duplicated_product_list[$sku]);
+     }
+  }
+  
   // Show Duplicated:
   dpm($duplicated_product_list);
 }
