@@ -608,18 +608,14 @@ function woo_clean_duplicated_products(){
     }
     // add product to array but don't add the parent of product variations
     if (!empty($sku)){
-      if(!in_array($sku, $unique_sku)){
-        $unique_sku[] = $sku;
+      // Producto duplicado
+      if(isset($duplicated_product_list[$sku])){
+          $tmp = $duplicated_product_list[$sku];
+          $tmp[] = $theid;
+          sort($tmp);
+          $duplicated_product_list[$sku] = $tmp;
       }else{
-        // Producto duplicado
-        if(isset($duplicated_product_list[$sku])){
-            $tmp = $duplicated_product_list[$sku];
-            $tmp[] = $theid;
-            sort($tmp);
-            $duplicated_product_list[$sku] = $tmp;
-        }else{
-          $duplicated_product_list[$sku] = array($theid);
-        }
+        $duplicated_product_list[$sku] = array($theid);
       }
       $full_product_list[] = array($thetitle, $sku, $theid);
     } 
