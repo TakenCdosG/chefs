@@ -3707,6 +3707,10 @@ span.msg-cart-registry{
     color: #ef3d42;
     font-weight: bold;
 }
+.exposed-header #main-nav ul.root li.menu-item-1197 a:hover, #main-nav ul.root li.menu-item-1197 a:hover{
+    color: #FFFFFF;
+    font-weight: bold;
+}
 .exposed-header #main-nav ul.root #menu-item-1197.current-menu-item a{
     color: #FFFFFF;
 }
