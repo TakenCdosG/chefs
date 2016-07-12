@@ -172,8 +172,7 @@ function woo_bloyal_do_data_sync()
     $availableInventoryChanges = curl_get($url);
     $response_json_decode = json_decode($availableInventoryChanges);
     $response = (array) $response_json_decode;
-    $log .= "AvailableInventory: <br/><pre>" . $availableInventoryChanges . "</pre><br/>";
-
+    // $log .= "AvailableInventory: <br/><pre>" . $availableInventoryChanges . "</pre><br/>";
     if ($response["status"] == "success") {
       $count = count($response["data"]);
       $log .= "<b>Notice:</b> Amount of Product Inventory that has been changed on bLoyal since the last sync: $count <br/>";
