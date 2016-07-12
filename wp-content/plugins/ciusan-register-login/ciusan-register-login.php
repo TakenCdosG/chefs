@@ -139,7 +139,7 @@ function ajax_register()
 
   /*
     $recaptcha = $_POST['recaptcha'];
-    if (!empty($recaptcha)) {
+    if (!empty($recaptcha )) {
       $google_url = "https://www.google.com/recaptcha/api/siteverify";
       $secret = $options['Google_Secret_Key'];
       $ip = $_SERVER['REMOTE_ADDR'];
