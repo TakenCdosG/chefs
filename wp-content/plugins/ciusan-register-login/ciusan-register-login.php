@@ -80,8 +80,8 @@ wp_register_style('ciusan-register-login', plugin_dir_url( __FILE__ ).'assets/cs
 wp_enqueue_style('ciusan-register-login');
 wp_register_script('validate-script', plugin_dir_url( __FILE__ ).'assets/js/jquery.validate.js', array('jquery'));
     wp_enqueue_script('validate-script');
-    wp_register_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js');
-    wp_enqueue_script('google-recaptcha');
+    // wp_register_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js');
+    // wp_enqueue_script('google-recaptcha');
     wp_register_script('ciusan-register-login', plugin_dir_url( __FILE__ ).'assets/js/ciusan-register-login.js', array('jquery'));
     wp_enqueue_script('ciusan-register-login');
 	    wp_localize_script( 'ciusan-register-login', 'ajax_auth_object', array(
@@ -93,8 +93,8 @@ wp_register_script('validate-script', plugin_dir_url( __FILE__ ).'assets/js/jque
 
     // Enable the user with no privileges to run ajax_login() in AJAX
     add_action( 'wp_ajax_nopriv_ajaxlogin', 'ajax_login' );
-// Enable the user with no privileges to run ajax_register() in AJAX
-add_action( 'wp_ajax_nopriv_ajaxregister', 'ajax_register' );
+    // Enable the user with no privileges to run ajax_register() in AJAX
+    add_action( 'wp_ajax_nopriv_ajaxregister', 'ajax_register' );
 }
  
 // Execute the action only if the user isn't logged in

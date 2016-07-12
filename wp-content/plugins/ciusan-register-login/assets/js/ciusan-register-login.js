@@ -56,7 +56,7 @@ jQuery(document).ready(function ($) {
 			password = jQuery('#signonpassword').val();
 			email = jQuery('#email').val();
 			security = jQuery('#signonsecurity').val();
-			recaptcha = jQuery('#g-recaptcha-response').val();
+			// recaptcha = jQuery('#g-recaptcha-response').val();
 		}
 		ctrl = jQuery(this);
 		$.ajax({
@@ -69,7 +69,7 @@ jQuery(document).ready(function ($) {
 				'password': password,
 				'email': email,
 				'security': security,
-				'recaptcha': recaptcha
+				// 'recaptcha': recaptcha
             },
             success: function (data) {
 				if((jQuery(ctrl).attr ('id') == 'register') && (data.loggedin == false)) grecaptcha.reset();
