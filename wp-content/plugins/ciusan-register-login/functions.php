@@ -1,4 +1,4 @@
-<?php if(!function_exists(ciusan_submit_donation)){ function ciusan_submit_donation(){ ?>
+<?php if(!function_exists('ciusan_submit_donation')){ function ciusan_submit_donation(){ ?>
 <div class="wrap">
 	<h2><?php echo __('Submit a Donation for Ciusan Plugin', 'Ciusan'); ?></h2><hr/>
 	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
