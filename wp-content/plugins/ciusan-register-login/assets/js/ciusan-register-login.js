@@ -72,8 +72,8 @@ jQuery(document).ready(function ($) {
 				// 'recaptcha': recaptcha
             },
             success: function (data) {
-				if((jQuery(ctrl).attr ('id') == 'register') && (data.loggedin == false)) grecaptcha.reset();
-				jQuery('p.status', ctrl).text(data.message);
+				if((jQuery(ctrl).attr ('id') == 'register') && (data.loggedin == false)){/*grecaptcha.reset();*/}
+                jQuery('p.status', ctrl).text(data.message);
 				if (data.loggedin == true) {
 					document.location.href = jQuery(ctrl).attr ('id') == 'register' ? ajax_auth_object.register_redirect : ajax_auth_object.redirecturl;
                 }
