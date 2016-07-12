@@ -2,7 +2,7 @@ form.crl-ajax-auth{
     display:none;
     z-index:999999;
 	position:fixed;
-    top:25px;
+    top:100px;
 	left:50%;
 	width:350px;
 	margin-left:-200px;
@@ -113,10 +113,10 @@ form.crl-ajax-auth{
 	display:inline-block;
 }
 .crl_overlay{
-    height:100%;
-    width:100%;
-    background-color:#F6F6F6;
-    opacity:0.9;
-    position:fixed;
-    z-index:999998;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 999998;
+    background: #000;
+    opacity: .7;
 }
