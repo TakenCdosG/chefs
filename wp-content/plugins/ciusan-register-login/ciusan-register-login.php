@@ -137,28 +137,30 @@ function ajax_register()
   // First check the nonce, if it fails the function will break
   check_ajax_referer('ajax-register-nonce', 'security');
 
-  $recaptcha = $_POST['recaptcha'];
-  if (!empty($recaptcha)) {
-    $google_url = "https://www.google.com/recaptcha/api/siteverify";
-    $secret = $options['Google_Secret_Key'];
-    $ip = $_SERVER['REMOTE_ADDR'];
-    $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha . "&remoteip=" . $ip;
-    $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, $url);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
-    curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16");
-    $results = curl_exec($curl);
-    curl_close($curl);
-    $res = json_decode($results, true);
-    if (!$res['success']) {
-      echo json_encode(array('loggedin' => false, 'message' => __('reCAPTCHA invalid')));
+  /*
+    $recaptcha = $_POST['recaptcha'];
+    if (!empty($recaptcha)) {
+      $google_url = "https://www.google.com/recaptcha/api/siteverify";
+      $secret = $options['Google_Secret_Key'];
+      $ip = $_SERVER['REMOTE_ADDR'];
+      $url = $google_url . "?secret=" . $secret . "&response=" . $recaptcha . "&remoteip=" . $ip;
+      $curl = curl_init();
+      curl_setopt($curl, CURLOPT_URL, $url);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+      curl_setopt($curl, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.16) Gecko/20110319 Firefox/3.6.16");
+      $results = curl_exec($curl);
+      curl_close($curl);
+      $res = json_decode($results, true);
+      if (!$res['success']) {
+        echo json_encode(array('loggedin' => false, 'message' => __('reCAPTCHA invalid')));
+        die();
+      }
+    } else {
+      echo json_encode(array('loggedin' => false, 'message' => __('Please enter reCAPTCHA')));
       die();
     }
-  } else {
-    echo json_encode(array('loggedin' => false, 'message' => __('Please enter reCAPTCHA')));
-    die();
-  }
+  */
 
   // Nonce is checked, get the POST data and sign user on
   $info = array();
