@@ -211,9 +211,10 @@ jQuery(function ($) {
     });
     function accordion(){
         $( "#accordion" ).accordion({
-             active: false,
-             collapsible: true     
-        });     
+             active: 0,
+             collapsible: true
+        });
+
     }
     function initialize() {
         var myLatlngMapCenter = new google.maps.LatLng(41.257697, -73.013472);
