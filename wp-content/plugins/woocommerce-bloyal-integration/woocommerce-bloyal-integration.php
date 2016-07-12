@@ -170,8 +170,9 @@ function woo_bloyal_do_data_sync()
   if ($startIntegrationBatch) {
     $url = "https://{$LoginDomain}-grid.bloyal.com/api/v4/{$accessKey}/AvailableInventory/{$storeCode}/Changes";
     $availableInventoryChanges = curl_get($url);
-    $response = (array)json_decode($availableInventoryChanges);
-    $log .= "AvailableInventory: <br/><pre>" . $response . "</pre><br/>";
+    $response_json_decode = json_decode($availableInventoryChanges);
+    $response = (array) $response_json_decode;
+    $log .= "AvailableInventory: <br/><pre>" . $response_json_decode . "</pre><br/>";
 
     if ($response["status"] == "success") {
       $count = count($response["data"]);
