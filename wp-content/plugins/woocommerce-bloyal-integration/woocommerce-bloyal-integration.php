@@ -82,6 +82,7 @@ function woo_bloyal_do_data_sync()
   $url = "https://{$LoginDomain}-grid.bloyal.com/api/v4/{$accessKey}/IntegrationBatches";
   $integrationBatches = curl_post($params, $url);
   $response = (array)json_decode($integrationBatches);
+
   if ($response["status"] == "success") {
     $startIntegrationBatch = TRUE;
     $batchTitle = "Batch - " . date("Y-m-d H:i:s");
@@ -170,6 +171,8 @@ function woo_bloyal_do_data_sync()
     $url = "https://{$LoginDomain}-grid.bloyal.com/api/v4/{$accessKey}/AvailableInventory/{$storeCode}/Changes";
     $availableInventoryChanges = curl_get($url);
     $response = (array)json_decode($availableInventoryChanges);
+    $log .= "AvailableInventory: <br/><pre>" . $response . "</pre><br/>";
+
     if ($response["status"] == "success") {
       $count = count($response["data"]);
       $log .= "<b>Notice:</b> Amount of Product Inventory that has been changed on bLoyal since the last sync: $count <br/>";
