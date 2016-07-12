@@ -1,6 +1,7 @@
+<?php $is_user_logged_in = is_user_logged_in(); ?>
 <div class="chef-gift-registry" id="chef-gift-registry-wrapper">
 	<div class="options-link">
-		<button type="submit" class="btn default new-gift-registry">New Gift Registry</button>
+		<a type="submit" class="btn default <?php if(!$is_user_logged_in): ?>new-gift-registry<?php endif; ?>" <?php if(!$is_user_logged_in): ?> id="show_login" <?php endif; ?>>New Gift Registry</a>
 		<a id="wishlist_add_hidden_link" href="#wishlist_box_wrapper" data-rel="prettyPhoto" style="display:none"></a>
 		<div id="wishlist_box_wrapper" style="display:none"></div>
 	</div>
