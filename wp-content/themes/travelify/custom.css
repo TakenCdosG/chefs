@@ -2578,6 +2578,9 @@ ul#menu-header-bottom .default-menu {
         margin-bottom: 710px;
 
     }
+    .page-template-template-product-category-page .woocommerce ul.products li.product{
+        width: 85%;
+    }
 }
 /****************************************************************
 *                      RESPONSIVE 501 - 766
@@ -2920,12 +2923,19 @@ ul#menu-header-bottom .default-menu {
     .page-template-template-product-category-page div.woocommerce{
         margin-top: 260px;
     }
+    .page-template-template-product-category-page .woocommerce ul.products li.product{
+        width: 63%;
+    }
 
 }
 @media only screen and (min-width: 704px) and (max-width: 766px) {
     .page-template-template-product-category-page ul.products{
         margin-left: 10%;
     }
+    .page-template-template-product-category-page .woocommerce ul.products li.product{
+        width: 40%;
+    }
+
 }
 
 /*******************************************************************
