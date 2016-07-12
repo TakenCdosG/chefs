@@ -30,20 +30,23 @@ $categories = get_field("shop_by_category");
 
 <?php
 $product_cat = array();
-$product_cat_id = 0;
+$product_cat_id = array();
+$categories_parent = array();
 if (count($categories) > 0) {
     foreach ($categories as $key => $category) {
         $product_cat[] = $category->slug;
-        $product_cat_id = $category->term_id;
+        $product_cat_id[] = $category->term_id;
     }
 }
+foreach ($product_cat_id as $pcikey) {
+    $args_category = array(
+        'parent' => $pcikey,
+        'taxonomy' => 'product_cat',
+        'hide_empty' => 0,
+    );
+    $categories_parent[] = get_categories($args_category);
 
-$args_category = array(
-    'parent' => $product_cat_id,
-    'taxonomy' => 'product_cat',
-    'hide_empty' => 0,
-);
-$categories_parent = get_categories($args_category);
+}
 
 $args_category_material = array(
     'taxonomy' => 'pa_material',
@@ -199,22 +202,25 @@ $info = array(
                         <h3>Shop by Category</h3>
                         <ul>
                             <?php $empty_filtros_category = empty($filtros["category"]); ?>
-                            <?php foreach ($categories_parent as $key => $category): ?>
-                                <li>
-                                    <?php
-                                    $query_vars_category = array_merge($query_vars, array('category' => $category->slug));
-                                    $current_url_category = add_query_arg($query_vars_category, $current_url);
-                                    $category_name = ucwords($category->name);
-                                    $class = "";
-                                    if(!$empty_filtros_category){
-                                       if($filtros["category"] == $category->slug){
-                                           $class = "active";
-                                       }
-                                    }
-                                    ?>
-                                    <a href="<?php echo $current_url_category; ?>" class="<?php echo $class;?>"> <?php echo $category_name; ?></a>
-                                </li>
-                                <?php $filter_category_items .= '<li><a href="'.$current_url_category.'" class="'.$class.'">'.$category_name.'</a></li>';?>
+                            <?php foreach ($categories_parent as $catpar): ?>
+                                <?php foreach ($catpar as $key => $category): ?>
+                                    <li>
+                                        <?php
+
+                                        $query_vars_category = array_merge($query_vars, array('category' => $category->slug));
+                                        $current_url_category = add_query_arg($query_vars_category, $current_url);
+                                        $category_name = ucwords($category->name);
+                                        $class = "";
+                                        if(!$empty_filtros_category){
+                                           if($filtros["category"] == $category->slug){
+                                               $class = "active";
+                                           }
+                                        }
+                                        ?>
+                                        <a href="<?php echo $current_url_category; ?>" class="<?php echo $class;?>"> <?php echo $category_name; ?></a>
+                                    </li>
+                                    <?php $filter_category_items .= '<li><a href="'.$current_url_category.'" class="'.$class.'">'.$category_name.'</a></li>';?>
+                                <?php endforeach; ?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
