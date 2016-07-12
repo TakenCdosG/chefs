@@ -1446,7 +1446,7 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
 }
 
 .single-product.woocommerce .related-products li.product a img {
-    width: 150px;
+    width: auto;
     display: block;
     margin: 0px auto;
     box-shadow: none;
