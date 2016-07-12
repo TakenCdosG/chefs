@@ -8,7 +8,7 @@ form.crl-ajax-auth{
 	margin-left:-200px;
     padding:40px 25px 25px 25px;
 	background-color:#FFFFFF;
-    border-radius:8px;
+    border-radius:0px;
     font-family:Arial, Helvetica, sans-serif;
     box-shadow:0 0 6px rgba(0, 0, 0, 0.2);   
     color:#878787;
@@ -48,16 +48,17 @@ form.crl-ajax-auth{
 .crl-ajax-auth input#signonpassword,
 .crl-ajax-auth input#password2,
 .crl-ajax-auth input#user_login{
-    border:1px solid #EDEDED;
-    border-radius:3px 3px 3px 3px;
-    box-shadow:0 0 3px rgba(0, 0, 0, 0.1) inset;
-    color:#333333;
-    font-size:15px;
-    padding:10px 10px 10px 13px;
-    width:300px;
-    margin-bottom:5px;
-    background-color:#F9F9F9;
-    font-family:'Georgia', 'Times New Roman', Times, serif;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 0px;
+    box-shadow: rgba(0, 0, 0, 0.0666667) 0px 1px 2px inset;
+    color: #333333;
+    font-size: 15px;
+    padding: 10px 10px 10px 13px;
+    width: 300px;
+    margin-bottom: 5px;
+    background-color: #F9F9F9;
+    font-family: 'Georgia', 'Times New Roman', Times, serif;
+    background: rgb(251, 251, 251);
 }
 .crl-ajax-auth input#username:focus,
 .crl-ajax-auth input#password:focus,
