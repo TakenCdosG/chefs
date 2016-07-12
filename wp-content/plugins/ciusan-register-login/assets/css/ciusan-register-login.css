@@ -11,7 +11,7 @@ form.crl-ajax-auth{
     border-radius:0px;
     font-family:Arial, Helvetica, sans-serif;
     box-shadow:0 0 6px rgba(0, 0, 0, 0.2);   
-    color:rgb(68, 68, 68);
+    color:#f1f1f1;
     font-size:11px;
 }
 .crl-ajax-auth h1, .crl-ajax-auth h3, .crl-ajax-auth h5{
