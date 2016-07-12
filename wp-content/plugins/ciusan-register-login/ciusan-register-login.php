@@ -50,7 +50,7 @@ function crl_admin_init()
 {
   // Create admin menu and page.
   add_action('admin_menu', 'crl_admin__menu');
-  // Enable admin scripts and styles
+  // Enable  admin scripts and styles
   if (function_exists(ciusan_admin__head)) {
     add_action('admin_enqueue_scripts', 'ciusan_admin__head');
   }
