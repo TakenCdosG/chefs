@@ -3727,3 +3727,8 @@ span.msg-cart-registry{
 .tribe-events-list .tribe-events-event-image{
     width: 30% !important;
 }
+.woocommerce ul.products li.product a img{
+    width: auto;
+    height: 140px;
+    margin: 5px auto;
+}
