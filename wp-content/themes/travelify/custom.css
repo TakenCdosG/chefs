@@ -3747,3 +3747,33 @@ span.msg-cart-registry{
     font-size: 30px;
     margin-bottom: 0px;
 }
+
+#reviews #comments {
+    padding: 5px 2.5%;
+    border-bottom: 1px solid #757575;
+    border-style: dashed;
+    margin-bottom: 10px;
+}
+
+#reviews #comments .woocommerce-noreviews{
+    margin: 0px;
+}
+
+#reviews #review_form_wrapper{
+    padding: 5px 2.5%;
+}
+
+#reviews #review_form_wrapper h3#reply-title{
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 8px;
+    font-weight: normal;
+}
+
+#reviews #review_form_wrapper #respond form {
+    margin: .5rem 0;
+}
+
+#reviews #review_form_wrapper #respond p {
+    margin: 0 0 4px;
+}
