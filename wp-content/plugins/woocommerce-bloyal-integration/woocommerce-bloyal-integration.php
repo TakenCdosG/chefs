@@ -264,7 +264,7 @@ function woo_bloyal_do_data_sync()
         }
 
         // Not handle products on woocommerce of bloyal for Ack changes(Do not acknowledgment this products just skip).
-        $goAcknowledgeChangesInNotFoundProducs = FALSE;
+        $goAcknowledgeChangesInNotFoundProducs = TRUE;
         if($goAcknowledgeChangesInNotFoundProducs){
           foreach ($notHandlebLoyalInventoryProducts as $sku => $quantity) {
             // Add the Change to Ack

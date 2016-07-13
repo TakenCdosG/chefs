@@ -1448,11 +1448,15 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
 .single-product.woocommerce .related-products li.product a img {
     width: auto;
     display: block;
-    margin: 0px auto;
     box-shadow: none;
-    height: 150px;
+    height: auto;
     text-align: center;
-    margin-top: 15px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }
 
 .entry-title, .entry-title a {
