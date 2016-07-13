@@ -167,6 +167,7 @@ function ajax_register()
   $info['user_nicename'] = $info['nickname'] = $info['display_name'] = $info['first_name'] = $info['user_login'] = sanitize_user($_POST['username']);
   $info['user_pass'] = sanitize_text_field($_POST['password']);
   $info['user_email'] = sanitize_email($_POST['email']);
+  $info['role'] = 'customer';
 
   // Register the user
   $user_register = wp_insert_user($info);
