@@ -80,7 +80,8 @@ class VTPRD_Plugin_Updater {
 	 * @return void
 	 */
 	public function init() {
-   //error_log( print_r(  'VTPRD_Plugin_Updater BEGIN init ' , true ) );   
+     //error_log( print_r(  'VTPRD_Plugin_Updater BEGIN init ' , true ) );   
+   
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_update' ) );
 		add_filter( 'plugins_api', array( $this, 'plugins_api_filter' ), 10, 3 );
 
@@ -103,11 +104,11 @@ class VTPRD_Plugin_Updater {
 	 */
 	function check_update( $_transient_data ) {
 
-   //error_log( print_r(  'Begin check_update, $data= '  , true ) ); 
-   //error_log( var_export($_transient_data, true ) );
+     //error_log( print_r(  'Begin check_update, $data= '  , true ) ); 
+     //error_log( var_export($_transient_data, true ) );
      
     global $pagenow;
- //error_log( print_r(  'Begin check_update, $pagenow= ' .$pagenow, true ) ); 
+   //error_log( print_r(  'Begin check_update, $pagenow= ' .$pagenow, true ) ); 
 		if( ! is_object( $_transient_data ) ) {
 			$_transient_data = new stdClass;
 		}
@@ -165,13 +166,20 @@ class VTPRD_Plugin_Updater {
 					$_transient_data->response[ $this->name ] = $version_info;
 
     
-          //v1.1.5 begin
-          $vtprd_license_options['plugin_current_version']  = $version_info->new_version;          
+          //v1.1.6.3  begin - refactored
+              //v1.1.5 begin
+              //$vtprd_license_options['plugin_current_version']  = $version_info->new_version;                    
+              
+              //v1.1.5 end
+          update_option('vtprd_new_version_in_progress', $version_info->new_version);    
+          update_option('vtprd_new_version_access_count', 3); //number of times Vark host can be called to effect the update!
+          update_option('vtprd_license_count', 0 ); //clear error count to allow update to happen, just in case.
           
-          update_option('vtprd_new_version', $vtprd_license_options);
-          //v1.1.5 end
-
-
+   //error_log( print_r(  'UPDATER new version FOUND', true ) );
+    //error_log( print_r(  '$this->version,= ' .$this->version, true ) );
+    //error_log( print_r(  '$version_info->new_version,= ' .$version_info->new_version, true ) );
+              
+          //v1.1.6.3  end
 
 				}
 
@@ -193,9 +201,9 @@ class VTPRD_Plugin_Updater {
 	 */
 	public function show_update_notification( $file, $plugin ) {
 
-   //error_log( print_r(  'Begin show_update_notification, $file= '  , true ) ); 
-   //error_log( var_export($file, true ) );
-   //error_log( var_export($plugin, true ) );
+     //error_log( print_r(  'Begin show_update_notification, $file= '  , true ) ); 
+     //error_log( var_export($file, true ) );
+     //error_log( var_export($plugin, true ) );
  
 		if( ! current_user_can( 'update_plugins' ) ) {
 			return;
@@ -311,9 +319,9 @@ class VTPRD_Plugin_Updater {
 	 */
 	function plugins_api_filter( $_data, $_action = '', $_args = null ) {
 
-   //error_log( print_r(  'Begin plugins_api_filter,  $_action= ' . $_action , true ) ); 
-   //error_log( var_export($_data, true ) );
-   //error_log( var_export($_args, true ) );
+     //error_log( print_r(  'Begin plugins_api_filter,  $_action= ' . $_action , true ) ); 
+     //error_log( var_export($_data, true ) );
+     //error_log( var_export($_args, true ) );
 
 		if ( $_action != 'plugin_information' ) {
 
@@ -355,7 +363,7 @@ class VTPRD_Plugin_Updater {
 	 * @return object $array
 	 */
 	function http_request_args( $args, $url ) {
-   //error_log( print_r(  'VTPRD_Plugin_Updater BEGIN http_request_args ' , true ) );    
+     //error_log( print_r(  'VTPRD_Plugin_Updater BEGIN http_request_args ' , true ) );    
 		// If it is an https request and we are performing a package download, disable ssl verification
 		if ( strpos( $url, 'https://' ) !== false && strpos( $url, 'edd_action=package_download' ) ) {
 			$args['sslverify'] = false;
@@ -377,9 +385,15 @@ class VTPRD_Plugin_Updater {
 	 */
 	private function api_request( $_action, $_data ) {
 
-   //error_log( print_r(  'BEGIN api_request, $_action= ' .$_action . ' $_data=' , true ) );  
-   //error_log( var_export($_data, true ) );
- 
+     //error_log( print_r(  'BEGIN api_request, $_action= ' .$_action . ' $_data=' , true ) );  
+     //error_log( var_export($_data, true ) );
+    
+    //v1.1.6.3  begin  - is Woocommerce installed
+    if ( ! class_exists( 'WooCommerce' ) )  {
+      return false;
+    }
+    //v1.1.6.3  end
+    
 		global $wp_version;
 
 		$data = array_merge( $this->api_data, $_data );
@@ -423,44 +437,11 @@ class VTPRD_Plugin_Updater {
     //TEST for duplicative api call testing - only do this ONCE per 10 second interval:
     $today= time(); 
     if (($today - $vtprd_license_options['last_successful_rego_ts']) < 10)  { 
-     //error_log( print_r(  'api_request time interval exit, Exit 0002a' , true ) );
+       //error_log( print_r(  'api_request time interval exit, Exit 0002a' , true ) );
 			return false; 
     }
 */
-
-   /*
-
-
-
-       
-   // $plugin_data = get_plugin_data( __FILE__ );
-   // $plugin_version = $plugin_data['Version'];
-    
-    $plugin_version = self::plugin_get_version();
-    
- //error_log( print_r(  'Plugin Version number= ' .$plugin_version, true ) );      
-    
-    //TIME DELAY FOR CALL since LAST CALL
-    switch ( $vtprd_license_options['last_check_date_in_seconds'] ) { 
-      case null :
-          $vtprd_license_options['last_check_date_in_seconds'] = time();
-          update_option('vtprd_license_options', $vtprd_license_options);
-        break; 
-      default: 
-          $date_in_seconds = time();
-          //3600 = 1 hour = 60 x 60
-          if ( ($date_in_seconds - $vtprd_license_options['last_check_date_in_seconds']) > 3600 ) {
-            $vtprd_license_options['last_check_date_in_seconds'] = $date_in_seconds;
-            update_option('vtprd_license_options', $vtprd_license_options);          
-          } else {
-            //if done within the last 10 miuntes, DON'T do it AGAIN!!
- //error_log( print_r(  'REPEAT SKIP ' , true ) );              
-            return 'false';
-          }
-        break; 
-    }
-    
-*/            
+            
     //v1.1.5 end
 /*
 CLIENT - All the Plugin Updater does is run the function - api_request -.
@@ -519,6 +500,15 @@ vark_get_latest_version_remote
       
 		);
         
+    //v1.1.6.3 begin
+    if (defined('VTPRD_PRO_VERSION')) { 
+      $version = VTPRD_PRO_VERSION;
+    } else {
+      global $vtprd_setup_options;
+      $version   = $vtprd_setup_options['current_pro_version'];
+    } 
+    //v1.1.6.3 end   
+        
   //v1.1.6 begin 
 	//	$request = wp_remote_post( VTPRD_STORE_URL, array( 'timeout' => 15, 'sslverify' => false, 'body' => $api_params ) );
 
@@ -527,7 +517,9 @@ vark_get_latest_version_remote
     			'timeout' => 45,
     			'redirection' => 5,
     			'httpversion' => '1.0',
-    			'headers' => array( 'user-agent' => 'Aardvark/Updater/vtprd/Free/V' . VTPRD_VERSION . '/Pro/V' . VTPRD_PRO_VERSION .';'. $vtprd_license_options['url'] ),
+    			//v1.1.6.3 switched to array value for PRO version, to allow for DEACTIVATED plugin -> this already containse the version from $plugin_data['Version']
+          'headers' => array( 'user-agent' => 'Aardvark/Updater/vtprd/Free/V' . VTPRD_VERSION . '/Pro/V' . $version  .';'. $vtprd_license_options['url'] ),
+          //'headers' => array( 'user-agent' => 'Aardvark/Updater/vtprd/Free/V' . VTPRD_VERSION . '/Pro/V' . VTPRD_PRO_VERSION .';'. $vtprd_license_options['url'] ),
     			'body' => $api_params,
     			'sslverify' => false
     			) );
@@ -548,9 +540,9 @@ vark_get_latest_version_remote
 
 
    
- //error_log( print_r(  'api_request after wp_remote_post, $request= ' .$_action , true ) );  
- //error_log( var_export($request, true ) );
- //error_log( var_export($api_params, true ) );
+   //error_log( print_r(  'api_request after wp_remote_post, $request= ' .$_action , true ) );  
+   //error_log( var_export($request, true ) );
+   //error_log( var_export($api_params, true ) );
  
 		if ( ! is_wp_error( $request ) ) {
 			$request = json_decode( wp_remote_retrieve_body( $request ) );
@@ -566,7 +558,7 @@ vark_get_latest_version_remote
       return 'false';   
     }
     //v1.1.6 begin
-    //used to control license checks during Admin and Cart 
+    //used to control license checks during Admin and Cron
     $today = time();
     update_option('vtprd_last_license_check_ts', $today);
     //v1.1.6 end
@@ -587,6 +579,8 @@ vark_get_latest_version_remote
       $vtprd_license_options['last_failed_rego___date_time'] = date("Y-m-d H:i:s");     
     } 
     
+   //error_log( print_r(  'api_request*2* after wp_remote_post, $request*2*= ' .$_action , true ) );  
+   //error_log( var_export($request, true ) );
 
     //v1.1.5 begin     
     if ($request->status == 'invalid') {
@@ -635,6 +629,8 @@ vark_get_latest_version_remote
       
  
 /* TEST TEST TEST    
+    if ( (get_option('vtprd_host_has_new_version') !== false ) //v1.1.6.3
+    
     //version update 1st time, nothing to download
     if ($vtprd_license_options['plugin_current_version'] <= ' ') {
       $vtprd_license_options['plugin_current_version'] = $request->new_version;
@@ -657,12 +653,12 @@ vark_get_latest_version_remote
 			$request = false;
 		}
 /*
-  //error_log( print_r(  'after wp_remote_retrieve_body prod_or_test 003= ' .$vtprd_license_options['prod_or_test'] , true ) ); 
+    //error_log( print_r(  'after wp_remote_retrieve_body prod_or_test 003= ' .$vtprd_license_options['prod_or_test'] , true ) ); 
 
 
 $vtprd_license_options2 = get_option( 'vtprd_license_options' ); //just in case
- //error_log( print_r(  'api_request, Exit 0005, $vtprd_license_options2 = ' , true ) );
- //error_log( var_export($vtprd_license_options2, true ) ); 
+   //error_log( print_r(  'api_request, Exit 0005, $vtprd_license_options2 = ' , true ) );
+   //error_log( var_export($vtprd_license_options2, true ) ); 
  
  global $vtprd_license_options; //just in case
  $vtprd_license_options = $vtprd_license_options2;

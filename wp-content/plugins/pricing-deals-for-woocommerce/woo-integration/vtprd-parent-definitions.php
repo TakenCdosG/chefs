@@ -227,13 +227,21 @@ $vtprd_parent_definitions = new VTPRD_Parent_Definitions;
     
     //THIS ONLY OCCURS WHEN THE PLUGIN IS FIRST INSTALLED!
     // from http://stackoverflow.com/questions/4305604/get-ip-from-dns-without-using-gethostbyname
-    $host = gethostname();
-    $query = `nslookup -timeout=$timeout -retry=1 $host`;
-    if(preg_match('/\nAddress: (.*)\n/', $query, $matches)) {
-      $vtprd_ip_address =  trim($matches[1]);
-    } else {
-      $vtprd_ip_address = gethostbyname($host);
-    }
+    
+    //v1.1.6.3 refactored, put in test for php version
+    $php_version = phpversion();
+    if ( version_compare( $php_version, '5.3.1', '<' ) ) {
+      $vtprd_ip_address = $_SERVER['SERVER_ADDR'];
+    } else {    
+      $host = gethostname();
+      $query = `nslookup -timeout=$timeout -retry=1 $host`;
+      if(preg_match('/\nAddress: (.*)\n/', $query, $matches)) {
+        $vtprd_ip_address =  trim($matches[1]);
+      } else {
+        $vtprd_ip_address = gethostbyname($host);
+      }    
+    }	
+
     
     update_option( 'vtprd_ip_address', $vtprd_ip_address );
     

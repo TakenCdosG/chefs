@@ -12,12 +12,12 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 		/**
 		 * Current version of this plugin
 		 */
-		const VERSION = '4.2.1';
+		const VERSION = '4.2.2';
 
 		/**
 		 * Min required Tickets Core version
 		 */
-		const REQUIRED_TICKETS_VERSION = '4.2';
+		const REQUIRED_TICKETS_VERSION = '4.2.2';
 
 		/**
 		 * Directory of the plugin
@@ -91,27 +91,10 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 
 			$this->apm_filters();
 
+			add_action( 'init', array( $this, 'csv_import_support' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			add_filter( 'tribe_support_registered_template_systems', array( $this, 'add_template_updates_check' ) );
 			add_filter( 'tribe_tickets_settings_systems_supporting_login_requirements', array( $this, 'register_login_setting' ) );
-
-			// CSV Import options
-			if ( class_exists( 'Tribe__Events__Main' ) ) {
-				$commerce_loader = $this->commerce_loader();
-				if ( $commerce_loader->has_commerce_providers() ) {
-					$column_names_filter  = Tribe__Tickets_Plus__CSV_Importer__Column_Names::instance( $commerce_loader );
-					$importer_rows_filter = Tribe__Tickets_Plus__CSV_Importer__Rows::instance( $commerce_loader );
-
-					add_filter( 'tribe_events_import_options_rows', array( $importer_rows_filter, 'filter_import_options_rows' ) );
-
-					if ( $commerce_loader->is_woocommerce_active() ) {
-						add_filter( 'tribe_event_import_tickets_woo_column_names', array( $column_names_filter, 'filter_tickets_woo_column_names' ) );
-						add_filter( 'tribe_events_import_tickets_woo_importer', array( 'Tribe__Tickets_Plus__CSV_Importer__Tickets_Importer', 'woo_instance' ), 10, 2 );
-					}
-
-					add_filter( 'tribe_events_import_type_titles_map', array( $column_names_filter, 'filter_import_type_titles_map' ) );
-				}
-			}
 
 			// Unique ticket identifiers
 			add_action( 'event_tickets_rsvp_attendee_created', array( Tribe__Tickets_Plus__Meta__Unique_ID::instance(), 'assign_unique_id' ), 10, 2 );
@@ -218,6 +201,38 @@ if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
 			}
 
 			return self::$attendees_list;
+		}
+
+		/**
+		 * Setup integration with The Events Calendar's CSV import facilities.
+		 *
+		 * Expects to run during the init action - we don't want to set this up
+		 * too early otherwise the commerce loader may not be able to reliably
+		 * determine the version numbers of any active ecommerce plugins.
+		 */
+		public function csv_import_support() {
+			// CSV import is not a concern unless The Events Calendar is also running
+			if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+				return;
+			}
+
+			$commerce_loader = $this->commerce_loader();
+
+			if ( ! $commerce_loader->has_commerce_providers() ) {
+				return;
+			}
+
+			$column_names_filter  = Tribe__Tickets_Plus__CSV_Importer__Column_Names::instance( $commerce_loader );
+			$importer_rows_filter = Tribe__Tickets_Plus__CSV_Importer__Rows::instance( $commerce_loader );
+
+			add_filter( 'tribe_events_import_options_rows', array( $importer_rows_filter, 'filter_import_options_rows' ) );
+
+			if ( $commerce_loader->is_woocommerce_active() ) {
+				add_filter( 'tribe_event_import_tickets_woo_column_names', array( $column_names_filter, 'filter_tickets_woo_column_names' ) );
+				add_filter( 'tribe_events_import_tickets_woo_importer', array( 'Tribe__Tickets_Plus__CSV_Importer__Tickets_Importer', 'woo_instance' ), 10, 2 );
+			}
+
+			add_filter( 'tribe_events_import_type_titles_map', array( $column_names_filter, 'filter_import_type_titles_map' ) );
 		}
 
 		/**

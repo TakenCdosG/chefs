@@ -4,7 +4,7 @@ Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tr
 Tags: events, WooCommerce, WooTickets, add-on, ticket sales, tickets, calendar, community, registration, api, dates, date, posts, workshop, conference, meeting, seminar, concert, summit, The Events Calendar, Events Calendar PRO, ticket integration, event ticketing, RSVP, Shopp, EDD, WPEC, WP-eCommerce, WPEC Tickets, Shopp Tickets, Easy Digital Downloads, EDDTickets
 Requires at least: 3.9
 Tested up to: 4.5.3
-Stable tag: 4.2.1
+Stable tag: 4.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,7 +142,17 @@ Our Premium Plugins:
 
 == Changelog ==
 
+= [4.2.2] 2016-07-06 =
+
+* Fix - Update of price in WooCommerce does not update _EventCost
+* Fix - Add attendee meta info to tickets email
+* Fix - Ensure continued compatibility with WooCommerce
+* Fix - Ensure continued compatibility with WP E-Commerce
+* Fix - Made sure a SKU will be automatically generated for WooCommerce tickets if not provided.
+* Fix - Resolve issue where "Don't list me on attendees public attendees list" is visible even when "Hide attendees list" is checked in admin [63039]
+
 = [4.2.1] 2016-06-22 =
+
 * Fix - Add attendee meta for all non event post types in the CSV export
 * Fix - Use numeric ID for QR checkin instead of the new Human Readable format
 * Fix - Restore APM functionality with tickets

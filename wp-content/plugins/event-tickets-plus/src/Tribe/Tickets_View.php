@@ -246,11 +246,14 @@ class Tribe__Tickets_Plus__Tickets_View {
 	 *
 	 */
 	public function output_attendee_list_checkbox( $attendee_group, $post_id ) {
+		if ( Tribe__Tickets_Plus__Attendees_List::is_hidden_on( $post_id ) ) {
+			return;
+		}
 		$first_attendee = reset( $attendee_group );
 
 		$args = array(
 			'attendee_group' => $attendee_group,
-			'post_id' => $post_id,
+			'post_id'        => $post_id,
 			'first_attendee' => $first_attendee,
 		);
 
@@ -259,7 +262,6 @@ class Tribe__Tickets_Plus__Tickets_View {
 		} else {
 			$template_part = 'tickets-plus/attendee-list-checkbox-tickets';
 		}
-
 		tribe_tickets_get_template_part( $template_part, null, $args );
 	}
 }

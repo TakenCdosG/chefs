@@ -4,7 +4,7 @@ Donate link: https://www.varktech.com/woocommerce/woocommerce-dynamic-pricing-di
 Tags: dynamic pricing,  WooCommerce, ecommerce, e commerce, e-commerce, commerce, store, sales, promotion, advertising, sell, shop, shopping, cart, checkout, configurable, variable, widgets, reports, marketing, deals, price, discount, group pricing, wholesale, membership, role, promotion, bogo, catalog only
 Requires at least: 3.3
 Tested up to: 4.5.2
-Stable tag: 1.1.6.2
+Stable tag: 1.1.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -194,9 +194,24 @@ Direct support requests can be made here on the support tab, or at the [Support]
 
 == Changelog ==
 
+= 1.1.6.6 - 2016-07-09 =
+SVN Update issue, final resolution!
+
+= 1.1.6.5 - 2016-07-09 =
+SVN Update issue
+
+= 1.1.6.4 - 2016-07-09 =
+SVN Update issue
+
+= 1.1.6.3 - 2016-07-09 =
+* Enhancement - Pro plugin updater now active - Pro plugin updates now delivered directly to the plugins.php page
+* Fix - If Woocommerce deactivated, slide through with no warning
+* Fix - Warn if PHP version less than 5.3.1
+* Fix - repair rare Fatal error: Call to a member function get_tax_class() ...
+* Fix - repair auto add for free bug
+
 = 1.1.6.2 - 2016-06-19 =
 * Fix - Auto update was accidentally forcing re-registration
-
 
 = 1.1.6.1 - 2016-06-19 =
 * Fix - URL fixes in anchors

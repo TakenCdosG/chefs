@@ -266,7 +266,7 @@ function vtprd_show_help_page_cntl() {
   
   <div class="wrap">
 		<div id="icon-themes" class="icon32"></div>        
-		  <a class="pricing-deal-button" target="_blank" href="http://www.varktech.com/documentation/pricing-deals/introrule/"><?php _e('Open Help Tab!', 'vtprd');?></a> 
+		  <a class="pricing-deal-button" target="_blank" href="https://www.varktech.com/documentation/pricing-deals/introrule/"><?php _e('Open Help Tab!', 'vtprd');?></a> 
  
  <?php
 }
@@ -375,7 +375,7 @@ function vtprd_setup_options_cntl() {
       <div id="floating-buttons" class="show-buttons">
         <?php	submit_button(); ?>       			     
         <input name="vtprd_setup_options[options-reset]"      type="submit" class="button-secondary"  value="<?php esc_attr_e('Reset to Defaults', 'vtprd'); ?>" />
-        <a class="button-secondary" target="_blank" href="http://www.varktech.com/documentation/pricing-deals/settings"><?php _e('Help!', 'vtprd');?></a> 
+        <a class="button-secondary" target="_blank" href="https://www.varktech.com/documentation/pricing-deals/settings"><?php _e('Help!', 'vtprd');?></a> 
       </div>
       
       <span id="vtprd-system-buttons-anchor"></span>  
@@ -397,11 +397,14 @@ function vtprd_setup_options_cntl() {
           <input id="nuke-cart-button"    name="vtprd_setup_options[cart-nuke]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e('Nuke Cart Contents', 'vtprd'); ?>" />                    
           
           <?php //v1.1.5 New button, goes to admin_init actuated function below
-                //v1.1.6 changed to a standard screen  button  ?>
+                //v1.1.6 changed to a standard screen  button  
+                //v1.1.6.3 changed to URL with action = force_plugin_updates_check
+                global  $vtprd_license_options;  //v1.1.6.3
+          ?>
           <h4 class="system-buttons-h4"><?php esc_attr_e('Check for Plugin Updates', 'vtprd'); ?></h4>
-          <input id="force_plugin_updates_check"    name="vtprd_setup_options[force_plugin_updates_check]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e('Check for Plugin Updates', 'vtprd'); ?>" />                    
+          <a  id="nuke-cart-button"  class="nuke_buttons button-second" href="<?php echo $vtprd_license_options['home_url']; ?>/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_license_options_page&action=force_plugin_updates_check">Plugin Updates Check</a>
           
-          <h4 class="system-buttons-h4"><?php esc_attr_e("Please Don't click here unless instructed!", 'vtprd') //v1.1.6.1 workding changed; ?></h4>
+          <h4 class="system-buttons-h4"><?php esc_attr_e("Please Don't click here unless instructed!", 'vtprd') //v1.1.6.1 wording changed; ?></h4>
           <input id="nuke-cart-button"    name="vtprd_setup_options[cleanup]"       type="submit" class="nuke_buttons button-second"     value="<?php esc_attr_e("Nuke Important Stuff", 'vtprd'); ?>" />                    
                     
           <?php //v1.1.5 end  ?> 
@@ -1377,7 +1380,8 @@ function vtprd_set_default_options() {
           'unit_price_cart_savings_message' => __('You Saved ', 'vtprd') .'{cart_save_amount}',  //opt53  shown in cartpage, checkout and thankyou
           'wholesale_products_display' => '',  //opt54  'noAction', 'respective' = show retail to retail, wholesale to wholesale   'wholesaleAll = show retail to retail, wholesale sees all   'normal'
           'wholesale_products_price_display' => '',  //opt55  //v1.1.1
-          'allow_license_info_reset' => 'no'  //opt56  //v1.1.5
+          'allow_license_info_reset' => 'no',  //opt56  //v1.1.5
+          'current_pro_version' => ''  //internal, not an option  //v1.1.6.3
      );
      return $options;
 }
@@ -2819,13 +2823,16 @@ function vtprd_validate_setup_input( $input ) {
   $nuke_log     = ( ! empty($input['log-nuke']) ? true : false );  
   $nuke_session = ( ! empty($input['session-nuke']) ? true : false );
   $nuke_cart    = ( ! empty($input['cart-nuke']) ? true : false );
-  $update_check = ( ! empty($input['force_plugin_updates_check']) ? true : false ); //v1.1.6
   $cleanup      = ( ! empty($input['cleanup']) ? true : false ); //v1.1.5 
  
   $output = get_option( 'vtprd_setup_options' ); //v1.1.6
   switch( true ) { 
     case $reset        === true :    //reset options
         $output = $this->vtprd_set_default_options();  //load up the defaults
+        
+   //error_log( print_r(  'DEFAULT Options before UPDATE= ', true ) );
+  //error_log( var_export($output, true ) );        
+        
         //as default options are set, no further action, just return
         return apply_filters( 'vtprd_validate_setup_input', $output, $input );
       break;
@@ -2859,15 +2866,7 @@ function vtprd_validate_setup_input( $input ) {
         $this->vtprd_destroy_session();
         //$output = get_option( 'vtprd_setup_options' );   //v1.1.6
       break; 
-     
-     //v1.1.6 begin  
-    case $update_check === true :    
-        //vtprd_force_plugin_updates_check(); //runs some code, then redirects to another admin screen.  Nothing more to do here, so exit!
-        set_site_transient( 'update_plugins', null );    
-    	  wp_safe_redirect( network_admin_url( 'update-core.php' ) ); exit;
-      break;  
-     //v1.1.6 end 
-        
+
      //v1.1.5 begin  
     case $cleanup === true :    
         update_option('vtprd_license_count', 0 ); //v1.1.6.1

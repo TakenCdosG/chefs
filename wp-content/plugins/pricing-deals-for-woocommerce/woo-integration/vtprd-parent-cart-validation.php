@@ -803,7 +803,17 @@ HOWEVER, if a component product has a discount, there's a 'double' discount'
           //pre woo 2.4
           $use_this_product_id = $product_info->children[$k]; 
         }
-        
+         
+        //v1.1.6.3 begin  - get_tax_class
+        //FINAL FIX Fatal error: Call to a member function get_tax_class() ...
+        //==>> VISIBLE <<==  product attribute (array) is (RARELY) NOT THERE after a WOOCOMMERCE update!
+        if (!$use_this_product_id) {
+          if (isset($product_info->children['all'][$k])) {
+            $use_this_product_id = $product_info->children['all'][$k];
+          }
+        }
+        //v1.1.6.3 end
+               
         vtprd_get_product_session_info($use_this_product_id);
         
       

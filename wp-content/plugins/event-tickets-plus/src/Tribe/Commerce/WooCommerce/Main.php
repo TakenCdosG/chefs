@@ -211,6 +211,8 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 		add_action( 'woocommerce_payment_successful_result', array( $this, 'maybe_complete_order' ), 10, 2 );
 		add_action( 'woocommerce_email_after_order_table', array( $this, 'add_tickets_msg_to_email' ), 10, 2  );
 		add_action( 'woocommerce_add_order_item_meta', array( $this, 'set_attendee_optout_choice' ), 15, 2 );
+		add_action( 'woocommerce_product_quick_edit_save', array( $this, 'syncronize_product_editor_changes' ) );
+		add_action( 'woocommerce_process_product_meta_simple', array( $this, 'syncronize_product_editor_changes' ) );
 
 		// Enqueue styles
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 11 );
@@ -331,6 +333,25 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 	public function admin_enqueue_styles() {
 		wp_enqueue_style( 'TribeEventsWooTickets' );
 		wp_enqueue_style( 'tribe-events-wootickets-override-style' );
+	}
+
+	/**
+	 * If a ticket is edited via the WooCommerce product editor (vs the ticket meta
+	 * box exposed in the event editor) then we need to trigger an update to ensure
+	 * cost meta in particular stays up-to-date on our side.
+	 *
+	 * @param $product_id
+	 */
+	public function syncronize_product_editor_changes( $product_id ) {
+		$event = $this->get_event_for_ticket( $product_id );
+
+		// This product is not connected with an event
+		if ( ! $event ) {
+			return;
+		}
+
+		// Trigger an update
+		Tribe__Events__API::saveEventMeta( $event->ID, array() );
 	}
 
 	/**
@@ -745,6 +766,24 @@ class Tribe__Tickets_Plus__Commerce__WooCommerce__Main extends Tribe__Tickets_Pl
 			update_post_meta( $ticket->ID, '_product_attributes', array() );
 			update_post_meta( $ticket->ID, '_sale_price', '' );
 			update_post_meta( $ticket->ID, 'total_sales', 0 );
+
+			/**
+			 * Toggle filter to allow skipping the automatic SKU generation.
+			 *
+			 * @param bool $should_default_ticket_sku
+			 */
+			$should_default_ticket_sku = apply_filters( 'event_tickets_woo_should_default_ticket_sku', true );
+			if ( $should_default_ticket_sku ) {
+				// make sure the SKU is set to the correct value
+				if ( ! empty( $raw_data['ticket_woo_sku'] ) ) {
+					$sku = $raw_data['ticket_woo_sku'];
+				} else {
+					$post_author                = get_post( $ticket->ID )->post_author;
+					$sku                        = "{$ticket->ID}-{$post_author}-" . sanitize_title( $raw_data['ticket_name'] );
+					$raw_data['ticket_woo_sku'] = $sku;
+				}
+				update_post_meta( $ticket->ID, '_sku', $sku );
+			}
 
 			// Relate event <---> ticket
 			add_post_meta( $ticket->ID, $this->event_key, $event_id );
