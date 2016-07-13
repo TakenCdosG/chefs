@@ -1902,7 +1902,8 @@ ul#menu-header-bottom .default-menu {
 }
 
 .single-product .summary .price{
-    margin-top: 10px;
+    margin-top: 3px;
+    margin-bottom: 3px;
 }
 
 .single-product.woocommerce-page div.product div.images {
