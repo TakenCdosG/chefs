@@ -3735,3 +3735,15 @@ span.msg-cart-registry{
     height: 140px;
     margin: 5px auto;
 }
+
+.search-results .page-title-wrap{
+    background-color: transparent;
+    border-bottom: 1px solid #eaeaea;
+    padding: 20px 0;
+}
+
+.search-results .page-title-wrap .page-title{
+    color: #ef3d42;
+    font-size: 30px;
+    margin-bottom: 0px;
+}
