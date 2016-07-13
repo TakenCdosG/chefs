@@ -871,12 +871,12 @@ endif;
 
 <?php
 
-function depure_brands($brands_categories){
+function depure_brands($brands_categories, $taxonomy_product_cat){
   dpm($brands_categories);
   $args = array(
     'post_type' => 'product',
     'posts_per_page' => 18,
-    'paged' => $paged,
+    'fields' => 'ids',
     'meta_query' => array(
       array(
         'key' => '_stock_status',
@@ -893,6 +893,6 @@ function depure_brands($brands_categories){
     ),
   );
   $products = new WP_Query($args);
-  dpm($products);
+  dpm($products->posts);
   return $brands_categories;
 }

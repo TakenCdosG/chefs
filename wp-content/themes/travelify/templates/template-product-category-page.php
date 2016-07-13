@@ -60,8 +60,6 @@ $args_category_brand = array(
     'hide_empty' => 1,
 );
 
-$categories_parent_brand = depure_brands(get_categories($args_category_brand));
-
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 
 /*
@@ -89,6 +87,8 @@ $args = array(
 */
 
 $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$product_cat;
+
+$categories_parent_brand = depure_brands(get_categories($args_category_brand),$taxonomy_product_cat);
 
 $args = array(
     'post_type' => 'product',
