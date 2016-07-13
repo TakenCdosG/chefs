@@ -208,7 +208,7 @@ echo '$vtprd_rules_set[$i]->discount_total_qty_for_rule= ' .$vtprd_rules_set[$i]
           //add max_purchase_row          
           //$next_rule_purch_id = $wpdb->get_var("SELECT LAST_INSERT_ID() AS `id` FROM `".VTPRD_MAX_PURCHASE_RULE_PURCHASER."` LIMIT 1");
           //$next_rule_purch_id = $next_rule_purch_id + 1;
-          $next_id; //supply null value for use with autoincrement table key
+          $next_id =  null; //supply null value for use with autoincrement table key //v1.1.1.3
           $vtprd_cart->purchaser_ip_address = $vtprd_info['purchaser_ip_address'];
                     
 
@@ -233,7 +233,7 @@ echo '$vtprd_rules_set[$i]->discount_total_qty_for_rule= ' .$vtprd_rules_set[$i]
           
         }
 
-          $next_id; //supply null value for use with autoincrement table key
+          $next_id = null; //supply null value for use with autoincrement table key  //v1.1.1.3
           $logid_status = 'active';
           
         //create the LOGID table entry for the RULE, track rule purchase totals for THIS logid
@@ -666,7 +666,7 @@ echo '$vtprd_rules_set[$i] <pre>'.print_r($vtprd_rules_set[$i], true).'</pre>' ;
       //************************
       //IF ***not found above***, create the  PURCHASER
       //************************
-      $next_id; //supply null value for use with autoincrement table key      
+      $next_id = null; //supply null value for use with autoincrement table key     //v1.1.1.3      
 
       $wpdb->query("INSERT INTO `".VTPRD_LIFETIME_LIMITS_PURCHASER."` (`purchaser_table_id`,`purchaser_ip_address`,`purchaser_email`,
       `billto_name`,`billto_address`, `billto_city`,`billto_state`,`billto_postcode`,`billto_country`,

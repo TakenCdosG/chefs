@@ -140,11 +140,31 @@ class VTPRD_Apply_Rules{
 	
 	public function __construct(){
 		global $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_info, $vtprd_setup_options, $vtprd_rule;
+
+    //*********************
+    //v1.1.5 begin
+    global $vtprd_license_options;    
+    if (!$vtprd_license_options) {
+      $vtprd_license_options = get_option( 'vtprd_license_options' );
+    }
     
+    if ( $vtprd_setup_options['debugging_mode_on'] == 'yes' ){   
+      error_log( print_r(  '$woocommerce->cart at PRO APPLY-RULES BEGIN, $vtprd_license_options= ', true ) );
+      error_log( var_export($vtprd_license_options, true ) );  
+    } 
+      
+    if ( ($vtprd_license_options['status'] == 'valid') &&  
+         ($vtprd_license_options['pro_plugin_version_status'] == 'valid')  )  {  
+      $all_good = true;
+    } else {
+      return;
+    }
+    //v1.1.5 end 
+    //*********************  
     
     //GET RULES SET     
     $vtprd_rules_set = get_option( 'vtprd_rules_set' );
-    if ($vtprd_rules_set == FALSE) {
+    if ($vtprd_rules_set == FALSE) {    
       return;
     }
 
@@ -166,6 +186,9 @@ class VTPRD_Apply_Rules{
             
       //after sort for cart/remove display rows, are there rows left?
       if ( sizeof($vtprd_rules_set) == 0) {
+        if ( $vtprd_setup_options['debugging_mode_on'] == 'yes' ){   //v1.1.5
+          error_log( print_r(  '$woocommerce->cart at PRO APPLY-RULES BEGIN, NO RULES ', true ) );
+        }      
         return;
       } 
       
@@ -4500,8 +4523,12 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
       global $post, $wpdb, $woocommerce, $vtprd_cart, $vtprd_rules_set, $vtprd_cart_item, $vtprd_info;
       
       //$woocommerce_free_product_processed = false; //v1.1.1.2 moved
+      
+      //v1.1.6.3  this flag go across ALL updates
       $woocommerce_cart_updated = false;
-     
+      //v1.1.6.3  NEW flag go across ALL updates
+      $woocommerce_free_product_processed_in_the_cart = false;    //v1.1.6.3  
+      
       //********************************
       // if the item is ALREADY IN THE CART
       // Process updates to the Cart
@@ -4514,8 +4541,9 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
       $woocommerce_cart_contents = $woocommerce->cart->get_cart(); 
       foreach($woocommerce_cart_contents as $key => $cart_item) {
 
+        //v1.1.6.3  this flag is RESET in each FOREACH
         $woocommerce_free_product_processed = false; //v1.1.1.2 moved here
-        
+  //error_log( print_r(  '$woocommerce_free_product_processed set to false= ' .$woocommerce_free_product_processed, true ) );         
         if ($cart_item['variation_id'] > ' ') {      
             $cart_product_id    = $cart_item['variation_id'];
         } else { 
@@ -4557,12 +4585,15 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
                 $woocommerce->cart->set_quantity($key,$current_auto_add_array_row['current_qty'],false); //false = don't refresh totals
   
              }
-             
+//error_log( print_r(  'set $woocommerce_cart_updated = true  001', true ) );            
              $woocommerce_cart_updated = true;
              
           }
-      //error_log( print_r(  '$woocommerce_free_product_processed = true', true ) );         
-          $woocommerce_free_product_processed = true; 
+      //error_log( print_r(  '$woocommerce_free_product_processed = true', true ) ); 
+//error_log( print_r(  'set $woocommerce_free_product_processed = true  001', true ) );              
+          $woocommerce_free_product_processed = true;
+          $woocommerce_free_product_processed_in_the_cart = true;    //v1.1.6.3
+  //error_log( print_r(  '$woocommerce_free_product_processed 001= ' .$woocommerce_free_product_processed, true ) );
           
           //update the current array row in the parent array
           $current_auto_add_array[$cart_product_id] = $current_auto_add_array_row;
@@ -4574,10 +4605,11 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
           if ( (isset($previous_auto_add_array[$cart_product_id] )) &&
                ($previous_auto_add_array[$cart_product_id]['free_qty']  > 0) ) {
             $this->vtprd_maybe_roll_out_prev_auto_insert_from_woo_cart($previous_auto_add_array, 'single', $cart_product_id );
+//error_log( print_r(  'set $woocommerce_cart_updated = true  002', true ) );
             $woocommerce_cart_updated = true;
           }
        }
-       
+  //error_log( print_r(  '$woocommerce_free_product_processed 002= ' .$woocommerce_free_product_processed, true ) );        
         //********************************
         //Process Auto Add of new Products - If any current free products were not processed above, then they are added here.
         //********************************
@@ -4591,7 +4623,7 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
            /* -------------------------------------- 
             add to cart logic from woocommerce-functions.php  function woocommerce_add_to_cart_action
            -------------------------------------- */
-                 
+  //error_log( print_r(  '$woocommerce_free_product_processed 003= ' .$woocommerce_free_product_processed, true ) );                  
             //$current_auto_add_array_row GOTTEN AB
             $qty = $current_auto_add_array_row['free_qty'];
             
@@ -4642,12 +4674,12 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
             
              //$current_free_product_row['variations_parameter']
       //error_log( print_r(  'update_parent_cart_for_autoAdds  0010', true ) );
+ //error_log( print_r(  'set $woocommerce_cart_updated = true  003', true ) );
             $woocommerce_cart_updated = true;
              
             $current_auto_add_array_items_processed[] = $cart_product_id; //mark key as processed       
           }   
-          
-     
+
        
        
       } //end foreach         
@@ -4695,6 +4727,7 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
           
            //$current_free_product_row['variations_parameter']
     //error_log( print_r(  'update_parent_cart_for_autoAdds  110', true ) );
+ //error_log( print_r(  'set $woocommerce_cart_updated = true  004', true ) );    
           $woocommerce_cart_updated = true;        
         } //end add new free item foreach   
  
@@ -4747,7 +4780,8 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
      $_SESSION['previous_auto_add_array'] = serialize($current_auto_add_array);
      $vtprd_info['previous_auto_add_array'] = $current_auto_add_array; //$vtprd_info['previous_auto_add_array'] used when session variable disappears due to age
 
-
+  //error_log( print_r(  'Just ABOVE, reload cart_item_key', true ) ); 
+  //error_log( print_r(  '$woocommerce_free_product_processed LAST= ' .$woocommerce_free_product_processed, true ) ); 
         
       //***************
       //v1.1.1.1 begin
@@ -4755,9 +4789,10 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
       //IF auto add of *new product* (not of one already in the cart), vtprd_cart HAS NO cart_item_key .
       //  cart_item_key is NOW used as the key for all loops in cart-validation
       //  Find and fill in value
-     if ($woocommerce_free_product_processed || 
+     //if ($woocommerce_free_product_processed ||   //v1.1.6.3 removed
+       if ($woocommerce_free_product_processed_in_the_cart ||    //v1.1.6.3
          $woocommerce_cart_updated) {
-            
+  //error_log( print_r(  'AT post_process auto updates, reload cart_item_key BEGIN', true ) );            
         $woocommerce_cart_contents = $woocommerce->cart->get_cart();
 
         $sizeof_cart_items = sizeof($vtprd_cart->cart_items);
@@ -4786,7 +4821,8 @@ error_log( print_r(  'vtprd_maybe_auto_add_to_vtprd_cart  002', true ) );
       }
       //v1.1.1.1 end
       //***************
-      
+
+  //error_log( print_r(  'Just below reload cart_item_key', true ) );       
       
      //clear out the current variable for use in next iteration, as needed
      

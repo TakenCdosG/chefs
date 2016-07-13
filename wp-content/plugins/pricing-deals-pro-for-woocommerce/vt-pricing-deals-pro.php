@@ -3,7 +3,7 @@
 Plugin Name: VarkTech Pricing Deals PRO for WooCommerce
 Plugin URI: http://varktech.com
 Description: An e-commerce add-on for WooCommerce, supplying Pricing Deals functionality.
-Version: 1.1.1.2
+Version: 1.1.6.3
 Author: VarkTech
 Author URI: http://varktech.com
 */
@@ -22,14 +22,20 @@ class VTPRD_Pro_Controller{
 	public function __construct(){    
     global $wpdb;
     add_action('init', array( &$this, 'vtprd_pro_controller_init' ));    
-    define('VTPRD_PRO_VERSION',                           '1.1.1.2');       
-    define('VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION',     '1.1.1.2');  //required version of
-    define('VTPRD_PRO_LAST_UPDATE_DATE',                  '2015-11-07');
+    define('VTPRD_PRO_VERSION',                           '1.1.6.3');  //in the FREE version, current required version remains 1.1.2 ...     
+    define('VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION',     '1.1.6.3');  //required version of
+    define('VTPRD_PRO_LAST_UPDATE_DATE',                  '2016-07-09');
 	  define('VTPRD_PRO_PLUGIN_NAME2',                      'Pricing Deals Pro for WooCommerce');
     define('VTPRD_PRO_FREE_PLUGIN_NAME',                  'Pricing Deals for WooCommerce');
-    define('VTPRD_PRO_DIRNAME',                           ( dirname( __FILE__ ) ));
+    
+      /*
+      v1.1.5
+      VTPRD_PRO_DIRNAME shifted to FREE version           
+      */    
+  //define('VTPRD_PRO_DIRNAME',                           ( dirname( __FILE__ ) )); //v1.1.5 REMOVED, now in FREE version
+    define('VTPRD_PRO_DIRNAME_IF_ACTIVE',                  ( dirname( __FILE__ ) ));
 	  define('VTPRD_PRO_URL',                                plugins_url( '', __FILE__ ) );
-    define('VTPRD_PRO_BASE_NAME',                          basename(VTPRD_PRO_DIRNAME));
+    //define('VTPRD_PRO_BASE_NAME',                          basename(VTPRD_PRO_DIRNAME)); //v1.1.5 REMOVED
     define('VTPRD_PRO_REMOTE_VERSION_FILE',               'http://www.varktech.com/pro/vtprd-pro-for-woocommerce-version.txt');
     define('VTPRD_PRO_DOWNLOAD_FREE_VERSION_BY_PARENT',   'http://wordpress.org/extend/plugins/pricing-deals-for-woocommerce/');
     define('VTPRD_PRO_PLUGIN_SLUG',                        plugin_basename(__FILE__)); 
@@ -44,7 +50,7 @@ class VTPRD_Pro_Controller{
  *************************************************** */
 	public function vtprd_pro_controller_init(){
      if (is_admin()){
-        add_action('after_plugin_row', array( &$this, 'vtprd_pro_check_plugin_version' ));
+       // add_action('after_plugin_row', array( &$this, 'vtprd_pro_check_plugin_version' ));  //v1.1.5 REMOVED
         add_action('admin_init', array( &$this, 'vtprd_pro_housekeeping' )); //v1.1.1 changed to run housekeeping
         add_filter( 'plugin_action_links_' . VTPRD_PRO_PLUGIN_SLUG , array( $this, 'vtprd_custom_action_links' ) );
      }
@@ -52,7 +58,7 @@ class VTPRD_Pro_Controller{
      
   //v1.1.1  New Function
 	public function vtprd_pro_housekeeping() {
-  			
+//error_log( print_r(  'Function begin - vtprd_pro_housekeeping', true ) ); 		
     $this->vtprd_pro_check_for_free_version();
     
     wp_register_style ('vtprd-pro-admin-style', VTPRD_PRO_URL.'/admin/css/vtprd-admin-style2.css' ); 
@@ -62,6 +68,8 @@ class VTPRD_Pro_Controller{
 }   
 
 	public function vtprd_pro_activation_hook() {
+
+ //error_log( print_r(  'Function begin - vtprd_pro_activation_hook', true ) ); 
   
 //mwntest  
 //ob_start();
@@ -94,32 +102,48 @@ class VTPRD_Pro_Controller{
   			if( is_plugin_active($plugin) ) {
   			   deactivate_plugins( $plugin );
         }
+        //v1.1.5 message reworded
         //v1.0.9.3 begin
-        $message  =  '<strong>' .$free_plugin_name . __(' PRO version ' , 'vtprdpro') .$plugin_name . __(' Deactivated during update process. ' , 'vtprdpro') . '</strong>' ;
+        $message  = '<em>'. $plugin_name .'</em>'. __(' has been deactivated during update process. ' , 'vtprdpro')  ;
         
         //v1.0.9.3 end
-        $message .=  '<br><br>' . __('FREE Version (' , 'vtprdpro') .$free_plugin_name  . __(') must be installed and active, **before** the Pro version can be activated. ' , 'vtprdpro') ;
-        $message .=  '<br><br>' . __('The Free version can be downloaded from ' , 'vtprdpro')  . $free_plugin_download ;
+        $message .=  '<br><br>' . '<strong>' . __('FREE Version (' , 'vtprdpro') .$free_plugin_name  . __(') must be installed and active, **before** the Pro version can be activated. ' , 'vtprdpro') ;
+        $message .=  '<br><br>' . __('PLEASE download the FREE Version from ' , 'vtprdpro')  . $free_plugin_download ;  
+        $message .=  '<br><br>' . __('Install and activate the FREE Version =  ', 'vtprdpro') .'&nbsp;&nbsp;<em>' .VTPRD_PRO_FREE_PLUGIN_NAME .'</em>' ;
+        $message .=  '<br><br>' . __('Then Activate the PRO/Demo version = ' , 'vtprdpro') .'&nbsp;&nbsp;<em>'.VTPRD_PRO_PLUGIN_NAME2.'</em></strong>';
         $admin_notices = '<div id="message" class="error fade" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
         add_action( 'admin_notices', create_function( '', "echo '$admin_notices';" ) );
 
         return;
     }                                        
   
+   //v1.1.5 changes begin
+   //MOVED TO THE FREE VERSION ENTIRELY!!!!!!!
+  
+/*  
+   //  pro_plugin_version_valid switch setting done in FREE version!!!!!
+   global $vtprd_license_options;
     $new_version =      VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION;
     $current_version =  VTPRD_VERSION;
     if( (version_compare(strval($new_version), strval($current_version), '>') == 1) ) {   //'==1' = 2nd value is lower  
-        if( is_plugin_active($plugin) ) {
-  			   deactivate_plugins( $plugin );
-        }
-        $message  =  '<strong>' . __('Please Update ' , 'vtprdpro') .$free_plugin_name. '</strong>' ;
-        $message .=  '<br>' . __('It must be current, before the Pro version can be activated.  The Free version can be downloaded from ' , 'vtprdpro')  . $free_plugin_download ;
-        $message .=  '<br>' . __('The Current Free program version = ', 'vtprdpro')  .VTPRD_VERSION.  __(' , while the PRO required Free version = ', 'vtprdpro') . VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION  ;
-        
-        $admin_notices = '<div id="message" class="error fade" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
-        add_action( 'admin_notices', create_function( '', "echo '$admin_notices';" ) );
-        return;
+
+      $message  =  '<strong>' . __('Please Update the FREE plugin version - ' , 'vtprdpro') .$free_plugin_name. '</strong>' ;
+      $message .=  '<br><br>' . __('The Current Free program version = ', 'vtprdpro')  .VTPRD_VERSION.  __(' , while the PRO required Free version = ', 'vtprdpro') . VTPRD_PRO_MINIMUM_REQUIRED_FREE_VERSION  ;
+      
+      $message .=  '<br><br><em>' . __('The PRO Plugin will not function until the FREE version is updated. ', 'vtprdpro') .'</em>' ; //v1.1.5
+                   
+      $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('If the Free plugin is installed, you should also see an update prompt on your Plugins page for a Free Plugin automated update'  , 'vtprd');
+      $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('If no Free Plugin update nag is visible, you can request Wordpress to check for an update: '  , 'vtprd');
+      $message .=  '<a class="ab-item" href="/wp-admin/edit.php?post_type=vtprd-rule&page=vtprd_setup_options_page#nuke-cart-button">' . __('Check for Plugin Updates', 'vtprd') . '</a>';
+      $message .=  '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;' . __('Otherwise, the current Free version can be downloaded from ' , 'vtprdpro')  . $free_plugin_download ;
+      $message .=  '<br>&nbsp;';
+      
+      $admin_notices = '<div id="message" class="error fade" style="background-color: #FFEBE8 !important;"><p>' . $message . ' </p></div>';
+      add_action( 'admin_notices', create_function( '', "echo '$admin_notices';" ) );
+      return;         
     } 
+*/
+    //v1.1.5 changes end
     
   
     
@@ -168,16 +192,9 @@ class VTPRD_Pro_Controller{
 		);
 		return array_merge( $plugin_links, $links );
 	}
-
+/*  //v1.1.5 REMOVED
 function vtprd_pro_check_plugin_version( $plugin ) {
-  /*
-    $plugin is system supplied if 
-    add_action('after_plugin_row', array( &$this, 'vtprd_pro_check_plugin_version' ));
-    is used.  
-    
-    $plugin = 'vt-minimum-purchase-pro/vt-minimum-purchase-pro.php';
-  */  
- // echo '<br>plugin name= '  .$plugin;  //mwn
+
   
   if( strpos( VTPRD_PRO_BASE_NAME.'/'.__FILE__,$plugin ) !== false ) {  
   
@@ -203,6 +220,7 @@ function vtprd_pro_check_plugin_version( $plugin ) {
     }
   }
 }
+*/
  
 /* 
 

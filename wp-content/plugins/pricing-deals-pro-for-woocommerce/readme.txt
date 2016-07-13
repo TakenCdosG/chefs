@@ -2,10 +2,10 @@
 Contributors: varktech
 Donate link: http://www.varktech.com/woocommerce/pricing-deals-pro-for-woocommerce/
 Requires at least: 3.3
-Tested up to: 4.3
-Stable tag: 1.1.1.2
+Tested up to: 4.5.2
+Stable tag: 1.1.6.3
 *
-Copyright 2014 AardvarkPC Services NZ, all rights reserved.  See license.txt for more details.
+Copyright 2016 AardvarkPC Services NZ, all rights reserved.  See license.txt for more details.
 *
 
 **Set up and manage incredibly flexible Pricing Deals and Marketing Promotions for your store - BOGO (Buy One Get One) Deals, Quantity bulk discounts, General Sales and Discounting, Group Pricing and More!**  
@@ -38,6 +38,12 @@ Then Download and install the Pro Version from www.varktech.com
 
 
 == Changelog ==
+
+= 1.1.6.3 - 2016-07-03 =
+* Fix - repair a rare auto add for free bug
+
+= 1.1.5 - 2016-05-29 =
+* Enhancement - Licensing Registration
 
 = 1.1.1.2 - 2015-11-07 =
 * Fix - Coupon discount mini-cart intermittent display issue on 1st time 
