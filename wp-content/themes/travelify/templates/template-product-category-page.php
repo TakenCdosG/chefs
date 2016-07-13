@@ -162,7 +162,7 @@ global $wp;
 $query_vars = $wp->query_vars;
 unset($query_vars["page"]);
 unset($query_vars["pagename"]);
-$current_url = home_url($wp->request);
+$current_url = home_url($wp->request)."/";
 $info = array(
     "current_url" => $current_url,
     "query_string" => $wp->query_string,
