@@ -212,7 +212,9 @@ jQuery(function ($) {
     function accordion(){
         $( "#accordion" ).accordion({
              active: 0,
-             collapsible: true
+             collapsible: true,
+             clearStyle: true,
+             autoHeight: false
         });
 
     }
