@@ -3664,9 +3664,11 @@ h2.tribe-events-page-title{
 }
 
 /* HIDE CON CURRENT WEBSITE ROW  */
+/*
 table.shop_attributes tr:last-child{
     display: block;
 }
+*/
 /* END OF HIDE ON CURRENT WEBSITE ROW */
 
 a.button.product_type_simple.ajax_add_to_cart{
