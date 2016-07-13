@@ -879,6 +879,9 @@ h2.line-red-separator{
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 .page-template-template-product-category-page .woocommerce ul.products li.last{
