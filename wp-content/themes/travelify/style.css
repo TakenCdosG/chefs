@@ -2523,6 +2523,6 @@ article {
 }
 
 .woocommerce #content table.cart td.actions .input-text, .woocommerce table.cart td.actions .input-text, .woocommerce-page #content table.cart td.actions .input-text, .woocommerce-page table.cart td.actions .input-text {
-    width: 140px;
+    width: 130px;
     padding: .505em 1em;
 }
