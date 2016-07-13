@@ -903,3 +903,5 @@ function get_brands( $taxonomy_product_cat){
   return $result;
 
 }
+
+?>
