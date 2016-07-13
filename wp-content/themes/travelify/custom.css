@@ -3664,7 +3664,7 @@ h2.tribe-events-page-title{
 
 /* HIDE CON CURRENT WEBSITE ROW  */
 table.shop_attributes tr:last-child{
-    display: none;
+    display: block;
 }
 /* END OF HIDE ON CURRENT WEBSITE ROW */
 
