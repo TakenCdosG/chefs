@@ -213,9 +213,9 @@ jQuery(function ($) {
         $( "#accordion" ).accordion({
              active: 0,
              collapsible: true,
-             clearStyle: true,
              autoHeight: false
         });
+        $( "#accordion div").css({ 'height': 'auto' });
 
     }
     function initialize() {
