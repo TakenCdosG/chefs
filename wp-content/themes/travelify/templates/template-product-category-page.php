@@ -308,19 +308,23 @@ $info = array(
                             </div>
                          </div>
                      </div>
-                     <div class="col-md-3 matfilter">
-                         <div class="category-filter">
-                            <a href="#" data-jq-dropdown="#jq-dropdown-2" class="jq-dropdown-link">
-                                Material
-                                <div class="jq-dropdown-before"></div>
-                            </a>
-                            <div id="jq-dropdown-2" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
-                                <ul class="jq-dropdown-menu">
-                                    <?php echo $filter_material_items; ?>
-                                </ul>
-                            </div>
-                         </div>
-                     </div>
+
+                     <?php if(count($categories_parent_material)>0): ?>
+                       <div class="col-md-3 matfilter">
+                           <div class="category-filter">
+                              <a href="#" data-jq-dropdown="#jq-dropdown-2" class="jq-dropdown-link">
+                                  Material
+                                  <div class="jq-dropdown-before"></div>
+                              </a>
+                              <div id="jq-dropdown-2" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
+                                  <ul class="jq-dropdown-menu">
+                                      <?php echo $filter_material_items; ?>
+                                  </ul>
+                              </div>
+                           </div>
+                       </div>
+                     <?php endif; ?>
+
                      <div class="col-md-3 brfilter">
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-3" class="jq-dropdown-link">
@@ -334,8 +338,8 @@ $info = array(
                             </div>
                          </div>
                      </div>
-                </div>   
-                <!-- End Filtros -->  
+                </div>
+                <!-- End Filtros -->
                 <!-- Add clearfix -->
                 <div class="clearfix-block"></div>
                 <ul class="products">
