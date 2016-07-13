@@ -88,7 +88,8 @@ $args = array(
 
 $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$product_cat;
 
-$categories_parent_brand = depure_brands(get_categories($args_category_brand),$taxonomy_product_cat);
+// get_categories($args_category_brand)
+$categories_parent_brand = get_brands($taxonomy_product_cat);
 
 $args = array(
     'post_type' => 'product',

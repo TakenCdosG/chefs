@@ -871,7 +871,7 @@ endif;
 
 <?php
 
-function depure_brands($brands_categories, $taxonomy_product_cat){
+function get_brands( $taxonomy_product_cat){
 
   // dpm($brands_categories);
   $args = array(
