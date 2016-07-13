@@ -56,7 +56,6 @@ jQuery(document).ready(function ($) {
 			password = jQuery('#signonpassword').val();
 			email = jQuery('#email').val();
 			security = jQuery('#signonsecurity').val();
-			// recaptcha = jQuery('#g-recaptcha-response').val();
 		}
 		ctrl = jQuery(this);
 		$.ajax({
@@ -68,11 +67,10 @@ jQuery(document).ready(function ($) {
 				'username': username,
 				'password': password,
 				'email': email,
-				'security': security,
-				// 'recaptcha': recaptcha
+				'security': security
             },
             success: function (data) {
-				if((jQuery(ctrl).attr ('id') == 'register') && (data.loggedin == false)){/*grecaptcha.reset(); */}
+				if((jQuery(ctrl).attr ('id') == 'register') && (data.loggedin == false)){}
                 jQuery('p.status', ctrl).text(data.message);
 				if (data.loggedin == true) {
 					document.location.href = jQuery(ctrl).attr ('id') == 'register' ? ajax_auth_object.register_redirect : ajax_auth_object.redirecturl;
