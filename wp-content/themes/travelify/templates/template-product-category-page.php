@@ -42,7 +42,7 @@ foreach ($product_cat_id as $pcikey) {
     $args_category = array(
         'parent' => $pcikey,
         'taxonomy' => 'product_cat',
-        'hide_empty' => 0,
+        'hide_empty' => 1,
     );
     $categories_parent[] = get_categories($args_category);
 
@@ -50,14 +50,14 @@ foreach ($product_cat_id as $pcikey) {
 
 $args_category_material = array(
     'taxonomy' => 'pa_material',
-    'hide_empty' => 0,
+    'hide_empty' => 1,
 );
 
 $categories_parent_material = get_categories($args_category_material);
 
 $args_category_brand = array(
     'taxonomy' => 'pa_brand',
-    'hide_empty' => 0,
+    'hide_empty' => 1,
 );
 
 $categories_parent_brand = get_categories($args_category_brand);
@@ -224,29 +224,31 @@ $info = array(
                             <?php endforeach; ?>
                         </ul>
                     </div>
-                    <div class="box-sidebar-left">
-                        <h3>Shop by Material</h3>
-                        <ul>
-                            <?php $empty_filtros_material = empty($filtros["material"]); ?>
-                            <?php foreach ($categories_parent_material as $key => $category): ?>
-                                <li>
-                                    <?php
-                                    $query_vars_material = array_merge($query_vars, array('material' => $category->slug));
-                                    $current_url_material = add_query_arg($query_vars_material, $current_url);
-                                    $category_name = ucwords($category->name);
-                                    $class = "";
-                                    if(!$empty_filtros_material){
-                                       if($filtros["material"] == $category->slug){
-                                           $class = "active";
-                                       }
-                                    }
-                                    ?>
-                                    <a href="<?php echo $current_url_material; ?>" class="<?php echo $class;?>"> <?php echo ucwords($category->name); ?></a>
-                                </li>
-                                <?php $filter_material_items .= '<li><a href="'.$current_url_material.'" class="'.$class.'">'.$category_name.'</a></li>';?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+                    <?php if(count($categories_parent_material)>0): ?>
+                      <div class="box-sidebar-left">
+                          <h3>Shop by Material</h3>
+                          <ul>
+                              <?php $empty_filtros_material = empty($filtros["material"]); ?>
+                              <?php foreach ($categories_parent_material as $key => $category): ?>
+                                  <li>
+                                      <?php
+                                      $query_vars_material = array_merge($query_vars, array('material' => $category->slug));
+                                      $current_url_material = add_query_arg($query_vars_material, $current_url);
+                                      $category_name = ucwords($category->name);
+                                      $class = "";
+                                      if(!$empty_filtros_material){
+                                         if($filtros["material"] == $category->slug){
+                                             $class = "active";
+                                         }
+                                      }
+                                      ?>
+                                      <a href="<?php echo $current_url_material; ?>" class="<?php echo $class;?>"> <?php echo ucwords($category->name); ?></a>
+                                  </li>
+                                  <?php $filter_material_items .= '<li><a href="'.$current_url_material.'" class="'.$class.'">'.$category_name.'</a></li>';?>
+                              <?php endforeach; ?>
+                          </ul>
+                      </div>
+                    <?php endif; ?>
                     <div class="box-sidebar-left">
                         <h3>Shop by Brand</h3>
                         <ul>
