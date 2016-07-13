@@ -872,7 +872,7 @@ endif;
 <?php
 
 function depure_brands($brands_categories, $taxonomy_product_cat){
-  dpm($brands_categories);
+  // dpm($brands_categories);
   $args = array(
     'post_type' => 'product',
     'posts_per_page' => 18,
@@ -893,6 +893,13 @@ function depure_brands($brands_categories, $taxonomy_product_cat){
     ),
   );
   $products = new WP_Query($args);
-  dpm($products->posts);
+  $result = array();
+  if(count($products->posts)>0){
+    $args = array();
+    $defaults = array('fields' => 'ids');
+    $args = wp_parse_args( $args, $defaults );
+    $cats = wp_get_object_terms($products->posts, 'pa_material', $args);
+    dpm($cats);
+  }
   return $brands_categories;
 }
