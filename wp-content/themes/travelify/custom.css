@@ -1457,6 +1457,8 @@ input[type=text], input[type=tel], input[type=password], input[type="email"], te
     left: 0;
     bottom: 0;
     right: 0;
+    max-height: 155px;
+    max-width: 100%;
 }
 
 .entry-title, .entry-title a {
