@@ -872,11 +872,9 @@ endif;
 <?php
 
 function get_brands( $taxonomy_product_cat){
-
-  // dpm($brands_categories);
   $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 18,
+    'posts_per_page' => -1,
     'fields' => 'ids',
     'meta_query' => array(
       array(
@@ -896,13 +894,10 @@ function get_brands( $taxonomy_product_cat){
 
   $products = new WP_Query($args);
   $result = array();
-
   if(count($products->posts)>0){
-    $args = array();
     $defaults = array('fields' => 'ids');
-    $args = wp_parse_args( $args, $defaults );
+    $args = wp_parse_args(  array(), $defaults );
     $result = wp_get_object_terms($products->posts, 'pa_brand');
-    //dpm($result);
   }
 
   return $result;
