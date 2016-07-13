@@ -867,3 +867,32 @@ endif;
     }
     add_filter( 'woocommerce_min_password_strength', 'reduce_woocommerce_min_strength_requirement' );
 ?>
+
+
+<?php
+
+function depure_brands($brands_categories){
+  dpm($brands_categories);
+  $args = array(
+    'post_type' => 'product',
+    'posts_per_page' => 18,
+    'paged' => $paged,
+    'meta_query' => array(
+      array(
+        'key' => '_stock_status',
+        'value' => array('instock', 'outofstock'),
+        'compare' => 'IN',
+      ),
+    ),
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'product_cat',
+        'field'    => 'slug',
+        'terms'    => $taxonomy_product_cat,
+      ),
+    ),
+  );
+  $products = new WP_Query($args);
+  dpm($products);
+  return $brands_categories;
+}
