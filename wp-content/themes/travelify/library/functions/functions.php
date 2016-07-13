@@ -895,10 +895,7 @@ function depure_brands($brands_categories, $taxonomy_product_cat){
   $products = new WP_Query($args);
   $result = array();
   if(count($products->posts)>0){
-    $args = array();
-    $defaults = array('fields' => 'ids');
-    $args = wp_parse_args( $args, $defaults );
-    $cats = wp_get_object_terms($products->posts, 'pa_material', $args);
+    $cats = wp_get_object_terms($products->posts, 'pa_material');
     dpm($cats);
   }
   return $brands_categories;
