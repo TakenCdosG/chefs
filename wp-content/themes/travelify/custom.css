@@ -742,7 +742,8 @@ h2.line-red-separator{
 }
 
 .woocommerce ul.products li.product .product-summary{
-    background-color: #e0e0e0;
+    /*background-color: #e0e0e0;*/
+    background-color: #f2f2f2;
     padding: 7px 10px 5px 10px;
     height: auto;
     min-height: 64px;
@@ -756,7 +757,9 @@ h2.line-red-separator{
     margin-bottom: 5px;
     position: relative;
     display: block;
-    min-height: 32px;
+    /*min-height: 32px;*/
+    min-height: auto;
+
 }
 
 .woocommerce ul.products li.product .price {
