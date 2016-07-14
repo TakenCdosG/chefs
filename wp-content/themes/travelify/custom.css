@@ -855,7 +855,7 @@ h2.line-red-separator{
     display: inline-block;
 }
 
-.page-template-template-product-category-page .woocommerce ul.products li.product.no_left_sidebar{
+.page-template-template-product-category-page .woocommerce ul.products.no_left_sidebar li.product{
     width: 23%!important;
 }
 
