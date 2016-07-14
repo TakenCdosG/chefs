@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 $categories = get_the_category();
 // dpm($product->get_categories());
-dpm($categories);
+dpm($product);
 
 if ( ! empty( $breadcrumb ) ) {
 
