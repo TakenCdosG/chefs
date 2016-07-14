@@ -785,8 +785,9 @@ function format_breadcrumb_category($categories, $before, $after, $delimiter, $p
     $result = "";
     $base_category = home_url();
     if(!empty($top)){
-      $base_category = home_url(key($top). '/');
-      $result .= $before.'<a href="' . esc_url($base_category) . '">' . esc_html($top[0]) . '</a>'.$after.$delimiter;
+      $key = key($top);
+      $base_category = home_url($key . '/');
+      $result .= $before.'<a href="' . esc_url($base_category) . '">' . esc_html($top[$key]) . '</a>'.$after.$delimiter;
     }
 
     if(!empty($query)){
