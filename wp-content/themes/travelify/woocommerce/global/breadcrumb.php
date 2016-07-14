@@ -22,9 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-$categories = get_the_category($product->id);
+$defaults = array('fields' => 'ids');
+$args = wp_parse_args(  array(), $defaults );
+$result = wp_get_object_terms(array($product->id), 'product_cat');
 // dpm($product->get_categories());
-dpm($categories);
+dpm($result);
 
 if ( ! empty( $breadcrumb ) ) {
 
