@@ -25,26 +25,17 @@ global $product;
 if (isset($product->id)) {
   $defaults = array('fields' => 'ids');
   $args = wp_parse_args(array(), $defaults);
-  $result = wp_get_object_terms(array($product->id), 'product_cat');
-  $category = reset($result);
-  dpm($result);
-
+  $categories = wp_get_object_terms(array($product->id), 'product_cat');
+  //$category = reset($categories);
+  //dpm($result);
   if (!empty($breadcrumb)) {
-
     echo $wrap_before;
     echo $before;
     echo '<a href="' . esc_url(home_url('/')) . '">' . esc_html("Home") . '</a>';
     echo $after;
     echo $delimiter;
-    echo $before;
-    echo '<a href="' . esc_url(home_url($category->slug . '/')) . '">' . esc_html($category->name) . '</a>';
-    echo $after;
-    echo $delimiter;
-    echo $before;
-    echo esc_html($product->get_title());
-    echo $after;
+    echo format_breadcrumb_category($categories, $before, $after, $delimiter, $product);
     echo $wrap_after;
-
   }
 } else {
   if (!empty($breadcrumb)) {

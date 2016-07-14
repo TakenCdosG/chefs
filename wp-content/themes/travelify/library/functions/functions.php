@@ -769,6 +769,36 @@ function get_brands( $taxonomy_product_cat){
   return $result;
 }
 
+function format_breadcrumb_category($categories, $before, $after, $delimiter, $product){
+    $top = array();
+    $query = array();
+    foreach($categories as $key => $category){
+        if($category->parent == 0){
+          $top[$category->slug] = $category->name;
+        }else{
+          if($category->taxonomy == "product_cat"){
+            $query["category"] = $category->slug;
+          }
+        }
+    }
+
+    $result = "";
+    $base_category = home_url();
+    if(!empty($top)){
+      $base_category = home_url(key($top). '/');
+      $result .= $before.'<a href="' . esc_url($base_category) . '">' . esc_html($top[0]) . '</a>'.$after.$delimiter;
+    }
+
+    if(!empty($query)){
+      $result .= $before.'<a href="' . esc_url(add_query_arg($query, $base_category)) . '">' . esc_html($product->get_title()) . '</a>'.$after;
+    }else{
+      $result .= $before.esc_html($product->get_title()).$after;
+    }
+
+    return $result;
+
+}
+
 /* * *********************************************************************************** */
 
 /**
