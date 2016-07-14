@@ -195,37 +195,48 @@ $info = array(
     $filter_brand_items = "";
 
     ?>
+    <?php
+     $count_categories_parent = count($categories_parent);
+     $count_categories_parent_material = count($categories_parent_material);
+     $count_categories_parent_brand = count($categories_parent_brand);
+     $left_sidebar = ($count_categories_parent > 0) || ($count_categories_parent_material > 0) || ($count_categories_parent_brand > 0);
+    ?>
     <div class="woocommerce">
         <div class="row margin-grid">
+            <?php if ($left_sidebar): ?>
             <div class="col-md-3">
                 <div class="sidebar-left">
-                    <div class="box-sidebar-left">
-                        <h3>Shop by Category</h3>
-                        <ul>
-                            <?php $empty_filtros_category = empty($filtros["category"]); ?>
-                            <?php foreach ($categories_parent as $catpar): ?>
-                                <?php foreach ($catpar as $key => $category): ?>
-                                    <li>
-                                        <?php
 
-                                        $query_vars_category = array_merge($query_vars, array('category' => $category->slug));
-                                        $current_url_category = add_query_arg($query_vars_category, $current_url);
-                                        $category_name = ucwords($category->name);
-                                        $class = "";
-                                        if(!$empty_filtros_category){
-                                           if($filtros["category"] == $category->slug){
-                                               $class = "active";
-                                           }
-                                        }
-                                        ?>
-                                        <a href="<?php echo $current_url_category; ?>" class="<?php echo $class;?>"> <?php echo $category_name; ?></a>
-                                    </li>
-                                    <?php $filter_category_items .= '<li><a href="'.$current_url_category.'" class="'.$class.'">'.$category_name.'</a></li>';?>
-                                <?php endforeach; ?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                    <?php if(count($categories_parent_material)>0): ?>
+                    <?php if(count($count_categories_parent) > 0): ?>
+                      <div class="box-sidebar-left">
+                          <h3>Shop by Category</h3>
+                          <ul>
+                              <?php $empty_filtros_category = empty($filtros["category"]); ?>
+                              <?php foreach ($categories_parent as $catpar): ?>
+                                  <?php foreach ($catpar as $key => $category): ?>
+                                      <li>
+                                          <?php
+
+                                          $query_vars_category = array_merge($query_vars, array('category' => $category->slug));
+                                          $current_url_category = add_query_arg($query_vars_category, $current_url);
+                                          $category_name = ucwords($category->name);
+                                          $class = "";
+                                          if(!$empty_filtros_category){
+                                             if($filtros["category"] == $category->slug){
+                                                 $class = "active";
+                                             }
+                                          }
+                                          ?>
+                                          <a href="<?php echo $current_url_category; ?>" class="<?php echo $class;?>"> <?php echo $category_name; ?></a>
+                                      </li>
+                                      <?php $filter_category_items .= '<li><a href="'.$current_url_category.'" class="'.$class.'">'.$category_name.'</a></li>';?>
+                                  <?php endforeach; ?>
+                              <?php endforeach; ?>
+                          </ul>
+                      </div>
+                    <?php endif; ?>
+
+                    <?php if(count($categories_parent_material) > 0): ?>
                       <div class="box-sidebar-left">
                           <h3>Shop by Material</h3>
                           <ul>
@@ -250,32 +261,36 @@ $info = array(
                           </ul>
                       </div>
                     <?php endif; ?>
-                    <div class="box-sidebar-left">
-                        <h3>Shop by Brand</h3>
-                        <ul>
-                            <?php $empty_filtros_brand = empty($filtros["brand"]); ?>
-                            <?php foreach ($categories_parent_brand as $key => $category): ?>
-                                <li>
-                                    <?php
-                                    $query_vars_brand = array_merge($query_vars, array('brand' => $category->slug));
-                                    $current_url_brand = add_query_arg($query_vars_brand, $current_url);
-                                    $category_name = ucwords($category->name);
-                                    $class = "";
-                                    if(!$empty_filtros_brand){
-                                       if($filtros["brand"] == $category->slug){
-                                           $class = "active";
-                                       }
-                                    }
-                                    ?>
-                                    <a href="<?php echo $current_url_brand; ?>" class="<?php echo $class; ?>"> <?php echo ucwords($category->name); ?></a>
-                                </li>
-                                <?php $filter_brand_items .= '<li><a href="'.$current_url_brand.'" class="'.$class.'">'.$category_name.'</a></li>';?>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
+
+                    <?php if(count($count_categories_parent_brand) > 0): ?>
+                      <div class="box-sidebar-left">
+                          <h3>Shop by Brand</h3>
+                          <ul>
+                              <?php $empty_filtros_brand = empty($filtros["brand"]); ?>
+                              <?php foreach ($categories_parent_brand as $key => $category): ?>
+                                  <li>
+                                      <?php
+                                      $query_vars_brand = array_merge($query_vars, array('brand' => $category->slug));
+                                      $current_url_brand = add_query_arg($query_vars_brand, $current_url);
+                                      $category_name = ucwords($category->name);
+                                      $class = "";
+                                      if(!$empty_filtros_brand){
+                                         if($filtros["brand"] == $category->slug){
+                                             $class = "active";
+                                         }
+                                      }
+                                      ?>
+                                      <a href="<?php echo $current_url_brand; ?>" class="<?php echo $class; ?>"> <?php echo ucwords($category->name); ?></a>
+                                  </li>
+                                  <?php $filter_brand_items .= '<li><a href="'.$current_url_brand.'" class="'.$class.'">'.$category_name.'</a></li>';?>
+                              <?php endforeach; ?>
+                          </ul>
+                      </div>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="col-md-9">
+            <?php endif; ?>
+            <div class="<?php if ($left_sidebar){ ?> col-md-9 <?php }else{ ?> col-md-12<?php } ?>">
                 <?php if (!empty($top_banner)): ?>
                     <div class="row margin-grid">
                         <div class="col-md-12">
