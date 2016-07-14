@@ -320,7 +320,7 @@ $info = array(
                 <?php endif; ?>
                 <!-- Add Filtros -->
                 <div class="row margin-grid">
-                     <?php if(count($count_categories_parent) > 0): ?>
+                     <?php if($count_categories_parent > 0): ?>
                      <div class="col-md-3 catfilter">
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-1" class="jq-dropdown-link">
@@ -352,7 +352,7 @@ $info = array(
                        </div>
                      <?php endif; ?>
 
-                     <?php if(count($count_categories_parent_brand) > 0): ?>
+                     <?php if($count_categories_parent_brand > 0): ?>
                        <div class="col-md-3 brfilter">
                            <div class="category-filter">
                               <a href="#" data-jq-dropdown="#jq-dropdown-3" class="jq-dropdown-link">
