@@ -202,13 +202,6 @@ $info = array(
      $count_categories_parent_material = count($categories_parent_material);
      $count_categories_parent_brand = count($categories_parent_brand);
      $left_sidebar = ($count_categories_parent > 0) || ($count_categories_parent_material > 0) || ($count_categories_parent_brand > 0);
-    dpm(array(
-      "count_categories_parent" => $count_categories_parent,
-      "count_categories_parent_material" => $count_categories_parent_material,
-      "count_categories_parent_brand" => $count_categories_parent_brand,
-      "left_sidebar" => $left_sidebar,
-      "categories_parent" => $categories_parent
-    ));
     ?>
     <div class="woocommerce">
         <div class="row margin-grid">

@@ -856,7 +856,7 @@ h2.line-red-separator{
 }
 
 .page-template-template-product-category-page .woocommerce ul.products li.product.no_left_sidebar{
-    width: 23%;
+    width: 23%!important;
 }
 
 
