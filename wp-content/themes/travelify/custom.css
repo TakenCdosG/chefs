@@ -2354,7 +2354,8 @@ ul#menu-header-bottom .default-menu {
     }
 
     .catfilter .category-filter a{
-        width: 40%;
+        width: 100%;
+        min-height: 30px;
     }
     .matfilter .category-filter a{
         width: 40%;
@@ -2362,8 +2363,14 @@ ul#menu-header-bottom .default-menu {
         margin-top: -30px;
     }
     .brfilter .category-filter a{
-        width: 40%;
+        width: 100%;
+        min-height: 30px;
     }
+
+    .category-filter{
+        margin-bottom: 10px;
+    }
+
     .page-template-template-product-category-page ul.products{
         margin-left: 10%;
     }
