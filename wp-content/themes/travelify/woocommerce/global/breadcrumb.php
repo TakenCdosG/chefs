@@ -25,8 +25,8 @@ global $product;
 $defaults = array('fields' => 'ids');
 $args = wp_parse_args(  array(), $defaults );
 $result = wp_get_object_terms(array($product->id), 'product_cat');
-// dpm($product->get_categories());
-dpm($result);
+$category = reset($result);
+dpm($category);
 
 if ( ! empty( $breadcrumb ) ) {
 
