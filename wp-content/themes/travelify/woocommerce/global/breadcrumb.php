@@ -22,7 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-dpm($product->get_categories());
+$categories = get_the_category();
+// dpm($product->get_categories());
+dpm($categories);
 
 if ( ! empty( $breadcrumb ) ) {
 
