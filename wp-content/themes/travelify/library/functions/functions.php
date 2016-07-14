@@ -737,6 +737,38 @@ $args = array(
 
 add_theme_support('custom-header', $args);
 
+function get_brands( $taxonomy_product_cat){
+  $args = array(
+    'post_type' => 'product',
+    'posts_per_page' => -1,
+    'fields' => 'ids',
+    'meta_query' => array(
+      array(
+        'key' => '_stock_status',
+        'value' => array('instock', 'outofstock'),
+        'compare' => 'IN',
+      ),
+    ),
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'product_cat',
+        'field'    => 'slug',
+        'terms'    => $taxonomy_product_cat,
+      ),
+    ),
+  );
+
+  $products = new WP_Query($args);
+  $result = array();
+  if(count($products->posts)>0){
+    $defaults = array('fields' => 'ids');
+    $args = wp_parse_args(  array(), $defaults );
+    $result = wp_get_object_terms($products->posts, 'pa_brand');
+  }
+
+  return $result;
+}
+
 /* * *********************************************************************************** */
 
 /**
@@ -866,42 +898,4 @@ endif;
         return 1;
     }
     add_filter( 'woocommerce_min_password_strength', 'reduce_woocommerce_min_strength_requirement' );
-?>
-
-
-<?php
-
-function get_brands( $taxonomy_product_cat){
-  $args = array(
-    'post_type' => 'product',
-    'posts_per_page' => -1,
-    'fields' => 'ids',
-    'meta_query' => array(
-      array(
-        'key' => '_stock_status',
-        'value' => array('instock', 'outofstock'),
-        'compare' => 'IN',
-      ),
-    ),
-    'tax_query' => array(
-      array(
-        'taxonomy' => 'product_cat',
-        'field'    => 'slug',
-        'terms'    => $taxonomy_product_cat,
-      ),
-    ),
-  );
-
-  $products = new WP_Query($args);
-  $result = array();
-  if(count($products->posts)>0){
-    $defaults = array('fields' => 'ids');
-    $args = wp_parse_args(  array(), $defaults );
-    $result = wp_get_object_terms($products->posts, 'pa_brand');
-  }
-
-  return $result;
-
-}
-
 ?>
