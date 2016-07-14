@@ -847,21 +847,18 @@ h2.line-red-separator{
 }
 
 .page-template-template-product-category-page .woocommerce ul.products li.product{
-    /*
-        float: left;
-        margin: 0 8px 15px 8px;
-        padding: 0;
-        position: relative;
-        width: 31%;
-    */
     float: none;
     margin: 0 6px 15px 6px;
     padding: 0;
     position: relative;
     width: 31%;
     display: inline-block;
+}
+
+.page-template-template-product-category-page .woocommerce ul.products li.product.no_left_sidebar{
 
 }
+
 
 .page-template-template-product-category-page .woocommerce ul.products li.product .box-product .thumbnail-product{
 

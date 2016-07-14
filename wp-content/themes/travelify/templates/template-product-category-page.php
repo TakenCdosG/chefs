@@ -320,6 +320,7 @@ $info = array(
                 <?php endif; ?>
                 <!-- Add Filtros -->
                 <div class="row margin-grid">
+                     <?php if(count($count_categories_parent) > 0): ?>
                      <div class="col-md-3 catfilter">
                          <div class="category-filter">
                             <a href="#" data-jq-dropdown="#jq-dropdown-1" class="jq-dropdown-link">
@@ -333,6 +334,7 @@ $info = array(
                             </div>
                          </div>
                      </div>
+                     <?php endif; ?>
 
                      <?php if(count($categories_parent_material)>0): ?>
                        <div class="col-md-3 matfilter">
@@ -350,24 +352,26 @@ $info = array(
                        </div>
                      <?php endif; ?>
 
-                     <div class="col-md-3 brfilter">
-                         <div class="category-filter">
-                            <a href="#" data-jq-dropdown="#jq-dropdown-3" class="jq-dropdown-link">
-                                Brand
-                                <div class="jq-dropdown-before"></div>
-                            </a>
-                            <div id="jq-dropdown-3" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
-                                <ul class="jq-dropdown-menu">
-                                    <?php echo $filter_brand_items; ?>
-                                </ul>
-                            </div>
-                         </div>
-                     </div>
+                     <?php if(count($count_categories_parent_brand) > 0): ?>
+                       <div class="col-md-3 brfilter">
+                           <div class="category-filter">
+                              <a href="#" data-jq-dropdown="#jq-dropdown-3" class="jq-dropdown-link">
+                                  Brand
+                                  <div class="jq-dropdown-before"></div>
+                              </a>
+                              <div id="jq-dropdown-3" class="jq-dropdown jq-dropdown-tip jq-dropdown-scroll">
+                                  <ul class="jq-dropdown-menu">
+                                      <?php echo $filter_brand_items; ?>
+                                  </ul>
+                              </div>
+                           </div>
+                       </div>
+                     <?php endif; ?>
                 </div>
                 <!-- End Filtros -->
                 <!-- Add clearfix -->
                 <div class="clearfix-block"></div>
-                <ul class="products">
+                <ul class="products <?php if ($left_sidebar){ ?> left_sidebar <?php }else{ ?> no_left_sidebar<?php } ?>">
                     <?php
                     $iterator = 1;
                     if ($products->have_posts()) {
@@ -377,9 +381,16 @@ $info = array(
                             }
                             wc_get_template_part('content', 'product');
                             $iterator = $iterator + 1;
-                            if($iterator == 4){
+                            if($left_sidebar){
+                              if($iterator == 4){
+                                  echo "</div>";
+                                  $iterator = 1;
+                              }
+                            }else{
+                              if($iterator == 5){
                                 echo "</div>";
                                 $iterator = 1;
+                              }
                             }
                         endwhile;
                     } else {
