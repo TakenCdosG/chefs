@@ -44,8 +44,10 @@ foreach ($product_cat_id as $pcikey) {
         'taxonomy' => 'product_cat',
         'hide_empty' => 1,
     );
-    $categories_parent[] = get_categories($args_category);
-
+    $tmp_categories = get_categories($args_category);
+    if(count($tmp_categories)>0){
+      $categories_parent[] = $tmp_categories;
+    }
 }
 
 $args_category_material = array(
