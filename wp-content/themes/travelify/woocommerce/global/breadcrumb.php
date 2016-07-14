@@ -21,6 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+global $product;
+dpm($product->get_sku());
+
 if ( ! empty( $breadcrumb ) ) {
 
 	echo $wrap_before;
