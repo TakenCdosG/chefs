@@ -204,7 +204,8 @@ $info = array(
       "count_categories_parent" => $count_categories_parent,
       "count_categories_parent_material" => $count_categories_parent_material,
       "count_categories_parent_brand" => $count_categories_parent_brand,
-      "left_sidebar" => $left_sidebar
+      "left_sidebar" => $left_sidebar,
+      "categories_parent" => $categories_parent
     ));
     ?>
     <div class="woocommerce">
