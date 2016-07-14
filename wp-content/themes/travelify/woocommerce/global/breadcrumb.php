@@ -26,30 +26,22 @@ $defaults = array('fields' => 'ids');
 $args = wp_parse_args(  array(), $defaults );
 $result = wp_get_object_terms(array($product->id), 'product_cat');
 $category = reset($result);
-dpm($category);
+// dpm($category);
 
 if ( ! empty( $breadcrumb ) ) {
 
 	echo $wrap_before;
-
-	foreach ( $breadcrumb as $key => $crumb ) {
-
-		echo $before;
-
-		if ( ! empty( $crumb[1] ) && sizeof( $breadcrumb ) !== $key + 1 ) {
-			echo '<a href="' . esc_url( $crumb[1] ) . '">' . esc_html( $crumb[0] ) . '</a>';
-		} else {
-			echo esc_html( $crumb[0] );
-		}
-
-		echo $after;
-
-		if ( sizeof( $breadcrumb ) !== $key + 1 ) {
-			echo $delimiter;
-		}
-
-	}
-
+  echo $before;
+  echo '<a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html( "Home" ) . '</a>';
+  echo $after;
+  echo $delimiter;
+  echo $before;
+  echo '<a href="' . esc_url( home_url( $category->slug.'/') ) . '">' . esc_html( $category->name ) . '</a>';
+  echo $after;
+  echo $delimiter;
+  echo $before;
+  echo esc_html( $product->get_formatted_name());
+  echo $after;
 	echo $wrap_after;
 
 }
