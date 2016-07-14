@@ -27,6 +27,7 @@ if (isset($product->id)) {
   $args = wp_parse_args(array(), $defaults);
   $result = wp_get_object_terms(array($product->id), 'product_cat');
   $category = reset($result);
+  dpm($result);
 
   if (!empty($breadcrumb)) {
 
