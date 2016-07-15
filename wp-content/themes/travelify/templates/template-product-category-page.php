@@ -93,7 +93,7 @@ $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$pro
 // get_categories($args_category_brand)
 $categories_parent_brand = get_brands($taxonomy_product_cat);
 $hide_out_of_stock_item = (get_option("woocommerce_hide_out_of_stock_items")== "no")?FALSE:TRUE;
-if($stockitems){
+if($hide_out_of_stock_item){
     $availability = array(
         'key' => '_stock_status',
         'value' => array('instock'),
@@ -379,7 +379,7 @@ $info = array(
                         while ($products->have_posts()) : $products->the_post();
                             $skip = FALSE;
                             if($hide_out_of_stock_item){
-                                if(!$products->is_in_stock() || !$products->is_visible()){
+                                if(!$products->is_in_stock()){
                                     $skip = TRUE;
                                 }
                             }
