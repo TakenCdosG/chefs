@@ -40,7 +40,7 @@
 				                	if($hide_out_of_stock_items){
 				                		$postid = get_the_ID();
 				                		$product = get_product( $postid );
-				                		if(!$product->is_in_stock( )){
+				                		if(!$product->is_in_stock()){
 				                			$skip = TRUE;
 				                		}
 				                	}	
@@ -50,7 +50,7 @@
 		                            	}
 		                           		wc_get_template_part('content', 'product');
 			                            $iterator = $iterator + 1;
-			                            if($iterator >= 4){
+			                            if($iterator == 4){
 		                                  echo "</ul></div>";
 		                                  $iterator = 0;
 			                            }
