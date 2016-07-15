@@ -3822,9 +3822,9 @@ span.msg-cart-registry{
 }
 
 .wishlist_list_item .product_qty .qty{
-    height: 26px;
-    vertical-align: middle;
-    width: 50px;
-    padding: 5px;
-    margin-top: 5px;   
+    height: 26px!important;
+    vertical-align: middle!important;
+    width: 50px!important;
+    padding: 5px!important;
+    margin-top: 5px!important;
 }
