@@ -32,7 +32,6 @@
 	        	<div class="woocommerce">
 	                 <div class="row margin-grid">
 	                 	<div class="col-md-12">
-	                 	    <ul class="products no_left_sidebar">
 					        	<?php
 					        	$iterator = 0;
 					            while (have_posts()) {
@@ -47,12 +46,12 @@
 				                	}	
 				                	if(!$skip){
 				                		if($iterator == 0){
-	                               		 echo "<div class='row'>";
+	                               		 echo "<div class='row'><ul class='products no_left_sidebar'>";
 		                            	}
 		                           		wc_get_template_part('content', 'product');
 			                            $iterator = $iterator + 1;
 			                            if($iterator >= 4){
-		                                  echo "</div>";
+		                                  echo "</ul></div>";
 		                                  $iterator = 0;
 			                            }
 				                	}
