@@ -3756,12 +3756,21 @@ span.msg-cart-registry{
     background-color: transparent;
     border-bottom: 1px solid #eaeaea;
     padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.search-results .page-title-wrap .container{
+   max-width: 100%;
 }
 
 .search-results .page-title-wrap .page-title{
     color: #ef3d42;
     font-size: 30px;
     margin-bottom: 0px;
+}
+
+.search-results #content ul, .search-results #content ol {
+    margin: 0 0 0px 0px;
 }
 
 #reviews #comments {
