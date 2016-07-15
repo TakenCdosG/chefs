@@ -17,10 +17,15 @@ function travelify_content() {
     if ($post) {
         $layout = get_post_meta($post->ID, 'travelify_sidebarlayout', true);
     }
-    if (empty($layout) || is_archive() || is_search() || is_home()) {
+    if (empty($layout) || is_archive() || is_home()) {
         $layout = 'default';
+    }elseif(is_search()){
+        $layout = 'search';
     }
-    if ('default' == $layout) {
+
+    if ('search' == $layout) {
+        get_template_part('content', 'search_results');
+    } elseif ('default' == $layout) {
         $themeoption_layout = $options['default_layout'];
 
         if ('left-sidebar' == $themeoption_layout) {
