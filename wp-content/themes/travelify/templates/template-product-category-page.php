@@ -102,7 +102,7 @@ if($hide_out_of_stock_item){
 
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 18,
+    'posts_per_page' => 12,
     'paged' => $paged,
     'meta_query' => array(
       array(
