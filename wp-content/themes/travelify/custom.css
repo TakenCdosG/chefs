@@ -856,6 +856,7 @@ h2.line-red-separator{
     position: relative;
     width: 31%;
     display: inline-block;
+    vertical-align: top;
 }
 
 .page-template-template-product-category-page .woocommerce ul.products.no_left_sidebar li.product{
