@@ -174,7 +174,7 @@ jQuery(function ($) {
             // selector for the paged navigation (it will be hidden)
             nextSelector : "div.pagination-category a:first",
             // selector for the NEXT link (to page 2)
-            itemSelector : "ul.products .row",
+            itemSelector : "ul.products li",
             // selector for all items you'll retrieve
             debug : true,
             // enable debug messaging ( to console.log )
