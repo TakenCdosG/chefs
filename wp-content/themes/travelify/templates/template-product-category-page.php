@@ -92,18 +92,26 @@ $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$pro
 
 // get_categories($args_category_brand)
 $categories_parent_brand = get_brands($taxonomy_product_cat);
-
+$stockitems = get_option('woocommerce_hide_out_of_stock_items');
+if($stockitems == 'yes'){
+    $availability = array(
+        'key' => '_stock_status',
+        'value' => array('instock'),
+        'compare' => 'IN',
+    );
+}
+elseif($stockitems == 'no'){
+    $availability = array(
+        'key' => '_stock_status',
+        'value' => array('instock', 'outofstock'),
+        'compare' => 'IN',
+    );
+}
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 18,
     'paged' => $paged,
-    'meta_query' => array(
-        array(
-            'key' => '_stock_status',
-            'value' => array('instock', 'outofstock'),
-            'compare' => 'IN',
-        ),
-    ),
+    'meta_query' => array($availability),
     'tax_query' => array(
         array(
             'taxonomy' => 'product_cat',
