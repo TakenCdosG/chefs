@@ -34,7 +34,7 @@
 	                 	<div class="col-md-12">
 	                 	    <ul class="products no_left_sidebar">
 					        	<?php
-					        	$iterator = 1;
+					        	$iterator = 0;
 					            while (have_posts()) {
 					                the_post();
 					                $skip = FALSE;
@@ -46,14 +46,14 @@
 				                		}
 				                	}	
 				                	if(!$skip){
-				                		if($iterator == 1){
+				                		if($iterator == 0){
 	                               		 echo "<div class='row'>";
 		                            	}
 		                           		wc_get_template_part('content', 'product');
 			                            $iterator = $iterator + 1;
 			                            if($iterator >= 4){
 		                                  echo "</div>";
-		                                  $iterator = 1;
+		                                  $iterator = 0;
 			                            }
 				                	}
 					            }
