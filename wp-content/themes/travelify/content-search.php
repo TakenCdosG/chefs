@@ -24,6 +24,7 @@
 	 * travelify_theloop 10
     */
     global $post;
+    $hide_out_of_stock_items = (get_option("woocommerce_hide_out_of_stock_items")== "no")?FALSE:TRUE;
 
         if (have_posts()) {
         	?>
@@ -36,22 +37,32 @@
 					        	$iterator = 1;
 					            while (have_posts()) {
 					                the_post();
-					                if($iterator == 1){
+					                $skip = FALSE;
+				                	if($hide_out_of_stock_items){
+				                		$postid = get_the_ID();
+				                		$product = get_product( $postid );
+				                		if(!$product->is_in_stock( )){
+				                			$skip = TRUE;
+				                		}
+				                	}	
+				                	if(!$skip){
+				                		if($iterator == 1){
 	                               		 echo "<div class='row'>";
-	                            	}
-	                           		 wc_get_template_part('content', 'product');
-		                            $iterator = $iterator + 1;
-		                            if($left_sidebar){
-		                              if($iterator == 4){
-		                                  echo "</div>";
-		                                  $iterator = 1;
-		                              }
-		                            }else{
-		                              if($iterator == 5){
-		                                echo "</div>";
-		                                $iterator = 1;
-		                              }
-		                            }
+		                            	}
+		                           		 wc_get_template_part('content', 'product');
+			                            $iterator = $iterator + 1;
+			                            if($left_sidebar){
+			                              if($iterator == 4){
+			                                  echo "</div>";
+			                                  $iterator = 1;
+			                              }
+			                            }else{
+			                              if($iterator == 5){
+			                                echo "</div>";
+			                                $iterator = 1;
+			                              }
+			                            }
+				                	}
 					            }
 					            ?>
 					        </div>
