@@ -38,15 +38,19 @@
 					            while (have_posts()) {
 					                the_post();
 					                $skip = FALSE;
-				                	if($hide_out_of_stock_items){
-				                		$postid = get_the_ID();
-				                		$product = get_product( $postid );
+					                $postid = get_the_ID();
+				                	$product = get_product( $postid );
+
+				                	if(empty($product)){
+				                		$skip = TRUE;
+				                	}elseif($hide_out_of_stock_items){
 				                		if(!$product->is_in_stock() && $product->is_visible()){
 				                			$skip = TRUE;
 				                		}
 				                	}	
+
 				                	if(!$skip){
-				                		$items[]=$postid;
+				                		$items[]= $postid;
 				                		if($iterator == 0){
 	                               		 echo "<div class='row'><ul class='products no_left_sidebar'>";
 		                            	}
