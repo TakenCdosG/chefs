@@ -26,61 +26,38 @@
     global $post;
 
         if (have_posts()) {
-            while (have_posts()) {
-                the_post();
-
-                do_action('travelify_before_post');
-                $postid = get_the_ID();
-                $product = get_product( $postid );
-                dpm($product);
-                dpm($postid);
-                ?>
-                <section id="adrian post-<?php the_ID(); ?>" <?php post_class(); ?>>
-                    <article>
-
-                        <?php do_action('travelify_before_post_header'); ?>
-
-                        <?php if($show_title != "FALSE"): ?>
-                            <header class="entry-header">
-                                <h2 class="entry-title">
-                                    <?php the_title(); ?>
-                                </h2><!-- .entry-title -->
-                            </header>
-                        <?php endif; ?>
-
-                        <?php do_action('travelify_after_post_header'); ?>
-
-                        <?php do_action('travelify_before_post_content'); ?>
-
-                        <div class="entry-content clearfix">
-                            <?php the_content(); ?>
-                            <?php
-                            wp_link_pages(array(
-                                'before' => '<div style="clear: both;"></div><div class="pagination clearfix">' . __('Pages:', 'travelify'),
-                                'after' => '</div>',
-                                'link_before' => '<span>',
-                                'link_after' => '</span>',
-                                'pagelink' => '%',
-                                'echo' => 1
-                            ));
-                            ?>
-                        </div>
-
-                        <?php
-                        do_action('travelify_after_post_content');
-
-                        do_action('travelify_before_comments_template');
-
-                        comments_template();
-
-                        do_action('travelify_after_comments_template');
-                        ?>
-
-                    </article>
-                </section>
-                <?php
-                do_action('travelify_after_post');
-            }
+        	?>
+        	<div class="woocommerce">
+                 <div class="row margin-grid">
+                 	<div class="col-md-12">
+                 	    <div class="products no_left_sidebar">
+				        	<?php
+				        	$iterator = 1;
+				            while (have_posts()) {
+				                the_post();
+				                if($iterator == 1){
+                               		 echo "<div class='row'>";
+                            	}
+                           		 wc_get_template_part('content', 'product');
+	                            $iterator = $iterator + 1;
+	                            if($left_sidebar){
+	                              if($iterator == 4){
+	                                  echo "</div>";
+	                                  $iterator = 1;
+	                              }
+	                            }else{
+	                              if($iterator == 5){
+	                                echo "</div>";
+	                                $iterator = 1;
+	                              }
+	                            }
+				            }
+				            ?>
+				        </div>
+            		</div>
+            	</div>
+            </div>
+            <?php
         } else {
             ?>
             <h1 class="entry-title"><?php _e('No Posts Found.', 'travelify'); ?></h1>
