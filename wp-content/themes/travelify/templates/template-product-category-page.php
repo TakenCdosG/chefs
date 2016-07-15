@@ -92,15 +92,15 @@ $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$pro
 
 // get_categories($args_category_brand)
 $categories_parent_brand = get_brands($taxonomy_product_cat);
-$stockitems = get_option('woocommerce_hide_out_of_stock_items');
-if($stockitems == 'yes'){
+$stockitems = (get_option("woocommerce_hide_out_of_stock_items")== "no")?FALSE:TRUE;
+if(!$stockitems){
     $availability = array(
         'key' => '_stock_status',
         'value' => array('instock'),
         'compare' => 'IN',
     );
 }
-elseif($stockitems == 'no'){
+elseif($stockitems){
     $availability = array(
         'key' => '_stock_status',
         'value' => array('instock', 'outofstock'),
@@ -374,24 +374,27 @@ $info = array(
                 <div class="clearfix-block"></div>
                 <ul class="products <?php if ($left_sidebar){ ?> left_sidebar <?php }else{ ?> no_left_sidebar<?php } ?>">
                     <?php
-                    $iterator = 1;
+                    $iterator = 0;
+                    $skip = FALSE;
+                    if($stockitems){
+                        if(!$products->is_in_stock() && $products->is_visible()){
+                            $skip = TRUE;
+                        }
+                    }
                     if ($products->have_posts()) {
                         while ($products->have_posts()) : $products->the_post();
-                            if($iterator == 1){
-                                echo "<div class='row'>";
-                            }
-                            wc_get_template_part('content', 'product');
-                            $iterator = $iterator + 1;
-                            if($left_sidebar){
-                              if($iterator == 4){
-                                  echo "</div>";
-                                  $iterator = 1;
-                              }
-                            }else{
-                              if($iterator == 5){
-                                echo "</div>";
-                                $iterator = 1;
-                              }
+                            if(!$skip){
+                                if($iterator == 0){
+                                    echo "<div class='row'>";
+                                }
+                                wc_get_template_part('content', 'product');
+                                $iterator = $iterator + 1;
+                                if($left_sidebar){
+                                    if($iterator == 3){
+                                        echo "</div>";
+                                        $iterator = 0;
+                                    }
+                                }
                             }
                         endwhile;
                     } else {
