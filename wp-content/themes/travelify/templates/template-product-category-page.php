@@ -110,7 +110,7 @@ else{
 
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 18,
+    'posts_per_page' => 9,
     'paged' => $paged,
     'meta_query' => array($availability),
     'tax_query' => array(
