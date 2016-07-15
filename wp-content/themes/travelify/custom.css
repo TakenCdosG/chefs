@@ -3820,3 +3820,11 @@ span.msg-cart-registry{
 #reviews #review_form_wrapper #respond p {
     margin: 0 0 4px;
 }
+
+.wishlist_list_item .product_qty .qty{
+    height: 26px!important;
+    vertical-align: middle!important;
+    width: 50px!important;
+    padding: 5px!important;
+    margin-top: 5px!important;
+}

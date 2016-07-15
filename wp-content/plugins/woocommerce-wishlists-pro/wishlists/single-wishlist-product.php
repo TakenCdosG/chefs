@@ -282,14 +282,15 @@ if ( isset( $_POST['update_wishlist'] ) && isset( $_POST['_wpnonce'] ) && isset(
 						<?php } else if ( $wishlist_owner == $uid ) { ?>
 
 							<td  class="remove">
-								<a class="wishlist_remove" onclick="return maybe_remove_wishlist_item(<?php echo $_product->id .',\''.$_product->variation_id.'\','.$wishlist_id ?>)" href="#" title=" <?php _e( 'Remove item from wishlist', 'ignitewoo-wishlists-pro' ) ?> "><?php _e( 'Remove', 'ignitewoo-wishlists-pro' ) ?></a>
-
-								<?php
-								if ( empty( $wli['vid'] ) )
-									echo do_shortcode( '[add_to_cart id="' . $wli['id'] . '"]' );
-								else
-									echo do_shortcode( '[add_to_cart id="' . $wli['vid'] . '"]' );
-								?>
+								<div class="registry-options">
+									<?php
+									if ( empty( $wli['vid'] ) )
+										echo do_shortcode( '[add_to_cart id="' . $wli['id'] . '"]' );
+									else
+										echo do_shortcode( '[add_to_cart id="' . $wli['vid'] . '"]' );
+									?>
+									<a class="wishlist_remove" onclick="return maybe_remove_wishlist_item(<?php echo $_product->id .',\''.$_product->variation_id.'\','.$wishlist_id ?>)" href="#" title=" <?php _e( 'Remove item from wishlist', 'ignitewoo-wishlists-pro' ) ?> "><?php _e( 'Remove', 'ignitewoo-wishlists-pro' ) ?></a>
+								</div>
 							</td>
 
 						<?php } else { ?>
