@@ -92,27 +92,25 @@ $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$pro
 
 // get_categories($args_category_brand)
 $categories_parent_brand = get_brands($taxonomy_product_cat);
+
 $hide_out_of_stock_item = (get_option("woocommerce_hide_out_of_stock_items")== "no")?FALSE:TRUE;
 if($hide_out_of_stock_item){
-    $availability = array(
-        'key' => '_stock_status',
-        'value' => array('instock'),
-        'compare' => 'IN',
-    );
-}
-else{
-    $availability = array(
-        'key' => '_stock_status',
-        'value' => array('instock', 'outofstock'),
-        'compare' => 'IN',
-    );
+    $availability = array('instock');
+}else{
+    $availability = array('outofstock');
 }
 
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 9,
+    'posts_per_page' => 18,
     'paged' => $paged,
-    'meta_query' => array($availability),
+    'meta_query' => array(
+      array(
+        'key' => '_stock_status',
+        'value' => $availability,
+        'compare' => 'IN',
+      )
+    ),
     'tax_query' => array(
         array(
             'taxonomy' => 'product_cat',
@@ -375,8 +373,9 @@ $info = array(
                 <div class="clearfix-block"></div>
                 <ul class="products <?php if ($left_sidebar){ ?> left_sidebar <?php }else{ ?> no_left_sidebar<?php } ?>">
                     <?php
-                    $iterator = 0;
                     if ($products->have_posts()) {
+                        $iterator = 0;
+                        $items = array();
                         while ($products->have_posts()) : $products->the_post();
                             $skip = FALSE;
                             if($hide_out_of_stock_item){
@@ -387,6 +386,7 @@ $info = array(
                                 }
                             }
                             if(!$skip){
+                                $items[] = $postid;
                                 if($iterator == 0){
                                     echo "<div class='row'>";
                                 }
@@ -400,6 +400,7 @@ $info = array(
                                 }
                             }
                         endwhile;
+                        dpm($items);
                     } else {
                         echo __('No products found');
                     }
