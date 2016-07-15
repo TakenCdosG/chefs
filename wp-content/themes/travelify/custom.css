@@ -3755,7 +3755,7 @@ span.msg-cart-registry{
 .search-results .page-title-wrap{
     background-color: transparent;
     border-bottom: 1px solid #eaeaea;
-    padding: 20px 0;
+    padding: 15px 0;
     margin-bottom: 30px;
 }
 
@@ -3764,7 +3764,8 @@ span.msg-cart-registry{
 }
 
 .search-results .page-title-wrap .page-title{
-    color: #ef3d42;
+    font-weight: lighter;
+    color: #1b1e1f;
     font-size: 30px;
     margin-bottom: 0px;
 }
