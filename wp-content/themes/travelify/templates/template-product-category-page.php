@@ -92,15 +92,15 @@ $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$pro
 
 // get_categories($args_category_brand)
 $categories_parent_brand = get_brands($taxonomy_product_cat);
-$stockitems = (get_option("woocommerce_hide_out_of_stock_items")== "no")?FALSE:TRUE;
-if(!$stockitems){
+$hide_out_of_stock_item = (get_option("woocommerce_hide_out_of_stock_items")== "no")?FALSE:TRUE;
+if($stockitems){
     $availability = array(
         'key' => '_stock_status',
         'value' => array('instock'),
         'compare' => 'IN',
     );
 }
-elseif($stockitems){
+else{
     $availability = array(
         'key' => '_stock_status',
         'value' => array('instock', 'outofstock'),
@@ -375,12 +375,11 @@ $info = array(
                 <ul class="products <?php if ($left_sidebar){ ?> left_sidebar <?php }else{ ?> no_left_sidebar<?php } ?>">
                     <?php
                     $iterator = 0;
-                    $skip = FALSE;
-
                     if ($products->have_posts()) {
                         while ($products->have_posts()) : $products->the_post();
-                            if($stockitems){
-                                if(!$products->is_in_stock() && $products->is_visible()){
+                            $skip = FALSE;
+                            if($hide_out_of_stock_item){
+                                if(!$products->is_in_stock() || !$products->is_visible()){
                                     $skip = TRUE;
                                 }
                             }
