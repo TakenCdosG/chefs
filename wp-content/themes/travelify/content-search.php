@@ -27,35 +27,37 @@
 
         if (have_posts()) {
         	?>
-        	<div class="woocommerce">
-                 <div class="row margin-grid">
-                 	<div class="col-md-12">
-                 	    <ul class="products no_left_sidebar">
-				        	<?php
-				        	$iterator = 1;
-				            while (have_posts()) {
-				                the_post();
-				                if($iterator == 1){
-                               		 echo "<div class='row'>";
-                            	}
-                           		 wc_get_template_part('content', 'product');
-	                            $iterator = $iterator + 1;
-	                            if($left_sidebar){
-	                              if($iterator == 4){
-	                                  echo "</div>";
-	                                  $iterator = 1;
-	                              }
-	                            }else{
-	                              if($iterator == 5){
-	                                echo "</div>";
-	                                $iterator = 1;
-	                              }
-	                            }
-				            }
-				            ?>
-				        </div>
-            		</div>
-            	</div>
+        	<div class="page-template-template-product-category-page">
+	        	<div class="woocommerce">
+	                 <div class="row margin-grid">
+	                 	<div class="col-md-12">
+	                 	    <ul class="products no_left_sidebar">
+					        	<?php
+					        	$iterator = 1;
+					            while (have_posts()) {
+					                the_post();
+					                if($iterator == 1){
+	                               		 echo "<div class='row'>";
+	                            	}
+	                           		 wc_get_template_part('content', 'product');
+		                            $iterator = $iterator + 1;
+		                            if($left_sidebar){
+		                              if($iterator == 4){
+		                                  echo "</div>";
+		                                  $iterator = 1;
+		                              }
+		                            }else{
+		                              if($iterator == 5){
+		                                echo "</div>";
+		                                $iterator = 1;
+		                              }
+		                            }
+					            }
+					            ?>
+					        </div>
+	            		</div>
+	            	</div>
+	            </div>
             </div>
             <?php
         } else {
