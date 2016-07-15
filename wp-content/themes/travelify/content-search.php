@@ -40,7 +40,7 @@
 				                	if($hide_out_of_stock_items){
 				                		$postid = get_the_ID();
 				                		$product = get_product( $postid );
-				                		if(!$product->is_in_stock()){
+				                		if(!$product->is_in_stock() && $product->is_visible()){
 				                			$skip = TRUE;
 				                		}
 				                	}	
