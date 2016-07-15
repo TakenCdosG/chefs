@@ -30,7 +30,7 @@
         	<div class="woocommerce">
                  <div class="row margin-grid">
                  	<div class="col-md-12">
-                 	    <div class="products no_left_sidebar">
+                 	    <ul class="products no_left_sidebar">
 				        	<?php
 				        	$iterator = 1;
 				            while (have_posts()) {
