@@ -243,4 +243,9 @@ jQuery(function ($) {
         infowindow.open(map, marker);
         map.setCenter(marker.getPosition());
     }
+    $('#wishlist_table > tbody  > tr').each(function() {
+       if(!$(this).find(".qty").length){
+           $(this).find(".button").addClass("hide-me");
+       }
+    });
 });
