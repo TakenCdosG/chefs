@@ -19,12 +19,14 @@ function travelify_content() {
     }
     if (empty($layout) || is_archive() || is_home()) {
         $layout = 'default';
-    }elseif(is_search()){
+    }
+
+    if(is_search()){
         $layout = 'search';
     }
 
     if ('search' == $layout) {
-        get_template_part('content', 'search_results');
+        get_template_part('content', 'search');
     } elseif ('default' == $layout) {
         $themeoption_layout = $options['default_layout'];
 
