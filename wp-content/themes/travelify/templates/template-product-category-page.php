@@ -107,6 +107,7 @@ else{
         'compare' => 'IN',
     );
 }
+
 $args = array(
     'post_type' => 'product',
     'posts_per_page' => 18,
@@ -379,7 +380,9 @@ $info = array(
                         while ($products->have_posts()) : $products->the_post();
                             $skip = FALSE;
                             if($hide_out_of_stock_item){
-                                if(!$products->is_in_stock()){
+                                $postid = get_the_ID();
+                                $product = get_product( $postid );
+                                if(!$product->is_in_stock()){
                                     $skip = TRUE;
                                 }
                             }
