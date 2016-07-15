@@ -376,13 +376,14 @@ $info = array(
                     <?php
                     $iterator = 0;
                     $skip = FALSE;
-                    if($stockitems){
-                        if(!$products->is_in_stock() && $products->is_visible()){
-                            $skip = TRUE;
-                        }
-                    }
+
                     if ($products->have_posts()) {
                         while ($products->have_posts()) : $products->the_post();
+                            if($stockitems){
+                                if(!$products->is_in_stock() && $products->is_visible()){
+                                    $skip = TRUE;
+                                }
+                            }
                             if(!$skip){
                                 if($iterator == 0){
                                     echo "<div class='row'>";
