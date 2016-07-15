@@ -34,6 +34,7 @@
 	                 	<div class="col-md-12">
 					        	<?php
 					        	$iterator = 0;
+					        	$items = array();
 					            while (have_posts()) {
 					                the_post();
 					                $skip = FALSE;
@@ -45,6 +46,7 @@
 				                		}
 				                	}	
 				                	if(!$skip){
+				                		$items[]=$postid;
 				                		if($iterator == 0){
 	                               		 echo "<div class='row'><ul class='products no_left_sidebar'>";
 		                            	}
@@ -56,6 +58,7 @@
 			                            }
 				                	}
 					            }
+					            dpm($items);
 					            ?>
 					        </div>
 	            		</div>
