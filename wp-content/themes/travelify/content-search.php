@@ -49,18 +49,11 @@
 				                		if($iterator == 1){
 	                               		 echo "<div class='row'>";
 		                            	}
-		                           		 wc_get_template_part('content', 'product');
+		                           		wc_get_template_part('content', 'product');
 			                            $iterator = $iterator + 1;
-			                            if($left_sidebar){
-			                              if($iterator == 4){
-			                                  echo "</div>";
-			                                  $iterator = 1;
-			                              }
-			                            }else{
-			                              if($iterator == 5){
-			                                echo "</div>";
-			                                $iterator = 1;
-			                              }
+			                            if($iterator >= 4){
+		                                  echo "</div>";
+		                                  $iterator = 1;
 			                            }
 				                	}
 					            }
