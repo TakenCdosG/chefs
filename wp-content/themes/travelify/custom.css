@@ -3828,3 +3828,28 @@ span.msg-cart-registry{
     padding: 5px!important;
     margin-top: 5px!important;
 }
+
+.wishlist_list_item .registry-options{
+    max-width: 234px;
+    display: block;
+    position: relative;
+    margin: auto;
+}
+
+.wishlist_list_item .registry-options p{
+    text-align: right;
+    clear: both;
+    display: block;
+    position: relative;
+}
+
+.wishlist_list_item .registry-options p .custom-price{
+    display: block;
+    float: left;
+}
+
+.wishlist_list_item .registry-options p a{
+    margin-left: 5px;
+    padding: 7px;
+    float: right;
+}
