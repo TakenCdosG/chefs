@@ -33,8 +33,9 @@
                 $postid = get_the_ID();
                 $product = get_product( $postid );
                 dpm($product);
+                dpm($postid);
                 ?>
-                <section id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                <section id="adrian post-<?php the_ID(); ?>" <?php post_class(); ?>>
                     <article>
 
                         <?php do_action('travelify_before_post_header'); ?>
