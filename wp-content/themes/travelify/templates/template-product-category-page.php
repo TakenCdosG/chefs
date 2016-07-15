@@ -375,7 +375,6 @@ $info = array(
                     <?php
                     if ($products->have_posts()) {
                         $iterator = 0;
-                        $items = array();
                         while ($products->have_posts()) : $products->the_post();
                             $skip = FALSE;
                             if($hide_out_of_stock_item){
@@ -386,7 +385,6 @@ $info = array(
                                 }
                             }
                             if(!$skip){
-                                $items[] = $postid;
                                 if($iterator == 0){
                                     echo "<div class='row'>";
                                 }
@@ -400,7 +398,6 @@ $info = array(
                                 }
                             }
                         endwhile;
-                        dpm($items);
                     } else {
                         echo __('No products found');
                     }
