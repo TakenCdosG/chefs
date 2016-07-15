@@ -102,7 +102,7 @@ if($hide_out_of_stock_item){
 
 $args = array(
     'post_type' => 'product',
-    'posts_per_page' => 12,
+    'posts_per_page' => 18,
     'paged' => $paged,
     'meta_query' => array(
       array(
@@ -386,13 +386,13 @@ $info = array(
                             }
                             if(!$skip){
                                 if($iterator == 0){
-                                    echo "<div class='row'>";
+                                    //echo "<div class='row'>";
                                 }
                                 wc_get_template_part('content', 'product');
                                 $iterator = $iterator + 1;
                                 if($left_sidebar){
                                     if($iterator == 3){
-                                        echo "</div>";
+                                        //echo "</div>";
                                         $iterator = 0;
                                     }
                                 }
