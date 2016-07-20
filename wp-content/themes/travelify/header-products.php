@@ -26,7 +26,7 @@
          */
         do_action('travelify_links');
         ?>
-        <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
         <?php
         /**
          * This hook is important for WordPress plugins and other many things
