@@ -323,23 +323,9 @@ if ( isset( $_POST['update_wishlist'] ) && isset( $_POST['_wpnonce'] ) && isset(
 
 					<?php } else { ?>
 						<!-- Allow to not logued users to add to the car -->
-						<?php if ( $qty_needed > 0 ) { ?>
-							<?php
-								$u = get_userdata( $wishlist_owner );
-								$name = get_user_meta( $wishlist_owner, 'billing_first_name', true );
-								//$name .= ' ' . get_user_meta( $wishlist_owner, 'billing_last_name', true );
-							?>
-							<td class="purchase">
-								<a class="wishlist_buy_item" onclick="return maybe_buy_item(<?php echo $_product->id .',\''.$_product->variation_id.'\','.$wishlist_id.','.$u->ID.',\''.$u->user_login ?>')" href="#" title=" <?php _e( 'Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro' ) ?> "><?php _e( 'Buy some for', 'ignitewoo-wishlists-pro' )?> <?php echo $name ?></a>
-							</td>
-						<?php } else { ?>
-							<td class="purchased">
-								<?php if ( $qty_needed <= 0 ) { ?>
-									<?php _e( 'Already purchased', 'ignitewoo-wishlists-pro' ) ?>
-								<?php } ?>
-							</td>
-						<?php } ?>
-
+						<td>
+							
+						</td>
 					<?php } ?>
 				
 				</tr>
