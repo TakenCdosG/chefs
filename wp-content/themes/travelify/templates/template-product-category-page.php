@@ -72,22 +72,6 @@ $filtros["category"] = get_query_var('category');
 $filtros["material"] = get_query_var('material');
 $filtros["brand"] = get_query_var('brand');
 
-/*
-$args = array(
-    'post_type' => 'product',
-    'posts_per_page' => 9,
-    'paged' => $paged,
-    'product_cat' => implode(",", $product_cat),
-    'meta_query' => array(
-        array(
-            'key' => '_stock_status',
-            'value' => array('instock', 'outofstock'),
-            'compare' => 'IN',
-        ),
-    )
-);
-*/
-
 $taxonomy_product_cat = (!empty($filtros["category"]))?$filtros["category"]:$product_cat;
 
 // get_categories($args_category_brand)
@@ -98,6 +82,21 @@ if($hide_out_of_stock_item){
     $availability = array('instock');
 }else{
     $availability = array('outofstock');
+}
+
+$order_by = get_field("order_by");
+$order_by_parameters = array();
+if($order_by){
+  if($order_by != "default"){
+    if($order_by == "_price"){
+      $order_by_parameters["orderby"] = "meta_value_num";
+      $order_by_parameters["meta_key"] = "_price";
+      $order = get_field("order");
+      if($order){
+        $order_by_parameters['order'] = $order;
+      }
+    }  
+  }  
 }
 
 $args = array(
@@ -120,6 +119,10 @@ $args = array(
     ),
 );
 
+if(!empty($order_by_parameters)){
+  $args = array_merge($args, $order_by_parameters);
+}
+
 if(!empty($filtros["material"]) || !empty($filtros["brand"])){
     $args['tax_query']['relation'] = 'AND';
     if(!empty($filtros["material"])){
@@ -139,11 +142,6 @@ if(!empty($filtros["material"]) || !empty($filtros["brand"])){
 }
 
 $products = new WP_Query($args);
-
-$info = array(
-    "args" => $args,
-    "products" => $products
-);
 
 // Front Page - Logos
 $post_id_home = 109;
