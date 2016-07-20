@@ -40,7 +40,7 @@ function woo_bloyal_setup_schedule()
   //wp_clear_scheduled_hook ( 'woo_bloyal_sync_data' );
   if (defined('BLOYAL_ACCESS_KEY') && !wp_next_scheduled('woo_bloyal_sync_data')) {
     // schedule sync for every 15 minutes
-    wp_schedule_event(time(), '*/15', 'woo_bloyal_sync_data');
+    // > wp_schedule_event(time(), '*/15', 'woo_bloyal_sync_data');
     // also set up scheduled inventory reports on bloyal
     // woo_bloyal_schedule_reports();
   }
