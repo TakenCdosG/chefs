@@ -39,21 +39,21 @@ if (!$user_ID) {
   <!-- If the wishlist is private don't show any content -->
   <p class="wishlist_private_no_access"><?php _e('This wishlist is private.', 'ignitewoo-wishlists-pro'); ?></p>
 <?php else: ?>
-  <!-- Wishlist is not private, so show the content -->
+  <?php /* Wishlist is not private, so show the content*/ ?>
   <?php if (count($wishlist_items) > 0): ?>
     <?php if ($wishlist_owner == $uid): ?>
       <form action="" method="post">
       <?php wp_nonce_field('update_wishlist'); ?>
     <?php endif; ?>
-    <input type="hidden" name="update_wishlist" value="1">
+    <p><input type="hidden" name="update_wishlist" value="1"></p>
     <table id="wishlist_table">
       <thead>
       <tr>
         <th></th>
-        <th><?php echo __('Name', 'ignitewoo-wishlists-pro'); ?></th>
-        <th><?php echo __('Price', 'ignitewoo-wishlists-pro'); ?></th>
-        <th><?php echo __('Qty', 'ignitewoo-wishlists-pro'); ?></th>
-        <th><?php echo __('Options', 'ignitewoo-wishlists-pro'); ?></th>
+        <th align="center"><?php echo __('Name', 'ignitewoo-wishlists-pro'); ?></th>
+        <th align="center"><?php echo __('Price', 'ignitewoo-wishlists-pro'); ?></th>
+        <th align="center"><?php echo __('Qty', 'ignitewoo-wishlists-pro'); ?></th>
+        <th align="center"><?php echo __('Options', 'ignitewoo-wishlists-pro'); ?></th>
       </tr>
       </thead>
       <tbody>
@@ -175,7 +175,6 @@ if (!$user_ID) {
             ?>
             <?php if (!empty($variation_info)) echo $variation_info ?>
           </td>
-          <!--<td class="product_excerpt"><?php woocommerce_template_single_excerpt($post, $_product); ?></td>-->
           <td class="product_price"><?php echo woocommerce_price($price); ?></td>
           <?php
           if ($wishlist_owner == $uid) {
@@ -261,7 +260,7 @@ if (!$user_ID) {
                 <?php if ($_product->is_in_stock()): ?>
                   <td class="purchase">
                     <a class="wishlist_buy_item"
-                       onclick="return maybe_buy_item(<?php echo $_product->id . ',\'' . $_product->variation_id . '\',' . $wishlist_id . ',' . $u->ID . ',\'' . $u->user_login ?>')"
+                       onclick="return maybe_buy_item_not_logged(<?php echo $_product->id . ',\'' . $_product->variation_id . '\',' . $wishlist_id . ',' . $u->ID . ',\'' . $u->user_login ?>')"
                        href="#"
                        title=" <?php _e('Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro') ?> "><?php _e('Buy Now for', 'ignitewoo-wishlists-pro') ?> <?php echo $name . "!" ?>
                     </a>
@@ -346,7 +345,8 @@ if (!$user_ID) {
 </div>
 
 <div id="info-result" title="Buy this item for the registry owner." style="display:none;">
-  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to buy this item for <span class="name"></span></p>
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to
+    buy this item for <span class="name"></span></p>
 </div>
 
 
