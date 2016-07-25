@@ -35,6 +35,9 @@ if (!class_exists('ChefGiftRegistry')) {
       add_action('plugins_loaded', array($this, 'constants'));
       add_action('plugins_loaded', array($this, 'init_query_variables'));
 
+      add_action('wp_ajax_buy_wishlist_item_not_logged', array($this, 'buy_wishlist_item_not_logged_callback'));
+      add_action('wp_ajax_nopriv_buy_wishlist_item_not_logged', array($this, 'buy_wishlist_item_not_logged_callback'));
+
       add_filter('query_vars', array($this, 'init_query_variables'), 10, 1);
 
       // Includes (useful functions and classes)
@@ -137,6 +140,149 @@ if (!class_exists('ChefGiftRegistry')) {
       }
       return $classes;
     }
+
+    /**
+     * Buy wishlist item not logged
+     *
+     * @since 1.0.0
+     */
+    function buy_wishlist_item_not_logged_callback()
+    {
+      global $woocommerce, $wpdb;
+
+      $response = array();
+      $response['success'] = FALSE;
+      $response['msg'] = "";
+      $response['url'] = "";
+      $validacion = TRUE;
+
+      if (!isset($_POST['nonce'])) {
+        $response['success'] = FALSE;
+        $response['msg'] = "Validation Error: Product could not be added to Cart!.";
+        $validacion = FALSE;
+      }
+      if (!wp_verify_nonce($_POST['nonce'], 'wishlist_nonce')) {
+        $response['success'] = FALSE;
+        $response['msg'] = "Validation Error: Product could not be added to Cart!.";
+        $validacion = FALSE;
+      }
+
+      $wlid = absint($_POST['wlid']);
+      $user = absint($_POST['user']);
+      $prod_id = absint($_POST['prod_id']);
+      $var_id = absint($_POST['var_id']);
+      if ($wlid <= 0 || $user <= 0 || $prod_id <= 0) {
+        $response['success'] = FALSE;
+        $response['msg'] = "Validation Error: Product could not be added to Cart!.";
+        $validacion = FALSE;
+      }
+
+      if ($validacion) {
+
+        $variation = array();
+        if ($var_id > 0) {
+          $sql = 'select * from ' . $wpdb->postmeta . ' where post_id = ' . $var_id . ' and meta_key like "attribute_%"';
+          $vals = $wpdb->get_results($sql);
+          if ($vals) {
+            foreach ($vals as $v) {
+              $type = ucfirst(str_replace('attribute_pa_', '', $v->meta_key));
+              $variation[$type] = $v->meta_value;
+            }
+          }
+        }
+
+        if ($woocommerce->cart->add_to_cart($prod_id, 1, $var_id, $variation)) {
+          $added = true;
+          $response['success'] = TRUE;
+          $response['msg'] = "The item was added to your cart. Be sure to check the cart quantity before checkout.";
+        } else {
+          $added = false;
+          $response['success'] = FALSE;
+          $response['msg'] = "Cart Error: " . $woocommerce->errors[0];
+        }
+
+        @session_start(); // In case it's not started yet
+        $wishlist_session = $this->session_get('wishlist');
+        $wishlist_session = maybe_unserialize($wishlist_session);
+
+        // Avoid Adding Duplicates To The Session
+        $in_there = false;
+        if (is_array($wishlist_session)) {
+          foreach ($wishlist_session as $key => $vals) {
+            if ($var_id > 0) {
+              if ($vals['pid'] == $prod_id && $vals['wlid'] == $wlid && $vals['vid'] == $var_id)
+                $in_there = true;
+            } else {
+              if ($vals['pid'] == $prod_id && $vals['wlid'] == $wlid)
+                $in_there = true;
+            }
+          }
+        }
+
+        if (!$in_there) {
+          $wishlist_session[] = array('pid' => $prod_id, 'vid' => $var_id, 'wlid' => $wlid, 'user' => $user);
+        }
+
+        $this->session_set('wishlist', serialize($wishlist_session));
+        $url = get_permalink(get_option('woocommerce_cart_page_id', false));
+        if ($added) {
+          $response['url'] = $url; // $out = array('url' => $url);
+        }
+
+      }
+
+      echo json_encode($response);
+      die;
+    }
+
+    /**
+     * Safely retrieve data from the session. Compatible with WC 2.0 and
+     * backwards compatible with previous versions.
+     *
+     * @param string $name the name
+     * @return mixed the data, or null
+     */
+    public function session_get($name)
+    {
+      global $woocommerce;
+      //var_dump( WC()->session->get( $name ) );
+      if (version_compare(WOOCOMMERCE_VERSION, '2.3', '>='))
+        return WC()->session->get($name);
+      else if (isset($woocommerce->session)) {
+        // WC 2.0
+        if (isset($woocommerce->session->$name))
+          return $woocommerce->session->$name;
+
+      } else {
+        // old style
+        if (isset($_SESSION[$name]))
+          return $_SESSION[$name];
+      }
+      return '';
+    }
+
+    /**
+     * Safely store data into the session. Compatible with WC 2.0 and
+     * backwards compatible with previous versions.
+     *
+     * @param string $name the name
+     * @param mixed $value the value to set
+     */
+    private function session_set($name, $value)
+    {
+      global $woocommerce;
+      if (version_compare(WOOCOMMERCE_VERSION, '2.3', '>='))
+        WC()->session->set($name, $value);
+      else if (isset($woocommerce->session)) {
+        // WC 2.0
+        $woocommerce->session->$name = $value;
+      } else {
+        // old style
+        $_SESSION[$name] = $value;
+      }
+      //var_dump( $name, $value, WC()->session->get( $name ) );
+    }
+
   }
 
   // Start things up

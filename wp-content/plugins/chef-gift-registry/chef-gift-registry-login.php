@@ -304,26 +304,28 @@ function ajax_login()
 add_action('init', 'ajax_auth_init');
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function ajax_auth_init(){
+function ajax_auth_init()
+{
   global $options;
   $options = get_option('ciusan_register_login');
-  wp_register_style('ciusan-register-login', plugin_dir_url( __FILE__ ).'assets/css/ciusan-register-login.css');
+  wp_register_style('ciusan-register-login', plugin_dir_url(__FILE__) . 'assets/css/ciusan-register-login.css');
   wp_enqueue_style('ciusan-register-login');
-  wp_register_script('validate-script', plugin_dir_url( __FILE__ ).'assets/js/jquery.validate.js', array('jquery'));
+  wp_register_script('validate-script', plugin_dir_url(__FILE__) . 'assets/js/jquery.validate.js', array('jquery'));
   wp_enqueue_script('validate-script');
   // wp_register_script('google-recaptcha', 'https://www.google.com/recaptcha/api.js');
   // wp_enqueue_script('google-recaptcha');
-  wp_register_script('ciusan-register-login', plugin_dir_url( __FILE__ ).'assets/js/ciusan-register-login.js', array('jquery'));
+  wp_register_script('ciusan-register-login', plugin_dir_url(__FILE__) . 'assets/js/ciusan-register-login.js', array('jquery'));
   wp_enqueue_script('ciusan-register-login');
-  wp_localize_script( 'ciusan-register-login', 'ajax_auth_object', array(
-    'ajaxurl'			=> admin_url( 'admin-ajax.php' ),
-    'redirecturl'		=> isset($options['login_redirect_URL']) ? $options['login_redirect_URL'] : home_url(),
-    'register_redirect'	=> isset($options['register_redirect_URL']) ? $options['register_redirect_URL'] : home_url(),
-    'loadingmessage'	=> __('Sending user info, please wait...')
+  wp_localize_script('ciusan-register-login', 'ajax_auth_object', array(
+    'ajaxurl' => admin_url('admin-ajax.php'),
+    'redirecturl' => isset($options['login_redirect_URL']) ? $options['login_redirect_URL'] : home_url(),
+    'register_redirect' => isset($options['register_redirect_URL']) ? $options['register_redirect_URL'] : home_url(),
+    'loadingmessage' => __('Sending user info, please wait...')
   ));
 
   // Enable the user with no privileges to run ajax_login() in AJAX
-  add_action( 'wp_ajax_nopriv_ajaxlogin', 'ajax_login' );
-// Enable the user with no privileges to run ajax_register() in AJAX
-  add_action( 'wp_ajax_nopriv_ajaxregister', 'ajax_register' );
+  add_action('wp_ajax_nopriv_ajaxlogin', 'ajax_login');
+  // Enable the user with no privileges to run ajax_register() in AJAX
+  add_action('wp_ajax_nopriv_ajaxregister', 'ajax_register');
 }
+
