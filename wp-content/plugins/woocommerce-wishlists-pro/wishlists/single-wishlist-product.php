@@ -341,11 +341,11 @@ if (!$user_ID) {
   <?php endif; ?>
 <?php endif; ?>
 
-<div id="dialog-confirm" title="Buy this item for the wishlist owner." style="display:none;">
+<div id="dialog-confirm" title="Buy this item for the registry owner." style="display:none;">
   <p>Are you sure you want to buy this item for <span class="name"></span></p>
 </div>
 
-<div id="info-result" title="Buy this item for the wishlist owner." style="display:none;">
+<div id="info-result" title="Buy this item for the registry owner." style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to buy this item for <span class="name"></span></p>
 </div>
 
