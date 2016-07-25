@@ -4689,11 +4689,11 @@ span.msg-cart-registry {
 }
 
 .ladda-button[data-color=mint] {
-    background: #16a085
+    background: #ef3d42;
 }
 
 .ladda-button[data-color=mint]:hover {
-    background-color: #19b698
+    background-color: #ef3d42;
 }
 
 .ladda-button[disabled], .ladda-button[data-loading] {
