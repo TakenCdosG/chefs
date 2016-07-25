@@ -58,7 +58,7 @@
       open: function (event, ui) {
         jQuery("body").css({ overflow: 'hidden' });
         var l = Ladda.create(document.querySelector('.buy-now-class'));
-        jQuery("button.buy-now-class").attr("data-color", "mint").attr("data-style", "expand-right").attr("data-size", "xs");
+        jQuery("button.buy-now-class").attr("data-color", "red").attr("data-style", "expand-right").attr("data-size", "xs");
       }
     });
     return false;

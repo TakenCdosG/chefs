@@ -4657,35 +4657,35 @@ span.msg-cart-registry {
 }
 
 .ladda-button[data-color=green] {
-    background: #2aca76
+    background: #ef3d42
 }
 
 .ladda-button[data-color=green]:hover {
-    background-color: #38d683
+    background-color: #ef3d42
 }
 
 .ladda-button[data-color=blue] {
-    background: #53b5e6
+    background: #ef3d42
 }
 
 .ladda-button[data-color=blue]:hover {
-    background-color: #69bfe9
+    background-color: #ef3d42
 }
 
 .ladda-button[data-color=red] {
-    background: #ea8557
+    background: #ef3d42;
 }
 
 .ladda-button[data-color=red]:hover {
-    background-color: #ed956e
+    background-color: #ef3d42
 }
 
 .ladda-button[data-color=purple] {
-    background: #9973C2
+    background: #ef3d42
 }
 
 .ladda-button[data-color=purple]:hover {
-    background-color: #a685ca
+    background-color: #ef3d42
 }
 
 .ladda-button[data-color=mint] {
