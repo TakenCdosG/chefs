@@ -262,13 +262,13 @@ if (!$user_ID) {
                     <a class="wishlist_buy_item"
                        onclick="return maybe_buy_item_not_logged(<?php echo $_product->id . ',\'' . $_product->variation_id . '\',' . $wishlist_id . ',' . $u->ID . ',\'' . $u->user_login ?>')"
                        href="#"
-                       title=" <?php _e('Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro') ?> "><?php _e('Buy Now for', 'ignitewoo-wishlists-pro') ?> <?php echo $name . "!" ?>
+                       title=" <?php _e('Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro') ?> "><?php _e('Add to Cart', 'ignitewoo-wishlists-pro') ?>
                     </a>
                   </td>
                 <?php else: ?>
                   <td
                     class="purchase">
-                    <span><?php _e('Currently Out of Stock, Try Later!.', 'ignitewoo-wishlists-pro') ?></span></td>
+                    <span><?php _e('Currently Out of Stock.', 'ignitewoo-wishlists-pro') ?></span></td>
                 <?php endif; ?>
               <?php else: ?>
                 <td class="purchased">
@@ -290,13 +290,13 @@ if (!$user_ID) {
                   <a class="wishlist_buy_item"
                      onclick="return maybe_buy_item_not_logged(<?php echo $_product->id . ',\'' . $_product->variation_id . '\',' . $wishlist_id . ',' . $u->ID . ',\'' . $u->user_login ?>')"
                      href="#"
-                     title=" <?php _e('Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro') ?> "><?php _e('Buy Now for', 'ignitewoo-wishlists-pro') ?> <?php echo $name . "!" ?>
+                     title=" <?php _e('Buy this item for the wishlist owner.', 'ignitewoo-wishlists-pro') ?> "><?php _e('Add to Cart', 'ignitewoo-wishlists-pro') ?>
                   </a>
                 </td>
               <?php else: ?>
                 <td
                   class="purchase-not-logged">
-                  <span><?php _e('Currently Out of Stock, Try Later!.', 'ignitewoo-wishlists-pro') ?></span></td>
+                  <span><?php _e('Currently Out of Stock.', 'ignitewoo-wishlists-pro') ?></span></td>
               <?php endif; ?>
             <?php else: ?>
               <td class="purchased">
@@ -341,12 +341,12 @@ if (!$user_ID) {
 <?php endif; ?>
 
 <div id="dialog-confirm" title="Buy this item for the registry owner." style="display:none;">
-  <p>Are you sure you want to buy this item for <span class="name"></span></p>
+  <p>Are you sure you want to buy this item ?</p>
 </div>
 
 <div id="info-result" title="Buy this item for the registry owner." style="display:none;">
   <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>Are you sure you want to
-    buy this item for <span class="name"></span></p>
+    buy this item ?</p>
 </div>
 
 
