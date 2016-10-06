@@ -4732,3 +4732,7 @@ span.msg-cart-registry {
 .ladda-button[data-size=xl] .ladda-label {
     font-size: 1.5em
 }
+/** REMOVING COMMENTS FROM MY-ACCOUNT DASHBOARD PAGE **/
+.page-id-8 #comments {
+    display: none;
+}
