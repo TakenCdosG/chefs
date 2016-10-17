@@ -4106,6 +4106,10 @@ span.msg-cart-registry {
     width: 30% !important;
 }
 
+.tribe-events-photo-event .tribe-events-event-image {
+    width: 100% !important;
+}
+
 .woocommerce ul.products li.product a img {
     width: auto;
     height: 140px;
