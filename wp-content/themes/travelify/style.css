@@ -2526,3 +2526,8 @@ article {
     width: 130px;
     padding: .505em 1em;
 }
+
+/** THE EVENTS CALENDAR LATEST STYLES **/
+.tribe-bar-filters{
+    display: none !important;
+}
