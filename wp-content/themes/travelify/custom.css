@@ -4740,3 +4740,7 @@ span.msg-cart-registry {
 .page-id-8 #comments {
     display: none;
 }
+
+.tribe-events-user-recurrence-toggle{
+    display: none;
+}

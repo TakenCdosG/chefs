@@ -979,7 +979,7 @@ add_filter('woocommerce_min_password_strength', 'reduce_woocommerce_min_strength
  * with the variables that are loaded in the do_action() call above.
  */
 function print_custom_mgs() {
-    echo "<h2 class='tribe-events-list-event-title'>We're helping everyday chefs get the tools they need to succeed—in more ways than one! Sign up for one of our cooking classes and treat yourself to a lot of great food and good fun!</h2>";
+    echo "<h2 class='tribe-events-list-event-title'>We're helping everyday chefs get the tools they need to succeed—in more ways than one! Sign up for one of our cooking classes and treat yourself to a lot of great food and good fun!</h2><br/>";
 }
  
 // then add it to the action hook, matching the defined number (2) of arguments in do_action
