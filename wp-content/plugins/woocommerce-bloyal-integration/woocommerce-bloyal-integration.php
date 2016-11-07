@@ -99,7 +99,7 @@ function woo_bloyal_do_data_sync()
       $log .= "<b>Entity:</b> " . $syncProfile->EntityName . " | <b>Sync Direction:</b> " . $syncProfile->Direction . " <br>";
     }
   } else {
-    $log .= "<b>Error: </b> Start Integration Batch could not be completed.<br/>";
+    $log .= "<b>Error: </b> Start Integration Batch could not be completed.<br/> ".print_r($response, true);
   }
 
   /*
